@@ -1,0 +1,501 @@
+{
+  "bindings": [
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Oak floor",
+      "materials": [
+        "Room_Oak"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Sage back wall",
+      "materials": [
+        "Room_Sage"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Right plaster",
+      "materials": [
+        "Room_Plaster"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Front plaster",
+      "materials": [
+        "Room_Plaster"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Ceiling",
+      "materials": [
+        "Room_Plaster"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Window wall pier",
+      "materials": [
+        "Room_Plaster"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Window wall pier.001",
+      "materials": [
+        "Room_Plaster"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Window lower wall",
+      "materials": [
+        "Room_Plaster"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Window upper wall",
+      "materials": [
+        "Room_Plaster"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Window exterior",
+      "materials": [
+        "Room_WindowLight"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Window vertical frame",
+      "materials": [
+        "Room_Trim"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Window vertical frame.001",
+      "materials": [
+        "Room_Trim"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Window vertical frame.002",
+      "materials": [
+        "Room_Trim"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Window horizontal frame",
+      "materials": [
+        "Room_Trim"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Window horizontal frame.001",
+      "materials": [
+        "Room_Trim"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Window sill",
+      "materials": [
+        "Room_Oak"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Skirting",
+      "materials": [
+        "Room_Trim"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Skirting.001",
+      "materials": [
+        "Room_Trim"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Skirting.002",
+      "materials": [
+        "Room_Trim"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Skirting.003",
+      "materials": [
+        "Room_Trim"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Door frame",
+      "materials": [
+        "Room_Trim"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Oak door",
+      "materials": [
+        "Room_Oak"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Door handle",
+      "materials": [
+        "Room_DarkBronze"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Curtain",
+      "materials": [
+        "Room_Linen"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Curtain.001",
+      "materials": [
+        "Room_Linen"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Curtain rail",
+      "materials": [
+        "Room_DarkBronze"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Woven rug",
+      "materials": [
+        "Room_Rug"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Rug border",
+      "materials": [
+        "Room_Linen"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Rug border.001",
+      "materials": [
+        "Room_Linen"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Rug border.002",
+      "materials": [
+        "Room_Linen"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Rug border.003",
+      "materials": [
+        "Room_Linen"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Oak picture frame",
+      "materials": [
+        "Room_Oak"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Picture mount",
+      "materials": [
+        "Room_Paper"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Botanical stem",
+      "materials": [
+        "Room_Ink"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Botanical leaf",
+      "materials": [
+        "Room_Ink"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Botanical leaf.001",
+      "materials": [
+        "Room_Ink"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Botanical leaf.002",
+      "materials": [
+        "Room_Ink"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Botanical leaf.003",
+      "materials": [
+        "Room_Ink"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Botanical leaf.004",
+      "materials": [
+        "Room_Ink"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Oak picture frame.001",
+      "materials": [
+        "Room_Oak"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Picture mount.001",
+      "materials": [
+        "Room_Paper"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Botanical stem.001",
+      "materials": [
+        "Room_Ink"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Botanical leaf.005",
+      "materials": [
+        "Room_Ink"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Botanical leaf.006",
+      "materials": [
+        "Room_Ink"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Botanical leaf.007",
+      "materials": [
+        "Room_Ink"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Botanical leaf.008",
+      "materials": [
+        "Room_Ink"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Botanical leaf.009",
+      "materials": [
+        "Room_Ink"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Oak picture frame.002",
+      "materials": [
+        "Room_Oak"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Picture mount.002",
+      "materials": [
+        "Room_Paper"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Botanical stem.002",
+      "materials": [
+        "Room_Ink"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Botanical leaf.010",
+      "materials": [
+        "Room_Ink"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Botanical leaf.011",
+      "materials": [
+        "Room_Ink"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Botanical leaf.012",
+      "materials": [
+        "Room_Ink"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Botanical leaf.013",
+      "materials": [
+        "Room_Ink"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Botanical leaf.014",
+      "materials": [
+        "Room_Ink"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Floating shelf",
+      "materials": [
+        "Room_Oak"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Book binding",
+      "materials": [
+        "Book_0"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Book binding.001",
+      "materials": [
+        "Book_1"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Book binding.002",
+      "materials": [
+        "Book_2"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Book binding.003",
+      "materials": [
+        "Book_3"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Book binding.004",
+      "materials": [
+        "Book_4"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Book binding.005",
+      "materials": [
+        "Book_5"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Book binding.006",
+      "materials": [
+        "Book_6"
+      ]
+    },
+    {
+      "asset": "consultation_architecture",
+      "renderer": "Book binding.007",
+      "materials": [
+        "Book_7"
+      ]
+    },
+    {
+      "asset": "tissue_box",
+      "renderer": "Tissue box casing",
+      "materials": [
+        "Room_Linen"
+      ]
+    },
+    {
+      "asset": "tissue_box",
+      "renderer": "Bottom seam",
+      "materials": [
+        "Room_Trim"
+      ]
+    },
+    {
+      "asset": "tissue_box",
+      "renderer": "Soft paper tissue",
+      "materials": [
+        "Room_Paper"
+      ]
+    },
+    {
+      "asset": "water_cup",
+      "renderer": "Cup body",
+      "materials": [
+        "Room_Ceramic"
+      ]
+    },
+    {
+      "asset": "water_cup",
+      "renderer": "Water surface",
+      "materials": [
+        "Room_DarkBronze"
+      ]
+    },
+    {
+      "asset": "water_cup",
+      "renderer": "Torus",
+      "materials": [
+        "Room_Ceramic"
+      ]
+    },
+    {
+      "asset": "pencil",
+      "renderer": "Pencil",
+      "materials": [
+        "Room_Oak"
+      ]
+    }
+  ]
+}

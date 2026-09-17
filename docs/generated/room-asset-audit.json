@@ -1,0 +1,74 @@
+[
+  {
+    "id": "binder_notebook",
+    "dimensions_xyz_blender": [
+      0.5838468074798584,
+      0.1999015212059021,
+      0.025146322324872017
+    ],
+    "triangles": 5999
+  },
+  {
+    "id": "modern_arm_chair_01",
+    "dimensions_xyz_blender": [
+      0.8203444480895996,
+      0.98656165599823,
+      1.0228520631790161
+    ],
+    "triangles": 8916
+  },
+  {
+    "id": "modern_ceiling_lamp_01",
+    "dimensions_xyz_blender": [
+      0.4316493272781372,
+      0.4316607713699341,
+      0.9515514969825745
+    ],
+    "triangles": 5602
+  },
+  {
+    "id": "modern_coffee_table_01",
+    "dimensions_xyz_blender": [
+      0.6000000238418579,
+      1.2018300294876099,
+      0.38999998569488525
+    ],
+    "triangles": 4504
+  },
+  {
+    "id": "potted_plant_01",
+    "dimensions_xyz_blender": [
+      0.5853689312934875,
+      0.6334623098373413,
+      1.3498787879943848
+    ],
+    "triangles": 17996
+  },
+  {
+    "id": "potted_plant_02",
+    "dimensions_xyz_blender": [
+      0.7008238434791565,
+      0.6563617587089539,
+      0.841610312461853
+    ],
+    "triangles": 17998
+  },
+  {
+    "id": "side_table_01",
+    "dimensions_xyz_blender": [
+      0.5500000715255737,
+      0.45000001788139343,
+      0.5506622791290283
+    ],
+    "triangles": 2756
+  },
+  {
+    "id": "small_wooden_table_01",
+    "dimensions_xyz_blender": [
+      0.9161878228187561,
+      0.43996262550354004,
+      0.5330857634544373
+    ],
+    "triangles": 3410
+  }
+]

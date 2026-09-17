@@ -1,0 +1,25 @@
+{
+  "reply": {
+    "turn_id": "befdd87d3faf452298b9c3c427586f4c",
+    "session_id": "03d296e143c143dfa13444ed32cf9120",
+    "segments": [
+      {
+        "text": "Yeah. They're safe. My sister got them out before the aftershocks started.",
+        "emotion": "relieved",
+        "intensity": 0.4,
+        "gesture": "nod",
+        "voice_style": "subdued",
+        "segment_id": "befdd87d3faf452298b9c3c427586f4c-0",
+        "audio_url": "/audio/ff144916475c439e8103775277124588.wav"
+      }
+    ],
+    "generation_ms": 1069,
+    "total_ms": 2044,
+    "dialogue_provider": "llama.cpp",
+    "tts_provider": "kokoro"
+  },
+  "transcript": {
+    "text": "Yeah, they're safe. My sister got them out before the aftershock started."
+  },
+  "transcription_ms": 2939
+}

@@ -1,0 +1,158 @@
+{
+  "source": "man/source/dhana.gltf",
+  "mesh_count": 10,
+  "bone_count": 168,
+  "shape_keys": {
+    "Object_11": [
+      "Basis",
+      "JawOpen",
+      "MouthPucker",
+      "MouthWide",
+      "MouthPress",
+      "MouthSmile",
+      "MouthFrown",
+      "BrowWorry",
+      "BrowTense",
+      "BrowRaise",
+      "BrowRaiseLeft",
+      "UpperLipRaise",
+      "NoseWrinkle",
+      "EyeWide",
+      "BlinkLeft",
+      "BlinkRight",
+      "EyeSquint"
+    ],
+    "Object_13": [
+      "Basis",
+      "JawOpen"
+    ],
+    "Object_15": [],
+    "Object_17": [],
+    "Object_19": [],
+    "Object_21": [],
+    "Object_23": [],
+    "Object_25": [],
+    "Object_7": [
+      "Basis",
+      "BlinkLeft",
+      "EyeLookLeft",
+      "EyeLookRight",
+      "EyeLookUp",
+      "EyeLookDown"
+    ],
+    "Object_9": [
+      "Basis",
+      "BlinkRight",
+      "EyeLookLeft",
+      "EyeLookRight",
+      "EyeLookUp",
+      "EyeLookDown"
+    ]
+  },
+  "actions": [
+    {
+      "name": "Action",
+      "frames": [
+        0.8000000715255737,
+        68.79999542236328
+      ]
+    },
+    {
+      "name": "cough",
+      "frames": [
+        0.8000000715255737,
+        40.80000305175781
+      ]
+    },
+    {
+      "name": "salute",
+      "frames": [
+        0.8000000715255737,
+        68.79999542236328
+      ]
+    },
+    {
+      "name": "shakehand",
+      "frames": [
+        0.8000000715255737,
+        105.60000610351562
+      ]
+    },
+    {
+      "name": "sit",
+      "frames": [
+        0.8000000715255737,
+        168.8000030517578
+      ]
+    },
+    {
+      "name": "walking",
+      "frames": [
+        0.8000000715255737,
+        28.80000114440918
+      ]
+    }
+  ],
+  "bounds": [
+    [
+      -0.5320509672164917,
+      -0.21799379587173462,
+      -0.0012278268113732338
+    ],
+    [
+      0.531463086605072,
+      0.2032352238893509,
+      1.8570339679718018
+    ]
+  ],
+  "seated_samples": [
+    {
+      "label": "start",
+      "frame": 1,
+      "bounds": [
+        [
+          -0.28322070837020874,
+          -0.695623517036438,
+          -0.0014155106619000435
+        ],
+        [
+          0.31426629424095154,
+          0.16894441843032837,
+          1.3969488143920898
+        ]
+      ]
+    },
+    {
+      "label": "middle",
+      "frame": 85,
+      "bounds": [
+        [
+          -0.2877073884010315,
+          -0.6955713033676147,
+          -0.001425654860213399
+        ],
+        [
+          0.3034747242927551,
+          0.16816028952598572,
+          1.4070723056793213
+        ]
+      ]
+    },
+    {
+      "label": "end",
+      "frame": 169,
+      "bounds": [
+        [
+          -0.2832072377204895,
+          -0.6956228017807007,
+          -0.0014155434910207987
+        ],
+        [
+          0.3142823576927185,
+          0.16896498203277588,
+          1.396955132484436
+        ]
+      ]
+    }
+  ]
+}

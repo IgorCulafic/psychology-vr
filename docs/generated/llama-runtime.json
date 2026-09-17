@@ -1,0 +1,15 @@
+{
+  "release": "b10909",
+  "files": [
+    {
+      "name": "llama-b10909-bin-win-cuda-13.3-x64.zip",
+      "sha256": "257fef963d0fb5d5f9786760b127bf92ddffc14034befe9c42282be97852cb8b",
+      "url": "https://github.com/ggml-org/llama.cpp/releases/download/b10909/llama-b10909-bin-win-cuda-13.3-x64.zip"
+    },
+    {
+      "name": "cudart-llama-bin-win-cuda-13.3-x64.zip",
+      "sha256": "1462a050eb4c684921ba51dcc4cc488a036674c3e73e9945ee705b854808d03e",
+      "url": "https://github.com/ggml-org/llama.cpp/releases/download/b10909/cudart-llama-bin-win-cuda-13.3-x64.zip"
+    }
+  ]
+}

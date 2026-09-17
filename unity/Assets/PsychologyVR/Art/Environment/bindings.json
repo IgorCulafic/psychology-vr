@@ -1,0 +1,105 @@
+{
+  "bindings": [
+    {
+      "asset": "binder_notebook",
+      "renderer": "binder_notebook",
+      "materials": [
+        "binder_notebook_mat_0"
+      ]
+    },
+    {
+      "asset": "binder_notebook",
+      "renderer": "binder_notebook_closed",
+      "materials": [
+        "binder_notebook_mat_0"
+      ]
+    },
+    {
+      "asset": "modern_arm_chair_01",
+      "renderer": "modern_arm_chair_01",
+      "materials": [
+        "modern_arm_chair_01_mat_0",
+        "modern_arm_chair_01_mat_1"
+      ]
+    },
+    {
+      "asset": "modern_ceiling_lamp_01",
+      "renderer": "modern_ceiling_lamp_01",
+      "materials": [
+        "modern_ceiling_lamp_01_mat_0",
+        "modern_ceiling_lamp_01_mat_1",
+        "modern_ceiling_lamp_01_mat_2"
+      ]
+    },
+    {
+      "asset": "modern_coffee_table_01",
+      "renderer": "modern_coffee_table_01",
+      "materials": [
+        "modern_coffee_table_01_mat_0"
+      ]
+    },
+    {
+      "asset": "potted_plant_01",
+      "renderer": "potted_plant_01_stem",
+      "materials": [
+        "potted_plant_01_mat_0"
+      ]
+    },
+    {
+      "asset": "potted_plant_01",
+      "renderer": "potted_plant_01_pebbles",
+      "materials": [
+        "potted_plant_01_mat_0"
+      ]
+    },
+    {
+      "asset": "potted_plant_01",
+      "renderer": "potted_plant_01_pot",
+      "materials": [
+        "potted_plant_01_mat_0"
+      ]
+    },
+    {
+      "asset": "potted_plant_01",
+      "renderer": "potted_plant_01_leaves",
+      "materials": [
+        "potted_plant_01_mat_1"
+      ]
+    },
+    {
+      "asset": "potted_plant_02",
+      "renderer": "potted_plant_02_pot",
+      "materials": [
+        "potted_plant_02_mat_0"
+      ]
+    },
+    {
+      "asset": "potted_plant_02",
+      "renderer": "potted_plant_02_leaves",
+      "materials": [
+        "potted_plant_02_mat_1"
+      ]
+    },
+    {
+      "asset": "potted_plant_02",
+      "renderer": "potted_plant_02_dirt",
+      "materials": [
+        "potted_plant_02_mat_0"
+      ]
+    },
+    {
+      "asset": "side_table_01",
+      "renderer": "side_table_01",
+      "materials": [
+        "side_table_01_mat_0"
+      ]
+    },
+    {
+      "asset": "small_wooden_table_01",
+      "renderer": "small_wooden_table_01",
+      "materials": [
+        "small_wooden_table_01_mat_0"
+      ]
+    }
+  ]
+}

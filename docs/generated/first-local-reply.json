@@ -1,0 +1,19 @@
+{
+  "turn_id": "c3a653a32f5f403ea55cc7f0101b6733",
+  "session_id": "03d296e143c143dfa13444ed32cf9120",
+  "segments": [
+    {
+      "text": "It\u2019s the silence, honestly. The quiet is worse than the noise. It makes me wait for the next one.",
+      "emotion": "anxious",
+      "intensity": 0.7,
+      "gesture": "look_down",
+      "voice_style": "hesitant",
+      "segment_id": "c3a653a32f5f403ea55cc7f0101b6733-0",
+      "audio_url": "/audio/6cb35cdd7986441b810d81bbdace798d.wav"
+    }
+  ],
+  "generation_ms": 2089,
+  "total_ms": 13458,
+  "dialogue_provider": "llama.cpp",
+  "tts_provider": "kokoro"
+}

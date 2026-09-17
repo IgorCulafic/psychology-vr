@@ -1,0 +1,6 @@
+{
+  "release": "v1.14.0",
+  "url": "https://github.com/DanielSWolf/rhubarb-lip-sync/releases/download/v1.14.0/Rhubarb-Lip-Sync-1.14.0-Windows.zip",
+  "sha256": "62fa416a8d5e382a3828ee4bef358ce520d0b4cabdeaea75a7ac266d098d1fe3",
+  "executable": ".tools\\rhubarb\\Rhubarb-Lip-Sync-1.14.0-Windows\\rhubarb.exe"
+}

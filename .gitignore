@@ -1,0 +1,48 @@
+unity/[Ll]ibrary/
+unity/[Tt]emp/
+unity/[Oo]bj/
+unity/[Ll]ogs/
+unity/[Uu]ser[Ss]ettings/
+unity/[Bb]uilds/
+unity/.vs/
+*.csproj
+*.sln
+__pycache__/
+*.pyc
+.venv/
+.tools/
+.cache/
+.env
+*.gguf
+docs/generated/*.log
+services/.runtime/
+unity/Assets/Resources/PerformanceTestRunInfo.json*
+unity/Assets/Resources/PerformanceTestRunSettings.json*
+
+# Machine-specific configuration and credentials
+.env.*
+!.env.example
+services/config.local.json
+*.pem
+*.key
+
+# Original asset downloads; converted game assets live under unity/Assets.
+/man/
+/jumper_man/
+/Characters_with_expressions/
+
+# Local auditions include personal voice recordings and cloned speech.
+# Retain small, top-level audit/provenance records and one room preview.
+/docs/generated/*
+!/docs/generated/*.json
+!/docs/generated/furnished-room.png
+
+# Editor/tool output
+*.log
+.DS_Store
+Thumbs.db
+unity/.idea/
+unity/MemoryCaptures/
+unity/Recordings/
+unity/[Bb]uild/
+unity/*.slnx

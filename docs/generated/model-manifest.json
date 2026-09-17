@@ -1,0 +1,11 @@
+{
+  "repository": "HauhauCS/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-MTP-GGUF",
+  "revision": "993a5971fda8f30dd1b7eb2654792ba4415c7460",
+  "file": "Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-IQ4_XS.gguf",
+  "bytes": 15705860224,
+  "sha256": "034b4c6b7c5cd9f4a2f99570d5097698f9d1e265a0fb000207223cbf9f9bd0b0",
+  "runtime": "llama.cpp b10909",
+  "thinking": false,
+  "context": 4096,
+  "speculation": "none"
+}

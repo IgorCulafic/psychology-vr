@@ -1,0 +1,212 @@
+{
+  "materials": [
+    {
+      "name": "binder_notebook_mat_0",
+      "baseMap": "Assets/PsychologyVR/Art/Environment/Textures/binder_notebook_diff_1k.jpg",
+      "normalMap": "Assets/PsychologyVR/Art/Environment/Textures/binder_notebook_nor_gl_1k.jpg",
+      "metalMap": "Assets/PsychologyVR/Art/Environment/Textures/binder_notebook_mat_0_metal_smooth.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 1,
+      "smoothness": 0,
+      "cutout": false,
+      "doubleSided": true
+    },
+    {
+      "name": "modern_arm_chair_01_mat_0",
+      "baseMap": "Assets/PsychologyVR/Art/Environment/Textures/modern_arm_chair_01_legs_diff_1k.jpg",
+      "normalMap": "Assets/PsychologyVR/Art/Environment/Textures/modern_arm_chair_01_legs_nor_gl_1k.jpg",
+      "metalMap": "Assets/PsychologyVR/Art/Environment/Textures/modern_arm_chair_01_mat_0_metal_smooth.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 1,
+      "smoothness": 0,
+      "cutout": false,
+      "doubleSided": true
+    },
+    {
+      "name": "modern_arm_chair_01_mat_1",
+      "baseMap": "Assets/PsychologyVR/Art/Environment/Textures/modern_arm_chair_01_pillow_diff_1k.jpg",
+      "normalMap": "Assets/PsychologyVR/Art/Environment/Textures/modern_arm_chair_01_pillow_nor_gl_1k.jpg",
+      "metalMap": "Assets/PsychologyVR/Art/Environment/Textures/modern_arm_chair_01_mat_1_metal_smooth.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 1,
+      "smoothness": 0,
+      "cutout": false,
+      "doubleSided": true
+    },
+    {
+      "name": "modern_ceiling_lamp_01_mat_0",
+      "baseMap": "Assets/PsychologyVR/Art/Environment/Textures/modern_ceiling_lamp_01_diff_1k.jpg",
+      "normalMap": "Assets/PsychologyVR/Art/Environment/Textures/modern_ceiling_lamp_01_nor_gl_1k.jpg",
+      "metalMap": "Assets/PsychologyVR/Art/Environment/Textures/modern_ceiling_lamp_01_mat_0_metal_smooth.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 1,
+      "smoothness": 0,
+      "cutout": false,
+      "doubleSided": true
+    },
+    {
+      "name": "modern_ceiling_lamp_01_mat_1",
+      "baseMap": "Assets/PsychologyVR/Art/Environment/Textures/modern_ceiling_lamp_01_diff_1k.jpg",
+      "normalMap": "Assets/PsychologyVR/Art/Environment/Textures/modern_ceiling_lamp_01_nor_gl_1k.jpg",
+      "metalMap": "Assets/PsychologyVR/Art/Environment/Textures/modern_ceiling_lamp_01_mat_1_metal_smooth.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 1,
+      "smoothness": 0,
+      "cutout": false,
+      "doubleSided": true
+    },
+    {
+      "name": "modern_ceiling_lamp_01_mat_2",
+      "baseMap": "Assets/PsychologyVR/Art/Environment/Textures/modern_ceiling_lamp_01_diff_1k.jpg",
+      "normalMap": "Assets/PsychologyVR/Art/Environment/Textures/modern_ceiling_lamp_01_nor_gl_1k.jpg",
+      "metalMap": "Assets/PsychologyVR/Art/Environment/Textures/modern_ceiling_lamp_01_mat_2_metal_smooth.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 1,
+      "smoothness": 0,
+      "cutout": false,
+      "doubleSided": true
+    },
+    {
+      "name": "modern_coffee_table_01_mat_0",
+      "baseMap": "Assets/PsychologyVR/Art/Environment/Textures/modern_coffee_table_01_diff_1k.jpg",
+      "normalMap": "Assets/PsychologyVR/Art/Environment/Textures/modern_coffee_table_01_nor_gl_1k.jpg",
+      "metalMap": "Assets/PsychologyVR/Art/Environment/Textures/modern_coffee_table_01_mat_0_metal_smooth.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0,
+      "smoothness": 0,
+      "cutout": false,
+      "doubleSided": true
+    },
+    {
+      "name": "potted_plant_01_mat_0",
+      "baseMap": "Assets/PsychologyVR/Art/Environment/Textures/potted_plant_01_pot_diff_1k.jpg",
+      "normalMap": "Assets/PsychologyVR/Art/Environment/Textures/potted_plant_01_pot_nor_gl_1k.jpg",
+      "metalMap": "Assets/PsychologyVR/Art/Environment/Textures/potted_plant_01_mat_0_metal_smooth.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0,
+      "smoothness": 0,
+      "cutout": false,
+      "doubleSided": true
+    },
+    {
+      "name": "potted_plant_01_mat_1",
+      "baseMap": "Assets/PsychologyVR/Art/Environment/Textures/potted_plant_01_leaves_diff_1k.jpg",
+      "normalMap": "Assets/PsychologyVR/Art/Environment/Textures/potted_plant_01_leaves_nor_gl_1k.jpg",
+      "metalMap": "Assets/PsychologyVR/Art/Environment/Textures/potted_plant_01_mat_1_metal_smooth.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0,
+      "smoothness": 0,
+      "cutout": true,
+      "doubleSided": true
+    },
+    {
+      "name": "potted_plant_02_mat_0",
+      "baseMap": "Assets/PsychologyVR/Art/Environment/Textures/potted_plant_02_pot_diff_1k.jpg",
+      "normalMap": "Assets/PsychologyVR/Art/Environment/Textures/potted_plant_02_pot_nor_gl_1k.jpg",
+      "metalMap": "Assets/PsychologyVR/Art/Environment/Textures/potted_plant_02_mat_0_metal_smooth.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0,
+      "smoothness": 0,
+      "cutout": false,
+      "doubleSided": true
+    },
+    {
+      "name": "potted_plant_02_mat_1",
+      "baseMap": "Assets/PsychologyVR/Art/Environment/Textures/potted_plant_02_leaves_diff_1k.jpg",
+      "normalMap": "Assets/PsychologyVR/Art/Environment/Textures/potted_plant_02_leaves_nor_gl_1k.jpg",
+      "metalMap": "Assets/PsychologyVR/Art/Environment/Textures/potted_plant_02_mat_1_metal_smooth.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0,
+      "smoothness": 0,
+      "cutout": true,
+      "doubleSided": true
+    },
+    {
+      "name": "side_table_01_mat_0",
+      "baseMap": "Assets/PsychologyVR/Art/Environment/Textures/side_table_01_diff_1k.jpg",
+      "normalMap": "Assets/PsychologyVR/Art/Environment/Textures/side_table_01_nor_gl_1k.jpg",
+      "metalMap": "Assets/PsychologyVR/Art/Environment/Textures/side_table_01_mat_0_metal_smooth.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 1,
+      "smoothness": 0,
+      "cutout": false,
+      "doubleSided": true
+    },
+    {
+      "name": "small_wooden_table_01_mat_0",
+      "baseMap": "Assets/PsychologyVR/Art/Environment/Textures/small_wooden_table_01_diff_1k.jpg",
+      "normalMap": "Assets/PsychologyVR/Art/Environment/Textures/small_wooden_table_01_nor_gl_1k.jpg",
+      "metalMap": "Assets/PsychologyVR/Art/Environment/Textures/small_wooden_table_01_mat_0_metal_smooth.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 1,
+      "smoothness": 0,
+      "cutout": false,
+      "doubleSided": true
+    }
+  ]
+}

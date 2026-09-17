@@ -1,0 +1,164 @@
+[
+  {
+    "mesh": "Object_11",
+    "shape": "JawOpen",
+    "changed_vertices": 689,
+    "max_displacement_m": 0.020249540107885877
+  },
+  {
+    "mesh": "Object_11",
+    "shape": "MouthPucker",
+    "changed_vertices": 892,
+    "max_displacement_m": 0.00799942249962342
+  },
+  {
+    "mesh": "Object_11",
+    "shape": "MouthWide",
+    "changed_vertices": 845,
+    "max_displacement_m": 0.002765504569834246
+  },
+  {
+    "mesh": "Object_11",
+    "shape": "MouthPress",
+    "changed_vertices": 882,
+    "max_displacement_m": 0.0016982555222046034
+  },
+  {
+    "mesh": "Object_11",
+    "shape": "MouthSmile",
+    "changed_vertices": 846,
+    "max_displacement_m": 0.005079938121216665
+  },
+  {
+    "mesh": "Object_11",
+    "shape": "MouthFrown",
+    "changed_vertices": 720,
+    "max_displacement_m": 0.004453539795677585
+  },
+  {
+    "mesh": "Object_11",
+    "shape": "BrowWorry",
+    "changed_vertices": 372,
+    "max_displacement_m": 0.006469091202371132
+  },
+  {
+    "mesh": "Object_11",
+    "shape": "BrowTense",
+    "changed_vertices": 640,
+    "max_displacement_m": 0.005085764959904054
+  },
+  {
+    "mesh": "Object_11",
+    "shape": "BrowRaise",
+    "changed_vertices": 638,
+    "max_displacement_m": 0.005938529891685974
+  },
+  {
+    "mesh": "Object_11",
+    "shape": "BrowRaiseLeft",
+    "changed_vertices": 315,
+    "max_displacement_m": 0.005938529891685974
+  },
+  {
+    "mesh": "Object_11",
+    "shape": "UpperLipRaise",
+    "changed_vertices": 699,
+    "max_displacement_m": 0.008030917402104697
+  },
+  {
+    "mesh": "Object_11",
+    "shape": "NoseWrinkle",
+    "changed_vertices": 388,
+    "max_displacement_m": 0.005353013610556907
+  },
+  {
+    "mesh": "Object_11",
+    "shape": "EyeWide",
+    "changed_vertices": 546,
+    "max_displacement_m": 0.0034676790216936317
+  },
+  {
+    "mesh": "Object_11",
+    "shape": "BlinkLeft",
+    "changed_vertices": 271,
+    "max_displacement_m": 0.009823466461884364
+  },
+  {
+    "mesh": "Object_11",
+    "shape": "BlinkRight",
+    "changed_vertices": 272,
+    "max_displacement_m": 0.009823466461884364
+  },
+  {
+    "mesh": "Object_11",
+    "shape": "EyeSquint",
+    "changed_vertices": 629,
+    "max_displacement_m": 0.002468705197454529
+  },
+  {
+    "mesh": "Object_13",
+    "shape": "JawOpen",
+    "changed_vertices": 43,
+    "max_displacement_m": 0.0179415232495976
+  },
+  {
+    "mesh": "Object_7",
+    "shape": "BlinkLeft",
+    "changed_vertices": 152,
+    "max_displacement_m": 0.017026605749872546
+  },
+  {
+    "mesh": "Object_7",
+    "shape": "EyeLookLeft",
+    "changed_vertices": 152,
+    "max_displacement_m": 0.0033406749164587484
+  },
+  {
+    "mesh": "Object_7",
+    "shape": "EyeLookRight",
+    "changed_vertices": 152,
+    "max_displacement_m": 0.0033406736913389715
+  },
+  {
+    "mesh": "Object_7",
+    "shape": "EyeLookUp",
+    "changed_vertices": 152,
+    "max_displacement_m": 0.0023432088468712054
+  },
+  {
+    "mesh": "Object_7",
+    "shape": "EyeLookDown",
+    "changed_vertices": 152,
+    "max_displacement_m": 0.002343186237566858
+  },
+  {
+    "mesh": "Object_9",
+    "shape": "BlinkRight",
+    "changed_vertices": 152,
+    "max_displacement_m": 0.017053830463463437
+  },
+  {
+    "mesh": "Object_9",
+    "shape": "EyeLookLeft",
+    "changed_vertices": 152,
+    "max_displacement_m": 0.003324130841669725
+  },
+  {
+    "mesh": "Object_9",
+    "shape": "EyeLookRight",
+    "changed_vertices": 152,
+    "max_displacement_m": 0.0033241300208583396
+  },
+  {
+    "mesh": "Object_9",
+    "shape": "EyeLookUp",
+    "changed_vertices": 152,
+    "max_displacement_m": 0.002352424929637834
+  },
+  {
+    "mesh": "Object_9",
+    "shape": "EyeLookDown",
+    "changed_vertices": 152,
+    "max_displacement_m": 0.002352399847526779
+  }
+]

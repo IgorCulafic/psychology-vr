@@ -1,0 +1,21 @@
+{
+  "title": "Fish baseline · same short reference",
+  "description": "Current Fish sampling settings with the same 6.5-second reference excerpt used for OmniVoice and Higgs. Plain text without experimental language cues. This is a controlled baseline; previous full-reference Fish samples remain available.",
+  "cases": [
+    {
+      "id": "short",
+      "label": "Short · neutral",
+      "text": "Ovo je na mom kompjuteru."
+    },
+    {
+      "id": "neutral",
+      "label": "Neutral",
+      "text": "Nisam očekivao da ćete to reći. Toliko toga želim da vam kažem. Dajte mi samo trenutak da saberem misli."
+    },
+    {
+      "id": "diagnostic",
+      "label": "Pronunciation",
+      "text": "Očekivao sam da ćete mi reći šta se dogodilo. Hoću da čujem cijelu priču. Ovo je na mom kompjuteru."
+    }
+  ]
+}

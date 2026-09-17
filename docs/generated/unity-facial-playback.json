@@ -1,0 +1,24 @@
+{
+    "shapeBindings": 27,
+    "expressionCount": 20,
+    "tearAnchors": 72,
+    "cryingWetness": 0.8999999761581421,
+    "clearedWetness": 0.0,
+    "interruptedWetness": 0.0,
+    "tearsVisible": true,
+    "mouthCues": [
+        "X",
+        "C",
+        "A",
+        "B",
+        "E",
+        "F"
+    ],
+    "maximumJaw": 0.43076613545417786,
+    "pausedTimeDrift": 0.0,
+    "resumedTimeAdvance": 0.27733325958251953,
+    "stoppedJaw": 0.00006280278466874734,
+    "rightGazeYaw": 9.383899688720703,
+    "leftGazeYaw": -7.616645336151123,
+    "passed": true
+}

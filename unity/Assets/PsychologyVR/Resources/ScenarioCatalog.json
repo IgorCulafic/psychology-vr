@@ -1,0 +1,15 @@
+{
+    "default_scenario_id": "alex-earthquake",
+    "scenarios": [
+        {
+            "id": "alex-earthquake",
+            "character_id": "alex",
+            "character_name": "Alex",
+            "title": "After the earthquake",
+            "summary": "A first conversation with an earthquake survivor staying in temporary accommodation. His family is safe, but he has lost his home and fears further aftershocks.",
+            "focus": "Trust, safety and gradual disclosure",
+            "avatar_id": "jumper",
+            "age": 35
+        }
+    ]
+}

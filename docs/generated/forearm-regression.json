@@ -1,0 +1,8 @@
+{
+    "passed": true,
+    "cases": 6,
+    "helperAngle": 0.0,
+    "helperShift": 4.693274320288765e-7,
+    "vertexDrift": 8.587258548686805e-7,
+    "handDrift": 3.705119127062062e-7
+}

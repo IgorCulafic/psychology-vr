@@ -1,0 +1,586 @@
+{
+  "version": 1,
+  "emotions": [
+    {
+      "name": "neutral",
+      "label": "Neutral",
+      "description": "Ordinary attentive delivery.",
+      "shapes": [],
+      "headPitch": 0,
+      "headYaw": 0,
+      "torsoPitch": 0,
+      "tremble": 0,
+      "tears": 0,
+      "lookAwayChance": 0.16,
+      "blinkInterval": 1
+    },
+    {
+      "name": "calm",
+      "label": "Calm",
+      "description": "Settled and attentive, without implying recovery.",
+      "shapes": [
+        {
+          "name": "MouthSmile",
+          "weight": 0.18
+        },
+        {
+          "name": "EyeSquint",
+          "weight": 0.1
+        }
+      ],
+      "headPitch": 0,
+      "headYaw": 0,
+      "torsoPitch": 0,
+      "tremble": 0,
+      "tears": 0,
+      "lookAwayChance": 0.12,
+      "blinkInterval": 1.3
+    },
+    {
+      "name": "anxious",
+      "label": "Anxiety",
+      "description": "Uneasy anticipation and guarded attention.",
+      "shapes": [
+        {
+          "name": "BrowWorry",
+          "weight": 0.65
+        },
+        {
+          "name": "BrowTense",
+          "weight": 0.18
+        },
+        {
+          "name": "MouthFrown",
+          "weight": 0.22
+        }
+      ],
+      "headPitch": 3,
+      "headYaw": 0,
+      "torsoPitch": 1,
+      "tremble": 0.12,
+      "tears": 0,
+      "lookAwayChance": 0.38,
+      "blinkInterval": 0.85
+    },
+    {
+      "name": "afraid",
+      "label": "Fear",
+      "description": "Present fear: widened eyes and a tense mouth.",
+      "shapes": [
+        {
+          "name": "BrowWorry",
+          "weight": 0.65
+        },
+        {
+          "name": "BrowRaise",
+          "weight": 0.65
+        },
+        {
+          "name": "EyeWide",
+          "weight": 0.8
+        },
+        {
+          "name": "MouthWide",
+          "weight": 0.35
+        },
+        {
+          "name": "MouthFrown",
+          "weight": 0.55
+        },
+        {
+          "name": "JawOpen",
+          "weight": 0.15
+        }
+      ],
+      "headPitch": -3,
+      "headYaw": 0,
+      "torsoPitch": -2,
+      "tremble": 0.25,
+      "tears": 0,
+      "lookAwayChance": 0.4,
+      "blinkInterval": 0.8
+    },
+    {
+      "name": "panicked",
+      "label": "Panic",
+      "description": "Overwhelming fear; use sparingly and only when the exchange supports it.",
+      "shapes": [
+        {
+          "name": "BrowWorry",
+          "weight": 0.9
+        },
+        {
+          "name": "BrowRaise",
+          "weight": 0.85
+        },
+        {
+          "name": "EyeWide",
+          "weight": 1
+        },
+        {
+          "name": "MouthWide",
+          "weight": 0.5
+        },
+        {
+          "name": "MouthFrown",
+          "weight": 0.7
+        },
+        {
+          "name": "JawOpen",
+          "weight": 0.3
+        }
+      ],
+      "headPitch": -4,
+      "headYaw": 0,
+      "torsoPitch": -3,
+      "tremble": 0.65,
+      "tears": 0,
+      "lookAwayChance": 0.55,
+      "blinkInterval": 0.65
+    },
+    {
+      "name": "sad",
+      "label": "Sadness",
+      "description": "Sorrow with lowered gaze and downturned lips.",
+      "shapes": [
+        {
+          "name": "BrowWorry",
+          "weight": 0.9
+        },
+        {
+          "name": "MouthFrown",
+          "weight": 0.8
+        },
+        {
+          "name": "EyeSquint",
+          "weight": 0.12
+        }
+      ],
+      "headPitch": 12,
+      "headYaw": 0,
+      "torsoPitch": 3,
+      "tremble": 0,
+      "tears": 0,
+      "lookAwayChance": 0.5,
+      "blinkInterval": 1.1
+    },
+    {
+      "name": "crying",
+      "label": "Crying",
+      "description": "Visible tears and sobbing; high intensity covers the face with both hands. Not every sad statement is crying.",
+      "shapes": [
+        {
+          "name": "BrowWorry",
+          "weight": 1
+        },
+        {
+          "name": "MouthFrown",
+          "weight": 0.9
+        },
+        {
+          "name": "EyeSquint",
+          "weight": 0.85
+        },
+        {
+          "name": "BlinkLeft",
+          "weight": 0.25
+        },
+        {
+          "name": "BlinkRight",
+          "weight": 0.25
+        },
+        {
+          "name": "MouthPress",
+          "weight": 0.25
+        }
+      ],
+      "headPitch": 10,
+      "headYaw": 0,
+      "torsoPitch": 4,
+      "tremble": 0.8,
+      "tears": 1,
+      "lookAwayChance": 0.65,
+      "blinkInterval": 0.7
+    },
+    {
+      "name": "angry",
+      "label": "Anger",
+      "description": "Directed anger with knitted brows and tense lips.",
+      "shapes": [
+        {
+          "name": "BrowTense",
+          "weight": 1
+        },
+        {
+          "name": "EyeSquint",
+          "weight": 0.5
+        },
+        {
+          "name": "MouthPress",
+          "weight": 0.8
+        },
+        {
+          "name": "NoseWrinkle",
+          "weight": 0.25
+        }
+      ],
+      "headPitch": -2,
+      "headYaw": 0,
+      "torsoPitch": 2,
+      "tremble": 0.2,
+      "tears": 0,
+      "lookAwayChance": 0.08,
+      "blinkInterval": 1.2
+    },
+    {
+      "name": "frustrated",
+      "label": "Frustration",
+      "description": "Strained impatience or feeling blocked.",
+      "shapes": [
+        {
+          "name": "BrowTense",
+          "weight": 0.75
+        },
+        {
+          "name": "MouthPress",
+          "weight": 0.45
+        },
+        {
+          "name": "EyeSquint",
+          "weight": 0.3
+        }
+      ],
+      "headPitch": 2,
+      "headYaw": 0,
+      "torsoPitch": 1,
+      "tremble": 0.08,
+      "tears": 0,
+      "lookAwayChance": 0.3,
+      "blinkInterval": 1
+    },
+    {
+      "name": "disgusted",
+      "label": "Disgust",
+      "description": "Nose wrinkle, upper-lip lift, and slight recoil.",
+      "shapes": [
+        {
+          "name": "NoseWrinkle",
+          "weight": 1
+        },
+        {
+          "name": "UpperLipRaise",
+          "weight": 0.85
+        },
+        {
+          "name": "EyeSquint",
+          "weight": 0.45
+        },
+        {
+          "name": "BrowTense",
+          "weight": 0.55
+        },
+        {
+          "name": "MouthFrown",
+          "weight": 0.3
+        }
+      ],
+      "headPitch": -3,
+      "headYaw": 9,
+      "torsoPitch": -3,
+      "tremble": 0,
+      "tears": 0,
+      "lookAwayChance": 0.45,
+      "blinkInterval": 1.1
+    },
+    {
+      "name": "happy",
+      "label": "Happiness",
+      "description": "A positive moment with a smile and softened eyes.",
+      "shapes": [
+        {
+          "name": "MouthSmile",
+          "weight": 1
+        },
+        {
+          "name": "EyeSquint",
+          "weight": 0.35
+        },
+        {
+          "name": "BrowRaise",
+          "weight": 0.18
+        }
+      ],
+      "headPitch": -1,
+      "headYaw": 0,
+      "torsoPitch": -1,
+      "tremble": 0,
+      "tears": 0,
+      "lookAwayChance": 0.12,
+      "blinkInterval": 1.1
+    },
+    {
+      "name": "relieved",
+      "label": "Relief",
+      "description": "Tension eases for the moment; broader difficulties may remain.",
+      "shapes": [
+        {
+          "name": "MouthSmile",
+          "weight": 0.65
+        },
+        {
+          "name": "BrowRaise",
+          "weight": 0.12
+        },
+        {
+          "name": "EyeSquint",
+          "weight": 0.18
+        }
+      ],
+      "headPitch": 2,
+      "headYaw": 0,
+      "torsoPitch": -1,
+      "tremble": 0,
+      "tears": 0,
+      "lookAwayChance": 0.2,
+      "blinkInterval": 1.3
+    },
+    {
+      "name": "surprised",
+      "label": "Surprise",
+      "description": "Brief unexpected reaction, distinct from fear.",
+      "shapes": [
+        {
+          "name": "BrowRaise",
+          "weight": 1
+        },
+        {
+          "name": "EyeWide",
+          "weight": 0.9
+        },
+        {
+          "name": "JawOpen",
+          "weight": 0.3
+        },
+        {
+          "name": "MouthPucker",
+          "weight": 0.35
+        }
+      ],
+      "headPitch": -2,
+      "headYaw": 0,
+      "torsoPitch": -2,
+      "tremble": 0,
+      "tears": 0,
+      "lookAwayChance": 0.1,
+      "blinkInterval": 1.6
+    },
+    {
+      "name": "ashamed",
+      "label": "Shame",
+      "description": "Avoiding attention and looking down.",
+      "shapes": [
+        {
+          "name": "BrowWorry",
+          "weight": 0.6
+        },
+        {
+          "name": "MouthPress",
+          "weight": 0.55
+        },
+        {
+          "name": "MouthFrown",
+          "weight": 0.3
+        }
+      ],
+      "headPitch": 16,
+      "headYaw": 8,
+      "torsoPitch": 4,
+      "tremble": 0,
+      "tears": 0,
+      "lookAwayChance": 0.8,
+      "blinkInterval": 0.85
+    },
+    {
+      "name": "guilty",
+      "label": "Guilt",
+      "description": "Troubled regret; do not invent wrongdoing to justify the cue.",
+      "shapes": [
+        {
+          "name": "BrowWorry",
+          "weight": 0.8
+        },
+        {
+          "name": "MouthFrown",
+          "weight": 0.55
+        },
+        {
+          "name": "MouthPress",
+          "weight": 0.3
+        }
+      ],
+      "headPitch": 9,
+      "headYaw": -5,
+      "torsoPitch": 2,
+      "tremble": 0.05,
+      "tears": 0,
+      "lookAwayChance": 0.6,
+      "blinkInterval": 1
+    },
+    {
+      "name": "confused",
+      "label": "Confusion",
+      "description": "Uncertainty and a searching expression.",
+      "shapes": [
+        {
+          "name": "BrowRaiseLeft",
+          "weight": 0.75
+        },
+        {
+          "name": "BrowTense",
+          "weight": 0.25
+        },
+        {
+          "name": "MouthPucker",
+          "weight": 0.2
+        }
+      ],
+      "headPitch": 1,
+      "headYaw": -6,
+      "torsoPitch": 0,
+      "tremble": 0,
+      "tears": 0,
+      "lookAwayChance": 0.3,
+      "blinkInterval": 1
+    },
+    {
+      "name": "skeptical",
+      "label": "Skepticism",
+      "description": "Doubt or guarded evaluation of what was said.",
+      "shapes": [
+        {
+          "name": "BrowRaiseLeft",
+          "weight": 1
+        },
+        {
+          "name": "EyeSquint",
+          "weight": 0.25
+        },
+        {
+          "name": "MouthPress",
+          "weight": 0.5
+        }
+      ],
+      "headPitch": -2,
+      "headYaw": 7,
+      "torsoPitch": -1,
+      "tremble": 0,
+      "tears": 0,
+      "lookAwayChance": 0.2,
+      "blinkInterval": 1.3
+    },
+    {
+      "name": "hopeful",
+      "label": "Hope",
+      "description": "Tentative optimism, without sudden emotional resolution.",
+      "shapes": [
+        {
+          "name": "MouthSmile",
+          "weight": 0.45
+        },
+        {
+          "name": "BrowWorry",
+          "weight": 0.2
+        },
+        {
+          "name": "BrowRaise",
+          "weight": 0.25
+        }
+      ],
+      "headPitch": -2,
+      "headYaw": 0,
+      "torsoPitch": 0,
+      "tremble": 0,
+      "tears": 0,
+      "lookAwayChance": 0.14,
+      "blinkInterval": 1.1
+    },
+    {
+      "name": "despondent",
+      "label": "Despondency",
+      "description": "Discouraged, low-energy delivery; a performance state, not a diagnosis.",
+      "shapes": [
+        {
+          "name": "BrowWorry",
+          "weight": 0.45
+        },
+        {
+          "name": "MouthFrown",
+          "weight": 0.65
+        },
+        {
+          "name": "EyeSquint",
+          "weight": 0.3
+        }
+      ],
+      "headPitch": 15,
+      "headYaw": 0,
+      "torsoPitch": 5,
+      "tremble": 0,
+      "tears": 0,
+      "lookAwayChance": 0.7,
+      "blinkInterval": 1.6
+    },
+    {
+      "name": "numb",
+      "label": "Numbness",
+      "description": "Emotionally flat and withdrawn, with little visible movement.",
+      "shapes": [
+        {
+          "name": "EyeSquint",
+          "weight": 0.18
+        },
+        {
+          "name": "MouthPress",
+          "weight": 0.12
+        }
+      ],
+      "headPitch": 5,
+      "headYaw": 0,
+      "torsoPitch": 3,
+      "tremble": 0,
+      "tears": 0,
+      "lookAwayChance": 0.7,
+      "blinkInterval": 1.9
+    }
+  ],
+  "aliases": [
+    {
+      "name": "fear",
+      "emotion": "afraid"
+    },
+    {
+      "name": "disgust",
+      "emotion": "disgusted"
+    },
+    {
+      "name": "anger",
+      "emotion": "angry"
+    },
+    {
+      "name": "joy",
+      "emotion": "happy"
+    },
+    {
+      "name": "surprise",
+      "emotion": "surprised"
+    },
+    {
+      "name": "sobbing",
+      "emotion": "crying"
+    },
+    {
+      "name": "depressed",
+      "emotion": "despondent"
+    }
+  ]
+}

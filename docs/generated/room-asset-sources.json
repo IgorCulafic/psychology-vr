@@ -1,0 +1,357 @@
+[
+  {
+    "id": "modern_arm_chair_01",
+    "source": "https://polyhaven.com/a/modern_arm_chair_01",
+    "license": "CC0-1.0",
+    "resolution": "1k",
+    "files": {
+      "include": {
+        "textures/modern_arm_chair_01_pillow_nor_gl_1k.jpg": {
+          "size": 302377,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modern_arm_chair_01/modern_arm_chair_01_pillow_nor_gl_1k.jpg",
+          "md5": "6804f34108fcc755f0c84dd3c638270c"
+        },
+        "textures/modern_arm_chair_01_legs_nor_gl_1k.jpg": {
+          "size": 560864,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modern_arm_chair_01/modern_arm_chair_01_legs_nor_gl_1k.jpg",
+          "md5": "7cece7eccf75588af5b5df9b095d2c97"
+        },
+        "textures/modern_arm_chair_01_pillow_arm_1k.jpg": {
+          "size": 321223,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modern_arm_chair_01/modern_arm_chair_01_pillow_arm_1k.jpg",
+          "md5": "772495ddbf26ca3de4b31298f10113b9"
+        },
+        "textures/modern_arm_chair_01_legs_diff_1k.jpg": {
+          "size": 460937,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modern_arm_chair_01/modern_arm_chair_01_legs_diff_1k.jpg",
+          "md5": "778f1897e07ff81b2bc338f3d463ad1f"
+        },
+        "textures/modern_arm_chair_01_legs_arm_1k.jpg": {
+          "size": 577931,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modern_arm_chair_01/modern_arm_chair_01_legs_arm_1k.jpg",
+          "md5": "9c69cb001df175bddf6d1c2436567fb7"
+        },
+        "modern_arm_chair_01.bin": {
+          "size": 240728,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/modern_arm_chair_01/modern_arm_chair_01.bin",
+          "md5": "5a8f2ea1c79ea484140e484b2a621670"
+        },
+        "textures/modern_arm_chair_01_pillow_diff_1k.jpg": {
+          "size": 228851,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modern_arm_chair_01/modern_arm_chair_01_pillow_diff_1k.jpg",
+          "md5": "2e4f64c633c3cb1656ad3eabdb3f0607"
+        }
+      },
+      "size": 5121,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/modern_arm_chair_01/modern_arm_chair_01_1k.gltf",
+      "md5": "a5ce303bc2962fe98b733fcdfa5a842b"
+    }
+  },
+  {
+    "id": "side_table_01",
+    "source": "https://polyhaven.com/a/side_table_01",
+    "license": "CC0-1.0",
+    "resolution": "1k",
+    "files": {
+      "include": {
+        "side_table_01.bin": {
+          "size": 117784,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/side_table_01/side_table_01.bin",
+          "md5": "344e55dbf8dc39b1bca0ca66b956a8dc"
+        },
+        "textures/side_table_01_diff_1k.jpg": {
+          "size": 183315,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/side_table_01/side_table_01_diff_1k.jpg",
+          "md5": "858d3b2c5f7f4c733a5c6a32183b11de"
+        },
+        "textures/side_table_01_nor_gl_1k.jpg": {
+          "size": 71744,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/side_table_01/side_table_01_nor_gl_1k.jpg",
+          "md5": "9252911489f1024faad8bb1443d31d9e"
+        },
+        "textures/side_table_01_arm_1k.jpg": {
+          "size": 129725,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/side_table_01/side_table_01_arm_1k.jpg",
+          "md5": "79435258a51369b735349763689f1cba"
+        }
+      },
+      "size": 2700,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/side_table_01/side_table_01_1k.gltf",
+      "md5": "4f72b88ca0cb4329d09d87788df495f3"
+    }
+  },
+  {
+    "id": "modern_coffee_table_01",
+    "source": "https://polyhaven.com/a/modern_coffee_table_01",
+    "license": "CC0-1.0",
+    "resolution": "1k",
+    "files": {
+      "include": {
+        "modern_coffee_table_01.bin": {
+          "size": 154864,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/modern_coffee_table_01/modern_coffee_table_01.bin",
+          "md5": "6e8f65bff935af308eab9eff062f6daa"
+        },
+        "textures/modern_coffee_table_01_rough_1k.jpg": {
+          "size": 403959,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modern_coffee_table_01/modern_coffee_table_01_rough_1k.jpg",
+          "md5": "6ccbc448fa0e2bed32eac52511e84e2c"
+        },
+        "textures/modern_coffee_table_01_diff_1k.jpg": {
+          "size": 410569,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modern_coffee_table_01/modern_coffee_table_01_diff_1k.jpg",
+          "md5": "356014e027b59c21b3c99ac112e645f9"
+        },
+        "textures/modern_coffee_table_01_nor_gl_1k.jpg": {
+          "size": 359134,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modern_coffee_table_01/modern_coffee_table_01_nor_gl_1k.jpg",
+          "md5": "d263e6131abc518760d6771390bc5066"
+        }
+      },
+      "size": 2771,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/modern_coffee_table_01/modern_coffee_table_01_1k.gltf",
+      "md5": "f1c079ab5bc307630258cf3b40910511"
+    }
+  },
+  {
+    "id": "small_wooden_table_01",
+    "source": "https://polyhaven.com/a/small_wooden_table_01",
+    "license": "CC0-1.0",
+    "resolution": "1k",
+    "files": {
+      "include": {
+        "textures/small_wooden_table_01_arm_1k.jpg": {
+          "size": 154335,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/small_wooden_table_01/small_wooden_table_01_arm_1k.jpg",
+          "md5": "a208088048520cc6d774316c3b49cd53"
+        },
+        "small_wooden_table_01.bin": {
+          "size": 92428,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/small_wooden_table_01/small_wooden_table_01.bin",
+          "md5": "d4384b662a532853084edd70adb16ed5"
+        },
+        "textures/small_wooden_table_01_diff_1k.jpg": {
+          "size": 138301,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/small_wooden_table_01/small_wooden_table_01_diff_1k.jpg",
+          "md5": "cc2a3aad1992a1cb09dd407def42d102"
+        },
+        "textures/small_wooden_table_01_nor_gl_1k.jpg": {
+          "size": 26935,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/small_wooden_table_01/small_wooden_table_01_nor_gl_1k.jpg",
+          "md5": "f0165b5497307f371746815d7bd5d526"
+        }
+      },
+      "size": 2764,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/small_wooden_table_01/small_wooden_table_01_1k.gltf",
+      "md5": "716b66952dc473d09a3ac5f48ef50a68"
+    }
+  },
+  {
+    "id": "potted_plant_01",
+    "source": "https://polyhaven.com/a/potted_plant_01",
+    "license": "CC0-1.0",
+    "resolution": "1k",
+    "files": {
+      "include": {
+        "textures/potted_plant_01_pot_rough_1k.jpg": {
+          "size": 173192,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/potted_plant_01/potted_plant_01_pot_rough_1k.jpg",
+          "md5": "8f2e400f94843a9239229bfe99d16688"
+        },
+        "textures/potted_plant_01_leaves_nor_gl_1k.jpg": {
+          "size": 177105,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/potted_plant_01/potted_plant_01_leaves_nor_gl_1k.jpg",
+          "md5": "0a7ea996bb2a4e9e19a5299a5b654406"
+        },
+        "textures/potted_plant_01_pot_diff_1k.jpg": {
+          "size": 204900,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/potted_plant_01/potted_plant_01_pot_diff_1k.jpg",
+          "md5": "67114dcd68232a6da88c627e144e65c4"
+        },
+        "potted_plant_01.bin": {
+          "size": 5345188,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/potted_plant_01/potted_plant_01.bin",
+          "md5": "18377bd8d99b20a8d5fc5cf03cbf94b2"
+        },
+        "textures/potted_plant_01_leaves_rough_1k.jpg": {
+          "size": 91706,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/potted_plant_01/potted_plant_01_leaves_rough_1k.jpg",
+          "md5": "6251bfd59ced0360c16d9c286adbb131"
+        },
+        "textures/potted_plant_01_pot_nor_gl_1k.jpg": {
+          "size": 200349,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/potted_plant_01/potted_plant_01_pot_nor_gl_1k.jpg",
+          "md5": "7388c8cba421175fd70969df077988a1"
+        },
+        "textures/potted_plant_01_leaves_diff_1k.jpg": {
+          "size": 124730,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/potted_plant_01/potted_plant_01_leaves_diff_1k.jpg",
+          "md5": "8cbaaa24c18c61be4201c473773dbffc"
+        }
+      },
+      "size": 7969,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/potted_plant_01/potted_plant_01_1k.gltf",
+      "md5": "199e9e3d68f5447142db4066d60ae3f0"
+    }
+  },
+  {
+    "id": "potted_plant_02",
+    "source": "https://polyhaven.com/a/potted_plant_02",
+    "license": "CC0-1.0",
+    "resolution": "1k",
+    "files": {
+      "include": {
+        "textures/potted_plant_02_leaves_diff_1k.jpg": {
+          "size": 167700,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/potted_plant_02/potted_plant_02_leaves_diff_1k.jpg",
+          "md5": "e8a026bd7bfa6497729d855c59da03ce"
+        },
+        "potted_plant_02.bin": {
+          "size": 1852244,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/potted_plant_02/potted_plant_02.bin",
+          "md5": "cdbd4619b2596c9c469ad34676085fa8"
+        },
+        "textures/potted_plant_02_pot_rough_1k.jpg": {
+          "size": 114886,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/potted_plant_02/potted_plant_02_pot_rough_1k.jpg",
+          "md5": "68ed80fa32791fb0e81df61a75de40b4"
+        },
+        "textures/potted_plant_02_leaves_rough_1k.jpg": {
+          "size": 102396,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/potted_plant_02/potted_plant_02_leaves_rough_1k.jpg",
+          "md5": "ba934a78cc6496d934c014eb8a33af37"
+        },
+        "textures/potted_plant_02_pot_diff_1k.jpg": {
+          "size": 155244,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/potted_plant_02/potted_plant_02_pot_diff_1k.jpg",
+          "md5": "97e149c93eb0d962e491d4c82d3ce477"
+        },
+        "textures/potted_plant_02_leaves_nor_gl_1k.jpg": {
+          "size": 127232,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/potted_plant_02/potted_plant_02_leaves_nor_gl_1k.jpg",
+          "md5": "2420d5c0ab87426f5318a5e91d1ea3bb"
+        },
+        "textures/potted_plant_02_pot_nor_gl_1k.jpg": {
+          "size": 108343,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/potted_plant_02/potted_plant_02_pot_nor_gl_1k.jpg",
+          "md5": "fbb44ccc1c6564b2837b79a11ed45d58"
+        }
+      },
+      "size": 6653,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/potted_plant_02/potted_plant_02_1k.gltf",
+      "md5": "9999d7e6c51018a85551840e1bdae656"
+    }
+  },
+  {
+    "id": "binder_notebook",
+    "source": "https://polyhaven.com/a/binder_notebook",
+    "license": "CC0-1.0",
+    "resolution": "1k",
+    "files": {
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/binder_notebook/binder_notebook_1k.gltf",
+      "md5": "8d05e6a6436c12169debc073692b7f5e",
+      "size": 4309,
+      "include": {
+        "textures/binder_notebook_nor_gl_1k.jpg": {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/binder_notebook/binder_notebook_nor_gl_1k.jpg",
+          "md5": "51af6519e740f1e53d33b8eb09def5dd",
+          "size": 319694
+        },
+        "textures/binder_notebook_diff_1k.jpg": {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/binder_notebook/binder_notebook_diff_1k.jpg",
+          "md5": "0c6bbb11b58934e7ed6b6a0729e20e8b",
+          "size": 533256
+        },
+        "textures/binder_notebook_arm_1k.jpg": {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/binder_notebook/binder_notebook_arm_1k.jpg",
+          "md5": "825aa742d0d2083656d8ebe636cde087",
+          "size": 507028
+        },
+        "binder_notebook.bin": {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/binder_notebook/binder_notebook.bin",
+          "md5": "bade6e7ed1349d598b27018c61cf674d",
+          "size": 525488
+        }
+      }
+    }
+  },
+  {
+    "id": "modern_ceiling_lamp_01",
+    "source": "https://polyhaven.com/a/modern_ceiling_lamp_01",
+    "license": "CC0-1.0",
+    "resolution": "1k",
+    "files": {
+      "include": {
+        "textures/modern_ceiling_lamp_01_arm_1k.jpg": {
+          "size": 124022,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modern_ceiling_lamp_01/modern_ceiling_lamp_01_arm_1k.jpg",
+          "md5": "6667aa4091a273a041715dccd3b83bc8"
+        },
+        "textures/modern_ceiling_lamp_01_diff_1k.jpg": {
+          "size": 79705,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modern_ceiling_lamp_01/modern_ceiling_lamp_01_diff_1k.jpg",
+          "md5": "7197acc141761c4c417023b9fb58db95"
+        },
+        "modern_ceiling_lamp_01.bin": {
+          "size": 146828,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/modern_ceiling_lamp_01/modern_ceiling_lamp_01.bin",
+          "md5": "48b86e7e6db78e6d3dfd85b765c3ab68"
+        },
+        "textures/modern_ceiling_lamp_01_nor_gl_1k.jpg": {
+          "size": 79333,
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/modern_ceiling_lamp_01/modern_ceiling_lamp_01_nor_gl_1k.jpg",
+          "md5": "f3ebd90aa565968ce1faf25a03b1f912"
+        }
+      },
+      "size": 6177,
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/modern_ceiling_lamp_01/modern_ceiling_lamp_01_1k.gltf",
+      "md5": "b85c212ffcc2cb9c74b9e68f314fec3b"
+    }
+  },
+  {
+    "id": "wood_floor",
+    "source": "https://polyhaven.com/a/wood_floor",
+    "license": "CC0-1.0",
+    "resolution": "1k",
+    "files": {
+      "diff": {
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wood_floor/wood_floor_diff_1k.jpg",
+        "md5": "b7e927d2bf2f8f103820ff3890c8407c",
+        "size": 734493
+      },
+      "nor_gl": {
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wood_floor/wood_floor_nor_gl_1k.jpg",
+        "md5": "620f174d2c09b579c5d02d37b2106668",
+        "size": 423303
+      },
+      "rough": {
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wood_floor/wood_floor_rough_1k.jpg",
+        "md5": "36146634f1dbd1bc30cd071857584c10",
+        "size": 527754
+      }
+    }
+  },
+  {
+    "id": "white_plaster_02",
+    "source": "https://polyhaven.com/a/white_plaster_02",
+    "license": "CC0-1.0",
+    "resolution": "1k",
+    "files": {
+      "diff": {
+        "size": 527219,
+        "md5": "7b10c2686bcfd76d1f309a20fd06b57e",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_plaster_02/white_plaster_02_diff_1k.jpg"
+      },
+      "nor_gl": {
+        "size": 652310,
+        "md5": "55fc03203ebf1dc703a380fde93ff502",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_plaster_02/white_plaster_02_nor_gl_1k.jpg"
+      },
+      "rough": {
+        "size": 295900,
+        "md5": "8b28f263360b8c4ddbdc4f7c650c4eeb",
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_plaster_02/white_plaster_02_rough_1k.jpg"
+      }
+    }
+  }
+]

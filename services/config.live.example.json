@@ -1,0 +1,17 @@
+{
+  "host": "127.0.0.1",
+  "port": 8765,
+  "dialogue_provider": "llama.cpp",
+  "llm_url": "http://127.0.0.1:8087/v1/chat/completions",
+  "llm_model": "alex-qwen",
+  "llm_timeout_seconds": 90,
+  "tts_provider": "kokoro",
+  "tts_url": "http://127.0.0.1:8880/v1/audio/speech",
+  "tts_model": "kokoro",
+  "tts_voice": "am_michael",
+  "lip_sync_provider": "rhubarb",
+  "rhubarb_path": ".tools/rhubarb/Rhubarb-Lip-Sync-1.14.0-Windows/rhubarb.exe",
+  "stt_provider": "faster-whisper",
+  "stt_model": ".cache/whisper/small.en",
+  "stt_device": "cpu"
+}

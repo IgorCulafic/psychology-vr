@@ -1,0 +1,164 @@
+[
+  {
+    "bone": "CC_Base_L_Clavicle",
+    "parent": "CC_Base_Spine02",
+    "head": [
+      0.05887620151042938,
+      0.03626745939254761,
+      1.500110149383545
+    ]
+  },
+  {
+    "bone": "CC_Base_L_Upperarm",
+    "parent": "CC_Base_L_Clavicle",
+    "head": [
+      0.18532851338386536,
+      0.06544234603643417,
+      1.5000152587890625
+    ]
+  },
+  {
+    "bone": "CC_Base_L_UpperarmTwist01",
+    "parent": "CC_Base_L_Upperarm",
+    "head": [
+      0.1853283792734146,
+      0.06544239073991776,
+      1.5000146627426147
+    ]
+  },
+  {
+    "bone": "CC_Base_L_UpperarmTwist02",
+    "parent": "CC_Base_L_UpperarmTwist01",
+    "head": [
+      0.3008115887641907,
+      0.06400062143802643,
+      1.4310972690582275
+    ]
+  },
+  {
+    "bone": "CC_Base_L_Forearm",
+    "parent": "CC_Base_L_Upperarm",
+    "head": [
+      0.41629505157470703,
+      0.06256025284528732,
+      1.362178921699524
+    ]
+  },
+  {
+    "bone": "CC_Base_L_ForearmTwist01",
+    "parent": "CC_Base_L_Forearm",
+    "head": [
+      0.4162951707839966,
+      0.06256023794412613,
+      1.3621792793273926
+    ]
+  },
+  {
+    "bone": "CC_Base_L_ForearmTwist02",
+    "parent": "CC_Base_L_ForearmTwist01",
+    "head": [
+      0.5264926552772522,
+      0.06304466724395752,
+      1.296210765838623
+    ]
+  },
+  {
+    "bone": "CC_Base_L_ElbowShareBone",
+    "parent": "CC_Base_L_Forearm",
+    "head": [
+      0.4162951707839966,
+      0.06256023794412613,
+      1.3621792793273926
+    ]
+  },
+  {
+    "bone": "CC_Base_L_Hand",
+    "parent": "CC_Base_L_Forearm",
+    "head": [
+      0.6366912126541138,
+      0.063539519906044,
+      1.2302439212799072
+    ]
+  },
+  {
+    "bone": "CC_Base_R_Clavicle",
+    "parent": "CC_Base_Spine02",
+    "head": [
+      -0.05887620151042938,
+      0.03626745939254761,
+      1.500110149383545
+    ]
+  },
+  {
+    "bone": "CC_Base_R_Upperarm",
+    "parent": "CC_Base_R_Clavicle",
+    "head": [
+      -0.18532851338386536,
+      0.06544234603643417,
+      1.5000152587890625
+    ]
+  },
+  {
+    "bone": "CC_Base_R_UpperarmTwist01",
+    "parent": "CC_Base_R_Upperarm",
+    "head": [
+      -0.1853283792734146,
+      0.06544239073991776,
+      1.5000146627426147
+    ]
+  },
+  {
+    "bone": "CC_Base_R_UpperarmTwist02",
+    "parent": "CC_Base_R_UpperarmTwist01",
+    "head": [
+      -0.3008115887641907,
+      0.06400062143802643,
+      1.4310972690582275
+    ]
+  },
+  {
+    "bone": "CC_Base_R_Forearm",
+    "parent": "CC_Base_R_Upperarm",
+    "head": [
+      -0.41629505157470703,
+      0.06256025284528732,
+      1.362178921699524
+    ]
+  },
+  {
+    "bone": "CC_Base_R_ForearmTwist01",
+    "parent": "CC_Base_R_Forearm",
+    "head": [
+      -0.4162951707839966,
+      0.06256023794412613,
+      1.3621792793273926
+    ]
+  },
+  {
+    "bone": "CC_Base_R_ForearmTwist02",
+    "parent": "CC_Base_R_ForearmTwist01",
+    "head": [
+      -0.5264926552772522,
+      0.06304466724395752,
+      1.296210765838623
+    ]
+  },
+  {
+    "bone": "CC_Base_R_ElbowShareBone",
+    "parent": "CC_Base_R_Forearm",
+    "head": [
+      -0.4162951707839966,
+      0.06256023794412613,
+      1.3621792793273926
+    ]
+  },
+  {
+    "bone": "CC_Base_R_Hand",
+    "parent": "CC_Base_R_Forearm",
+    "head": [
+      -0.6366912126541138,
+      0.063539519906044,
+      1.2302439212799072
+    ]
+  }
+]

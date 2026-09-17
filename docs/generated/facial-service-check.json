@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "dialogue_provider": "scripted",
+  "tts_provider": "kokoro",
+  "total_ms": 4554,
+  "cue_counts": [
+    32
+  ]
+}

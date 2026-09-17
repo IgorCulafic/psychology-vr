@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f3f3360db7e0db46907b92de0631764, type: 3}
+  m_Name: RoomSurfaces
+  m_EditorClassIdentifier: Assembly-CSharp::PsychologyVR.RoomSurfaceLibrary
+  entries:
+  - original: {fileID: 2100000, guid: 0530244b35def3d4fbe90e92b77db3c3, type: 2}
+    enhanced: {fileID: 2100000, guid: 48b4fb3d070794f4b959a0f82e534738, type: 2}
+  - original: {fileID: 2100000, guid: 31ebaedf925a92e43bf1763fddcd15bb, type: 2}
+    enhanced: {fileID: 2100000, guid: 89a7281ffbbf7b04ca0c28ab0b9d3b98, type: 2}
+  - original: {fileID: 2100000, guid: c3fd8cfa38ef97d45824f67af05a85c7, type: 2}
+    enhanced: {fileID: 2100000, guid: 57da54d205f258249b3ca06675c22705, type: 2}
+  - original: {fileID: 2100000, guid: 853bec73bcf73634baae6bd793836e39, type: 2}
+    enhanced: {fileID: 2100000, guid: a2fcb9fd109f4cd46a5ab5d711df97ed, type: 2}
+  - original: {fileID: 2100000, guid: 0ab6a2bfabfeacd4094b948fd9390c11, type: 2}
+    enhanced: {fileID: 2100000, guid: 298dc592f4633b8419da2994f5603fef, type: 2}
+  - original: {fileID: 2100000, guid: e721c92bf77cf8243819b8aecb855b2f, type: 2}
+    enhanced: {fileID: 2100000, guid: 51c65be51bad3e041868e0b7387619e4, type: 2}
+  - original: {fileID: 2100000, guid: 23743c645ab87fe4187138c4f7addc67, type: 2}
+    enhanced: {fileID: 2100000, guid: f121fc95cc4e7e54dab2f4f4365fa49e, type: 2}
+  - original: {fileID: 2100000, guid: d6a634bd8cce8cd47a10841f84783644, type: 2}
+    enhanced: {fileID: 2100000, guid: 221297f586e2fba40beff85f56c0e484, type: 2}
+  - original: {fileID: 2100000, guid: ed5555776ca82bb4b9e398a5f9f3b41e, type: 2}
+    enhanced: {fileID: 2100000, guid: f1d6a4130e74f5e4e96be85ea1bfd93a, type: 2}
+  - original: {fileID: 2100000, guid: d26154f1575fbfc4bb7663bd449f638b, type: 2}
+    enhanced: {fileID: 2100000, guid: e3c700765db427a408e5121331ee73be, type: 2}
+  - original: {fileID: 2100000, guid: 8d594efd0574a7641b673603ee4d895d, type: 2}
+    enhanced: {fileID: 2100000, guid: 0c2b16a4237194141918b288aff7981a, type: 2}
+  - original: {fileID: 2100000, guid: 948b78ffcf0ac584a9b06d5c64de4533, type: 2}
+    enhanced: {fileID: 2100000, guid: 796833e869c5f1746b62f44b804e424c, type: 2}
+  - original: {fileID: 2100000, guid: 43add949bdba19b45a950cb5f81352a2, type: 2}
+    enhanced: {fileID: 2100000, guid: 4584e69fa414d854ea0a836b4f3626b9, type: 2}
+  - original: {fileID: 2100000, guid: 27542338087be1d47baec47123776e3d, type: 2}
+    enhanced: {fileID: 2100000, guid: 142ba762b9e1f47458b432a4fedce148, type: 2}
+  - original: {fileID: 2100000, guid: 78b5fda412a25994da1262954e03e93c, type: 2}
+    enhanced: {fileID: 2100000, guid: bf62e4e711dcaac4ba7b22821704e0e7, type: 2}
+  - original: {fileID: 2100000, guid: fcb00fd17f4085849b31a0e0d34747cc, type: 2}
+    enhanced: {fileID: 2100000, guid: c42e8048516733a459b51ebaeab42fa0, type: 2}

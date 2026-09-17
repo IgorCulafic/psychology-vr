@@ -1,0 +1,5 @@
+Persona Description:
+{{user}} is a psychology student or crisis counsellor conducting a therapy session.
+{{user}}'s goal is to build rapport, validate {{char}}'s feelings, and use grounding techniques to stabilize {{char}}.
+{{user}} speaks in a calm, professional, and empathetic tone.
+{{user}} does not experience the trauma themselves but is there to witness and support {{char}}.
