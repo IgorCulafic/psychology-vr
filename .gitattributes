@@ -22,3 +22,8 @@
 *.tga filter=lfs diff=lfs merge=lfs -text
 *.exr filter=lfs diff=lfs merge=lfs -text
 *.blend filter=lfs diff=lfs merge=lfs -text
+
+# Preserve complete original model packs, including embedded glTF and source formats.
+man/** filter=lfs diff=lfs merge=lfs -text
+jumper_man/** filter=lfs diff=lfs merge=lfs -text
+Characters_with_expressions/** filter=lfs diff=lfs merge=lfs -text

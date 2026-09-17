@@ -10,6 +10,7 @@
 | `tools/` | Launchers, downloads, asset conversion, rig inspection and TTS audition scripts |
 | `experiments/tts/` | Shareable audition inputs and alternative-TTS environment snapshot |
 | `docs/` | Execution notes, controls, implementation reports, speech research and listening decisions |
+| `man/`, `jumper_man/`, `Characters_with_expressions/` | Original supplied 3D model packs, textures and available source formats, preserved through Git LFS |
 
 Large art files use Git LFS. A ZIP download or clone made without LFS may contain pointer files in place of models/textures. Run `git lfs install` and `git lfs pull` before opening Unity. Unity `.meta` files, package locks and project settings are versioned.
 
@@ -20,12 +21,20 @@ The following remain on the development machine and are ignored by Git:
 - `.cache/`, `.tools/`, `.venv/`: downloaded weights, runtimes and environments.
 - `services/config.local.json`, `.env*`, and service runtime output.
 - `docs/generated/fish-local/` and other generated audition folders: personal voice references, cloned speech, listening pages and per-run records.
-- Original download packs in `man/`, `jumper_man/`, and `Characters_with_expressions/`. Their converted game assets are already in `unity/Assets/PsychologyVR/`.
-- Unity import caches, editor preferences, builds, preview videos and most screenshots.
+- Unity import caches, editor preferences, preview videos and most screenshots.
+- Working build folders stay outside Git history; packaged Windows builds are available from GitHub Releases.
 
 The documentation retains historical local-preview URLs and file paths. Those links describe development evidence, not hosted repository content. Small top-level audit/provenance JSON files and the room screenshot are included. Asset source URLs and credits are in `ASSET_CREDITS.md`.
 
-The asset-conversion/audit scripts that read original download packs require those packs to be restored locally. This is unnecessary for opening or building the existing Unity scenes. Personal reference recordings are deliberately not supplied; TTS auditions need a locally provided recording and its exact transcript.
+The asset-conversion/audit scripts can read the original download packs after cloning with Git LFS. They also need their documented tools, such as Blender. Personal reference recordings are deliberately not supplied; TTS auditions need a locally provided recording and its exact transcript.
+
+## Prebuilt Windows downloads
+
+[GitHub Releases](https://github.com/IgorCulafic/psychology-vr/releases) contains the existing consultation-game and character-preview builds as separate ZIPs. Extract each ZIP into the repository root; their internal paths restore `unity/Builds/Windows/` and `unity/Builds/CandidatePreview/` respectively. Keep all accompanying player data and DLLs together.
+
+The first release archives the existing development builds, not a new build of the packaging commit. The main player data was last updated on 15 September 2026; the candidate preview is an older 11 September audition. The consultation game still needs the Python bridge and downloaded local AI dependencies for live conversations. Use `tools/launch.ps1 -Scripted -Desktop` for the scripted mode after creating `.venv`, or complete the live setup from the README. The candidate preview is a separate character audition, not the full game.
+
+Build archives exclude Unity's `BackUpThisFolder_ButDontShipItWithYourGame` debugging folders. They include the executable, player data, Mono runtime and graphics dependencies. Release assets are accompanied by SHA-256 checksums and a file manifest. Private voice recordings and model weights are not bundled in either build archive.
 
 ## Fresh-machine setup
 

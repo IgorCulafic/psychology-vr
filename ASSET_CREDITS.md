@@ -22,7 +22,7 @@ Include this credit file when sharing the prototype. Preserve the individual dep
 
 ## User-supplied candidate audition
 
-Repository packaging: original download folders (`man/`, `jumper_man/`, `Characters_with_expressions/`) remain on the development machine and are excluded from Git. Their converted Unity assets are included in the private project through Git LFS. References below to retained originals describe the local workspace. Asset-specific rights still apply; this repository does not relicense third-party work.
+Repository packaging: original download folders (`man/`, `jumper_man/`, `Characters_with_expressions/`) and their converted Unity assets are preserved in the private project through Git LFS. Asset-specific rights still apply; this repository does not relicense third-party work.
 
 - `jumper_man/source/Ex wife's new husband.fbx` and `Characters_with_expressions/FBX/`: supplied by the user, who identified Sketchfab as their source. Exact author/source/license records were not included; this entry does not assert redistribution permission.
 - `JumperCandidate.prefab`, audition scene, facial cue combinations, URP material conversion and combined opacity textures: project integration work derived from the supplied jumper asset. Originals remain in their supplied folders. The jumper now represents Alex in the main consultation scene as well as in the separate audition.

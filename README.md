@@ -17,7 +17,7 @@ git lfs pull
 
 In Unity Hub, add **the `unity` subfolder**, use Unity **6000.6.0f1**, and open `Assets/PsychologyVR/Scenes/Consultation.unity`. The converted character, furniture, textures, prefabs and baked lighting are included. No original download packs are needed to open the scene. Follow the environment setup below before running live dialogue; build the Windows player from Unity before using the launcher.
 
-This repository contains the game, local service, asset preparation tools, and speech research. Personal reference recordings, generated voice clones, model weights, executable builds and import caches stay on the development machine. See [repository contents and setup notes](docs/REPOSITORY.md).
+This repository contains the game, original model packs, local service, asset preparation tools, and speech research. Download the existing Windows game and character-preview builds from [Releases](https://github.com/IgorCulafic/psychology-vr/releases). Personal reference recordings, generated voice clones, model weights and import caches stay on the development machine. See [repository contents and setup notes](docs/REPOSITORY.md).
 
 ## Speech research status
 
@@ -122,4 +122,4 @@ python tools/start-model.py
 
 The suite covers response validation, reasoning separation, reset, late responses, HTTP boundaries, and the model request contract. Generated evidence is in `docs/generated/`. See `docs/BUILD_STATUS.md` for the latest verified results and remaining work.
 
-The model, virtual environments, downloaded runtimes, audio auditions, local configuration and Unity build/import caches are excluded from Git. Source character descriptions and converted Unity assets are included; original asset download packs remain local. See `ASSET_CREDITS.md` for attribution. No blanket license is granted over the bundled third-party assets.
+The AI model weights, virtual environments, downloaded runtimes, audio auditions, local configuration and Unity build/import caches are excluded from Git. Source character descriptions, original 3D model packs and converted Unity assets are included. Compiled builds are distributed separately through GitHub Releases. See `ASSET_CREDITS.md` for attribution. No blanket license is granted over the bundled third-party assets.

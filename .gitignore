@@ -26,11 +26,6 @@ services/config.local.json
 *.pem
 *.key
 
-# Original asset downloads; converted game assets live under unity/Assets.
-/man/
-/jumper_man/
-/Characters_with_expressions/
-
 # Local auditions include personal voice recordings and cloned speech.
 # Retain small, top-level audit/provenance records and one room preview.
 /docs/generated/*
