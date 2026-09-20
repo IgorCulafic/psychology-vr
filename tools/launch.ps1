@@ -1,4 +1,4 @@
-param([switch]$Desktop, [switch]$Scripted, [switch]$NoGame)
+param([switch]$Desktop, [switch]$Scripted, [switch]$NoGame, [string]$Config='services/config.local.json')
 $ErrorActionPreference = 'Stop'
 $taskRoot = Split-Path $PSScriptRoot -Parent
 Set-Location -LiteralPath $taskRoot
@@ -6,6 +6,9 @@ $taskRuntime = Join-Path $taskRoot 'services/.runtime'
 New-Item -ItemType Directory -Path $taskRuntime -Force | Out-Null
 $taskPython = Join-Path $taskRoot '.venv/Scripts/python.exe'
 if (-not (Test-Path -LiteralPath $taskPython)) { throw 'Project Python is missing. Follow README.md setup instructions.' }
+$taskConfig = if ($Scripted) {'services/config.example.json'} else {$Config}
+$taskSettings = Get-Content -LiteralPath $taskConfig -Raw | ConvertFrom-Json
+$taskGpuLayers = if ($null -ne $taskSettings.llm_gpu_layers) { [string]$taskSettings.llm_gpu_layers } else { '99' }
 function Get-Health([string]$Url) {
     try { return Invoke-RestMethod -Uri $Url -TimeoutSec 2 } catch { return $null }
 }
@@ -24,7 +27,7 @@ if (-not $Scripted) {
         $taskModel = Join-Path $taskRoot '.cache/models/qwen/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-IQ4_XS.gguf'
         if (-not (Test-Path -LiteralPath $taskServer) -or -not (Test-Path -LiteralPath $taskModel)) { throw 'Model/runtime missing. See README.md.' }
         $taskArguments = @('--model', ('"'+$taskModel+'"'), '--alias','alex-qwen','--host','127.0.0.1','--port','8087',
-            '--ctx-size','4096','--parallel','1','--n-gpu-layers','99','--batch-size','256','--ubatch-size','128',
+            '--ctx-size','4096','--parallel','1','--n-gpu-layers',$taskGpuLayers,'--batch-size','256','--ubatch-size','128',
             '--jinja','--reasoning','off','--spec-type','none')
         $taskProcess = Start-Process -FilePath $taskServer -ArgumentList $taskArguments -WorkingDirectory $taskRoot -WindowStyle Hidden -PassThru `
             -RedirectStandardOutput (Join-Path $taskRuntime 'model.out.log') -RedirectStandardError (Join-Path $taskRuntime 'model.err.log')
@@ -33,16 +36,29 @@ if (-not $Scripted) {
         Wait-Health 'http://127.0.0.1:8087/health' 120 | Out-Null
     }
 }
+if ($taskSettings.tts_provider -eq 'higgs' -and -not (Get-Health 'http://127.0.0.1:8766/health')) {
+    $taskSpeechPython = Join-Path $taskRoot '.tools/alternative-tts-venv/Scripts/python.exe'
+    if (-not (Test-Path -LiteralPath $taskSpeechPython)) { throw 'Higgs environment missing. See docs/LIVE_EXPRESSIVE_SPEECH.md.' }
+    $taskProcess = Start-Process -FilePath $taskSpeechPython -ArgumentList 'services/higgs_service.py','--config',('"'+$taskConfig+'"') `
+        -WorkingDirectory $taskRoot -WindowStyle Hidden -PassThru `
+        -RedirectStandardOutput (Join-Path $taskRuntime 'higgs.out.log') -RedirectStandardError (Join-Path $taskRuntime 'higgs.err.log')
+    @{Id=$taskProcess.Id; Path=$taskSpeechPython; StartTicks=$taskProcess.StartTime.ToUniversalTime().Ticks} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $taskRuntime 'speech-process.json')
+    Write-Host 'Loading expressive voice...'
+    Wait-Health 'http://127.0.0.1:8766/health' 180 | Out-Null
+}
 $expectedProvider = if ($Scripted) {'scripted'} else {'llama.cpp'}
 $taskBridgeHealth = Get-Health 'http://127.0.0.1:8765/health'
-if ($taskBridgeHealth -and $taskBridgeHealth.dialogue_provider -ne $expectedProvider) {
-    throw 'A bridge with a different configuration is already running. Run tools/stop-services.ps1 first.'
+if ($taskBridgeHealth -and ($taskBridgeHealth.dialogue_provider -ne $expectedProvider -or
+    $taskBridgeHealth.tts_provider -ne $taskSettings.tts_provider -or
+    $taskBridgeHealth.stt_provider -ne $taskSettings.stt_provider -or
+    $taskBridgeHealth.stt_model -ne $taskSettings.stt_model -or
+    ($taskSettings.stt_language -and $taskBridgeHealth.stt_language -ne $taskSettings.stt_language))) {
+    throw 'A bridge with a different configuration is already running. Run tools/stop-services.ps1 -BridgeOnly, then launch again.'
 }
 if (-not $taskBridgeHealth) {
-    $taskConfig = if ($Scripted) {'services/config.example.json'} else {'services/config.local.json'}
     $env:HF_HOME = Join-Path $taskRoot '.cache/huggingface'
     $env:HF_HUB_OFFLINE = '1'
-    $taskProcess = Start-Process -FilePath $taskPython -ArgumentList 'services/alex_service.py','--config',$taskConfig `
+    $taskProcess = Start-Process -FilePath $taskPython -ArgumentList 'services/alex_service.py','--config',('"'+$taskConfig+'"') `
         -WorkingDirectory $taskRoot -WindowStyle Hidden -PassThru `
         -RedirectStandardOutput (Join-Path $taskRuntime 'bridge.out.log') -RedirectStandardError (Join-Path $taskRuntime 'bridge.err.log')
     @{Id=$taskProcess.Id; Path=$taskPython; StartTicks=$taskProcess.StartTime.ToUniversalTime().Ticks} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $taskRuntime 'bridge-process.json')

@@ -1,5 +1,17 @@
 # Prototype build status
 
+## Voice selection — 21 September 2026
+
+The user preferred the original 16-bit BF16 Higgs voice over NF4 because its emotional delivery was substantially better. BF16 is restored in the local and example expressive configurations, retaining the full reference and temperature 0.70. Qwen offload returns to 48 GPU layers for memory headroom. The NF4 timings below remain historical measurements, not current BF16 performance guarantees.
+
+## Live expressive speech and model-directed performance — 20 September 2026
+
+The user confirmed microphone/controller input, Montenegrin command recognition, facial expressions and recorded expressive playback in Quest 3. The live successor now combines Qwen, a resident Higgs worker, Whisper medium on CPU and audio-driven lip timing. Character prompts request Montenegrin speech, bounded emotional continuity and per-beat gaze, pauses, transitions and timed gestures. See [setup and measurements](LIVE_EXPRESSIVE_SPEECH.md).
+
+Python verification passes 38 tests, including malformed controls, timing bounds, compatibility with old segments, localized prompting, microphone language selection, scenario changes and interruption during synthesis. Unity 6000.6.0f1 builds successfully (`services/.runtime/expressive-build.log`: `PSYCHOLOGY_VR_BUILD_OK`). Desktop live playback passes (`expressive-smoke.log`: `SMOKE_PLAYBACK_OK`, `SMOKE_OK`), with jaw movement reaching 0.297 and an audio-timed hand fidget firing at 3.008 seconds. The captured room/subtitles were visually inspected. OpenXR reported no headset available during this desktop run; it was not a new Quest acceptance test. A four-turn BF16 conversation and three-turn NF4 conversation completed through real Qwen/Higgs, with changing emotional states. The BF16 test exposed an invented relative; the prompt was tightened, but broad character consistency is not established by this short run.
+
+The selected local candidate uses NF4 Higgs (~3,539 MiB allocated) and full-GPU Qwen on the 5090. Three replies took 10.86–19.88 seconds, excluding STT/playback. This is an improvement over the initial 30.83–41.24-second partial-offload run, but speech synthesis remains too slow for effortless turn-taking. The previous full-precision voice remains selectable. Native assessment of voice identity, accent and emotional contrast, plus physical headset timing/performance and interruption, remains necessary. No new GitHub release has been published.
+
 ## Forearm deformation fix — 15 September 2026
 
 Repeated body-contact solves reused the forearm skinning helpers' already-adjusted local rotations. The hand and elbow remained within their limits while the sleeve accumulated extra twist. `ArmJointMotion` now restores calibrated helper rotations in parent-to-child order before every solve. Contact corrections retain their behavior and do not advance the animation clock.

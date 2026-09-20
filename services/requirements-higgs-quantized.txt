@@ -1,0 +1,2 @@
+# Optional int8/NF4 Higgs modes, on top of the alternative TTS environment.
+bitsandbytes==0.50.2

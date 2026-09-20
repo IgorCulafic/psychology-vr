@@ -11,5 +11,6 @@
   "tts_voice": "am_michael",
   "stt_provider": "disabled",
   "stt_model": "small.en",
-  "stt_device": "cpu"
+  "stt_device": "cpu",
+  "stt_language": "en"
 }

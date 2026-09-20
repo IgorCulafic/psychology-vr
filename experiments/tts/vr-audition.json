@@ -1,0 +1,29 @@
+{
+  "note": "Local prerecorded Higgs comparison. Audio is private and excluded from Git. Commands support English and regional Latin/Cyrillic aliases; recognition language is selected in the service config. Clips use the existing regional-language passage. No live generation or latency benchmark.",
+  "cases": [
+    {
+      "id": "neutral",
+      "audio": "docs/generated/fish-local/voice-consistency/higgs/full-neutral.wav",
+      "segment": {
+        "text": "Nisam očekivao da ćete to reći. Toliko toga želim da vam kažem. Dajte mi samo trenutak da saberem misli.",
+        "emotion": "neutral", "intensity": 0.2, "gesture": "none", "voice_style": "normal"
+      }
+    },
+    {
+      "id": "angry",
+      "audio": "docs/generated/fish-local/voice-consistency/higgs/full-angry.wav",
+      "segment": {
+        "text": "Nisam očekivao da ćete to reći. Toliko toga želim da vam kažem. Dajte mi samo trenutak da saberem misli.",
+        "emotion": "angry", "intensity": 0.8, "gesture": "none", "voice_style": "tense"
+      }
+    },
+    {
+      "id": "closer",
+      "audio": "docs/generated/fish-local/higgs-refinement/higgs/full-angry-temp-060.wav",
+      "segment": {
+        "text": "Nisam očekivao da ćete to reći. Toliko toga želim da vam kažem. Dajte mi samo trenutak da saberem misli.",
+        "emotion": "angry", "intensity": 0.8, "gesture": "none", "voice_style": "subdued"
+      }
+    }
+  ]
+}

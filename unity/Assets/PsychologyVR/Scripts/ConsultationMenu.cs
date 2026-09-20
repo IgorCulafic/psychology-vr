@@ -66,7 +66,14 @@ namespace PsychologyVR
             status=TextAt("",34,238,890,48,20,Accent);
             Box(32,300,896,145,Card);TextAt("CONVERSATION",50,312,800,24,15,Muted);
             transcript=TextAt("",50,342,860,92,22,Ink);
-            if(!UnityEngine.XR.XRSettings.isDeviceActive)
+            if(session.IsSpeechAudition)
+            {
+                TextAt("RECORDED VOICE TEST · select a clip with the right trigger",34,455,890,28,18,Muted);
+                string[] commands={"neutral","angry","closer","compare"};
+                string[] labels={"Neutral","Angry","Milder anger","Compare all"};
+                for(int i=0;i<commands.Length;i++){string command=commands[i];ButtonAt(labels[i],32+i*226,502,214,56,()=>session.PlaySpeechAudition(command),()=>session.CanSubmit);}
+            }
+            else if(!UnityEngine.XR.XRSettings.isDeviceActive)
             {
                 message=InputAt(32,465,724,84,session.Draft);message.onValueChanged.AddListener(value=>session.Draft=value);
                 ButtonAt("Send",772,465,156,84,()=>{session.SetMenuOpen(false);session.Submit(session.Draft);},()=>session.CanSubmit&&!string.IsNullOrWhiteSpace(session.Draft));

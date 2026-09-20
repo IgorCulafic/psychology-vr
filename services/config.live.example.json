@@ -13,5 +13,6 @@
   "rhubarb_path": ".tools/rhubarb/Rhubarb-Lip-Sync-1.14.0-Windows/rhubarb.exe",
   "stt_provider": "faster-whisper",
   "stt_model": ".cache/whisper/small.en",
-  "stt_device": "cpu"
+  "stt_device": "cpu",
+  "stt_language": "en"
 }

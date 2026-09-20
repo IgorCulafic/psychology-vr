@@ -1,5 +1,7 @@
 # Alex facial performance
 
+Update, 20 September 2026: the new [live expressive pipeline](LIVE_EXPRESSIVE_SPEECH.md) adds model-directed timing/gaze and Higgs voice delivery to these existing visual presets. The older Kokoro verification below remains historical evidence, not a description of the current local voice provider.
+
 The original Cool Man character is preserved in `man/`. The generated Unity FBX now contains 27 blendshape bindings across the skin, teeth, and two eyes, using 20 control names. All six source animation clips remain available. A sampled seated pose is the stable body foundation; the original repeating head and arm scans no longer dominate every emotion.
 
 ## Runtime behavior

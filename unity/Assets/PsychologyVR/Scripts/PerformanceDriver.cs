@@ -12,6 +12,16 @@ namespace PsychologyVR
         public float Intensity {get;private set;}=.3f;
         public bool TransientsSuppressed {get;private set;}
         public float GazeWeight {get;private set;}=1;
+        public float TransitionSeconds {get;private set;}=.65f;
+        string directedGaze="automatic";float gestureStarted,gestureDuration=2.5f;
+        bool performancePaused;float pausedAt;
+        public void PausePerformance(bool value)
+        {
+            if(value==performancePaused)return;
+            if(value)pausedAt=Time.time;
+            else {float delay=Time.time-pausedAt;started+=delay;gestureStarted+=delay;}
+            performancePaused=value;
+        }
         public float FaceCover {get;private set;}
         public float MaxReachError {get;private set;}
         public float MaxWristBend {get;private set;}
@@ -56,15 +66,25 @@ namespace PsychologyVR
             string next=EmotionLibrary.Find(emotion).name;
             if(next!=Emotion || gesture!=Gesture)started=Time.time;
             Emotion=next;Gesture=gesture;targetIntensity=Mathf.Clamp01(intensity);
+            gestureStarted=Time.time;gestureDuration=2.5f;directedGaze="automatic";TransitionSeconds=.65f;
             TransientsSuppressed=false;if(immediate)Intensity=targetIntensity;
         }
-        public void StopGesture(bool interrupt=false){Gesture="none";if(interrupt)TransientsSuppressed=true;}
+        public void BeginBeat(SpeechSegment segment)
+        {
+            Apply(segment.emotion,segment.intensity,"none");
+            directedGaze=segment.gaze??"automatic";
+            TransitionSeconds=Mathf.Clamp(segment.transition_seconds>0?segment.transition_seconds:.65f,.15f,2);
+        }
+        public void TriggerGesture(string gesture,float duration)
+        {Gesture=gesture;gestureStarted=Time.time;gestureDuration=Mathf.Clamp(duration>0?duration:2.5f,.3f,4);}
+        public void StopGesture(bool interrupt=false){Gesture="none";if(interrupt){TransientsSuppressed=true;directedGaze="automatic";}}
         void Restore(){foreach(var p in poses){p.bone.localRotation=p.rotation;p.bone.localPosition=p.position;}}
-        void Update(){if(initialized)Restore();}
+        void Update(){if(initialized && !performancePaused)Restore();}
         Vector3 Local(Vector3 p)=>transform.InverseTransformPoint(p);
         void Rotate(Transform b,Vector3 angles){if(b)b.rotation=transform.rotation*Quaternion.Euler(angles)*Quaternion.Inverse(transform.rotation)*b.rotation;}
         void LateUpdate()
         {
+            if(performancePaused)return;
             if(!head || !left.hand || !right.hand)return;
             if(!initialized)
             {
@@ -98,10 +118,10 @@ namespace PsychologyVR
                 Debug.Log("PERFORMANCE_BASE head="+Local(head.position)+" left="+leftTarget+" right="+rightTarget);
             }
             Restore();
-            Intensity=Mathf.MoveTowards(Intensity,targetIntensity,Time.deltaTime*.9f);
+            Intensity=Mathf.MoveTowards(Intensity,targetIntensity,Time.deltaTime/TransitionSeconds);
             float t=Time.time-started,k=Intensity;
             float poseRate=Emotion=="despondent"?1.35f:Emotion=="sad"?2.5f:5;
-            float dt=1-Mathf.Exp(-poseRate*Time.deltaTime);
+            float dt=1-Mathf.Exp(-Mathf.Min(poseRate,3/TransitionSeconds)*Time.deltaTime);
             var p=EmotionLibrary.Find(Emotion);
             Vector3 h=new Vector3(p.headPitch*1.5f,p.headYaw*1.7f,0)*k,torso=new Vector3(p.torsoPitch*2,0,0)*k;
             Vector3 l=left.rest,r=right.rest;
@@ -172,12 +192,17 @@ namespace PsychologyVR
                 r=Vector3.Lerp(r,right.rest+new Vector3(.045f,.11f,.09f),beat);
                 torso.y-=beat*1.2f;h.x+=beat*1.4f;
             }
-            float envelope=Mathf.Sin(Mathf.Clamp01(t/3)*Mathf.PI);
-            if(Gesture=="nod")h.x+=Mathf.Sin(t*6)*envelope*13;
+            float gestureTime=Time.time-gestureStarted;
+            if(gestureTime>=gestureDuration)Gesture="none";
+            float envelope=Mathf.Sin(Mathf.Clamp01(gestureTime/gestureDuration)*Mathf.PI);
+            if(directedGaze=="down"){h.x=Mathf.Max(h.x,18);GazeWeight=0;}
+            else if(directedGaze=="away"){h.y+=22;GazeWeight=0;}
+            else if(directedGaze=="listener" && cover<.2f && Emotion!="crying" && Emotion!="panicked")GazeWeight=1;
+            if(Gesture=="nod")h.x+=Mathf.Sin(gestureTime*6)*envelope*13;
             if(Gesture=="look_down")h.x+=envelope*18;
             if(Gesture=="glance_away")h.y+=envelope*30;
             if(Gesture=="wince")torso.x+=envelope*8;
-            if(Gesture=="hand_fidget"){l+=new Vector3(.013f,.006f,-.01f)*envelope;r.z+=Mathf.Sin(t*3)*envelope*.007f;arms=1;}
+            if(Gesture=="hand_fidget"){l+=new Vector3(.013f,.006f,-.01f)*envelope;r.z+=Mathf.Sin(gestureTime*3)*envelope*.007f;arms=1;}
             headAngles=Vector3.Lerp(headAngles,h,dt);torsoAngles=Vector3.Lerp(torsoAngles,torso,dt);
             Rotate(spine,torsoAngles*.55f);Rotate(chest,torsoAngles*.45f);Rotate(head,headAngles);
             FaceCover=Mathf.Lerp(FaceCover,cover,dt);
@@ -187,7 +212,7 @@ namespace PsychologyVR
                 l=Vector3.Lerp(new Vector3(-.18f,.80f,.32f),face+new Vector3(-.060f,0,0),FaceCover);
                 r=Vector3.Lerp(new Vector3(.18f,.80f,.32f),face+new Vector3(.060f,0,0),FaceCover);
             }
-            if(Gesture=="wipe_tear" && t<3){r=Vector3.Lerp(r,Local(head.position)+new Vector3(.065f,.04f,.15f),envelope);arms=1;upright=true;}
+            if(Gesture=="wipe_tear"){r=Vector3.Lerp(r,Local(head.position)+new Vector3(.065f,.04f,.15f),envelope);arms=1;upright=true;}
             l=Vector3.Lerp(left.rest,l,arms);r=Vector3.Lerp(right.rest,r,arms);
             // A brief fidget lifts a resting palm so the fingers can actually curl
             // above the lap. This uses the previous frame's anticipated action.

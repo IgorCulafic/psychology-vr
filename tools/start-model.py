@@ -13,8 +13,10 @@ if not executable.is_file() or not model.is_file():
 with socket.socket() as probe:
     if probe.connect_ex(('127.0.0.1',8087))==0:
         sys.exit('Port 8087 is already in use. Stop the previous project model server before starting another.')
+config_path=root/'services/config.local.json'
+config=json.loads(config_path.read_text(encoding='utf-8-sig')) if config_path.exists() else {}
 args=[str(executable),'--model',str(model),'--alias','alex-qwen','--host','127.0.0.1','--port','8087',
-      '--ctx-size','4096','--parallel','1','--n-gpu-layers','99','--batch-size','256','--ubatch-size','128',
+      '--ctx-size','4096','--parallel','1','--n-gpu-layers',str(config.get('llm_gpu_layers',99)),'--batch-size','256','--ubatch-size','128',
       '--jinja','--reasoning','off','--chat-template-kwargs',json.dumps({'enable_thinking':False}),
       '--spec-type','none']
 raise SystemExit(subprocess.call(args,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0)))

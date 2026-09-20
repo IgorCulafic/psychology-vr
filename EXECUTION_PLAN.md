@@ -1,5 +1,9 @@
 # Psychology VR — execution plan
 
+## Active follow-up, 20 September 2026
+
+The user has confirmed Quest controls, microphone feedback, Montenegrin command recognition, facial expressions and recorded emotion playback. The next agreed sequence is: (1) live Higgs speech, (2) improved regional recognition/conversation, (3) model-directed emotional performance with gaze/timing/continuity, (4) latency optimization and a complete headset retest. The initial implementation and measurements are in [Live expressive speech](docs/LIVE_EXPRESSIVE_SPEECH.md). Live speech quality and sustained headset performance remain acceptance tasks; the older milestones below are project history.
+
 Prepared 11 September 2026. Updated after implementation: the Windows desktop prototype has local Qwen dialogue, Kokoro speech, faster-whisper transcription, a furnished consultation room, and a seated character with a shared 20-state emotion catalog, blinking, gaze, timed lip sync, and prototype tear tracks. See [BUILD_STATUS](docs/BUILD_STATUS.md) for verified results. The body revision adds exaggerated IK performances, face-in-hands crying, facial flushing and moving tears. Hand-contact polish, expressive voice, and Quest acceptance testing remain open.
 
 ## Target and working assumptions

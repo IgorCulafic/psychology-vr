@@ -11,7 +11,7 @@ using CommonUsages = UnityEngine.XR.CommonUsages;
 
 namespace PsychologyVR
 {
-    [Serializable] public class SpeechSegment { public string text, emotion, gesture, voice_style, audio_url, segment_id,lip_sync_source; public float intensity;public MouthCue[] mouth_cues; }
+    [Serializable] public class SpeechSegment { public string text, emotion, gesture, voice_style, gaze, audio_url, segment_id,lip_sync_source; public float intensity,transition_seconds,pause_before_seconds,hold_after_seconds,gesture_at,gesture_duration_seconds;public MouthCue[] mouth_cues; }
     [Serializable] public class Reply { public string session_id, turn_id, dialogue_provider, tts_provider, scenario_id, character_name, initial_emotion; public float initial_intensity; public SpeechSegment[] segments; public int total_ms; }
     [Serializable] public class RequestBody { public string session_id, text, wav_base64, scenario_id, replace_session_id; public bool opening; }
     [Serializable] public class Health { public string dialogue_provider, tts_provider, stt_provider; }
@@ -40,7 +40,9 @@ namespace PsychologyVR
         Transform origin;
         Camera view;
         LineRenderer controllerRay;
-        TextMesh subtitleText;
+        TextMesh subtitleText, inputStatusText;
+        float[] microphoneMeter;
+        float microphonePeak;
         ConsultationMenu menu;
         GameObject actor;
         public ScenarioCatalog Catalog {get;private set;}
@@ -55,6 +57,7 @@ namespace PsychologyVR
         public bool IsRecording=>recording;
         public bool CanSelect=>!IsSwitching&&!string.IsNullOrEmpty(sessionId);
         public bool CanSubmit=>CanSelect&&!busy&&!recording;
+        public bool IsSpeechAudition=>Providers.Contains("higgs-recorded");
         public string Draft {get=>input;set=>input=value;}
         public string MicrophoneName=>string.IsNullOrEmpty(micDevice)?"No microphone detected":micDevice;
         public float SpeechVolume {get;private set;}=1;
@@ -99,6 +102,7 @@ namespace PsychologyVR
             if(appearances==null || appearances.Length==0)appearances=new[]{new CharacterAppearance{id="jumper",label="Jumper",prefab=characterPrefab,seatedClip=seatedClip}};
             ActiveAppearance=CurrentScenario.avatar_id;SpawnCharacter(ActiveAppearance);
             subtitleText = Label("Subtitles", new Vector3(0,1.03f,.35f), .005f, TextAnchor.MiddleCenter);
+            inputStatusText = Label("Speech input status", new Vector3(0,.85f,.35f), .003f, TextAnchor.MiddleCenter);
             SpeechVolume=PlayerPrefs.GetFloat("SpeechVolume",1);SubtitlesEnabled=PlayerPrefs.GetInt("Subtitles",1)==1;voice.volume=SpeechVolume;
             menu=gameObject.AddComponent<ConsultationMenu>();menu.Initialize(this,view);
             var pointer = new GameObject("Right controller pointer");
@@ -188,7 +192,16 @@ namespace PsychologyVR
             float deadline=Time.realtimeSinceStartup+30;
             while(string.IsNullOrEmpty(sessionId) && Time.realtimeSinceStartup<deadline) yield return null;
             if(string.IsNullOrEmpty(sessionId)) { Debug.LogError("SMOKE_FAILED: bridge connection"); Application.Quit(2); yield break; }
-            Submit("How are you feeling right now?");
+            if(IsSpeechAudition)
+            {
+                SetMenuOpen(true);menu.Render(ConsultationMenu.Page.Session);yield return null;
+                var compare=Array.Find(menu.GetComponentsInChildren<UnityEngine.UI.Button>(),button=>button.name=="Compare all");
+                if(!compare||!compare.interactable){Debug.LogError("SMOKE_FAILED: audition button unavailable");Application.Quit(3);yield break;}
+                compare.onClick.Invoke();
+                if(MenuOpen||!busy){Debug.LogError("SMOKE_FAILED: audition button did not start playback");Application.Quit(3);yield break;}
+                Debug.Log("AUDITION_BUTTON_OK");
+            }
+            else Submit("How are you feeling right now?");
             deadline=Time.realtimeSinceStartup+145;
             while(string.IsNullOrEmpty(Subtitle) && busy && Time.realtimeSinceStartup<deadline) yield return null;
             if(string.IsNullOrEmpty(Subtitle)) { Debug.LogError("SMOKE_FAILED: "+Status); Application.Quit(3); yield break; }
@@ -244,7 +257,7 @@ namespace PsychologyVR
         public void SetMenuOpen(bool open)
         {
             if(open && recording){Microphone.End(micDevice);recording=false;if(microphoneClip)Destroy(microphoneClip);Status="Recording discarded. Return to the room to speak.";}
-            MenuOpen=open;paused=open;face?.PauseSpeech(open);if(voice){if(open)voice.Pause();else voice.UnPause();}
+            MenuOpen=open;paused=open;face?.PauseSpeech(open);performance?.PausePerformance(open);if(voice){if(open)voice.Pause();else voice.UnPause();}
             if(open)InputDevices.GetDeviceAtXRNode(XRNode.RightHand).TryGetFeatureValue(CommonUsages.triggerButton,out lastTrigger);
             if(playerAvatar)playerAvatar.AllowDesktopLook=!open;
             menu?.Show(open);
@@ -259,7 +272,12 @@ namespace PsychologyVR
         public void SetSubtitles(bool value){SubtitlesEnabled=value;PlayerPrefs.SetInt("Subtitles",value?1:0);PlayerPrefs.Save();}
         public void NextMicrophone(){var devices=Microphone.devices;if(devices.Length==0)return;micDevice=devices[(Array.IndexOf(devices,micDevice)+1)%devices.Length];PlayerPrefs.SetString("Microphone",micDevice);PlayerPrefs.Save();}
         public void Recenter()=>playerAvatar?.Recenter();
-        public void PreviewEmotion(string name)=>performance?.Apply(name,previewIntensity,"none");
+        public void PreviewEmotion(string name){performance?.PausePerformance(false);performance?.Apply(name,previewIntensity,"none");}
+        public void PlaySpeechAudition(string command)
+        {
+            if(!IsSpeechAudition || !CanSubmit)return;
+            input=command;SetMenuOpen(false);Submit(command);
+        }
         public void Reconnect(){if(!IsSwitching)StartCoroutine(Connect());}
         void CancelLocal()
         {
@@ -358,17 +376,36 @@ namespace PsychologyVR
                     }
                 }
                 while(paused && token==version) yield return null;
-                if(token!=version) yield break;
-                Subtitle=segment.text; performance?.Apply(segment.emotion,segment.intensity,segment.gesture);
+                if(token!=version){if(clip)Destroy(clip);yield break;}
+                performance?.BeginBeat(segment);
+                yield return PerformancePause(Mathf.Clamp(segment.pause_before_seconds,0,1.5f),token);
+                if(token!=version){if(clip)Destroy(clip);yield break;}
+                Subtitle=segment.text;
                 Status=CurrentScenario.character_name+" is speaking…";
                 if(clip)
                 {
                     voice.clip=clip;face?.BeginSpeech(voice,segment.mouth_cues);voice.Play();
-                    while((voice.isPlaying || paused) && token==version) yield return null;
-                    if(token!=version)yield break;
+                    bool gestured=false;float gestureAt=Mathf.Clamp(segment.gesture_at,0,.85f)*clip.length;
+                    while((voice.isPlaying || paused) && token==version)
+                    {
+                        if(!paused && !gestured && voice.time>=gestureAt)
+                        {performance?.TriggerGesture(segment.gesture,segment.gesture_duration_seconds);gestured=true;Debug.Log("PERFORMANCE_CUE emotion="+segment.emotion+" gesture="+segment.gesture+" at="+voice.time);}
+                        yield return null;
+                    }
+                    if(token!=version){Destroy(clip);yield break;}
                     face?.StopSpeech();voice.clip=null; Destroy(clip);
                 }
-                else yield return new WaitForSeconds(Mathf.Max(2,segment.text.Length/15f));
+                else
+                {
+                    float duration=Mathf.Max(2,segment.text.Length/15f),offset=Mathf.Clamp(segment.gesture_at,0,.85f)*duration;
+                    yield return PerformancePause(offset,token);
+                    if(token!=version)yield break;
+                    performance?.TriggerGesture(segment.gesture,segment.gesture_duration_seconds);
+                    yield return PerformancePause(duration-offset,token);
+                }
+                if(token!=version)yield break;
+                performance?.StopGesture();
+                yield return PerformancePause(Mathf.Clamp(segment.hold_after_seconds,0,1.5f),token);
             }
             if(token==version) { busy=false; performance?.StopGesture(); Status="Ready. Hold Space / right A to speak."; }
         }
@@ -394,18 +431,40 @@ namespace PsychologyVR
 
         void StartRecording()
         {
-            if(recording || busy || paused || MenuOpen || IsSwitching || string.IsNullOrEmpty(sessionId)) return;
+            if(recording)return;
+            if(busy || paused || MenuOpen || IsSwitching || string.IsNullOrEmpty(sessionId))
+            {
+                Status=MenuOpen||paused?"Close the menu before holding A to speak.":busy?"Please wait for the reply, or use Menu > Stop reply.":"Reconnect in Settings before speaking.";
+                Debug.Log("MIC_BLOCKED busy="+busy+" paused="+paused+" menu="+MenuOpen+" switching="+IsSwitching+" session="+!string.IsNullOrEmpty(sessionId));
+                return;
+            }
             if(string.IsNullOrEmpty(micDevice)) { Status="No microphone found."; return; }
-            microphoneClip=Microphone.Start(micDevice,false,40,16000); recording=true; recordingStarted=Time.realtimeSinceStartup;
+            try { microphoneClip=Microphone.Start(micDevice,false,40,16000); }
+            catch(Exception error) { Status="Microphone could not start. Check the input in Settings.";Debug.LogWarning("MIC_START_FAILED "+error.GetType().Name+" device="+micDevice);return; }
+            if(!microphoneClip){Status="Microphone could not start. Check the input in Settings.";Debug.LogWarning("MIC_START_FAILED null clip device="+micDevice);return;}
+            recording=true; recordingStarted=Time.realtimeSinceStartup;microphonePeak=0;
+            microphoneMeter=new float[256*microphoneClip.channels];
+            Debug.Log("MIC_START device="+micDevice+" rate="+microphoneClip.frequency);
             Status="Listening... release Space / right A when finished.";
+        }
+
+        IEnumerator PerformancePause(float seconds,int token)
+        {
+            float elapsed=0;
+            while(token==version && (paused || elapsed<seconds))
+            {if(!paused)elapsed+=Time.deltaTime;yield return null;}
         }
         void EndRecording()
         {
             if(!recording) return;
             int samples=Microphone.GetPosition(micDevice); Microphone.End(micDevice); recording=false;
-            if(samples<=3200) { Destroy(microphoneClip); Status="Recording was too short."; return; }
-            var data=new float[samples*microphoneClip.channels]; microphoneClip.GetData(data,0);
+            if(!microphoneClip || samples<=3200) { if(microphoneClip)Destroy(microphoneClip);Status=samples<=0?"No microphone data. Check the input in Settings.":"Hold A a little longer while speaking.";Debug.LogWarning("MIC_EMPTY samples="+samples);return; }
+            var data=new float[samples*microphoneClip.channels];
+            if(!microphoneClip.GetData(data,0)){Destroy(microphoneClip);Status="Microphone audio could not be read. Try another input in Settings.";Debug.LogWarning("MIC_READ_FAILED");return;}
             int channels=microphoneClip.channels, rate=microphoneClip.frequency; Destroy(microphoneClip);
+            float peak=0;double energy=0;foreach(float sample in data){peak=Mathf.Max(peak,Mathf.Abs(sample));energy+=sample*sample;}
+            Debug.Log("MIC_CAPTURE seconds="+((float)samples/rate).ToString("F2")+" peak="+peak.ToString("F5")+" rms="+Math.Sqrt(energy/data.Length).ToString("F5")+" device="+micDevice);
+            if(peak<.0001f){Status="The microphone is silent. Check its mute switch or choose another input in Settings.";return;}
             byte[] bytes;
             using(var stream=new MemoryStream()) using(var writer=new BinaryWriter(stream))
             {
@@ -423,6 +482,7 @@ namespace PsychologyVR
             yield return Post("/transcribe",new RequestBody{wav_base64=Convert.ToBase64String(wav)},raw=>text=JsonUtility.FromJson<Transcript>(raw).text);
             if(token!=version) yield break;
             busy=false;
+            Debug.Log("MIC_TRANSCRIPT characters="+(text==null?-1:text.Length));
             if(!string.IsNullOrWhiteSpace(text)) { input=text; Submit(text); }
             else if(text!=null) Status="No speech detected. Try again.";
         }
@@ -471,8 +531,20 @@ namespace PsychologyVR
             }
             else{lastTrigger=false;menu.Hover(null);}
             if(recording && Time.realtimeSinceStartup-recordingStarted>=39) EndRecording();
+            if(recording && microphoneClip)
+            {
+                int position=Microphone.GetPosition(micDevice);microphonePeak=0;
+                if(position>=256 && microphoneClip.GetData(microphoneMeter,position-256))
+                    foreach(float sample in microphoneMeter)microphonePeak=Mathf.Max(microphonePeak,Mathf.Abs(sample));
+            }
             subtitleText.text=SubtitlesEnabled&&!MenuOpen?Wrap(Subtitle,55):"";
             subtitleText.transform.rotation=Quaternion.LookRotation(subtitleText.transform.position-view.transform.position);
+            if(inputStatusText)
+            {
+                inputStatusText.text=MenuOpen?"":Wrap(recording?"Listening · "+(microphonePeak>.001f?"signal detected":"no signal yet")+"\nRelease A when finished.":Status,64);
+                inputStatusText.color=recording?new Color(.65f,1,.7f):new Color(.82f,.9f,.86f);
+                inputStatusText.transform.rotation=Quaternion.LookRotation(inputStatusText.transform.position-view.transform.position);
+            }
 
         }
         bool lastTrigger;

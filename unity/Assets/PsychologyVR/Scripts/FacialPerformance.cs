@@ -112,7 +112,7 @@ namespace PsychologyVR
             targets["MouthSmile"]*=1-.7f*mouth;targets["MouthFrown"]*=1-.7f*mouth;
             foreach(string shape in Shapes)
             {
-                float rate=shape.StartsWith("Blink")?70:shape.StartsWith("Mouth")||shape=="JawOpen"?22:5;
+                float rate=shape.StartsWith("Blink")?70:shape.StartsWith("Mouth")||shape=="JawOpen"?22:body?3/body.TransitionSeconds:5;
                 weights[shape]=Mathf.Lerp(weights[shape],Mathf.Clamp01(targets[shape]),1-Mathf.Exp(-rate*Time.deltaTime));
             }
             foreach(var binding in bindings)binding.renderer.SetBlendShapeWeight(binding.index,weights[binding.name]*ShapeGain(binding.name)*100);

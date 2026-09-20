@@ -19,6 +19,7 @@ import wave
 from dataclasses import dataclass, field
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from performance_contract import GAZES, TIMING_DEFAULTS, TIMING_LIMITS, FIELDS, directions, PERFORMANCE_PROMPT
 
 ROOT = Path(__file__).resolve().parents[1]
 EMOTION_CATALOG = json.loads((ROOT/'unity/Assets/PsychologyVR/Resources/EmotionCatalog.json').read_text(encoding='utf-8'))
@@ -31,13 +32,16 @@ SEGMENT_SCHEMA = {
     'required': ['segments'],
     'properties': {'segments': {'type': 'array', 'minItems': 1, 'maxItems': 4, 'items': {
         'type': 'object', 'additionalProperties': False,
-        'required': ['text', 'emotion', 'intensity', 'gesture', 'voice_style'],
+        'required': list(FIELDS),
         'properties': {
             'text': {'type': 'string'},
             'emotion': {'type': 'string', 'enum': list(EMOTIONS)},
             'intensity': {'type': 'number'},
             'gesture': {'type': 'string', 'enum': list(GESTURES)},
             'voice_style': {'type': 'string', 'enum': list(VOICES)},
+            'gaze': {'type': 'string', 'enum': list(GAZES)},
+            **{name: {'type': 'number', 'minimum': low, 'maximum': high}
+               for name, (low, high) in TIMING_LIMITS.items()},
         }}}},
 }
 
@@ -94,7 +98,12 @@ def validate_reply(content: str | dict) -> list[dict]:
             raise ContractError('Intensity must be a finite number')
         emotion=segment.get('emotion')
         if isinstance(emotion,str):emotion=EMOTION_ALIASES.get(emotion,emotion)
+        try:
+            performance = directions(segment)
+        except ValueError as exc:
+            raise ContractError(str(exc)) from exc
         result.append({
+            **performance,
             'text': text.strip(),
             'emotion': emotion if emotion in EMOTIONS else 'neutral',
             'intensity': min(1., max(0., intensity)),
@@ -181,7 +190,8 @@ class Bridge:
     def generate(self, text, history, opening, state, profile):
         if opening:
             initial = profile.get('initial_state', {'emotion': 'neutral', 'intensity': .5})
-            return [{'text': profile['opening'], **initial, 'gesture': 'none', 'voice_style': 'normal'}]
+            opening_text = profile.get('openings', {}).get(self.config.get('conversation_language'), profile['opening'])
+            return [{'text': opening_text, **initial, 'gesture': 'none', 'voice_style': 'normal'}]
         if self.config['dialogue_provider'] == 'scripted':
             # A clearly labelled transport/animation demo; this does not pretend to be AI.
             examples = [
@@ -195,13 +205,20 @@ class Bridge:
                          'gesture': 'none', 'voice_style': 'normal'}]
             line, emotion, gesture, voice = examples[(len(history) // 2) % len(examples)]
             return [{'text': line, 'emotion': emotion, 'intensity': .5, 'gesture': gesture, 'voice_style': voice}]
-        system = json.dumps(profile, ensure_ascii=False) + '\nReturn only JSON conforming to: ' + json.dumps(SEGMENT_SCHEMA)
+        system = json.dumps(profile, ensure_ascii=False)
+        system += '\nReturn only a JSON object with a segments array. Every segment has text, emotion, intensity (0-1), gesture, voice_style, gaze, transition_seconds, pause_before_seconds, hold_after_seconds, gesture_at and gesture_duration_seconds.'
+        system += '\nAllowed gestures: '+', '.join(GESTURES)+'; voices: '+', '.join(VOICES)+'; gaze: '+', '.join(GAZES)+'.'
         system += '\nCurrent simulated delivery state: ' + json.dumps(state)
+        system += PERFORMANCE_PROMPT
+        if self.config.get('conversation_language') == 'cnr':
+            system += '\nSpeak Montenegrin, Latin script, natural ijekavian (vrijeme, osjećam, nijesam where natural). Preserve č, ć, š, ž, đ. Do not translate to English or explain the language. Avoid forced dialect and phonetic spelling. Reply directly to what the counsellor said.'
+        else:
+            system += '\nUse the language spoken by the counsellor. Keep replies conversational and concise.'
         system += '\nAvailable delivery states: ' + json.dumps({e['name']:e['description'] for e in EMOTION_CATALOG['emotions']})
         body = {
             'model': self.config['llm_model'],
-            'messages': [{'role': 'system', 'content': system}] + history + [{'role': 'user', 'content': text}],
-            'stream': False, 'temperature': .7, 'top_p': .8, 'top_k': 20, 'max_tokens': 600,
+            'messages': [{'role': 'system', 'content': system}] + history[-8:] + [{'role': 'user', 'content': text}],
+            'stream': False, 'temperature': .7, 'top_p': .8, 'top_k': 20, 'max_tokens': 850,
             'chat_template_kwargs': {'enable_thinking': False},
             'response_format': {'type': 'json_schema', 'json_schema': {'name': 'alex_reply', 'strict': True, 'schema': SEGMENT_SCHEMA}},
         }
@@ -238,6 +255,18 @@ class Bridge:
             # facial/body delivery remains independent until expressive TTS is added.
             audio, rate = self.kokoro.create(segment['text'], voice=self.config['tts_voice'], speed=.95, lang='en-us')
             soundfile.write(path, audio, rate, subtype='PCM_16')
+        elif provider == 'higgs':
+            request = urllib.request.Request(self.config.get('higgs_url', 'http://127.0.0.1:8766/synthesize'),
+                data=json.dumps({'segment': {k: segment[k] for k in FIELDS}}).encode(),
+                headers={'Content-Type': 'application/json'})
+            with urllib.request.urlopen(request, timeout=self.config.get('tts_timeout_seconds', 120)) as response:
+                data = response.read(5_000_001)
+            if len(data) > 5_000_000:
+                raise ContractError('Speech response exceeded limit')
+            with wave.open(io.BytesIO(data)) as wav:
+                if wav.getnchannels() != 1 or wav.getsampwidth() != 2 or not .1 <= wav.getnframes()/wav.getframerate() <= 45:
+                    raise ContractError('Invalid Higgs audio')
+            path.write_bytes(data)
         elif provider == 'api':
             body = {'model': self.config['tts_model'], 'input': segment['text'],
                     'voice': self.config['tts_voice'], 'response_format': 'wav'}
@@ -255,8 +284,9 @@ class Bridge:
         try:
             with wave.open(str(path)) as wav:duration=wav.getnframes()/wav.getframerate()
             dialogue.write_text(text,encoding='utf-8')
+            recognizer = ['-r','phonetic'] if self.config.get('conversation_language') == 'cnr' else ['--dialogFile',str(dialogue)]
             process=subprocess.run([str(executable),'-f','json','--extendedShapes','X','--threads','2',
-                '--dialogFile',str(dialogue),str(path)],capture_output=True,text=True,encoding='utf-8',
+                *recognizer,str(path)],capture_output=True,text=True,encoding='utf-8',
                 check=True,timeout=15,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
             return validate_mouth_cues(json.loads(process.stdout)['mouthCues'],duration),'rhubarb'
         except (OSError,ValueError,KeyError,TypeError,subprocess.SubprocessError,wave.Error) as exc:
@@ -287,27 +317,33 @@ class Bridge:
             self.assert_current(key, generation)
             generation_ms = round((time.perf_counter() - started) * 1000)
             turn_id = uuid.uuid4().hex
+            speech_ms = alignment_ms = 0
             with self.speech_lock:
                 for i, segment in enumerate(segments):
                     self.assert_current(key, generation)
                     audio_id = uuid.uuid4().hex
                     created_files.append(self.runtime / (audio_id + '.wav'))
                     segment['segment_id'] = f'{turn_id}-{i}'
+                    stage_started = time.perf_counter()
                     segment['audio_url'] = self.synthesize(segment, audio_id)
+                    speech_ms += round((time.perf_counter() - stage_started) * 1000)
                     if segment['audio_url']:
                         self.assert_current(key,generation)
+                        stage_started = time.perf_counter()
                         segment['mouth_cues'],segment['lip_sync_source']=self.align_mouth(audio_id,segment['text'])
+                        alignment_ms += round((time.perf_counter() - stage_started) * 1000)
             self.assert_current(key, generation)
             with self.lock:
                 self.assert_current(key, generation)
                 session.history += [{'role': 'user', 'content': '[Start the session]' if opening else text.strip()},
                                     {'role': 'assistant', 'content': json.dumps({'segments': [
-                                        {k: s[k] for k in ('text','emotion','intensity','gesture','voice_style')} for s in segments]})}]
+                                        {k: s[k] for k in FIELDS} for s in segments]})}]
                 session.history = session.history[-12:]
                 session.emotion, session.intensity = segments[-1]['emotion'], segments[-1]['intensity']
                 committed = True
             return {'turn_id': turn_id, 'session_id': key, 'segments': segments,
-                    'generation_ms': generation_ms, 'total_ms': round((time.perf_counter() - started) * 1000),
+                    'generation_ms': generation_ms, 'speech_ms': speech_ms, 'alignment_ms': alignment_ms,
+                    'total_ms': round((time.perf_counter() - started) * 1000),
                     'dialogue_provider': self.config['dialogue_provider'], 'tts_provider': self.config['tts_provider']}
         finally:
             if not committed:
@@ -336,8 +372,14 @@ class Bridge:
                 model_path = ROOT / self.config['stt_model']
                 model_name = str(model_path) if model_path.is_dir() else self.config['stt_model']
                 self.stt = WhisperModel(model_name, device=self.config['stt_device'],
-                    compute_type='int8', download_root=str(ROOT / '.cache/whisper'))
-            segments, _ = self.stt.transcribe(io.BytesIO(raw), language='en', vad_filter=True)
+                    compute_type='int8', cpu_threads=self.config.get('stt_cpu_threads', 8),
+                    download_root=str(ROOT / '.cache/whisper'))
+            language = self.config.get('stt_language', 'en')
+            language = None if language == 'auto' else language
+            if language and language != 'en' and not self.stt.model.is_multilingual:
+                raise ContractError('This STT language requires a multilingual model; replace small.en with small.')
+            segments, _ = self.stt.transcribe(io.BytesIO(raw), language=language,
+                                             task='transcribe', vad_filter=True)
             return {'text': ' '.join(s.text.strip() for s in segments).strip()}
 
 def make_handler(bridge):
@@ -358,7 +400,9 @@ def make_handler(bridge):
                 self.send_json(200, bridge.public_catalog())
             elif self.path == '/health':
                 self.send_json(200, {'ok': True, 'character': 'Alex', 'dialogue_provider': bridge.config['dialogue_provider'],
-                    'tts_provider': bridge.config['tts_provider'], 'stt_provider': bridge.config['stt_provider']})
+                    'tts_provider': bridge.config['tts_provider'], 'stt_provider': bridge.config['stt_provider'],
+                    'stt_model': bridge.config.get('stt_model'),
+                    'stt_language': bridge.config.get('stt_language', 'en')})
             elif re.fullmatch(r'/audio/[a-f0-9]{32}\.wav', self.path):
                 path = bridge.runtime / self.path.rsplit('/', 1)[1]
                 if not path.is_file():

@@ -1,0 +1,45 @@
+{
+  "date": "2026-09-20",
+  "pipeline": "live Qwen + Higgs NF4 + Whisper medium CPU",
+  "python_tests": 38,
+  "unity_version": "6000.6.0f1",
+  "build": "passed",
+  "desktop_smoke": "passed",
+  "maximum_jaw": 0.2972872,
+  "gesture_audio_seconds": 3.007958,
+  "headset_retested": false,
+  "live_reply_total_ms": [
+    10864,
+    12388,
+    19876
+  ],
+  "live_reply_generation_ms": [
+    2367,
+    1932,
+    2749
+  ],
+  "live_reply_speech_ms": [
+    7780,
+    9742,
+    16262
+  ],
+  "controlled_synthesis_seconds": {
+    "bf16": 9.074,
+    "int8": 25.245,
+    "nf4": 7.41
+  },
+  "higgs_nf4_allocated_mib": 3539,
+  "recognition_single_reference": {
+    "small_beam5_wer": 0.259,
+    "medium_beam5_wer": 0.185,
+    "small_seconds": 3.59,
+    "medium_seconds": 9.32
+  },
+  "limitations": [
+    "Only one STT reference; errors remain",
+    "Quantized voice identity/accent awaits native listening",
+    "Headset latency and interruption require user acceptance",
+    "Replies fully synthesize before playback; inference may finish after cancellation",
+    "24 GB GPU target unverified"
+  ]
+}
