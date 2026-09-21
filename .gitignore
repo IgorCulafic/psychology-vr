@@ -16,6 +16,8 @@ __pycache__/
 *.gguf
 docs/generated/*.log
 services/.runtime/
+/logs/sessions/
+/voices/
 unity/Assets/Resources/PerformanceTestRunInfo.json*
 unity/Assets/Resources/PerformanceTestRunSettings.json*
 

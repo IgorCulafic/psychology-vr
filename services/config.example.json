@@ -1,4 +1,5 @@
 {
+  "session_log_dir": "services/.runtime/demo-session-logs",
   "host": "127.0.0.1",
   "port": 8765,
   "dialogue_provider": "scripted",

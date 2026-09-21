@@ -19,6 +19,36 @@ def beat(**changes):
 
 
 class PerformanceTests(unittest.TestCase):
+    def test_two_model_beats_keep_individual_controls_and_final_state(self):
+        config = json.loads(Path(__file__).with_name('config.example.json').read_text())
+        config.update(dialogue_provider='llama.cpp',tts_provider='none')
+        bridge=Bridge(config);captured=[];spoken=[]
+        bridge.appraise=lambda *args:dict(event='repair',topic='other',invites_detail=False)
+        bridge.fit_context=lambda body,**kwargs:None
+        planned=[beat(text='That hurt.',emotion='angry',intensity=.8,gaze='away',gesture_at=.2),
+                 beat(text='Thank you for listening.',emotion='relieved',intensity=.45,gaze='listener',gesture='nod',gesture_at=.6)]
+        def model(url,body,timeout):
+            captured.append(body)
+            return {'choices':[{'message':{'content':json.dumps({'segments':planned})}}]}
+        bridge.post_json=model
+        bridge.synthesize=lambda segment,audio_id: spoken.append(dict(segment))
+        key=bridge.new_session()['session_id']
+        response=bridge.turn(key,'I am sorry. I want to understand.')
+        self.assertEqual([s['emotion'] for s in response['segments']],['angry','relieved'])
+        self.assertEqual([s['gesture_at'] for s in spoken],[.2,.6])
+        self.assertEqual([s['gaze'] for s in spoken],['away','listener'])
+        self.assertNotEqual(response['segments'][0]['segment_id'],response['segments'][1]['segment_id'])
+        self.assertEqual(bridge.sessions[key].emotion,'relieved')
+        self.assertEqual(bridge.sessions[key].intensity,.45)
+        bridge.turn(key,'Take your time.')
+        self.assertIn('"emotion": "relieved"',captured[-1]['messages'][0]['content'])
+
+    def test_emotion_words_in_speech_do_not_become_directions(self):
+        value=validate_reply({'segments':[beat(text='I was angry yesterday, but I am calmer now.',emotion='calm',voice_style='normal')]})[0]
+        self.assertEqual(value['emotion'],'calm')
+        self.assertEqual(higgs_text(value),'<|emotion:contentment|>'+value['text'])
+        self.assertNotIn('<|emotion:anger|>',higgs_text(value))
+
     def test_old_segments_receive_safe_timing_defaults(self):
         result = validate_reply({'segments':[beat()]})[0]
         self.assertEqual(set(result), set(FIELDS))
@@ -46,6 +76,8 @@ class PerformanceTests(unittest.TestCase):
         config = json.loads(Path(__file__).with_name('config.example.json').read_text())
         config.update(tts_provider='none',dialogue_provider='llama.cpp',conversation_language='cnr')
         bridge = Bridge(config)
+        bridge.appraise=lambda *args:dict(event='neutral',topic='difficulty',invites_detail=False)
+        bridge.fit_context=lambda body,**kwargs:None
         captured = {}
         def fake_post(url, body, timeout):
             captured.update(body)

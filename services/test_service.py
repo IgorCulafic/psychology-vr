@@ -156,6 +156,8 @@ class SessionTests(unittest.TestCase):
 
     def test_llm_request_disables_thinking_and_uses_schema(self):
         cfg=config(); cfg['dialogue_provider']='llama.cpp'; bridge=Bridge(cfg); captured={}
+        bridge.appraise=lambda *args:dict(event='neutral',topic='other',invites_detail=False)
+        bridge.fit_context=lambda body,**kwargs:None
         def post(url,body,timeout):
             captured.update(body)
             return {'choices':[{'message':{'content':json.dumps(segment()),'reasoning_content':'never say this'}}]}
@@ -191,6 +193,25 @@ class HttpTests(unittest.TestCase):
         with self.assertRaises(urllib.error.HTTPError) as result:
             self.post('/session',{}, {'Origin':'https://example.com'})
         self.assertEqual(result.exception.code,403)
+
+    def test_streaming_http_acknowledgements_and_finish(self):
+        import time
+        key=self.post('/session',{})['session_id']
+        turn=self.post('/turn/start',{'session_id':key,'text':'Hello'})['turn_id']
+        body={'session_id':key,'turn_id':turn}
+        deadline=time.monotonic()+3
+        while True:
+            reply=self.post('/turn/poll',body)
+            if reply['done'] or time.monotonic()>deadline:break
+            time.sleep(.01)
+        self.assertTrue(reply['done']);self.assertFalse(reply['error'])
+        body['completed_count']=1
+        self.assertTrue(self.post('/playback',body)['ok'])
+        body['partial_seconds']=.2
+        self.assertTrue(self.post('/interrupt',body)['ok'])
+        self.assertTrue(self.post('/turn/poll',body)['closed'])
+        # A new reply is allowed after the interrupted audio prefix was reconciled.
+        self.assertIn('turn_id',self.post('/turn/start',{'session_id':key,'text':'Continue'}))
 
     def test_catalog_and_explicit_selection(self):
         with urllib.request.urlopen(self.url+'/catalog') as response:catalog=json.load(response)

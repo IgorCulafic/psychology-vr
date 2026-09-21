@@ -112,11 +112,12 @@ namespace PsychologyVR
             targets["MouthSmile"]*=1-.7f*mouth;targets["MouthFrown"]*=1-.7f*mouth;
             foreach(string shape in Shapes)
             {
-                float rate=shape.StartsWith("Blink")?70:shape.StartsWith("Mouth")||shape=="JawOpen"?22:body?3/body.TransitionSeconds:5;
+                bool speechShape=shape=="JawOpen"||shape=="MouthPucker"||shape=="MouthWide"||shape=="MouthPress";
+                float rate=shape.StartsWith("Blink")?70:speechShape&&speaking?22:body?3/body.TransitionSeconds:5;
                 weights[shape]=Mathf.Lerp(weights[shape],Mathf.Clamp01(targets[shape]),1-Mathf.Exp(-rate*Time.deltaTime));
             }
             foreach(var binding in bindings)binding.renderer.SetBlendShapeWeight(binding.index,weights[binding.name]*ShapeGain(binding.name)*100);
-            ccRig?.Apply(emotion,intensity,weights,speaking,CurrentMouthCue,body && body.TransientsSuppressed);
+            ccRig?.Apply(emotion,intensity,weights,speaking,CurrentMouthCue,body && body.TransientsSuppressed,body?body.TransitionSeconds:.65f);
             JawWeight=ccRig!=null?ccRig.JawWeight:weights["JawOpen"];
         }
         static float ShapeGain(string name)

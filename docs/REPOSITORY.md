@@ -23,20 +23,23 @@ The following remain on the development machine and are ignored by Git:
 - `docs/generated/fish-local/` and other generated audition folders: personal voice references, cloned speech, listening pages and per-run records.
 - Unity import caches, editor preferences, preview videos and most screenshots.
 - Working build folders stay outside Git history; packaged Windows builds are available from GitHub Releases.
+- Session logs and the `voices/` folder stay outside source history. The owner explicitly approved including the reference WAV/transcript in the private v0.2 Windows release.
 
 The documentation retains historical local-preview URLs and file paths. Those links describe development evidence, not hosted repository content. Small top-level audit/provenance JSON files and the room screenshot are included. Asset source URLs and credits are in `ASSET_CREDITS.md`.
 
-The asset-conversion/audit scripts can read the original download packs after cloning with Git LFS. They also need their documented tools, such as Blender. Personal reference recordings are deliberately not supplied; TTS auditions need a locally provided recording and its exact transcript.
+The asset-conversion/audit scripts can read the original download packs after cloning with Git LFS. They also need their documented tools, such as Blender. Source checkouts omit personal recordings; auditions need a locally provided recording and its exact transcript. The private Windows release separately includes the approved reference for running the game.
 
 ## Prebuilt Windows downloads
 
-[GitHub Releases](https://github.com/IgorCulafic/psychology-vr/releases) contains the existing consultation-game and character-preview builds as separate ZIPs. Extract each ZIP into the repository root; their internal paths restore `unity/Builds/Windows/` and `unity/Builds/CandidatePreview/` respectively. Keep all accompanying player data and DLLs together.
+[GitHub Releases](https://github.com/IgorCulafic/psychology-vr/releases/latest) provides a standalone `psychology-vr-windows.zip`. Extract its complete `PsychologyVR` folder and use the Start VR/Desktop/Text Chat CMD launchers. The package includes the current player, character profiles, bridge code, approved voice and portable installer. It downloads pinned AI dependencies on first launch. No source clone, Unity, Git, Python installation or API key is required. See [START HERE](../START%20HERE.md).
 
-The first release archives the existing development builds, not a new build of the packaging commit. The main player data was last updated on 15 September 2026; the candidate preview is an older 11 September audition. The consultation game still needs the Python bridge and downloaded local AI dependencies for live conversations. Use `tools/launch.ps1 -Scripted -Desktop` for the scripted mode after creating `.venv`, or complete the live setup from the README. The candidate preview is a separate character audition, not the full game.
+The older v0.1 release remains an archive of earlier development players. Its instructions about extracting into a cloned repository do not apply to the standalone v0.2 package. The separate candidate preview is an old character audition, not the current game.
 
-Build archives exclude Unity's `BackUpThisFolder_ButDontShipItWithYourGame` debugging folders. They include the executable, player data, Mono runtime and graphics dependencies. Release assets are accompanied by SHA-256 checksums and a file manifest. Private voice recordings and model weights are not bundled in either build archive.
+Build archives exclude Unity debug backup folders, session logs, local machine configuration and model caches. Release assets include SHA-256 checksums and a per-file manifest. The v0.2 archive includes the explicitly approved voice; model weights download directly from their pinned upstream sources. Those sources retain their own terms and notices.
 
 ## Fresh-machine setup
+
+For running the game, use the release workflow above. For development:
 
 1. Clone with Git LFS and open the `unity` subfolder in Unity 6000.6.0f1.
 2. Follow the root README to create the Python environment and download the selected local runtimes/models.
@@ -48,7 +51,7 @@ For a lightweight transport/animation check without downloaded models, use `tool
 
 ## Speech experiments
 
-The game remains on Kokoro. Higgs, OmniVoice and Fish are standalone local auditions; see `ALTERNATIVE_TTS_AUDITIONS.md` for pinned model revisions and the preferred Higgs anger settings.
+The expressive game now uses BF16 Higgs with sentence playback. Kokoro remains an optional older configuration; OmniVoice and Fish remain comparison experiments. See `ALTERNATIVE_TTS_AUDITIONS.md` for historical auditions and `SENTENCE_PLAYBACK.md` for current behavior.
 
 The alternative-TTS environment is separate from the game's Python 3.11 environment. Its Python 3.12 package snapshot is `experiments/tts/requirements-alternative-lock.txt`. Install with the PyTorch CUDA wheel index available:
 
@@ -69,6 +72,6 @@ Use the same speaker for both files. Substitute your own transcript; the filenam
 
 ## Verification
 
-`python -m unittest discover -s services -v` runs 22 bridge tests using the standard library. GitHub Actions runs this suite on Windows without downloading model weights or art through LFS. It does not build Unity or validate headset performance, pronunciation or emotional delivery.
+`python -m unittest discover -s services -v` runs the bridge and release-helper tests using the standard library. GitHub Actions runs this suite on Windows without downloading model weights or art through LFS. It does not build Unity or validate headset performance, pronunciation or emotional delivery. Release setup is also exercised in a separate extracted folder with a fresh Python environment; cached model weights are reused for that check.
 
 This is a private prototype repository. No repository-wide open-source license is assigned over third-party art or models; their individual terms and attributions remain applicable.

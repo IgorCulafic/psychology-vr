@@ -1,0 +1,79 @@
+{
+  "date": "2026-09-21",
+  "model": "dropbox-dash/faster-whisper-large-v3-turbo",
+  "revision": "0a363e9161cbc7ed1431c9597a8ceaf0c4f78fcf",
+  "compute": "cpu int8, 8 threads",
+  "voice": "BF16 Higgs unchanged",
+  "sample_count": 1,
+  "full_clip": [
+    {
+      "model": "medium",
+      "variant": "baseline",
+      "seconds": 8.051,
+      "duration": 25.451,
+      "wer": 0.1852
+    },
+    {
+      "model": "large-v3-turbo",
+      "variant": "baseline",
+      "seconds": 5.762,
+      "duration": 25.451,
+      "wer": 0.0556
+    },
+    {
+      "model": "large-v3-turbo",
+      "variant": "independent-latin",
+      "seconds": 5.593,
+      "duration": 25.451,
+      "wer": 0.0556
+    },
+    {
+      "model": "large-v3-turbo",
+      "variant": "independent-latin-beam1",
+      "seconds": 4.847,
+      "duration": 25.451,
+      "wer": 0.0741
+    }
+  ],
+  "derived_crop": [
+    {
+      "model": "medium",
+      "variant": "baseline",
+      "seconds": 3.459,
+      "duration": 6.5,
+      "wer": 0.1429
+    },
+    {
+      "model": "large-v3-turbo",
+      "variant": "baseline",
+      "seconds": 4.314,
+      "duration": 6.5,
+      "wer": 0.1429
+    },
+    {
+      "model": "large-v3-turbo",
+      "variant": "independent-latin",
+      "seconds": 4.419,
+      "duration": 6.5,
+      "wer": 0.0714
+    },
+    {
+      "model": "large-v3-turbo",
+      "variant": "independent-latin-beam1",
+      "seconds": 4.269,
+      "duration": 6.5,
+      "wer": 0.1429
+    }
+  ],
+  "digital_silence": "empty transcript",
+  "http_stt_to_dialogue": "passed, TTS disabled",
+  "dialogue_cases": 10,
+  "extra_development_cases": 6,
+  "limitations": [
+    "One real speaker/recording; crop is not independent",
+    "Reference is prepared script with prior Whisper-assisted confirmation",
+    "Each timing measured once; not a headset workload",
+    "Occasional awkward grammar, ekavian wording and invented symptoms remain",
+    "No new TTS or headset acceptance test"
+  ]
+}

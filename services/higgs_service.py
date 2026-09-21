@@ -77,7 +77,7 @@ class HiggsVoice:
             torch.manual_seed(42)
             torch.cuda.manual_seed_all(42)
             with torch.inference_mode():
-                audio = self.model.generate_speech(higgs_text(segment), self.tokenizer,
+                audio = self.model.generate_speech(higgs_text(segment,self.config.get('higgs_pronunciation')), self.tokenizer,
                     reference_codes=self.reference_codes, reference_text=self.reference_text,
                     temperature=self.config.get('higgs_temperature', .7), top_p=.95, top_k=50,
                     max_new_tokens=900).numpy()

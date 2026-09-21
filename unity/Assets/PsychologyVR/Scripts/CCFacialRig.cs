@@ -44,7 +44,7 @@ namespace PsychologyVR
         }
         void Set(string n,float v)=>targets[n]=v;
         void Pair(string n,float v){Set(n+"_L",v);Set(n+"_R",v);}
-        public void Apply(string emotion,float intensity,Dictionary<string,float> common,bool speech,string cue,bool suppress)
+        public void Apply(string emotion,float intensity,Dictionary<string,float> common,bool speech,string cue,bool suppress,float transition=.65f)
         {
             if(previous!=emotion){previous=emotion;started=Time.time;}
             float age=Time.time-started;
@@ -54,7 +54,7 @@ namespace PsychologyVR
                 case "calm":Pair("Mouth_Smile",.15f);Pair("Eye_Squint",.1f);break;
                 case "anxious":Pair("Brow_Raise_Inner",.65f);Pair("Brow_Compress",.2f);Pair("Mouth_Press",.45f);break;
                 case "happy":Pair("Mouth_Smile",.8f);Pair("Cheek_Raise",.45f);Pair("Eye_Squint",.25f);break;
-                case "relieved":Pair("Mouth_Smile",.4f);Pair("Eye_Squint",.25f);Pair("Brow_Raise_Inner",.2f);break;
+                case "relieved":Pair("Mouth_Smile",.22f);Pair("Eye_Squint",.2f);Pair("Brow_Raise_Inner",.12f);break;
                 case "hopeful":Pair("Mouth_Smile",.35f);Pair("Brow_Raise_Inner",.45f);Pair("Eye_Wide",.15f);break;
                 case "sad":Pair("Brow_Raise_Inner",.9f);Pair("Brow_Drop",.2f);Pair("Mouth_Frown",.75f);Set("Mouth_Shrug_Lower",.3f);break;
                 case "angry":Pair("Brow_Drop",1);Pair("Brow_Compress",1);Pair("Eye_Squint",.72f);Pair("Mouth_Press",.6f);Pair("Mouth_Tighten",.2f);Pair("Mouth_Frown",.4f);Pair("Nose_Nostril_Dilate",.45f);Set("Jaw_Open",.015f+(suppress?0:PerformanceDriver.AngerBeat(age)*.055f));break;
@@ -67,7 +67,7 @@ namespace PsychologyVR
                 case "frustrated":Pair("Brow_Compress",.35f);Set("Brow_Raise_Inner_L",.5f);Set("Brow_Raise_Outer_L",.65f);Pair("Mouth_Press",.5f);Set("Mouth_L",.2f);break;
                 case "ashamed":Pair("Brow_Raise_Inner",.65f);Pair("Eye_Blink",.35f);Pair("Mouth_Press",.5f);Pair("Mouth_Frown",.3f);break;
                 case "guilty":Pair("Brow_Raise_Inner",.55f);Pair("Brow_Compress",.4f);Pair("Mouth_Frown",.4f);Set("Mouth_L",.2f);break;
-                case "confused":Set("Brow_Raise_Outer_L",.7f);Set("Brow_Drop_R",.45f);Pair("Mouth_Press",.2f);Set("Jaw_Open",.08f);break;
+                case "confused":Set("Brow_Raise_Outer_L",.55f);Pair("Brow_Raise_Inner",.3f);Pair("Eye_Wide",.2f);Set("Jaw_Open",.08f);break;
                 case "skeptical":Set("Brow_Raise_Outer_L",.85f);Set("Brow_Drop_R",.4f);Set("Eye_Squint_R",.45f);Set("Mouth_L",.3f);Pair("Mouth_Press",.35f);break;
                 case "numb":Pair("Eye_Squint",.15f);break;
             }
@@ -94,7 +94,8 @@ namespace PsychologyVR
             {
                 float goal=Value(b.name);
                 if((b.mesh.name.Contains("Mustache")||b.mesh.name.Contains("Soul_Patch"))&&(b.name=="Jaw_Open"||b.name=="V_Open"))goal=0;
-                float rate=b.name.StartsWith("Eye_Blink")?70:b.name.StartsWith("Mouth")||b.name.StartsWith("V_")||b.name=="Jaw_Open"?22:8;
+                bool speechShape=b.name.StartsWith("Mouth")||b.name.StartsWith("V_")||b.name=="Jaw_Open";
+                float rate=b.name.StartsWith("Eye_Blink")?70:speech&&speechShape?22:3/Mathf.Clamp(transition,.15f,2);
                 b.mesh.SetBlendShapeWeight(b.index,Mathf.Lerp(b.mesh.GetBlendShapeWeight(b.index),goal*100,1-Mathf.Exp(-rate*Time.deltaTime)));
             }
             float yaw=(common["EyeLookRight"]-common["EyeLookLeft"])*9.7f;

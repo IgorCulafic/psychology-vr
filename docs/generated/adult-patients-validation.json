@@ -1,0 +1,44 @@
+{
+  "date": "2026-09-21",
+  "source": "Simulacija_ENG.docx sections B, C, D; adults only",
+  "new_patients": [
+    {
+      "scenario": "nikola-bereavement",
+      "selection_opening_reset": "passed"
+    },
+    {
+      "scenario": "stefan-fire-witness",
+      "selection_opening_reset": "passed"
+    },
+    {
+      "scenario": "ivan-work-exhaustion",
+      "selection_opening_reset": "passed"
+    }
+  ],
+  "alex_profile_unchanged_this_pass": true,
+  "unit_tests_passed": 49,
+  "unity_build": "passed",
+  "description_menu_check": {
+    "hiddenPicker": true,
+    "hiddenSession": true,
+    "staysHiddenOnReopen": true,
+    "preferenceSaved": true,
+    "restoresDescriptions": true,
+    "passed": true
+  },
+  "real_qwen_development_checks": {
+    "full_pass_replies": 24,
+    "minimum_words": 9,
+    "maximum_words": 21,
+    "additional_probes": 12,
+    "targeted_nikola_rechecks": 3,
+    "note": "An initial contradiction on recovery was corrected with a character-specific example and targeted rechecks. Earlier English switching disappeared on the second full pass; grammar remains imperfect."
+  },
+  "limitations": [
+    "Existing shared male avatar and BF16 voice; no distinct new assets",
+    "Names, ages, jobs and timeline anchors are authored additions",
+    "Prompt-based behavior is not a semantic guarantee",
+    "Text-only model tests; no new headset or character-specific TTS acceptance",
+    "Occasional awkward phrasing and invented incidental details remain"
+  ]
+}

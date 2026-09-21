@@ -1,0 +1,139 @@
+{
+  "service_tests": 99,
+  "unity_build": "passed",
+  "speech_quantization": "bf16",
+  "speech_fixture_readiness": [
+    {
+      "name": "restrained-to-confrontation",
+      "first_ready_ms": 4994,
+      "all_ready_ms": 16877,
+      "sentence_count": 4,
+      "audio_seconds": 9.56
+    },
+    {
+      "name": "grief-to-withdrawal",
+      "first_ready_ms": 3735,
+      "all_ready_ms": 17589,
+      "sentence_count": 4,
+      "audio_seconds": 10.8
+    },
+    {
+      "name": "unease-to-fear",
+      "first_ready_ms": 4491,
+      "all_ready_ms": 15485,
+      "sentence_count": 4,
+      "audio_seconds": 9.84
+    }
+  ],
+  "full_qwen_bf16_first_playback_ms": 39637,
+  "streaming_pause_interrupt_check": "passed",
+  "played_prefix_sentences": 1,
+  "partial_sentence_seconds": 0.256,
+  "emotional_playback_check": {
+    "beats": [
+      {
+        "name": "restrained-to-confrontation",
+        "source": "authored-bf16-emotion-comparison",
+        "emotion": "frustrated",
+        "gesture": "none",
+        "emotionMatched": true,
+        "audioPlayed": true,
+        "captured": true,
+        "gestureSeen": false,
+        "maximumJaw": 0.32027140259742737,
+        "maximumWetness": 0.0,
+        "maximumCover": 0.0,
+        "gestureTimingError": 0.0,
+        "handToHeadAtCapture": 0.5920700430870056
+      },
+      {
+        "name": "restrained-to-confrontation",
+        "source": "authored-bf16-emotion-comparison",
+        "emotion": "angry",
+        "gesture": "none",
+        "emotionMatched": true,
+        "audioPlayed": true,
+        "captured": true,
+        "gestureSeen": false,
+        "maximumJaw": 0.44249510765075684,
+        "maximumWetness": 0.0,
+        "maximumCover": 0.0,
+        "gestureTimingError": 0.0,
+        "handToHeadAtCapture": 0.5488905310630798
+      },
+      {
+        "name": "grief-to-withdrawal",
+        "source": "authored-bf16-emotion-comparison",
+        "emotion": "sad",
+        "gesture": "none",
+        "emotionMatched": true,
+        "audioPlayed": true,
+        "captured": true,
+        "gestureSeen": false,
+        "maximumJaw": 0.40047112107276917,
+        "maximumWetness": 0.0,
+        "maximumCover": 0.0,
+        "gestureTimingError": 0.0,
+        "handToHeadAtCapture": 0.6006715297698975
+      },
+      {
+        "name": "grief-to-withdrawal",
+        "source": "authored-bf16-emotion-comparison",
+        "emotion": "despondent",
+        "gesture": "none",
+        "emotionMatched": true,
+        "audioPlayed": true,
+        "captured": true,
+        "gestureSeen": false,
+        "maximumJaw": 0.33888790011405945,
+        "maximumWetness": 0.0,
+        "maximumCover": 0.0,
+        "gestureTimingError": 0.0,
+        "handToHeadAtCapture": 0.5717042088508606
+      },
+      {
+        "name": "unease-to-fear",
+        "source": "authored-bf16-emotion-comparison",
+        "emotion": "anxious",
+        "gesture": "none",
+        "emotionMatched": true,
+        "audioPlayed": true,
+        "captured": true,
+        "gestureSeen": false,
+        "maximumJaw": 0.2576512396335602,
+        "maximumWetness": 0.0,
+        "maximumCover": 0.0,
+        "gestureTimingError": 0.0,
+        "handToHeadAtCapture": 0.6006320118904114
+      },
+      {
+        "name": "unease-to-fear",
+        "source": "authored-bf16-emotion-comparison",
+        "emotion": "afraid",
+        "gesture": "none",
+        "emotionMatched": true,
+        "audioPlayed": true,
+        "captured": true,
+        "gestureSeen": false,
+        "maximumJaw": 0.44562235474586487,
+        "maximumWetness": 0.0,
+        "maximumCover": 0.0,
+        "gestureTimingError": 0.0,
+        "handToHeadAtCapture": 0.43326303362846375
+      }
+    ],
+    "completed": true,
+    "paused": true,
+    "resumed": true,
+    "interrupted": true,
+    "noLateBeat": true,
+    "passed": true
+  },
+  "limits": [
+    "Authored readiness timings exclude Qwen",
+    "Partial sentence words are not inferred",
+    "Client playback is not proof of human hearing",
+    "Pronunciation and identity need listening review",
+    "No new headset acceptance test"
+  ]
+}

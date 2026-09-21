@@ -1,0 +1,50 @@
+{
+  "date": "2026-09-21",
+  "service_tests_passed": 78,
+  "long_run_replies": 37,
+  "long_run_errors": 0,
+  "scope": "Text-only local Qwen, full GPU for evaluation. Final normal launch restored to 48 layers; BF16 speech settings unchanged.",
+  "limitations": [
+    "Long run precedes final memory-attribution/language refinements; targeted rechecks follow them.",
+    "Development examples only; grammar and incidental-detail drift remain.",
+    "Memory is lexical extractive retrieval, bounded to 96 exchanges, not durable or exhaustive."
+  ],
+  "focused_rechecks": [
+    {
+      "scenario": "ivan-work-exhaustion",
+      "language": "cnr",
+      "input": "Kako se zovem? Ispravio sam ime na početku razgovora.",
+      "text": "Vaše ime je Mirko. Ispravili ste me na početku razgovora, pa sam to zapamtio."
+    },
+    {
+      "scenario": "ivan-work-exhaustion",
+      "language": "cnr",
+      "input": "Sjećate li se mog imena? Koje je bilo ispravno?",
+      "text": "Sjećam se. Ispravno je Mirko, ne Marko."
+    },
+    {
+      "scenario": "ivan-work-exhaustion",
+      "language": "en",
+      "input": "What is my name? I corrected it near the beginning.",
+      "text": "Mirko. You corrected it early on."
+    },
+    {
+      "scenario": "ivan-work-exhaustion",
+      "language": "cnr",
+      "input": "Koji sam začin rekao da ne volim, i da li se vaš ukus razlikovao od mog?",
+      "text": "Rekao si da ti je origano odvratan. Meni prija, pa se razlikujemo. Bez njega bih teško jeo tjesteninu, ali svako ima svoj ukus."
+    },
+    {
+      "scenario": "alex-earthquake",
+      "language": "cnr",
+      "input": "Znači sada se više ničega ne bojite i potpuno ste se oporavili?",
+      "text": "Ne, daleko od toga. Ja se još uvijek bojim da će tlo opet da zatrese. Spavam loše i skačem na svaki zvuk."
+    },
+    {
+      "scenario": "nikola-bereavement",
+      "language": "en",
+      "input": "What did I apologise for earlier?",
+      "text": "You said you were sorry for putting down my soup. You called my taste boring, then apologized."
+    }
+  ]
+}

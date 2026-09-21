@@ -1,8 +1,8 @@
-param([switch]$BridgeOnly, [switch]$ModelOnly, [switch]$SpeechOnly)
+param([switch]$BridgeOnly, [switch]$ModelOnly, [switch]$SpeechOnly, [switch]$TextOnly)
 $ErrorActionPreference = 'Stop'
 $taskRoot = Split-Path $PSScriptRoot -Parent
-if (([int]$BridgeOnly.IsPresent+[int]$ModelOnly.IsPresent+[int]$SpeechOnly.IsPresent) -gt 1) { throw 'Choose only one service selector.' }
-$taskServices = if ($BridgeOnly) { @('bridge') } elseif ($ModelOnly) { @('model') } elseif ($SpeechOnly) { @('speech') } else { @('bridge','speech','model') }
+if (([int]$BridgeOnly.IsPresent+[int]$ModelOnly.IsPresent+[int]$SpeechOnly.IsPresent+[int]$TextOnly.IsPresent) -gt 1) { throw 'Choose only one service selector.' }
+$taskServices = if ($BridgeOnly) { @('bridge') } elseif ($ModelOnly) { @('model') } elseif ($SpeechOnly) { @('speech') } elseif ($TextOnly) { @('text-chat') } else { @('text-chat','bridge','speech','model') }
 foreach ($taskName in $taskServices) {
     $taskRecord = Join-Path $taskRoot "services/.runtime/$taskName-process.json"
     if (Test-Path -LiteralPath $taskRecord) {
@@ -12,12 +12,12 @@ foreach ($taskName in $taskServices) {
         # project-local bridge child as well, without touching other Python jobs.
         if ($taskProcess -and $taskProcess.Path -eq $taskInfo.Path -and
             $taskProcess.StartTime.ToUniversalTime().Ticks -eq $taskInfo.StartTicks) {
-            if ($taskName -in @('bridge','speech')) {
+            if ($taskName -in @('bridge','speech','text-chat')) {
                 Get-CimInstance Win32_Process -Filter "ParentProcessId = $($taskInfo.Id)" | ForEach-Object {
                     # uv's registered venv launcher may use a base Python outside the project.
                     # Parent identity/start time above and the specific child script below scope it.
                     if ($_.ExecutablePath -and ([IO.Path]::GetFileName($_.ExecutablePath) -eq 'python.exe') -and
-                        $_.CommandLine -match 'services[\\/](alex_service|emotion_audition|higgs_service)\.py') {
+                        $_.CommandLine -match 'services[\\/](alex_service|emotion_audition|higgs_service|text_chat)\.py') {
                         $taskChild = Get-Process -Id $_.ProcessId -ErrorAction SilentlyContinue
                         if ($taskChild -and -not $taskChild.HasExited) { $taskChild.Kill(); $taskChild.WaitForExit(5000) | Out-Null }
                     }

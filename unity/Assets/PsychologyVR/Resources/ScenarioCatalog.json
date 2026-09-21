@@ -10,6 +10,36 @@
             "focus": "Trust, safety and gradual disclosure",
             "avatar_id": "jumper",
             "age": 35
+        },
+        {
+            "id": "nikola-bereavement",
+            "character_id": "nikola",
+            "character_name": "Nikola",
+            "title": "After a loss",
+            "summary": "An adult coping with the death of his father. Feelings of loss, anger and guilt emerge gradually through conversation.",
+            "focus": "Listening, grief and sensitive disclosure",
+            "avatar_id": "jumper",
+            "age": 42
+        },
+        {
+            "id": "stefan-fire-witness",
+            "character_id": "stefan",
+            "character_name": "Stefan",
+            "title": "After witnessing a fire",
+            "summary": "An uninjured witness who remains unsettled after a neighbourhood fire and avoids reminders of what he saw.",
+            "focus": "Safety, pacing and helplessness",
+            "avatar_id": "jumper",
+            "age": 31
+        },
+        {
+            "id": "ivan-work-exhaustion",
+            "character_id": "ivan",
+            "character_name": "Ivan",
+            "title": "Running out of energy",
+            "summary": "An adult struggling with persistent exhaustion, work mistakes and self-doubt, unsure why ordinary rest is not helping.",
+            "focus": "Exploring daily functioning without premature conclusions",
+            "avatar_id": "jumper",
+            "age": 39
         }
     ]
 }

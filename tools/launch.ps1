@@ -1,13 +1,13 @@
-param([switch]$Desktop, [switch]$Scripted, [switch]$NoGame, [string]$Config='services/config.local.json')
+param([switch]$Desktop, [switch]$Scripted, [switch]$NoGame, [switch]$ModelOnly, [string]$Config='services/config.local.json')
 $ErrorActionPreference = 'Stop'
 $taskRoot = Split-Path $PSScriptRoot -Parent
 Set-Location -LiteralPath $taskRoot
 $taskRuntime = Join-Path $taskRoot 'services/.runtime'
 New-Item -ItemType Directory -Path $taskRuntime -Force | Out-Null
-$taskPython = Join-Path $taskRoot '.venv/Scripts/python.exe'
-if (-not (Test-Path -LiteralPath $taskPython)) { throw 'Project Python is missing. Follow README.md setup instructions.' }
 $taskConfig = if ($Scripted) {'services/config.example.json'} else {$Config}
 $taskSettings = Get-Content -LiteralPath $taskConfig -Raw | ConvertFrom-Json
+$taskPython = Join-Path $taskRoot $(if($taskSettings.bridge_python){$taskSettings.bridge_python}else{'.venv/Scripts/python.exe'})
+if (-not (Test-Path -LiteralPath $taskPython)) { throw 'Project Python is missing. Run Setup.cmd or follow README.md setup instructions.' }
 $taskGpuLayers = if ($null -ne $taskSettings.llm_gpu_layers) { [string]$taskSettings.llm_gpu_layers } else { '99' }
 function Get-Health([string]$Url) {
     try { return Invoke-RestMethod -Uri $Url -TimeoutSec 2 } catch { return $null }
@@ -36,8 +36,9 @@ if (-not $Scripted) {
         Wait-Health 'http://127.0.0.1:8087/health' 120 | Out-Null
     }
 }
+if ($ModelOnly) { Write-Host 'Local dialogue model is ready.'; return }
 if ($taskSettings.tts_provider -eq 'higgs' -and -not (Get-Health 'http://127.0.0.1:8766/health')) {
-    $taskSpeechPython = Join-Path $taskRoot '.tools/alternative-tts-venv/Scripts/python.exe'
+    $taskSpeechPython = Join-Path $taskRoot $(if($taskSettings.higgs_python){$taskSettings.higgs_python}else{'.tools/alternative-tts-venv/Scripts/python.exe'})
     if (-not (Test-Path -LiteralPath $taskSpeechPython)) { throw 'Higgs environment missing. See docs/LIVE_EXPRESSIVE_SPEECH.md.' }
     $taskProcess = Start-Process -FilePath $taskSpeechPython -ArgumentList 'services/higgs_service.py','--config',('"'+$taskConfig+'"') `
         -WorkingDirectory $taskRoot -WindowStyle Hidden -PassThru `

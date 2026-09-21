@@ -1,5 +1,39 @@
 # Prototype build status
 
+## Downloadable Windows package — 21 September 2026
+
+The standalone release includes the built game, four patient profiles, services,
+approved reference voice and double-click launchers. First launch installs a
+private Python environment and checksum-verified pinned model/runtime downloads.
+102 tests pass; fresh-environment setup, the actual CMD launcher, streamed
+pause/interruption and live Qwen/BF16 playback were verified in an extracted
+folder with spaces. See [release packaging](PORTABLE_RELEASE.md)
+and [user instructions](../START%20HERE.md). This is separate from the source ZIP.
+
+## Sentence playback and delivery refinement — 21 September 2026
+
+BF16 speech now publishes sentences as they finish, with Unity playback overlapping later synthesis. Confirmed playback prefixes drive history/memory after interruption. Facial transitions and gesture repetition are refined; the reference voice and preferred anger settings remain. 99 service tests and the Unity build pass. A built-player pause/interrupt check confirms one played sentence and a 0.256-second partial second sentence in the journal. Real BF16 authored comparisons produced their first sentence in 3.7–5.0 seconds versus 15.5–17.6 seconds to prepare all four. These exclude Qwen generation; a full Qwen/BF16 smoke test passed with 39.64 seconds to first playback. Six emotional comparison playbacks and rendered-pose inspection passed. See [implementation, measurements and review](SENTENCE_PLAYBACK.md).
+
+## Automatic session logging — 21 September 2026
+
+The shared bridge now saves accepted dialogue, validated emotional performance, relationship state, memory diagnostics and timings after each turn, with readable TXT and structured JSONL companions in `logs/sessions/`. Reset and character replacement preserve old archives. Failures and interruptions are recorded; logs do not claim speech was heard or archive audio. All 87 service tests pass. See [logging details](SESSION_LOGGING.md). No Unity rebuild is needed; running services must reload the backend.
+
+## Conversation refinement and memory — 21 September 2026
+
+All four patients now use the shared conversational/relationship policy, including Alex. Session-local, attributed excerpts provide bounded recall beyond the recent dialogue window, with tokenizer-aware pruning and atomic reset/cancellation behaviour. Text exports include memory diagnostics. A 37-reply local conversation screen, focused recall rechecks and 78 service tests are documented in [conversation memory](CONVERSATION_MEMORY.md). This is a backend/profile update; no new Unity player was built in this pass.
+
+## Three adult patient cases — 21 September 2026
+
+Nikola (bereavement), Stefan (fire witness) and Ivan (work exhaustion) join the picker alongside Alex, whose profile was left unchanged in this pass. The new policy encourages short replies, relevant gradual disclosure, independent views and limited clinical insight. Instructor notes are excluded from patient prompts. All three reuse the current avatar/voice. The 49-test backend suite, Unity build and description-hiding menu preview pass; language and occasional consistency limitations remain. See [adult case notes](../characters/ADULT_CASES.md).
+
+## Model-directed emotional performance — 21 September 2026
+
+Normal Qwen replies drive per-segment emotion, intensity, gaze, gesture timing and expressive BF16 speech. Delivery guidance now distinguishes frustration/anger, sadness/crying and partial relief, and allows meaningful changes within a reply. Captured real conversation selected anxiety → frustration → relief. The player diagnostic shares the live playback routine and separately labels its authored crying-to-relief timing fixture. See [emotional performance checks](EMOTIONAL_PERFORMANCE.md) for replay commands, evidence and limits.
+
+## Montenegrin recognition and conversation — 21 September 2026
+
+The expressive setup now uses Whisper large-v3-turbo on CPU with a generic regional language hint and Latin-script output. On one 25.45-second recording, word error fell from 18.5% to 5.6%; the same-recording crop improved from 14.3% to 7.1%, but was slower. Dialogue prompting now prioritizes direct answers, clarification and authored facts. Real STT-to-Qwen HTTP verification passed; native grammar and invented symptom descriptions remain limitations. See [measurements and next headset checks](MONTENEGRIN_CONVERSATION.md). These backend changes use the existing Unity build and preserve BF16 speech.
+
 ## Voice selection — 21 September 2026
 
 The user preferred the original 16-bit BF16 Higgs voice over NF4 because its emotional delivery was substantially better. BF16 is restored in the local and example expressive configurations, retaining the full reference and temperature 0.70. Qwen offload returns to 48 GPU layers for memory headroom. The NF4 timings below remain historical measurements, not current BF16 performance guarantees.

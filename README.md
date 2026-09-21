@@ -1,8 +1,14 @@
 # Psychology VR — Alex prototype
 
-Unity 6000.6.0f1, Windows PCVR, Meta Quest 3. One seated character with local speech recognition, Qwen dialogue, Kokoro voice, facial expressions, gaze, timed lip sync, and structured body cues.
+Unity 6000.6.0f1, Windows PCVR, Meta Quest 3. Seated patient simulations with local speech recognition, Qwen dialogue, BF16 Higgs voice, facial expressions, gaze, timed lip sync, and structured body cues.
 
 ![Furnished consultation room](docs/generated/furnished-room.png)
+
+## Download and run
+
+For testing, download **psychology-vr-windows.zip** from the [latest private release](https://github.com/IgorCulafic/psychology-vr/releases/latest), extract it, and double-click **Start VR.cmd**, **Start Desktop.cmd**, or **Start Text Chat.cmd**. The built game and approved voice are included. First launch automatically downloads the pinned local AI models and installs its private runtime; no Unity, Git or Python installation is needed. Allow about 45 GB free disk space and internet for first setup. Subsequent launches run locally. See [START HERE](START%20HERE.md) for hardware, Quest Link and controls.
+
+Use the release asset above, not GitHub's **Source code.zip**. The source repository is for development; the instructions below describe that workflow. Voice recordings are supplied only in the private release with the owner's permission, not in source history.
 
 ## Clone and open
 
@@ -17,13 +23,19 @@ git lfs pull
 
 In Unity Hub, add **the `unity` subfolder**, use Unity **6000.6.0f1**, and open `Assets/PsychologyVR/Scenes/Consultation.unity`. The converted character, furniture, textures, prefabs and baked lighting are included. No original download packs are needed to open the scene. Follow the environment setup below before running live dialogue; build the Windows player from Unity before using the launcher.
 
-This repository contains the game, original model packs, local service, asset preparation tools, and speech research. Download the existing Windows game and character-preview builds from [Releases](https://github.com/IgorCulafic/psychology-vr/releases). Personal reference recordings, generated voice clones, model weights and import caches stay on the development machine. See [repository contents and setup notes](docs/REPOSITORY.md).
+This repository contains the game, original model packs, local service, asset preparation tools, and speech research. Download Windows builds from [Releases](https://github.com/IgorCulafic/psychology-vr/releases). Personal recordings are excluded from source history; the approved reference is included in the private runnable release. Generated voice auditions, model weights and import caches stay out of Git. See [repository contents and setup notes](docs/REPOSITORY.md).
 
 ## Speech research status
 
-The game currently uses **Kokoro**. **Higgs TTS 3** is the leading expressive-voice candidate after local Fish, OmniVoice and Higgs auditions; it is not integrated into the live game yet. The preferred anger sample uses the full reference, temperature **0.70**, top-p **0.95**, top-k **50**, seed **42**. Temperature 0.60 was closer to the source voice but less angry. See [listening results](docs/ALTERNATIVE_TTS_AUDITIONS.md) and [speech research](docs/SPEECH_RESEARCH.md).
+The expressive game configuration uses **Higgs TTS 3 in BF16** after local Fish, OmniVoice and Higgs auditions. The preferred anger sample uses the full reference, temperature **0.70**, top-p **0.95**, top-k **50**, seed **42**. Temperature 0.60 was closer to the source voice but less angry. Kokoro remains available in the older lightweight configuration. See [live setup](docs/LIVE_EXPRESSIVE_SPEECH.md), [listening results](docs/ALTERNATIVE_TTS_AUDITIONS.md) and [speech research](docs/SPEECH_RESEARCH.md).
 
 ## Run on this computer
+
+For **text-only character conversations**, run `./tools/launch-text-chat.ps1` and open http://127.0.0.1:8794/. Choose Alex, Nikola, Stefan or Ivan, hide/show their case descriptions, switch between Montenegrin and English, inspect emotional cues, and export a transcript. No headset or voice generation is needed. See [text testing instructions](docs/TEXT_CONVERSATIONS.md).
+
+All four patients now have [bounded session memory and refined conversation guidance](docs/CONVERSATION_MEMORY.md), including recall of earlier preferences, disclosures and corrections beyond the recent dialogue window.
+
+Text and VR sessions are [saved automatically](docs/SESSION_LOGGING.md) in `logs/sessions/`, with readable transcripts and detailed JSONL records. Students do not need to export; reset and character changes preserve earlier logs. These local logs are excluded from Git.
 
 From PowerShell in this folder:
 
@@ -37,12 +49,12 @@ For Quest Link, connect the headset, make Meta Horizon Link the active OpenXR ru
 ./tools/launch.ps1
 ```
 
-The launcher starts project-local model and speech services. The initial Qwen load and first Kokoro/STT use take longer than subsequent requests. The first run is not a latency benchmark.
+The launcher starts project-local model and speech services. Initial model loading and the first speech/STT requests take longer than subsequent requests. The first run is not a latency benchmark.
 
 Controls:
 
 - **Menu:** opens at startup. **Escape / right B** toggles it and pauses/resumes speech. Use the mouse or the right-controller ray and trigger to select buttons.
-- **Characters & situations:** choose a profile and appearance, then **Start new conversation**. Currently Alex's earthquake situation is available, with jumper and original Alex appearances. Starting again clears the previous history and plays the selected profile's opening.
+- **Characters & situations:** choose Alex, Ivan, Nikola or Stefan and an appearance, then **Start new conversation**. The cases currently share the existing avatar and reference voice. Starting again creates a fresh session, preserves the earlier journal and plays the selected profile's opening.
 - **Hide descriptions:** student view hides backstories, teaching focus and revealing situation titles, including the Session heading. Show descriptions restores them; this preference persists.
 - **Desktop:** type and Send in the Session menu, or return to the room and hold Space to record; release to transcribe/send. Right mouse drag looks around when the menu is closed.
 - **Quest:** hold right **A** to record and release to send. **Left X** recenters. Grip and trigger animate the player's fingers; headset and controller poses drive the torso and arms. Select the intended microphone in Settings; headset routing requires an on-device test.
@@ -82,7 +94,7 @@ Alex has 20 configurable delivery states, including crying, fear, panic, disgust
 
 The live character uses the supplied jumper rig, with authored facial controls, tears, flushing, eye/jaw bones and seated body poses. Crying includes face-in-hands and sobbing motion; anger uses clenched hands and emphatic beats. The `wipe_tear` cue has a short right-hand reach. Model replies can now direct gaze, transitions, pauses and timed gestures. Higgs maps validated emotion cues into expressive speech; voice identity and pronunciation still need listening tests. The headless player has a blue-green sweater, seated legs, headset-driven upper body and controller-driven arms/fingers. See `docs/PLAYER_AVATAR.md` for controls and limitations. Props remain static.
 
-Replies are fully generated and synthesized before playback. Sentence streaming and hands-free turn detection are next steps. Stop/reset suppress stale results and queued playback; the local inference request may finish in the background. History currently includes a generated reply even if the player interrupts halfway through hearing it; tracking which segments were actually heard is a follow-up.
+The player now [plays completed sentences while later speech is being prepared](docs/SENTENCE_PLAYBACK.md), keeping BF16 Higgs. The complete model reply is validated first. Playback acknowledgements keep unheard sentences out of history after interruption; unfinished sentence words are marked as unknown. Stop/reset suppress stale results and queued playback, although a running GPU call may finish in the background. The legacy text endpoint still returns a complete reply. Hands-free turn detection remains a follow-up.
 
 Desktop tests cannot verify headset comfort, controller mappings, microphone routing, or sustained 90 Hz. Those require a Quest playtest. This development machine reported an RTX 5090/32 GB; performance must also be checked on the intended RTX 4090 target.
 

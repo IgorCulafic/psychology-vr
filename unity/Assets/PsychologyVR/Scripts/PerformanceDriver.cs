@@ -14,6 +14,7 @@ namespace PsychologyVR
         public float GazeWeight {get;private set;}=1;
         public float TransitionSeconds {get;private set;}=.65f;
         string directedGaze="automatic";float gestureStarted,gestureDuration=2.5f;
+        string lastDirectedGesture="none";float lastDirectedGestureAt=-100;
         bool performancePaused;float pausedAt;
         public void PausePerformance(bool value)
         {
@@ -64,7 +65,8 @@ namespace PsychologyVR
         public void Apply(string emotion,float intensity,string gesture,bool immediate=false)
         {
             string next=EmotionLibrary.Find(emotion).name;
-            if(next!=Emotion || gesture!=Gesture)started=Time.time;
+            // Sentence boundaries and one-shot cues must not restart emotional loops.
+            if(next!=Emotion)started=Time.time;
             Emotion=next;Gesture=gesture;targetIntensity=Mathf.Clamp01(intensity);
             gestureStarted=Time.time;gestureDuration=2.5f;directedGaze="automatic";TransitionSeconds=.65f;
             TransientsSuppressed=false;if(immediate)Intensity=targetIntensity;
@@ -76,7 +78,14 @@ namespace PsychologyVR
             TransitionSeconds=Mathf.Clamp(segment.transition_seconds>0?segment.transition_seconds:.65f,.15f,2);
         }
         public void TriggerGesture(string gesture,float duration)
-        {Gesture=gesture;gestureStarted=Time.time;gestureDuration=Mathf.Clamp(duration>0?duration:2.5f,.3f,4);}
+        {
+            if(string.IsNullOrEmpty(gesture)||gesture=="none")return;
+            float gap=Time.time-lastDirectedGestureAt;
+            if(gap<3 || (gesture==lastDirectedGesture && gap<10))return;
+            if((Emotion=="crying"||Emotion=="panicked"||Emotion=="numb") && Intensity>.65f)return;
+            Gesture=gesture;lastDirectedGesture=gesture;lastDirectedGestureAt=gestureStarted=Time.time;
+            gestureDuration=Mathf.Clamp(duration>0?duration:2.5f,.3f,4);
+        }
         public void StopGesture(bool interrupt=false){Gesture="none";if(interrupt){TransientsSuppressed=true;directedGaze="automatic";}}
         void Restore(){foreach(var p in poses){p.bone.localRotation=p.rotation;p.bone.localPosition=p.position;}}
         void Update(){if(initialized && !performancePaused)Restore();}

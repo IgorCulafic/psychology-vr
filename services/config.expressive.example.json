@@ -17,8 +17,11 @@
   "lip_sync_provider": "rhubarb",
   "rhubarb_path": ".tools/rhubarb/Rhubarb-Lip-Sync-1.14.0-Windows/rhubarb.exe",
   "stt_provider": "faster-whisper",
-  "stt_model": ".cache/whisper/medium",
+  "stt_model": ".cache/whisper/large-v3-turbo",
   "stt_language": "sr",
+  "stt_output_script": "latin",
+  "stt_initial_prompt": "Razgovor na crnogorskom jeziku, latinicom.",
+  "stt_condition_on_previous_text": false,
   "stt_device": "cpu",
   "stt_cpu_threads": 8
 }

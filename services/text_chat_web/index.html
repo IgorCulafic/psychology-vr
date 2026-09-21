@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Patient conversations · Psychology VR</title><link rel="stylesheet" href="/style.css"><script src="/chat.js" defer></script></head>
+<body>
+<aside>
+  <div class="eyebrow">PSYCHOLOGY VR / PRACTICE</div><h1>Patient<br>conversations</h1>
+  <p class="intro">Get to know the person, one conversation at a time.</p>
+  <label class="toggle"><input id="descriptions" type="checkbox"> Show case descriptions</label>
+  <nav id="characters" aria-label="Choose a patient"></nav>
+  <label for="language">Conversation language</label>
+  <select id="language"><option value="cnr">Montenegrin</option><option value="en">English</option></select>
+  <p class="small">Changing the patient or language starts a fresh conversation.</p>
+  <div class="aside-bottom">Sessions are saved automatically on this PC.<br>Same model and character prompts as VR.<br>Text only · no microphone or voice generation.</div>
+</aside>
+<main>
+  <header><div><div class="eyebrow">CONSULTATION</div><h2 id="patient">Connecting…</h2></div><div class="actions"><button id="export" disabled>Export transcript</button><button id="restart" disabled>New conversation</button></div></header>
+  <div class="toolbar"><label class="toggle"><input id="emotions" type="checkbox"> Show emotional cues</label><span id="status" role="status">Connecting to the local service…</span></div>
+  <section id="rapport" hidden aria-label="Simulated relationship"><div><strong>Comfort with you</strong> <span id="comfort-value"></span><span id="openness"></span></div><progress id="comfort" max="100" value="0" aria-label="Simulated comfort"></progress><div id="rapport-detail"></div><small>Comfort affects sensitive disclosure, not everyday conversation. Simulation only, not a clinical score.</small></section>
+  <div id="messages" role="log" aria-live="polite" aria-label="Conversation"></div>
+  <form id="composer"><label for="message">Your message</label><textarea id="message" maxlength="2000" rows="3" placeholder="Ask a question or respond as you would in a session…" disabled></textarea><div class="compose-footer"><span>Enter to send · Shift + Enter for a new line</span><div><button type="button" id="stop" disabled>Stop reply</button><button id="send" class="primary" disabled>Send message <span aria-hidden="true">↗</span></button></div></div></form>
+</main>
+</body></html>

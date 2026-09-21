@@ -14,12 +14,21 @@ import threading
 import time
 import urllib.error
 import urllib.request
+import urllib.parse
 import uuid
 import wave
 from dataclasses import dataclass, field
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from performance_contract import GAZES, TIMING_DEFAULTS, TIMING_LIMITS, FIELDS, directions, PERFORMANCE_PROMPT
+from performance_contract import GAZES, TIMING_DEFAULTS, TIMING_LIMITS, FIELDS, directions, PERFORMANCE_PROMPT, PATIENT_PERFORMANCE_PROMPT
+from conversation_prompt import character_prompt, conversation_guidance
+from conversation_memory import remember, select as select_memories, memory_prompt, MAX_TURNS
+from session_log import SessionLog, SessionLogError
+from streaming_turns import StreamingTurns, sentence_segments
+from performance_contract import refine_delivery
+from speech_language import whisper_language, latin_script, obvious_english_leak
+from patient_relationship import (initial_relationship, validate_appraisal, advance,
+    relationship_prompt, enforce_boundary_cues, ending_segments, APPRAISAL_PROMPT, APPRAISAL_SCHEMA, wants_fuller_reply)
 
 ROOT = Path(__file__).resolve().parents[1]
 EMOTION_CATALOG = json.loads((ROOT/'unity/Assets/PsychologyVR/Resources/EmotionCatalog.json').read_text(encoding='utf-8'))
@@ -121,8 +130,13 @@ class Session:
     busy: bool = False
     emotion: str = 'anxious'
     intensity: float = .65
+    relationship: dict | None = None
+    memory: list[dict] = field(default_factory=list)
+    journal: SessionLog | None = None
+    stream: dict | None = None
+    recent_gestures: list[str] = field(default_factory=list)
 
-class Bridge:
+class Bridge(StreamingTurns):
     def __init__(self, config: dict):
         self.config = config
         self.catalog = json.loads((ROOT / 'characters/catalog.json').read_text(encoding='utf-8'))
@@ -143,6 +157,7 @@ class Bridge:
         self.stt_lock = threading.Lock()
         self.stt = None
         self.kokoro = None
+        self.context_limit = None
         self.runtime = ROOT / 'services/.runtime'
         self.runtime.mkdir(parents=True, exist_ok=True)
 
@@ -157,35 +172,103 @@ class Bridge:
         profile = self.profiles[scenario_id]
         initial = profile.get('initial_state', {'emotion': 'neutral', 'intensity': .5})
         with self.lock:
+            old = self.sessions[replace_session_id] if replace_session_id else None
+            if old is None and len(self.sessions) >= 32:
+                raise ContractError('Session limit reached; restart the local bridge')
+            key = uuid.uuid4().hex
+            journal = SessionLog(ROOT,self.config,key,scenario_id,profile['name'])
             if replace_session_id:
-                old = self.sessions[replace_session_id]
+                if old.stream and not old.stream['closed']:
+                    self.finish_stream(replace_session_id,old.stream['turn_id'],old.stream['completed_count'],old.stream['partial_seconds'],'replaced')
+                old.journal.append('session_ended',reason='replaced',generation=old.generation,
+                                   next_archive_id=journal.archive_id)
                 # Retire the old ID as well as its generation: even an old request
                 # arriving after this switch cannot act on the new conversation.
                 old.generation += 1
                 del self.sessions[replace_session_id]
-            elif len(self.sessions) >= 32:
-                raise ContractError('Session limit reached; restart the local bridge')
-            key = uuid.uuid4().hex
             self.sessions[key] = Session(scenario_id=scenario_id, profile=profile,
-                emotion=initial['emotion'], intensity=initial['intensity'])
+                emotion=initial['emotion'], intensity=initial['intensity'], relationship=initial_relationship(profile),journal=journal)
         return {'session_id': key, 'scenario_id': scenario_id, 'character_name': profile['name'],
-                'initial_emotion': initial['emotion'], 'initial_intensity': initial['intensity']}
+                'generation':0,
+                'initial_emotion': initial['emotion'], 'initial_intensity': initial['intensity'],
+                'relationship': initial_relationship(profile)}
 
     def invalidate(self, key, reset=False):
         with self.lock:
             session = self.sessions[key]
+            if session.stream and not session.stream['closed']:
+                self.finish_stream(key,session.stream['turn_id'],session.stream['completed_count'],session.stream['partial_seconds'],'reset' if reset else 'interrupted')
+            if reset:
+                new_journal=SessionLog(ROOT,self.config,key,session.scenario_id,session.profile['name'])
+                session.journal.append('session_ended',reason='reset',generation=session.generation,
+                                       next_archive_id=new_journal.archive_id)
+                session.journal=new_journal
+            else:
+                session.journal.append('interrupted',generation=session.generation,
+                                       reply_in_progress=session.busy)
             session.generation += 1
             session.busy = False
             if reset:
                 session.history.clear()
+                session.memory.clear()
+                session.stream=None
+                session.recent_gestures.clear()
                 initial = session.profile.get('initial_state', {'emotion': 'neutral', 'intensity': .5})
                 session.emotion, session.intensity = initial['emotion'], initial['intensity']
-        return {'ok': True}
+                session.relationship = initial_relationship(session.profile)
+        return {'ok': True,'relationship':session.relationship,'generation':session.generation}
 
     def assert_current(self, key, generation):
         with self.lock:
             if key not in self.sessions or self.sessions[key].generation != generation:
                 raise StaleTurn('Turn was interrupted or reset')
+
+    def appraise(self, text, history, relationship, profile, recalled=None):
+        if self.config['dialogue_provider'] != 'llama.cpp':
+            return {'event': 'neutral', 'invites_detail': False}
+        recent = []
+        for message in history[-8:]:
+            content = message['content']
+            if message['role'] == 'assistant':
+                content = ' '.join(s['text'] for s in json.loads(content)['segments'])
+            recent.append({'role': message['role'], 'content': content})
+        body = {'model': self.config['llm_model'], 'stream': False, 'temperature': 0,
+                'max_tokens': 100, 'chat_template_kwargs': {'enable_thinking': False},
+                'messages': [{'role': 'system', 'content': APPRAISAL_PROMPT +
+                    '\nPatient context: ' + profile['setting'] + '\n' + profile['facts'][0] +
+                    '\nPrevious interaction state: ' + json.dumps(relationship)}] +
+                    recent + [{'role': 'user', 'content': text}],
+                'response_format': {'type': 'json_schema', 'json_schema': {
+                    'name': 'interaction_appraisal', 'strict': True, 'schema': APPRAISAL_SCHEMA}}}
+        self.fit_context(body, recalled=recalled)
+        data = self.post_json(self.config['llm_url'], body, self.config['llm_timeout_seconds'])
+        return validate_appraisal(data['choices'][0]['message'].get('content', ''))
+
+    def fit_context(self, body, recalled=None):
+        """Reserve output tokens before generation, rather than accepting truncated JSON."""
+        url = urllib.parse.urlsplit(self.config['llm_url'])
+        base = urllib.parse.urlunsplit((url.scheme, url.netloc, '', '', ''))
+        if self.context_limit is None:
+            with urllib.request.urlopen(base + '/props', timeout=5) as response:
+                self.context_limit = int(json.load(response)['default_generation_settings']['n_ctx'])
+        base_system = body['messages'][0]['content']
+        selected = list(recalled or [])
+        while True:
+            body['messages'][0]['content'] = base_system + memory_prompt(selected)
+            template = self.post_json(base + '/apply-template', {
+                'messages': body['messages'], 'add_generation_prompt': True,
+                'chat_template_kwargs': {'enable_thinking': False}}, 5)['prompt']
+            tokens = self.post_json(base + '/tokenize', {
+                'content': template, 'add_special': True, 'parse_special': True}, 5)['tokens']
+            if len(tokens) + body['max_tokens'] + 32 <= self.context_limit:
+                return selected
+            if len(body['messages']) <= 2:
+                if selected:
+                    selected.pop()  # Retrieval order is most relevant first.
+                    continue
+                raise ContractError('Message and character context are too long. Please shorten the message.')
+            # Drop oldest complete user/assistant pairs, never system rules/current utterance.
+            del body['messages'][1:3]
 
     def generate(self, text, history, opening, state, profile):
         if opening:
@@ -205,26 +288,51 @@ class Bridge:
                          'gesture': 'none', 'voice_style': 'normal'}]
             line, emotion, gesture, voice = examples[(len(history) // 2) % len(examples)]
             return [{'text': line, 'emotion': emotion, 'intensity': .5, 'gesture': gesture, 'voice_style': voice}]
-        system = json.dumps(profile, ensure_ascii=False)
+        relationship = state.get('relationship')
+        fuller = wants_fuller_reply(relationship)
+        system = character_prompt(profile, self.config.get('conversation_language'), relationship)
         system += '\nReturn only a JSON object with a segments array. Every segment has text, emotion, intensity (0-1), gesture, voice_style, gaze, transition_seconds, pause_before_seconds, hold_after_seconds, gesture_at and gesture_duration_seconds.'
         system += '\nAllowed gestures: '+', '.join(GESTURES)+'; voices: '+', '.join(VOICES)+'; gaze: '+', '.join(GAZES)+'.'
-        system += '\nCurrent simulated delivery state: ' + json.dumps(state)
-        system += PERFORMANCE_PROMPT
-        if self.config.get('conversation_language') == 'cnr':
-            system += '\nSpeak Montenegrin, Latin script, natural ijekavian (vrijeme, osjećam, nijesam where natural). Preserve č, ć, š, ž, đ. Do not translate to English or explain the language. Avoid forced dialect and phonetic spelling. Reply directly to what the counsellor said.'
-        else:
-            system += '\nUse the language spoken by the counsellor. Keep replies conversational and concise.'
+        system += '\nCurrent simulated delivery state: ' + json.dumps({k:v for k,v in state.items() if k not in ('relationship','recalled','memory_used')})
+        system += PATIENT_PERFORMANCE_PROMPT if state.get('relationship') else PERFORMANCE_PROMPT
+        language_guidance = conversation_guidance(self.config.get('conversation_language'), patient=bool(relationship))
+        system += language_guidance
         system += '\nAvailable delivery states: ' + json.dumps({e['name']:e['description'] for e in EMOTION_CATALOG['emotions']})
+        if relationship:
+            system += relationship_prompt(relationship, profile)
+        recent = history[-8:]
+        if relationship:
+            # Past animation timings consume context without adding conversational memory.
+            # Keep the actual dialogue; current delivery and rapport are supplied above.
+            recent = [{'role': m['role'], 'content': (' '.join(s['text'] for s in json.loads(m['content'])['segments'])
+                       if m['role'] == 'assistant' else m['content'])} for m in recent]
         body = {
             'model': self.config['llm_model'],
-            'messages': [{'role': 'system', 'content': system}] + history[-8:] + [{'role': 'user', 'content': text}],
+            'messages': [{'role': 'system', 'content': system}] + recent + [{'role': 'user', 'content': text}],
             'stream': False, 'temperature': .7, 'top_p': .8, 'top_k': 20, 'max_tokens': 850,
             'chat_template_kwargs': {'enable_thinking': False},
             'response_format': {'type': 'json_schema', 'json_schema': {'name': 'alex_reply', 'strict': True, 'schema': SEGMENT_SCHEMA}},
         }
-        data = self.post_json(self.config['llm_url'], body, self.config['llm_timeout_seconds'])
-        message = data['choices'][0]['message']
-        return validate_reply(message.get('content', ''))
+        for attempt in range(3):
+            if relationship:
+                # Rebuild from the original instructions on retry, so memory is
+                # never duplicated by a second context-budget pass.
+                state['memory_used'] = self.fit_context(body, recalled=state.get('recalled')) or []
+            data = self.post_json(self.config['llm_url'], body, self.config['llm_timeout_seconds'])
+            segments = validate_reply(data['choices'][0]['message'].get('content', ''))
+            if self.config.get('conversation_language') == 'cnr' and obvious_english_leak(' '.join(s['text'] for s in segments)):
+                if attempt == 2:
+                    raise ContractError('Reply switched languages. Please try again.')
+                body['messages'][0]['content'] = system + '\nRewrite the reply entirely in Montenegrin Latin script. No English clauses, including short denials or emotional reactions. Keep the meaning, character facts and word limit.'
+                continue
+            words = sum(len(s['text'].split()) for s in segments)
+            if fuller and words < 30 and attempt == 0:
+                body['messages'][0]['content'] = system + '\nYour first draft was too terse for the question. Give 3-5 connected sentences, about 40-80 words within word_limit, explaining a concrete relevant detail and your own perspective. Discuss the requested topic, not a repeated symptom. A genuine sensitive refusal can remain brief.'
+                continue
+            if not relationship or words <= relationship['word_limit']:
+                return segments
+            body['messages'][0]['content'] = system + '\nYour previous attempt was too long. Respond in at most ' + str(relationship['word_limit']) + ' spoken words total.'
+        raise ContractError('Reply exceeded this patient’s current disclosure limit. Try again.')
 
     @staticmethod
     def post_json(url, body, timeout):
@@ -294,18 +402,35 @@ class Bridge:
             return [],'audio_envelope'
         finally:dialogue.unlink(missing_ok=True)
 
-    def turn(self, key, text, opening=False):
+    def turn(self, key, text, opening=False, stream=None):
         if not isinstance(text, str) or len(text) > 2000 or (not opening and not text.strip()):
             raise ContractError('Enter 1–2000 characters')
         with self.lock:
             session = self.sessions[key]
+            if stream and (stream['closed'] or stream is not session.stream or stream['generation']!=session.generation):
+                raise StaleTurn('Turn was interrupted or reset')
+            if session.stream and not session.stream['closed'] and stream is not session.stream:
+                raise ContractError('A streaming reply is already in progress')
             if session.busy:
                 raise ContractError('A reply is already in progress')
+            if session.relationship and session.relationship['status'] == 'ended':
+                raise ContractError('This patient ended the session. Start a new conversation.')
+            request_id=uuid.uuid4().hex
+            journal=session.journal
+            journal.append('turn_started',request_id=request_id,generation=session.generation,
+                           opening=bool(opening),text='' if opening else text.strip(),
+                           playback_mode='acknowledged_sentences' if stream else 'legacy',
+                           turn_id=stream['turn_id'] if stream else None)
             session.busy = True
             generation = session.generation
             history = list(session.history)
             state = {'emotion': session.emotion, 'intensity': session.intensity}
+            # New dictionaries only: interruption/failure must not partially advance rapport.
+            relationship = dict(session.relationship) if session.relationship else None
             profile = session.profile
+            recalled = select_memories(session.memory, text, history)
+            memory = list(session.memory)
+            recent_gestures=list(session.recent_gestures)
         started = time.perf_counter()
         created_files = []
         committed = False
@@ -313,10 +438,29 @@ class Bridge:
             # A cancelled request can finish remotely, but cannot publish audio/history.
             with self.inference_lock:
                 self.assert_current(key, generation)
-                segments = validate_reply({'segments': self.generate(text.strip(), history, opening, state, profile)})
+                if relationship and not opening:
+                    appraisal = self.appraise(text.strip(), history, relationship, profile, recalled)
+                    self.assert_current(key, generation)
+                    relationship = advance(relationship, appraisal, profile)
+                if stream:
+                    with self.lock:
+                        self.assert_current(key,generation)
+                        stream['relationship']=dict(relationship) if relationship else None
+                if relationship:
+                    state['relationship'] = relationship
+                state['recalled'] = recalled
+                if relationship and relationship['status'] == 'ended':
+                    segments = ending_segments(relationship, profile, self.config.get('conversation_language'))
+                else:
+                    segments = self.generate(text.strip(), history, opening, state, profile)
+                segments = validate_reply({'segments': segments})
+                if relationship and not opening:
+                    segments = enforce_boundary_cues(segments, relationship, profile)
+                segments = refine_delivery(segments,state,recent_gestures)
+                if stream:segments=sentence_segments(segments)
             self.assert_current(key, generation)
             generation_ms = round((time.perf_counter() - started) * 1000)
-            turn_id = uuid.uuid4().hex
+            turn_id = stream['turn_id'] if stream else uuid.uuid4().hex
             speech_ms = alignment_ms = 0
             with self.speech_lock:
                 for i, segment in enumerate(segments):
@@ -332,25 +476,56 @@ class Bridge:
                         stage_started = time.perf_counter()
                         segment['mouth_cues'],segment['lip_sync_source']=self.align_mouth(audio_id,segment['text'])
                         alignment_ms += round((time.perf_counter() - stage_started) * 1000)
+                    if stream:
+                        if segment['audio_url']:
+                            with wave.open(str(self.runtime/(audio_id+'.wav'))) as audio:
+                                segment['audio_duration_seconds']=audio.getnframes()/audio.getframerate()
+                        with self.lock:
+                            self.assert_current(key,generation)
+                            elapsed=round((time.perf_counter()-stream['started'])*1000)
+                            journal.append('segment_ready',turn_id=turn_id,index=i,segment=segment,ready_ms=elapsed)
+                            stream['segments'].append(dict(segment))
+                            if stream['first_audio_ms'] is None:stream['first_audio_ms']=elapsed
             self.assert_current(key, generation)
             with self.lock:
                 self.assert_current(key, generation)
+                response = {'turn_id': turn_id, 'session_id': key, 'segments': segments,
+                    'generation_ms': generation_ms, 'speech_ms': speech_ms, 'alignment_ms': alignment_ms,
+                    'total_ms': round((time.perf_counter() - started) * 1000),
+                    'dialogue_provider': self.config['dialogue_provider'], 'tts_provider': self.config['tts_provider'],
+                    'relationship': dict(relationship) if relationship else None,
+                    'memory': {'retained_turns':min(len(memory)+1,MAX_TURNS), 'recalled':recalled,
+                               'in_reply_context':state.get('memory_used',[])}}
+                journal.append('turn_completed',request_id=request_id,generation=generation,
+                               response=response,session_ended=bool(relationship and relationship['status']=='ended'))
+                if stream:
+                    # Playback acknowledgements, not generation, commit conversation state.
+                    committed=True
+                    return response
                 session.history += [{'role': 'user', 'content': '[Start the session]' if opening else text.strip()},
                                     {'role': 'assistant', 'content': json.dumps({'segments': [
                                         {k: s[k] for k in FIELDS} for s in segments]})}]
                 session.history = session.history[-12:]
                 session.emotion, session.intensity = segments[-1]['emotion'], segments[-1]['intensity']
+                session.relationship = relationship
+                session.memory = remember(memory, text.strip(), segments, relationship, opening)
+                session.recent_gestures=(session.recent_gestures+[s['gesture'] for s in segments])[-6:]
                 committed = True
-            return {'turn_id': turn_id, 'session_id': key, 'segments': segments,
-                    'generation_ms': generation_ms, 'speech_ms': speech_ms, 'alignment_ms': alignment_ms,
-                    'total_ms': round((time.perf_counter() - started) * 1000),
-                    'dialogue_provider': self.config['dialogue_provider'], 'tts_provider': self.config['tts_provider']}
+            return response
+        except Exception as exc:
+            try:
+                journal.append('turn_cancelled' if isinstance(exc,StaleTurn) else 'turn_failed',
+                               request_id=request_id,generation=generation,error_type=type(exc).__name__)
+            except SessionLogError:
+                pass  # Preserve the original error; turn_started remains the durable pending record.
+            raise
         finally:
             if not committed:
                 for path in created_files:
-                    path.unlink(missing_ok=True)
+                    published=stream and any(s.get('audio_url')=='/audio/'+path.name for s in stream['segments'])
+                    if not published:path.unlink(missing_ok=True)
             with self.lock:
-                if session.generation == generation:
+                if session.generation == generation and not stream:
                     session.busy = False
 
     def transcribe(self, encoded):
@@ -374,13 +549,18 @@ class Bridge:
                 self.stt = WhisperModel(model_name, device=self.config['stt_device'],
                     compute_type='int8', cpu_threads=self.config.get('stt_cpu_threads', 8),
                     download_root=str(ROOT / '.cache/whisper'))
-            language = self.config.get('stt_language', 'en')
-            language = None if language == 'auto' else language
+            language = whisper_language(self.config.get('stt_language', 'en'))
             if language and language != 'en' and not self.stt.model.is_multilingual:
                 raise ContractError('This STT language requires a multilingual model; replace small.en with small.')
+            options = {key: self.config['stt_' + key]
+                       for key in ('initial_prompt', 'condition_on_previous_text')
+                       if 'stt_' + key in self.config}
             segments, _ = self.stt.transcribe(io.BytesIO(raw), language=language,
-                                             task='transcribe', vad_filter=True)
-            return {'text': ' '.join(s.text.strip() for s in segments).strip()}
+                                             task='transcribe', vad_filter=True, **options)
+            text = ' '.join(s.text.strip() for s in segments).strip()
+            if self.config.get('stt_output_script') == 'latin':
+                text = latin_script(text)
+            return {'text': text}
 
 def make_handler(bridge):
     class Handler(BaseHTTPRequestHandler):
@@ -401,6 +581,7 @@ def make_handler(bridge):
             elif self.path == '/health':
                 self.send_json(200, {'ok': True, 'character': 'Alex', 'dialogue_provider': bridge.config['dialogue_provider'],
                     'tts_provider': bridge.config['tts_provider'], 'stt_provider': bridge.config['stt_provider'],
+                    'sentence_streaming': True,
                     'stt_model': bridge.config.get('stt_model'),
                     'stt_language': bridge.config.get('stt_language', 'en')})
             elif re.fullmatch(r'/audio/[a-f0-9]{32}\.wav', self.path):
@@ -434,7 +615,17 @@ def make_handler(bridge):
                     value = bridge.new_session(body.get('scenario_id'), body.get('replace_session_id'))
                 elif self.path == '/turn':
                     value = bridge.turn(body['session_id'], body.get('text', ''), body.get('opening') is True)
+                elif self.path == '/turn/start':
+                    value=bridge.start_stream(body['session_id'],body.get('text',''),body.get('opening') is True,body.get('expected_generation'))
+                elif self.path == '/turn/poll':
+                    value=bridge.poll_stream(body['session_id'],body['turn_id'])
+                elif self.path == '/playback':
+                    value=bridge.acknowledge(body['session_id'],body['turn_id'],body['completed_count'],body.get('partial_seconds',0.))
+                elif self.path == '/turn/finish':
+                    value=bridge.finish_stream(body['session_id'],body['turn_id'],body['completed_count'],body.get('partial_seconds',0.),'interrupted' if body.get('interrupted') else 'completed')
                 elif self.path in ('/interrupt', '/reset'):
+                    if body.get('turn_id'):
+                        bridge.acknowledge(body['session_id'],body['turn_id'],body.get('completed_count',0),body.get('partial_seconds',0.))
                     value = bridge.invalidate(body['session_id'], reset=self.path == '/reset')
                 elif self.path == '/transcribe':
                     value = bridge.transcribe(body['wav_base64'])

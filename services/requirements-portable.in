@@ -1,0 +1,10 @@
+# One Python 3.12 environment for the release bridge, STT and BF16 speech.
+torch @ https://download.pytorch.org/whl/cu128/torch-2.8.0%2Bcu128-cp312-cp312-win_amd64.whl
+torchaudio @ https://download.pytorch.org/whl/cu128/torchaudio-2.8.0%2Bcu128-cp312-cp312-win_amd64.whl
+transformers==5.17.0
+accelerate==1.15.0
+soundfile==0.14.0
+librosa==1.0.0
+numpy==2.5.3
+faster-whisper==1.2.1
+huggingface-hub==1.31.0

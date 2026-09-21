@@ -1,0 +1,189 @@
+{
+  "version": 1,
+  "python": "3.12.13",
+  "uv": {
+    "url": "https://github.com/astral-sh/uv/releases/download/0.11.23/uv-x86_64-pc-windows-msvc.zip",
+    "sha256": "02ad29f07e674d68726ba3bb1ff25b335d83515756e2b1a194bb56c3cc30e07c"
+  },
+  "models": [
+    {
+      "repo": "HauhauCS/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-MTP-GGUF",
+      "revision": "993a5971fda8f30dd1b7eb2654792ba4415c7460",
+      "destination": ".cache/models/qwen",
+      "files": [
+        {
+          "name": "Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-IQ4_XS.gguf",
+          "bytes": 15705860224,
+          "sha256": "034b4c6b7c5cd9f4a2f99570d5097698f9d1e265a0fb000207223cbf9f9bd0b0"
+        },
+        {
+          "name": "README.md",
+          "bytes": 16474,
+          "sha256": "482d5909625c06402ac758540298103b8ff087d7d014a3fc1101390591f5824b"
+        }
+      ]
+    },
+    {
+      "repo": "multimodalart/higgs-audio-v3-tts-4b-transformers",
+      "revision": "30f01593ee6a12efa586c92455afe4b76e45095d",
+      "destination": ".cache/higgs-transformers",
+      "files": [
+        {
+          "name": "chat_template.jinja",
+          "bytes": 2427,
+          "sha256": "44d5f08f3f72b837eaad09f13a54c1f9f4eb58d75240334548b7fd52a5437fa5"
+        },
+        {
+          "name": "config.json",
+          "bytes": 1732,
+          "sha256": "04915260f0e671aeadb51950ade8d43878cbde5bcb91dd8974019c2bac9415b4"
+        },
+        {
+          "name": "configuration_higgs_multimodal_qwen3.py",
+          "bytes": 3253,
+          "sha256": "052000d1db58f1cb045220e20a4fc2a1bcc5a12c804f045d99783bdea2726d7f"
+        },
+        {
+          "name": "LICENSE",
+          "bytes": 25685,
+          "sha256": "822bc6815463a867ae7c0eb3d718efc0a96c1798ae3e0404d1c14708758816b2"
+        },
+        {
+          "name": "model.safetensors",
+          "bytes": 9309834930,
+          "sha256": "2f7965264c360b38180885006944aa16bd1de20f4e6cff79f6473bfcf8ae3d5a"
+        },
+        {
+          "name": "model.safetensors.index.json",
+          "bytes": 90103,
+          "sha256": "cf2689739828b9b77b7c09f66bc400d147541377f0b58fd6871f826cf4c16010"
+        },
+        {
+          "name": "modeling_higgs_multimodal_qwen3.py",
+          "bytes": 16119,
+          "sha256": "5eab2e3f17a865ef0ebc8c13fcb71d8ee1707af8b0e31f7cc91bfecdd49c5666"
+        },
+        {
+          "name": "README.md",
+          "bytes": 2448,
+          "sha256": "35bef92a58c60db3b00c8282dfc82111aeec20ecd0f7bf931ec9b6490a58c2f5"
+        },
+        {
+          "name": "tokenizer.json",
+          "bytes": 11433924,
+          "sha256": "eb883de2de5adc5113f1f02b54830a0ea7cd6ef191cde65c41aceb3737d4d1c1"
+        },
+        {
+          "name": "tokenizer_config.json",
+          "bytes": 1937,
+          "sha256": "b4d632e1239569fb1829bf0bfa3c674fa54f22c42e9cb2669d77c438d4b4e02c"
+        }
+      ]
+    },
+    {
+      "repo": "bosonai/higgs-audio-v2-tokenizer",
+      "revision": "403fbacf2f60caaa102f893fdfabb694619b2417",
+      "destination": ".cache/higgs-audio-v2-tokenizer",
+      "files": [
+        {
+          "name": "config.json",
+          "bytes": 2531,
+          "sha256": "eefb20806f7104e77c9a5277c9df0f9bb8826b08eb1d4e8ab2b9829b6ef9fac1"
+        },
+        {
+          "name": "higgs_audio_tokenizer_architecture.png",
+          "bytes": 117208,
+          "sha256": "f7c0177e38dd9c873acf8ac55c159ce65ba50970cbeba9663582da4698037447"
+        },
+        {
+          "name": "LICENSE",
+          "bytes": 9172,
+          "sha256": "8b2e018eeb3967a4636ccc57528440b33c14dd6e02ad67571fc7759489dde9a0"
+        },
+        {
+          "name": "model.safetensors",
+          "bytes": 805665628,
+          "sha256": "fe7c5e8785e0a05833e1bfc3e002ec7f55af21e306b2e7154a448c1f54ccfb0d"
+        },
+        {
+          "name": "preprocessor_config.json",
+          "bytes": 206,
+          "sha256": "ae61eea88558608ee2fa86d2aec9fce8d99a5ff75d09cb7651ccce21ae1d9084"
+        },
+        {
+          "name": "README.md",
+          "bytes": 14811,
+          "sha256": "4be60198fc94f80c3edc3d971357fb6c98c05a5bc0f03f3f635ce8072e1079fb"
+        }
+      ]
+    },
+    {
+      "repo": "dropbox-dash/faster-whisper-large-v3-turbo",
+      "revision": "0a363e9161cbc7ed1431c9597a8ceaf0c4f78fcf",
+      "destination": ".cache/whisper/large-v3-turbo",
+      "files": [
+        {
+          "name": "config.json",
+          "bytes": 2263,
+          "sha256": "b0253ea6c0d3bea6b1e19e91a02acfd3b53f4467362efcb5a3e6b16c9b3a9b7e"
+        },
+        {
+          "name": "model.bin",
+          "bytes": 1617884929,
+          "sha256": "e76620f83d5f5b69efd3d87e3dc180c1bd21df9fbebacfd4335e5e1efcc018da"
+        },
+        {
+          "name": "preprocessor_config.json",
+          "bytes": 340,
+          "sha256": "7ccc62c6f2765af1f3b46c00c9b5894426835a05021c8b9c01eecb6dfb542711"
+        },
+        {
+          "name": "README.md",
+          "bytes": 1445,
+          "sha256": "b3068692728faed23580cce5cd569fc47ff76c690c032b2641ffd5554ea64d8f"
+        },
+        {
+          "name": "tokenizer.json",
+          "bytes": 2710337,
+          "sha256": "297b13372ac43916285644fb9687add3cc62ee2a1adb60da3dc25cc94c1871fd"
+        },
+        {
+          "name": "vocabulary.json",
+          "bytes": 1068114,
+          "sha256": "c69260f2ab26d659b7c398f9a2b2b48ed0df16c3b47d7326782fd9cba71690c1"
+        }
+      ]
+    }
+  ],
+  "runtimes": [
+    {
+      "name": "llama-b10909-bin-win-cuda-13.3-x64.zip",
+      "sha256": "257fef963d0fb5d5f9786760b127bf92ddffc14034befe9c42282be97852cb8b",
+      "url": "https://github.com/ggml-org/llama.cpp/releases/download/b10909/llama-b10909-bin-win-cuda-13.3-x64.zip",
+      "destination": ".tools/llama",
+      "executable": ".tools/llama/llama-server.exe",
+      "required": [
+        ".tools/llama/ggml-cuda.dll",
+        ".tools/llama/llama-server-impl.dll"
+      ]
+    },
+    {
+      "name": "cudart-llama-bin-win-cuda-13.3-x64.zip",
+      "sha256": "1462a050eb4c684921ba51dcc4cc488a036674c3e73e9945ee705b854808d03e",
+      "url": "https://github.com/ggml-org/llama.cpp/releases/download/b10909/cudart-llama-bin-win-cuda-13.3-x64.zip",
+      "destination": ".tools/llama",
+      "executable": ".tools/llama/cudart64_13.dll",
+      "required": [
+        ".tools/llama/cublas64_13.dll",
+        ".tools/llama/cublasLt64_13.dll"
+      ]
+    },
+    {
+      "name": "Rhubarb-Lip-Sync-1.14.0-Windows.zip",
+      "url": "https://github.com/DanielSWolf/rhubarb-lip-sync/releases/download/v1.14.0/Rhubarb-Lip-Sync-1.14.0-Windows.zip",
+      "sha256": "62fa416a8d5e382a3828ee4bef358ce520d0b4cabdeaea75a7ac266d098d1fe3",
+      "destination": ".tools/rhubarb",
+      "executable": ".tools/rhubarb/Rhubarb-Lip-Sync-1.14.0-Windows/rhubarb.exe"
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "date": "2026-09-21",
+  "voice": "Higgs BF16, full reference, temperature 0.70",
+  "python_tests_passed": 46,
+  "unity_build": "passed",
+  "physical_headset_test": false,
+  "playback": {
+    "beats": [
+      {
+        "name": "opening-concern",
+        "source": "live-qwen-higgs",
+        "emotion": "anxious",
+        "gesture": "none",
+        "emotionMatched": true,
+        "audioPlayed": true,
+        "captured": true,
+        "gestureSeen": false,
+        "maximumJaw": 0.256680965423584,
+        "maximumWetness": 0.0,
+        "maximumCover": 0.0,
+        "gestureTimingError": 0.0,
+        "handToHeadAtCapture": 0.6051130890846252
+      },
+      {
+        "name": "dismissal",
+        "source": "live-qwen-higgs",
+        "emotion": "frustrated",
+        "gesture": "none",
+        "emotionMatched": true,
+        "audioPlayed": true,
+        "captured": true,
+        "gestureSeen": false,
+        "maximumJaw": 0.45779797434806824,
+        "maximumWetness": 0.0,
+        "maximumCover": 0.0,
+        "gestureTimingError": 0.0,
+        "handToHeadAtCapture": 0.5959488749504089
+      },
+      {
+        "name": "repair",
+        "source": "live-qwen-higgs",
+        "emotion": "relieved",
+        "gesture": "none",
+        "emotionMatched": true,
+        "audioPlayed": true,
+        "captured": true,
+        "gestureSeen": false,
+        "maximumJaw": 0.40399354696273804,
+        "maximumWetness": 0.0,
+        "maximumCover": 0.0,
+        "gestureTimingError": 0.0,
+        "handToHeadAtCapture": 0.616816520690918
+      },
+      {
+        "name": "controlled-transition",
+        "source": "authored-mechanical-fixture-higgs",
+        "emotion": "crying",
+        "gesture": "none",
+        "emotionMatched": true,
+        "audioPlayed": true,
+        "captured": true,
+        "gestureSeen": false,
+        "maximumJaw": 0.2885977625846863,
+        "maximumWetness": 0.949999988079071,
+        "maximumCover": 0.9999779462814331,
+        "gestureTimingError": 0.0,
+        "handToHeadAtCapture": 0.23359352350234985
+      },
+      {
+        "name": "controlled-transition",
+        "source": "authored-mechanical-fixture-higgs",
+        "emotion": "relieved",
+        "gesture": "nod",
+        "emotionMatched": true,
+        "audioPlayed": true,
+        "captured": true,
+        "gestureSeen": true,
+        "maximumJaw": 0.26782548427581787,
+        "maximumWetness": 0.949999988079071,
+        "maximumCover": 0.9999781250953674,
+        "gestureTimingError": 0.015833284705877304,
+        "handToHeadAtCapture": 0.6149619221687317
+      }
+    ],
+    "completed": true,
+    "paused": true,
+    "resumed": true,
+    "interrupted": true,
+    "noLateBeat": true,
+    "passed": true
+  },
+  "live_turns": [
+    {
+      "name": "opening-concern",
+      "emotions": [
+        "anxious"
+      ],
+      "generation_ms": 23425,
+      "speech_ms": 6822,
+      "total_ms": 31163
+    },
+    {
+      "name": "dismissal",
+      "emotions": [
+        "frustrated"
+      ],
+      "generation_ms": 12269,
+      "speech_ms": 6080,
+      "total_ms": 19068
+    },
+    {
+      "name": "repair",
+      "emotions": [
+        "relieved"
+      ],
+      "generation_ms": 22997,
+      "speech_ms": 7187,
+      "total_ms": 30900
+    }
+  ],
+  "limitations": [
+    "Two-segment crying/recovery is an authored mechanical fixture, not a model-selected reply",
+    "Categorical voice emotion; visual intensity is continuous",
+    "Desktop playback verification is not native emotion or headset acceptance"
+  ]
+}
