@@ -35,10 +35,11 @@ when switching; shared voice, tokenizer and Whisper files are reused.
 
 ## Installation and switching
 
-For new PCs, use the full Windows release ZIP and run a Start launcher; Auto is
-the default. For an existing installation, merge **pc-settings-update.zip** into
-its root, close the game, run **PC Settings.cmd**, then choose **1 Auto**.
-The small update omits the voice/game, which must already be present.
+Use **psychology-vr-windows.zip** for both new PCs and upgrades: every release
+contains the complete game, services and approved voice. Follow the Updating
+section in **START HERE.md** to preserve models, configuration and session logs
+on an existing PC. Auto is the default on fresh installations. To switch presets,
+close the game and run **PC Settings.cmd**.
 
 The settings menu stops only services recorded by this installation. Switching
 downloads the selected quant if absent and saves configuration backups under

@@ -58,6 +58,21 @@ containing `{"text":"The exact words in the recording."}` before setup.
 After closing the game/browser, double-click **Stop Services.cmd** to release GPU
 memory. Closing the browser alone does not stop the AI models.
 
+## Updating
+
+Every release is a complete application ZIP, including all previous fixes. No
+patch ZIPs or older release downloads are required. For a fresh installation,
+extract the complete folder and use a Start launcher as above.
+
+To upgrade in place, close the game and run **Stop Services.cmd** first. Extract
+**psychology-vr-windows.zip** into the parent of your existing `PsychologyVR`
+folder and replace matching files. If you renamed your application folder, copy
+all contents of the ZIP's `PsychologyVR` folder into that folder instead. Avoid
+creating a second `PsychologyVR` folder inside the first one. Keep your existing
+folder: merging the complete package preserves `.cache`, installed environments,
+`services/config.local.json` and `logs/sessions/`, which the ZIP does not contain.
+Then use your normal Start launcher. It reuses verified model downloads.
+
 ## If setup or launch fails
 
 - Keep `services/.runtime/setup-latest.log`; service logs are in the same folder.
@@ -65,9 +80,8 @@ memory. Closing the browser alone does not stop the AI models.
   reused. Setup preserves existing configuration choices, adds missing settings,
   and backs up any configuration it upgrades in `services/.runtime/config-backups/`.
 - If an older installer reports `KeyError: 'higgs_reference'`, download the latest
-  release's **pc-settings-update.zip**, extract it into the existing application
-  folder (replace matching files), and run **Setup.cmd** again. Keep your
-  existing `.tools`, `.cache`, `voices` and `logs` folders.
+  complete **psychology-vr-windows.zip**, follow **Updating** above, and run
+  **Setup.cmd** again.
 - If model files were removed or damaged after setup, run **Setup.cmd** again to
   check and repair the pinned downloads.
 - If Windows reports a missing Visual C++ runtime/DLL, install Microsoft's

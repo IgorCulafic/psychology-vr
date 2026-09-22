@@ -8,6 +8,8 @@ Unity 6000.6.0f1, Windows PCVR, Meta Quest 3. Seated patient simulations with lo
 
 For testing, download **psychology-vr-windows.zip** from the [latest private release](https://github.com/IgorCulafic/psychology-vr/releases/latest), extract it, and double-click **Start VR.cmd**, **Start Desktop.cmd**, or **Start Text Chat.cmd**. The built game and approved voice are included. First launch automatically downloads the pinned local AI models and installs its private runtime; no Unity, Git or Python installation is needed. Allow about 45 GB free disk space and internet for first setup. Subsequent launches run locally. See [START HERE](START%20HERE.md) for hardware, Quest Link and controls.
 
+Every release is a complete application package with all previous updates; no patch ZIPs are needed. See the **Updating** section in [START HERE](START%20HERE.md) to keep existing downloads, settings and session logs.
+
 Use the release asset above, not GitHub's **Source code.zip**. The source repository is for development; the instructions below describe that workflow. Voice recordings are supplied only in the private release with the owner's permission, not in source history.
 
 **GPU presets:** Setup automatically selects the lighter IQ3_M / 32-layer dialogue

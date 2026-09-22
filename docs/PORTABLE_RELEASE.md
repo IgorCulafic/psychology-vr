@@ -1,6 +1,6 @@
 # Standalone Windows release
 
-The `v0.2.3-fast-dialogue` release separates the runnable application from the
+The `v0.2.4-complete-package` release separates the runnable application from the
 Unity development repository. `psychology-vr-windows.zip` contains the complete
 player, services, four patient profiles, reference voice approved by its owner,
 CMD launchers and a checksum-pinned portable uv installer. It excludes session
@@ -30,13 +30,16 @@ The official uv ZIP and its MIT/Apache notices are cached under `.cache/releases
 ```powershell
 ./.venv/Scripts/python.exe -m unittest discover -s services
 ./.venv/Scripts/python.exe tools/create-portable-manifest.py
-./.venv/Scripts/python.exe tools/package-portable.py --include-approved-voice --tag v0.2.3-fast-dialogue
+./.venv/Scripts/python.exe tools/package-portable.py --include-approved-voice --tag v0.2.4-complete-package
 ```
 
 Package after committing the source: the release manifest records that commit,
 each included file's size and hash, the archive hash, and whether the approved
 voice is included. Publish the ZIP, `release-manifest.json`, and `SHA256SUMS.txt`
-as private GitHub release assets. The source ZIP alone is not the runnable game.
+as private GitHub release assets. Publish one complete application ZIP each time;
+do not create incremental patch ZIPs. Users can install it independently or merge
+the full package into an existing installation to retain models, settings and logs.
+The source ZIP alone is not the runnable game.
 
 ## Verification scope
 
@@ -76,7 +79,7 @@ choices, validates the reference and writes the upgraded configuration atomicall
 It saves the original bytes under `.runtime/config-backups/` before an upgrade.
 Invalid JSON and missing voice files produce actionable errors without changing
 the original configuration. Four regression tests cover migration, custom voice
-preservation, missing references and malformed configuration. A small
+preservation, missing references and malformed configuration. That release provided a small
 `setup-fix.zip` lets existing installations replace only the helper and reuse their
 downloaded dependencies and models. The extracted test installation was retested
 with all three portable path keys removed; the upgrade and runtime check passed
@@ -87,16 +90,24 @@ with all three portable path keys removed; the upgrade and runtime check passed
 `PC Settings.cmd` exposes Auto, University / RTX 4090 and Original quality. Auto
 selects IQ3_M / 32 GPU layers on 24 GB cards and IQ4_XS / 48 on 32 GB+ cards.
 Only one dialogue quant is downloaded; both remain pinned in the manifest.
-BF16 speech and character settings are unchanged. The small
+BF16 speech and character settings are unchanged. That release provided a small
 `pc-settings-update.zip` contains all required settings/helper/manifest changes
 for existing installations. See [GPU presets](GPU_PRESETS.md) for measured memory,
 the latency tradeoff and outstanding university hardware acceptance.
 
 ## Opt-in fast dialogue — v0.2.3
 
-Option 4 selects the pinned 9B Q6 model with full GPU offload. The small settings
-update also carries `services/alex_service.py` for the progressive length-retry
+Option 4 selects the pinned 9B Q6 model with full GPU offload. That release also
+provided a settings patch carrying `services/alex_service.py` for the progressive length-retry
 fix discovered in testing. Auto and both 27B options are unchanged. The local
 first-playback observation was 13.131 seconds, with 20.9 GiB total peak GPU use.
 The smaller model has known language/character weaknesses; see GPU_PRESETS.md
 before choosing it for students. The test is not a 4090 headset acceptance run.
+
+## Complete packages — v0.2.4 onward
+
+Each release is a standalone full application ZIP with every previous fix.
+Patch packaging has been removed. The v0.2.4 change is packaging and instructions
+only: the tested game, dialogue options, BF16 voice and service behavior are
+unchanged from v0.2.3. First-time model and runtime downloads still occur through
+Setup. See START HERE.md for fresh installation and preservation of existing data.
