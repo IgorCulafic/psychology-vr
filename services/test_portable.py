@@ -13,6 +13,65 @@ setup=importlib.util.module_from_spec(spec);spec.loader.exec_module(setup)
 
 
 class PortableTests(unittest.TestCase):
+    def test_partial_config_gets_missing_defaults_and_exact_backup(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);(root/'services').mkdir();(root/'voices').mkdir()
+            (root/'services/config.expressive.example.json').write_text(json.dumps({'higgs_reference':'missing','higgs_temperature':.7,'tts_provider':'higgs'}))
+            (root/'voices/reference.wav').write_bytes(b'audio')
+            (root/'voices/reference.json').write_text('{"text":"Reference words."}')
+            path=root/'services/config.local.json'
+            original=b'\xef\xbb\xbf{"higgs_temperature":0.6,"conversation_language":"en","custom_setting":true}'
+            path.write_bytes(original)
+            with patch.object(setup,'ROOT',root):
+                setup.configure()
+                config=json.loads(path.read_text())
+                self.assertEqual(config['higgs_reference'],'voices/reference.wav')
+                self.assertEqual(config['higgs_python'],'.tools/portable-env/Scripts/python.exe')
+                self.assertEqual(config['bridge_python'],config['higgs_python'])
+                self.assertEqual(config['tts_provider'],'higgs')
+                self.assertEqual(config['higgs_temperature'],.6)
+                self.assertEqual(config['conversation_language'],'en')
+                self.assertTrue(config['custom_setting'])
+                backups=list((root/'services/.runtime/config-backups').glob('*.json'))
+                self.assertEqual(len(backups),1);self.assertEqual(backups[0].read_bytes(),original)
+                saved=path.read_bytes();setup.configure()
+                self.assertEqual(path.read_bytes(),saved)
+                self.assertEqual(len(list(backups[0].parent.glob('*.json'))),1)
+
+    def test_custom_voice_and_providers_survive_config_upgrade(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);(root/'services').mkdir();(root/'custom').mkdir()
+            (root/'services/config.expressive.example.json').write_text('{"tts_provider":"higgs"}')
+            (root/'custom/voice.wav').write_bytes(b'audio')
+            (root/'custom/voice.json').write_text('{"text":"Custom voice."}')
+            path=root/'services/config.local.json'
+            path.write_text(json.dumps({'higgs_reference':'custom/voice.wav','tts_provider':'windows','higgs_python':'custom/python.exe'}))
+            with patch.object(setup,'ROOT',root):setup.configure()
+            config=json.loads(path.read_text())
+            self.assertEqual(config['higgs_reference'],'custom/voice.wav')
+            self.assertEqual(config['higgs_python'],'custom/python.exe')
+            self.assertEqual(config['tts_provider'],'windows')
+
+    def test_missing_voice_has_actionable_error_without_modifying_config(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);(root/'services').mkdir()
+            (root/'services/config.expressive.example.json').write_text('{}')
+            path=root/'services/config.local.json';path.write_text('{}')
+            with patch.object(setup,'ROOT',root):
+                with self.assertRaisesRegex(RuntimeError,'Voice reference missing'):setup.configure()
+            self.assertEqual(path.read_text(),'{}')
+
+    def test_invalid_config_has_actionable_error_and_is_preserved(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);(root/'services').mkdir()
+            (root/'services/config.expressive.example.json').write_text('{}')
+            path=root/'services/config.local.json'
+            for value in ['{broken','[]','null']:
+                path.write_text(value)
+                with patch.object(setup,'ROOT',root):
+                    with self.assertRaisesRegex(RuntimeError,'Setup.cmd'):setup.configure()
+                self.assertEqual(path.read_text(),value)
+
     def test_archive_cannot_write_outside_destination(self):
         with tempfile.TemporaryDirectory() as folder:
             root=Path(folder);archive=root/'bad.zip'

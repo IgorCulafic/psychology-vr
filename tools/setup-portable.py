@@ -7,6 +7,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
+import time
 import urllib.request
 import zipfile
 
@@ -58,16 +59,38 @@ def validate_files(manifest,full=False):
 
 def configure():
     config_path=ROOT/'services/config.local.json'
-    if not config_path.exists():
-        config=json.loads((ROOT/'services/config.expressive.example.json').read_text(encoding='utf-8'))
-        config.update(bridge_python='.tools/portable-env/Scripts/python.exe',higgs_python='.tools/portable-env/Scripts/python.exe',higgs_reference='voices/reference.wav')
-        config_path.write_text(json.dumps(config,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-    config=json.loads(config_path.read_text(encoding='utf-8-sig'))
+    defaults=json.loads((ROOT/'services/config.expressive.example.json').read_text(encoding='utf-8-sig'))
+    portable_paths=dict(bridge_python='.tools/portable-env/Scripts/python.exe',
+                        higgs_python='.tools/portable-env/Scripts/python.exe',
+                        higgs_reference='voices/reference.wav')
+    defaults.update(portable_paths)
+    original=config_path.read_bytes() if config_path.exists() else None
+    try:
+        existing=json.loads(original.decode('utf-8-sig')) if original is not None else {}
+    except (ValueError,UnicodeError) as error:
+        raise RuntimeError('services/config.local.json is not valid JSON. Correct it or rename it to keep a backup, then rerun Setup.cmd.') from error
+    if not isinstance(existing,dict):
+        raise RuntimeError('services/config.local.json must contain a JSON object. Rename it to keep a backup, then rerun Setup.cmd.')
+    # Older/source configurations may lack speech or portable-runtime settings.
+    # Fill missing fields while retaining explicit provider/voice/user choices.
+    config={**defaults,**existing}
+    for key,value in portable_paths.items():
+        if config[key] is None or (isinstance(config[key],str) and not config[key].strip()):config[key]=value
+        if not isinstance(config[key],str):raise RuntimeError(f'{key} in services/config.local.json must be a file path.')
     reference=ROOT/config['higgs_reference']
     if not reference.is_file() or not reference.with_suffix('.json').is_file():
         raise RuntimeError('Voice reference missing. Place reference.wav and reference.json in voices/ (see START HERE.md).')
     transcript=json.loads(reference.with_suffix('.json').read_text(encoding='utf-8-sig')).get('text')
     if not isinstance(transcript,str) or not transcript.strip():raise RuntimeError('Voice transcript is empty.')
+    if original is None or config!=existing:
+        if original is not None:
+            backup=ROOT/'services/.runtime/config-backups'/f'config-{time.time_ns()}.json'
+            backup.parent.mkdir(parents=True,exist_ok=True)
+            backup.write_bytes(original)
+            print('Added missing setup settings; previous configuration saved to '+str(backup),flush=True)
+        temporary=config_path.with_suffix('.json.tmp')
+        temporary.write_text(json.dumps(config,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+        temporary.replace(config_path)
 
 
 def doctor(check_runtime=True):

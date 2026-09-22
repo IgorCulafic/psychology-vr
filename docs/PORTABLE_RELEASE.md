@@ -1,6 +1,6 @@
 # Standalone Windows release
 
-The `v0.2.0-student-testing` release separates the runnable application from the
+The `v0.2.1-setup-fix` release separates the runnable application from the
 Unity development repository. `psychology-vr-windows.zip` contains the complete
 player, services, four patient profiles, reference voice approved by its owner,
 CMD launchers and a checksum-pinned portable uv installer. It excludes session
@@ -28,7 +28,7 @@ The official uv ZIP and its MIT/Apache notices are cached under `.cache/releases
 ```powershell
 ./.venv/Scripts/python.exe -m unittest discover -s services
 ./.venv/Scripts/python.exe tools/create-portable-manifest.py
-./.venv/Scripts/python.exe tools/package-portable.py --include-approved-voice --tag v0.2.0-student-testing
+./.venv/Scripts/python.exe tools/package-portable.py --include-approved-voice --tag v0.2.1-setup-fix
 ```
 
 Package after committing the source: the release manifest records that commit,
@@ -38,7 +38,7 @@ as private GitHub release assets. The source ZIP alone is not the runnable game.
 
 ## Verification scope
 
-102 standard-library service/release-helper tests pass, including extraction path
+106 standard-library service/release-helper tests pass, including extraction path
 checks and configuration preservation. A separate extracted folder containing
 spaces installed a fresh Python runtime and all required libraries. Large model
 weights were reused from the verified development cache rather than downloaded
@@ -64,3 +64,18 @@ This is a same-PC extracted-package test, not a clean Windows VM, another GPU,
 or another Quest headset acceptance test. NVIDIA drivers, Meta Quest Link and
 the Windows Visual C++ runtime remain system prerequisites. See
 [START HERE](../START%20HERE.md) for the end-user steps.
+
+## Setup configuration fix — v0.2.1
+
+The previous installer assumed every existing `config.local.json` already had
+`higgs_reference`, causing a KeyError with partial/older configurations. Setup now
+merges missing expressive and portable-runtime defaults, preserves explicit user
+choices, validates the reference and writes the upgraded configuration atomically.
+It saves the original bytes under `.runtime/config-backups/` before an upgrade.
+Invalid JSON and missing voice files produce actionable errors without changing
+the original configuration. Four regression tests cover migration, custom voice
+preservation, missing references and malformed configuration. A small
+`setup-fix.zip` lets existing installations replace only the helper and reuse their
+downloaded dependencies and models. The extracted test installation was retested
+with all three portable path keys removed; the upgrade and runtime check passed
+(`PORTABLE_READY`) without downloading models or starting a new conversation.
