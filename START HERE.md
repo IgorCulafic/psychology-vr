@@ -14,9 +14,24 @@ models and runtimes. Leave its setup window open. Internet and approximately
 There is no Unity, Git, Python, API key or paid speech service setup to perform.
 
 Requirements: Windows 10/11 x64, a current NVIDIA driver, an NVIDIA GPU with at
-least 24 GB VRAM, and preferably 64 GB system RAM. The development checks use an
-RTX 5090. The 24 GB/RTX 4090 target still needs a separate hardware acceptance
-test. Speech stays BF16; reducing speech quality is not part of setup.
+least 24 GB VRAM, and preferably 64 GB system RAM. The university's RTX 4090 / 64 GB
+PCs are the target of the lighter preset. Development checks use an RTX 5090;
+the preset still needs a full Quest session on an actual university PC.
+
+**GPU setting:** Setup defaults to **Auto-detect GPU**. A 24 GB card selects
+IQ3_M dialogue with 32 GPU layers; a 32 GB or larger card selects the original
+IQ4_XS dialogue with 48 GPU layers. The remaining dialogue layers use system RAM
+and the CPU. Speech stays BF16 in both presets; this setting never reduces voice
+precision. Auto uses the capacity of CUDA device 0, not combined GPU memory.
+
+To change the setting, close the game and double-click **PC Settings.cmd**:
+choose **1 Auto**, **2 University / RTX 4090**, or **3 Original quality**.
+This stops this installation's AI services, backs up configuration changes and
+prepares the selected model. Then use Start VR/Desktop/Text Chat normally.
+New installations download only the selected dialogue quant: about 25 GB total
+models for the 4090 preset versus 28 GB for original quality. Switching from the
+old installation requires a one-time 12.8 GB IQ3_M download; the previous model is
+kept for switching back. More CPU offload can increase reply latency.
 
 For VR, install Meta Quest Link, connect the Quest 3 to this PC, and enter its
 PC Link environment before starting. This is a Windows PCVR game, not a Quest APK.
@@ -44,8 +59,8 @@ memory. Closing the browser alone does not stop the AI models.
   reused. Setup preserves existing configuration choices, adds missing settings,
   and backs up any configuration it upgrades in `services/.runtime/config-backups/`.
 - If an older installer reports `KeyError: 'higgs_reference'`, download the latest
-  release's **setup-fix.zip**, extract it into the existing application folder
-  (replace `tools/setup-portable.py`), and run **Setup.cmd** again. Keep your
+  release's **pc-settings-update.zip**, extract it into the existing application
+  folder (replace matching files), and run **Setup.cmd** again. Keep your
   existing `.tools`, `.cache`, `voices` and `logs` folders.
 - If model files were removed or damaged after setup, run **Setup.cmd** again to
   check and repair the pinned downloads.

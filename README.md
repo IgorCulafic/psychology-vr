@@ -10,6 +10,13 @@ For testing, download **psychology-vr-windows.zip** from the [latest private rel
 
 Use the release asset above, not GitHub's **Source code.zip**. The source repository is for development; the instructions below describe that workflow. Voice recordings are supplied only in the private release with the owner's permission, not in source history.
 
+**GPU presets:** Setup automatically selects the lighter IQ3_M / 32-layer dialogue
+configuration on a 24 GB RTX 4090, or the original IQ4_XS / 48-layer configuration
+on a 32 GB+ GPU. Both keep BF16 speech. Use **PC Settings.cmd** to choose Auto or
+either manual preset. The 4090 preset targets the university's 64 GB RAM machines;
+it trades some response speed for VR memory headroom. See [GPU presets](docs/GPU_PRESETS.md)
+for measurements and the remaining on-device acceptance check.
+
 ## Clone and open
 
 Install Git LFS before cloning so the character and room art download correctly:

@@ -13,6 +13,50 @@ setup=importlib.util.module_from_spec(spec);spec.loader.exec_module(setup)
 
 
 class PortableTests(unittest.TestCase):
+    def test_auto_selects_by_device_memory_not_combined_gpu_capacity(self):
+        self.assertEqual(setup.resolve_preset('auto',24*1024**3),'rtx4090')
+        self.assertEqual(setup.resolve_preset('auto',int(23.7*1024**3)),'rtx4090')
+        self.assertEqual(setup.resolve_preset('auto',32*1024**3),'quality')
+        with self.assertRaisesRegex(RuntimeError,'single NVIDIA GPU'):setup.resolve_preset('auto',16*1024**3)
+        with self.assertRaisesRegex(RuntimeError,'Unknown'):setup.resolve_preset('typo',24*1024**3)
+
+    def test_manual_presets_override_auto_detection(self):
+        self.assertEqual(setup.resolve_preset('rtx4090',32*1024**3),'rtx4090')
+        self.assertEqual(setup.resolve_preset('quality',24*1024**3),'quality')
+
+    def test_only_selected_dialogue_quant_is_required(self):
+        manifest=json.loads((ROOT/'services/portable-manifest.json').read_text())
+        snapshot=json.dumps(manifest)
+        for preset in ['quality','rtx4090']:
+            chosen=setup.selected_manifest(manifest,setup.HARDWARE_PRESETS[preset])
+            quant=[f['name'] for f in chosen['models'][0]['files'] if f['name'].endswith('.gguf')]
+            self.assertEqual(quant,[Path(setup.HARDWARE_PRESETS[preset]['llm_model_path']).name])
+            self.assertEqual(chosen['models'][1:],manifest['models'][1:])
+        self.assertEqual(json.dumps(manifest),snapshot)
+        with self.assertRaisesRegex(RuntimeError,'not in the download manifest'):
+            setup.selected_manifest(manifest,{'llm_model_path':'unknown.gguf'})
+
+    def test_auto_migration_keeps_voice_language_and_conversation_preferences(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder);(root/'services').mkdir();(root/'voices').mkdir()
+            (root/'services/config.expressive.example.json').write_text('{"hardware_preset":"auto"}')
+            (root/'voices/reference.wav').write_bytes(b'audio')
+            (root/'voices/reference.json').write_text('{"text":"Reference words."}')
+            path=root/'services/config.local.json'
+            path.write_text(json.dumps({'higgs_quantization':'bf16','higgs_temperature':.7,'conversation_language':'cnr','llm_gpu_layers':48}))
+            with patch.object(setup,'ROOT',root),patch.object(setup,'gpu_properties',return_value=('RTX 4090',24*1024**3)):
+                config=setup.configure()
+                self.assertEqual(config['hardware_preset'],'auto')
+                self.assertEqual(config['hardware_preset_resolved'],'rtx4090')
+                self.assertEqual(config['llm_gpu_layers'],32)
+                self.assertEqual(config['higgs_quantization'],'bf16')
+                self.assertEqual(config['higgs_temperature'],.7)
+                self.assertEqual(config['conversation_language'],'cnr')
+                config=setup.configure('quality')
+                self.assertEqual(config['llm_gpu_layers'],48)
+                self.assertEqual(config['hardware_preset'],'quality')
+                self.assertTrue(config['llm_model_path'].endswith('IQ4_XS.gguf'))
+
     def test_partial_config_gets_missing_defaults_and_exact_backup(self):
         with tempfile.TemporaryDirectory() as folder:
             root=Path(folder);(root/'services').mkdir();(root/'voices').mkdir()
@@ -96,7 +140,7 @@ class PortableTests(unittest.TestCase):
     def test_manifest_pins_models_and_keeps_downloads_within_root(self):
         manifest=json.loads((ROOT/'services/portable-manifest.json').read_text())
         self.assertEqual(len(manifest['models']),4)
-        for model in manifest['models']:
+        for model in [*manifest['models'],*manifest.get('dialogue_variants',[])]:
             self.assertRegex(model['revision'],r'^[a-f0-9]{40}$')
             for entry in model['files']:
                 self.assertRegex(entry['sha256'],r'^[a-f0-9]{64}$')

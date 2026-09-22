@@ -1,5 +1,14 @@
 # Prototype build status
 
+## Automatic GPU presets — 22 September 2026
+
+The optional PC Settings menu exposes Auto, University / RTX 4090 and Original
+quality. Auto defaults to IQ3_M / 32 GPU layers for 24 GB cards and IQ4_XS / 48 for
+32 GB+ cards. BF16 speech is preserved. 110 tests pass; live playback with the
+conservative preset passed on the 5090 with a 20.8 GiB total GPU peak and 67.224 s
+to first playback. A university 4090/Quest acceptance check remains necessary.
+See [GPU presets](GPU_PRESETS.md) for deployment instructions and limitations.
+
 ## Downloadable Windows package — 21 September 2026
 
 The standalone release includes the built game, four patient profiles, services,

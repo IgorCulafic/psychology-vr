@@ -16,12 +16,12 @@ def sha(path):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--include-approved-voice',action='store_true')
-    parser.add_argument('--tag',default='v0.2.1-setup-fix')
+    parser.add_argument('--tag',default='v0.2.2-gpu-presets')
     args=parser.parse_args();out=ROOT/'.cache/releases'/args.tag;out.mkdir(parents=True,exist_ok=True)
     files={}
     def add(path,name=None):files[name or path.relative_to(ROOT).as_posix()]=path
     for path in ROOT.glob('*.cmd'):add(path)
-    for name in ['START HERE.md','ASSET_CREDITS.md']:add(ROOT/name)
+    for name in ['START HERE.md','ASSET_CREDITS.md','docs/GPU_PRESETS.md']:add(ROOT/name)
     for folder in ['services','characters']:
         for path in (ROOT/folder).rglob('*'):
             if not path.is_file() or any(part.startswith('.') or part=='__pycache__' for part in path.relative_to(ROOT/folder).parts):continue
@@ -55,15 +55,20 @@ def main():
     commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
     record=dict(tag=args.tag,commit=commit,private_voice_included=args.include_approved_voice,
                 file=archive.name,bytes=archive.stat().st_size,sha256=sha(archive),files=rows)
-    repair=out/'setup-fix.zip'
+    repair=out/'pc-settings-update.zip'
     with zipfile.ZipFile(repair,'w',zipfile.ZIP_DEFLATED) as bundle:
-        bundle.write(ROOT/'tools/setup-portable.py','tools/setup-portable.py')
-        bundle.writestr('APPLY SETUP FIX.txt',
-            'Extract this ZIP into your existing application folder and replace tools/setup-portable.py.\r\n'
-            'Then double-click Setup.cmd. Keep .tools, .cache, voices and logs; do not delete config.local.json.\r\n'
-            'Missing settings are added and previous settings are backed up under services/.runtime/config-backups/.\r\n'
+        for name in ['PC Settings.cmd','tools/setup-portable.py','tools/run-portable.ps1','tools/launch.ps1',
+                     'services/config.expressive.example.json','services/portable-manifest.json','docs/GPU_PRESETS.md']:
+            bundle.write(ROOT/name,name)
+        bundle.writestr('APPLY PC SETTINGS UPDATE.txt',
+            'Close the game. Extract this ZIP into your existing application folder, replacing matching files.\r\n'
+            'Double-click PC Settings.cmd and choose 1 (Auto-detect GPU). This stops this copy\'s AI services.\r\n'
+            'A 24 GB GPU selects IQ3_M / 32 GPU layers; 32 GB+ selects IQ4_XS / 48. BF16 voice is unchanged.\r\n'
+            'Keep .tools, .cache, voices and logs. Setup reuses verified models and installs only the selected dialogue quant.\r\n'
+            'The smaller quant requires a one-time 12.8 GB download. Existing IQ4_XS files are kept for switching back.\r\n'
+            'Original configuration is backed up under services/.runtime/config-backups/. Start VR/Desktop after setup.\r\n'
             'This patch does not contain the game or voice. For a new installation, use psychology-vr-windows.zip.\r\n')
-    record['setup_fix']=dict(file=repair.name,bytes=repair.stat().st_size,sha256=sha(repair))
+    record['pc_settings_update']=dict(file=repair.name,bytes=repair.stat().st_size,sha256=sha(repair))
     record_path=out/'release-manifest.json';record_path.write_text(json.dumps(record,indent=2)+'\n',encoding='utf-8')
     (out/'SHA256SUMS.txt').write_text(f"{record['sha256']}  {archive.name}\n{sha(record_path)}  {record_path.name}\n{sha(repair)}  {repair.name}\n",encoding='utf-8')
     print(json.dumps({k:v for k,v in record.items() if k!='files'}),flush=True)

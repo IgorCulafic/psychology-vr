@@ -22,16 +22,28 @@ function Wait-Health([string]$Url, [int]$Seconds) {
     throw "Service did not become ready: $Url. Check services/.runtime logs."
 }
 if (-not $Scripted) {
+    $taskModel = Join-Path $taskRoot $(if($taskSettings.llm_model_path){$taskSettings.llm_model_path}else{'.cache/models/qwen/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-IQ4_XS.gguf'})
+    $taskModelRecord=Join-Path $taskRuntime 'model-process.json'
+    if((Get-Health 'http://127.0.0.1:8087/health') -and !(Test-Path -LiteralPath $taskModelRecord) -and $taskSettings.hardware_preset) {
+        throw 'Another installation is already using the dialogue service port. Stop its services before starting this GPU preset.'
+    }
+    if((Get-Health 'http://127.0.0.1:8087/health') -and (Test-Path -LiteralPath $taskModelRecord)) {
+        $taskRunning=Get-Content -LiteralPath $taskModelRecord -Raw | ConvertFrom-Json
+        if(($taskRunning.ModelPath -and $taskRunning.ModelPath -ne $taskModel) -or
+           ($null -ne $taskRunning.GpuLayers -and [string]$taskRunning.GpuLayers -ne $taskGpuLayers) -or
+           (!$taskRunning.ModelPath -and $taskSettings.hardware_preset)) {
+            throw 'The running dialogue service uses older/different GPU settings. Close the game and run Stop Services.cmd, then start again.'
+        }
+    }
     if (-not (Get-Health 'http://127.0.0.1:8087/health')) {
         $taskServer = Join-Path $taskRoot '.tools/llama/llama-server.exe'
-        $taskModel = Join-Path $taskRoot '.cache/models/qwen/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-IQ4_XS.gguf'
         if (-not (Test-Path -LiteralPath $taskServer) -or -not (Test-Path -LiteralPath $taskModel)) { throw 'Model/runtime missing. See README.md.' }
         $taskArguments = @('--model', ('"'+$taskModel+'"'), '--alias','alex-qwen','--host','127.0.0.1','--port','8087',
             '--ctx-size','4096','--parallel','1','--n-gpu-layers',$taskGpuLayers,'--batch-size','256','--ubatch-size','128',
             '--jinja','--reasoning','off','--spec-type','none')
         $taskProcess = Start-Process -FilePath $taskServer -ArgumentList $taskArguments -WorkingDirectory $taskRoot -WindowStyle Hidden -PassThru `
             -RedirectStandardOutput (Join-Path $taskRuntime 'model.out.log') -RedirectStandardError (Join-Path $taskRuntime 'model.err.log')
-        @{Id=$taskProcess.Id; Path=$taskServer; StartTicks=$taskProcess.StartTime.ToUniversalTime().Ticks} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $taskRuntime 'model-process.json')
+        @{Id=$taskProcess.Id; Path=$taskServer; StartTicks=$taskProcess.StartTime.ToUniversalTime().Ticks; ModelPath=$taskModel; GpuLayers=$taskGpuLayers} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $taskRuntime 'model-process.json')
         Write-Host 'Loading Qwen...'
         Wait-Health 'http://127.0.0.1:8087/health' 120 | Out-Null
     }

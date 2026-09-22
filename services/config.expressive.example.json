@@ -6,6 +6,7 @@
   "llm_model": "alex-qwen",
   "llm_timeout_seconds": 90,
   "llm_gpu_layers": 48,
+  "hardware_preset": "auto",
   "conversation_language": "cnr",
   "tts_provider": "higgs",
   "higgs_url": "http://127.0.0.1:8766/synthesize",

@@ -1,5 +1,6 @@
 """Install pinned model/runtime downloads and validate an extracted Windows release."""
 import argparse
+import copy
 import hashlib
 import json
 import os
@@ -12,6 +13,35 @@ import urllib.request
 import zipfile
 
 ROOT=Path(__file__).resolve().parents[1]
+MODEL_PREFIX='Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-'
+HARDWARE_PRESETS={
+    'quality':dict(llm_model_path='.cache/models/qwen/'+MODEL_PREFIX+'IQ4_XS.gguf',llm_gpu_layers=48),
+    'rtx4090':dict(llm_model_path='.cache/models/qwen/'+MODEL_PREFIX+'IQ3_M.gguf',llm_gpu_layers=32),
+}
+
+
+def resolve_preset(requested,total_bytes):
+    if requested not in ('auto',*HARDWARE_PRESETS):raise RuntimeError('Unknown hardware_preset; choose auto, quality or rtx4090 in PC Settings.cmd.')
+    if total_bytes<23*1024**3:raise RuntimeError('These BF16 speech presets require a single NVIDIA GPU with at least 24 GB VRAM.')
+    return ('quality' if total_bytes>=30*1024**3 else 'rtx4090') if requested=='auto' else requested
+
+
+def gpu_properties():
+    import torch
+    if not torch.cuda.is_available():raise RuntimeError('An NVIDIA GPU and current NVIDIA driver are required.')
+    properties=torch.cuda.get_device_properties(0)
+    return properties.name,properties.total_memory
+
+
+def selected_manifest(manifest,config):
+    selected=copy.deepcopy(manifest)
+    model_path=config.get('llm_model_path',HARDWARE_PRESETS['quality']['llm_model_path'])
+    model=selected['models'][0]
+    for variant in [model,*selected.get('dialogue_variants',[])]:
+        if any(model_path==variant['destination']+'/'+f['name'] for f in variant['files']):
+            selected['models'][0]=copy.deepcopy(variant)
+            return selected
+    raise RuntimeError('Configured dialogue model is not in the download manifest. Select a supported preset in PC Settings.cmd.')
 
 
 def contained(root,relative):
@@ -57,7 +87,7 @@ def validate_files(manifest,full=False):
             if not contained(ROOT,file).is_file():raise RuntimeError('Missing runtime: '+file)
 
 
-def configure():
+def configure(preset=None):
     config_path=ROOT/'services/config.local.json'
     defaults=json.loads((ROOT/'services/config.expressive.example.json').read_text(encoding='utf-8-sig'))
     portable_paths=dict(bridge_python='.tools/portable-env/Scripts/python.exe',
@@ -82,15 +112,23 @@ def configure():
         raise RuntimeError('Voice reference missing. Place reference.wav and reference.json in voices/ (see START HERE.md).')
     transcript=json.loads(reference.with_suffix('.json').read_text(encoding='utf-8-sig')).get('text')
     if not isinstance(transcript,str) or not transcript.strip():raise RuntimeError('Voice transcript is empty.')
+    if preset is not None:config['hardware_preset']=preset
+    if config.get('hardware_preset'):
+        gpu_name,total_bytes=gpu_properties()
+        resolved=resolve_preset(config['hardware_preset'],total_bytes)
+        config.update(HARDWARE_PRESETS[resolved])
+        config['hardware_preset_resolved']=resolved
+        print(f"GPU: {gpu_name} ({total_bytes/1024**3:.1f} GiB); preset: {config['hardware_preset']} -> {resolved}; dialogue GPU layers: {config['llm_gpu_layers']}",flush=True)
     if original is None or config!=existing:
         if original is not None:
             backup=ROOT/'services/.runtime/config-backups'/f'config-{time.time_ns()}.json'
             backup.parent.mkdir(parents=True,exist_ok=True)
             backup.write_bytes(original)
-            print('Added missing setup settings; previous configuration saved to '+str(backup),flush=True)
+            print('Updated setup settings; previous configuration saved to '+str(backup),flush=True)
         temporary=config_path.with_suffix('.json.tmp')
         temporary.write_text(json.dumps(config,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
         temporary.replace(config_path)
+    return config
 
 
 def doctor(check_runtime=True):
@@ -115,11 +153,16 @@ def doctor(check_runtime=True):
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--check',action='store_true')
+    parser.add_argument('--preset',choices=['auto',*HARDWARE_PRESETS])
+    parser.add_argument('--configure-only',action='store_true',help='Resolve GPU settings without downloading or starting services')
     parser.add_argument('--verify-files',action='store_true',help='Check model hashes without loading libraries')
     args=parser.parse_args();manifest=json.loads((ROOT/'services/portable-manifest.json').read_text(encoding='utf-8'))
+    config=configure(args.preset)
+    manifest=selected_manifest(manifest,config)
+    if args.configure_only:return
     if args.verify_files:validate_files(manifest,True);print('MODEL_CHECKSUMS_OK');return
     if not args.check:
-        configure();doctor(False)
+        doctor(False)
         if shutil.disk_usage(ROOT).free<45*1024**3 and not all(contained(ROOT,m['destination']+'/'+m['files'][0]['name']).exists() for m in manifest['models']):
             raise RuntimeError('Allow at least 45 GB free disk space for the local AI setup.')
         hf=Path(sys.executable).with_name('hf.exe')
@@ -138,7 +181,7 @@ def main():
         for entry in manifest['runtimes']:download_runtime(entry)
         validate_files(manifest,True)
     else:validate_files(manifest)
-    configure();doctor()
+    doctor()
     print('PORTABLE_READY',flush=True)
 
 

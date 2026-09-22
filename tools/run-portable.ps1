@@ -1,4 +1,4 @@
-param([ValidateSet('VR','Desktop','Text','Setup','Check')][string]$Mode='VR')
+param([ValidateSet('VR','Desktop','Text','Setup','Check','Settings')][string]$Mode='VR')
 $ErrorActionPreference='Stop'
 $taskRoot=[IO.Path]::GetFullPath((Split-Path $PSScriptRoot -Parent))
 Set-Location -LiteralPath $taskRoot
@@ -12,6 +12,19 @@ function Invoke-Checked([string]$Executable,[string[]]$Arguments) {
 try {
     $taskLock=[IO.File]::Open((Join-Path $taskRuntime 'setup.lock'),'OpenOrCreate','ReadWrite','None')
     Start-Transcript -Path (Join-Path $taskRuntime 'setup-latest.log') -Force | Out-Null
+    $taskPreset=$null
+    if($Mode -eq 'Settings') {
+        Write-Host 'PC settings - dialogue model and GPU allocation. Voice quality is unchanged.'
+        Write-Host 'Close the game first. This will stop this installation''s AI services.'
+        Write-Host '1. Auto-detect GPU (recommended): 24 GB -> RTX 4090 preset; 32 GB+ -> original quality'
+        Write-Host '2. University / RTX 4090: IQ3_M, 32 GPU layers'
+        Write-Host '3. Original quality: IQ4_XS, 48 GPU layers (32 GB+ recommended)'
+        Write-Host 'Enter to cancel.'
+        $taskChoice=Read-Host 'Choose 1, 2 or 3'
+        $taskPreset=switch($taskChoice){'1'{'auto'} '2'{'rtx4090'} '3'{'quality'} default{$null}}
+        if(!$taskPreset){Write-Host 'No settings changed.';return}
+        & (Join-Path $PSScriptRoot 'stop-services.ps1')
+    }
     $taskManifest=Get-Content (Join-Path $taskRoot 'services/portable-manifest.json') -Raw | ConvertFrom-Json
     $env:UV_PYTHON_INSTALL_DIR=Join-Path $taskRoot '.tools/python'
     $env:UV_CACHE_DIR=Join-Path $taskRoot '.cache/uv'
@@ -23,10 +36,10 @@ try {
     $taskReady=$false
     if((Test-Path -LiteralPath $taskStampPath) -and (Test-Path -LiteralPath $taskPython)) {
         $taskStamp=Get-Content -LiteralPath $taskStampPath -Raw | ConvertFrom-Json
-        $taskReady=($taskStamp.root -eq $taskRoot -and $taskStamp.key -eq $taskKey -and $Mode -ne 'Setup')
+        $taskReady=($taskStamp.root -eq $taskRoot -and $taskStamp.key -eq $taskKey -and $Mode -notin @('Setup','Settings'))
     }
     if(-not $taskReady) {
-        Write-Host 'First-time setup: Python, speech libraries and approximately 28 GB of AI models.'
+        Write-Host 'Setup: Python, speech libraries and approximately 25-28 GB of AI models, depending on GPU preset.'
         Write-Host 'Keep this window open. A failed download can be resumed by starting again.'
         $taskBootstrap=Join-Path $taskRoot '.tools/bootstrap'
         New-Item -ItemType Directory -Path $taskBootstrap -Force | Out-Null
@@ -59,7 +72,9 @@ try {
             @{root=$taskRoot;key=$taskKey} | ConvertTo-Json | Set-Content -LiteralPath $taskEnvironmentStamp -Encoding UTF8
         }
         $env:HF_HUB_OFFLINE='0'
-        Invoke-Checked $taskPython @((Join-Path $PSScriptRoot 'setup-portable.py'))
+        $taskSetupArguments=@((Join-Path $PSScriptRoot 'setup-portable.py'))
+        if($taskPreset){$taskSetupArguments+=@('--preset',$taskPreset)}
+        Invoke-Checked $taskPython $taskSetupArguments
         @{root=$taskRoot;key=$taskKey} | ConvertTo-Json | Set-Content -LiteralPath $taskStampPath -Encoding UTF8
     }
     Invoke-Checked $taskPython @((Join-Path $PSScriptRoot 'setup-portable.py'),'--check')

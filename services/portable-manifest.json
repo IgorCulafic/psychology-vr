@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "python": "3.12.13",
   "uv": {
     "url": "https://github.com/astral-sh/uv/releases/download/0.11.23/uv-x86_64-pc-windows-msvc.zip",
@@ -184,6 +184,25 @@
       "sha256": "62fa416a8d5e382a3828ee4bef358ce520d0b4cabdeaea75a7ac266d098d1fe3",
       "destination": ".tools/rhubarb",
       "executable": ".tools/rhubarb/Rhubarb-Lip-Sync-1.14.0-Windows/rhubarb.exe"
+    }
+  ],
+  "dialogue_variants": [
+    {
+      "repo": "HauhauCS/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-MTP-GGUF",
+      "revision": "993a5971fda8f30dd1b7eb2654792ba4415c7460",
+      "destination": ".cache/models/qwen",
+      "files": [
+        {
+          "name": "Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-IQ3_M.gguf",
+          "bytes": 12789303424,
+          "sha256": "3cc4a8a9e1903c12e1b5c25df8921e7989a425a4998d2bc7ab9a9f303cebb2fa"
+        },
+        {
+          "name": "README.md",
+          "bytes": 16474,
+          "sha256": "482d5909625c06402ac758540298103b8ff087d7d014a3fc1101390591f5824b"
+        }
+      ]
     }
   ]
 }

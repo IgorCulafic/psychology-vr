@@ -1,5 +1,6 @@
 """Record the exact local, previously tested model snapshots for release setup."""
 import hashlib
+import copy
 import json
 from pathlib import Path
 
@@ -13,16 +14,23 @@ SOURCES=[
 
 
 def main():
-    manifest=dict(version=1,python='3.12.13',uv=dict(
+    manifest=dict(version=2,python='3.12.13',uv=dict(
         url='https://github.com/astral-sh/uv/releases/download/0.11.23/uv-x86_64-pc-windows-msvc.zip',
         sha256='02ad29f07e674d68726ba3bb1ff25b335d83515756e2b1a194bb56c3cc30e07c'),models=[],runtimes=[])
     for repo,revision,destination in SOURCES:
         files=[]
         for path in sorted((ROOT/destination).iterdir()):
             if not path.is_file() or path.name.startswith('.'):continue
+            if destination=='.cache/models/qwen' and path.name not in ('Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-IQ4_XS.gguf','README.md'):continue
             with path.open('rb') as stream:sha=hashlib.file_digest(stream,'sha256').hexdigest()
             files.append(dict(name=path.name,bytes=path.stat().st_size,sha256=sha))
         manifest['models'].append(dict(repo=repo,revision=revision,destination=destination,files=files))
+    variant=copy.deepcopy(manifest['models'][0])
+    path=ROOT/'.cache/models/qwen/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-IQ3_M.gguf'
+    with path.open('rb') as stream:sha=hashlib.file_digest(stream,'sha256').hexdigest()
+    variant['files']=[f for f in variant['files'] if not f['name'].endswith('.gguf')]
+    variant['files'].insert(0,dict(name=path.name,bytes=path.stat().st_size,sha256=sha))
+    manifest['dialogue_variants']=[variant]
     runtime=json.loads((ROOT/'docs/generated/llama-runtime.json').read_text())
     for index,row in enumerate(runtime['files']):
         manifest['runtimes'].append(dict(row,destination='.tools/llama',

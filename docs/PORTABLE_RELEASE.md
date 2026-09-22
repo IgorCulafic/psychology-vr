@@ -1,6 +1,6 @@
 # Standalone Windows release
 
-The `v0.2.1-setup-fix` release separates the runnable application from the
+The `v0.2.2-gpu-presets` release separates the runnable application from the
 Unity development repository. `psychology-vr-windows.zip` contains the complete
 player, services, four patient profiles, reference voice approved by its owner,
 CMD launchers and a checksum-pinned portable uv installer. It excludes session
@@ -10,7 +10,8 @@ First launch installs Python 3.12.13 locally, creates `.tools/portable-env`, and
 installs the 65 pinned packages in `services/requirements-portable.txt`. It then
 downloads four exact Hugging Face revisions and the pinned llama.cpp CUDA/Rhubarb
 runtimes from `services/portable-manifest.json`. Model contents and runtime ZIPs
-are SHA-256 checked. Model downloads total 27.45 GB; allow approximately 45 GB free
+are SHA-256 checked. Model downloads total 24.54 GB for the 4090 preset or 27.45 GB
+for original quality; allow approximately 45 GB free
 space for libraries, download caches and the game. Existing verified files are
 reused, and Setup checks/repairs missing or damaged model files.
 
@@ -28,7 +29,7 @@ The official uv ZIP and its MIT/Apache notices are cached under `.cache/releases
 ```powershell
 ./.venv/Scripts/python.exe -m unittest discover -s services
 ./.venv/Scripts/python.exe tools/create-portable-manifest.py
-./.venv/Scripts/python.exe tools/package-portable.py --include-approved-voice --tag v0.2.1-setup-fix
+./.venv/Scripts/python.exe tools/package-portable.py --include-approved-voice --tag v0.2.2-gpu-presets
 ```
 
 Package after committing the source: the release manifest records that commit,
@@ -38,7 +39,7 @@ as private GitHub release assets. The source ZIP alone is not the runnable game.
 
 ## Verification scope
 
-106 standard-library service/release-helper tests pass, including extraction path
+110 standard-library service/release-helper tests pass, including extraction path
 checks and configuration preservation. A separate extracted folder containing
 spaces installed a fresh Python runtime and all required libraries. Large model
 weights were reused from the verified development cache rather than downloaded
@@ -79,3 +80,13 @@ preservation, missing references and malformed configuration. A small
 downloaded dependencies and models. The extracted test installation was retested
 with all three portable path keys removed; the upgrade and runtime check passed
 (`PORTABLE_READY`) without downloading models or starting a new conversation.
+
+## Automatic GPU presets — v0.2.2
+
+`PC Settings.cmd` exposes Auto, University / RTX 4090 and Original quality. Auto
+selects IQ3_M / 32 GPU layers on 24 GB cards and IQ4_XS / 48 on 32 GB+ cards.
+Only one dialogue quant is downloaded; both remain pinned in the manifest.
+BF16 speech and character settings are unchanged. The small
+`pc-settings-update.zip` contains all required settings/helper/manifest changes
+for existing installations. See [GPU presets](GPU_PRESETS.md) for measured memory,
+the latency tradeoff and outstanding university hardware acceptance.
