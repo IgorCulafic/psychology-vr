@@ -1,6 +1,6 @@
 # Standalone Windows release
 
-The `v0.2.2-gpu-presets` release separates the runnable application from the
+The `v0.2.3-fast-dialogue` release separates the runnable application from the
 Unity development repository. `psychology-vr-windows.zip` contains the complete
 player, services, four patient profiles, reference voice approved by its owner,
 CMD launchers and a checksum-pinned portable uv installer. It excludes session
@@ -10,7 +10,8 @@ First launch installs Python 3.12.13 locally, creates `.tools/portable-env`, and
 installs the 65 pinned packages in `services/requirements-portable.txt`. It then
 downloads four exact Hugging Face revisions and the pinned llama.cpp CUDA/Rhubarb
 runtimes from `services/portable-manifest.json`. Model contents and runtime ZIPs
-are SHA-256 checked. Model downloads total 24.54 GB for the 4090 preset or 27.45 GB
+are SHA-256 checked. Model downloads total 19.11 GB for Fast dialogue,
+24.54 GB for the 4090 preset or 27.45 GB
 for original quality; allow approximately 45 GB free
 space for libraries, download caches and the game. Existing verified files are
 reused, and Setup checks/repairs missing or damaged model files.
@@ -29,7 +30,7 @@ The official uv ZIP and its MIT/Apache notices are cached under `.cache/releases
 ```powershell
 ./.venv/Scripts/python.exe -m unittest discover -s services
 ./.venv/Scripts/python.exe tools/create-portable-manifest.py
-./.venv/Scripts/python.exe tools/package-portable.py --include-approved-voice --tag v0.2.2-gpu-presets
+./.venv/Scripts/python.exe tools/package-portable.py --include-approved-voice --tag v0.2.3-fast-dialogue
 ```
 
 Package after committing the source: the release manifest records that commit,
@@ -39,7 +40,7 @@ as private GitHub release assets. The source ZIP alone is not the runnable game.
 
 ## Verification scope
 
-110 standard-library service/release-helper tests pass, including extraction path
+111 standard-library service/release-helper tests pass, including extraction path
 checks and configuration preservation. A separate extracted folder containing
 spaces installed a fresh Python runtime and all required libraries. Large model
 weights were reused from the verified development cache rather than downloaded
@@ -90,3 +91,12 @@ BF16 speech and character settings are unchanged. The small
 `pc-settings-update.zip` contains all required settings/helper/manifest changes
 for existing installations. See [GPU presets](GPU_PRESETS.md) for measured memory,
 the latency tradeoff and outstanding university hardware acceptance.
+
+## Opt-in fast dialogue — v0.2.3
+
+Option 4 selects the pinned 9B Q6 model with full GPU offload. The small settings
+update also carries `services/alex_service.py` for the progressive length-retry
+fix discovered in testing. Auto and both 27B options are unchanged. The local
+first-playback observation was 13.131 seconds, with 20.9 GiB total peak GPU use.
+The smaller model has known language/character weaknesses; see GPU_PRESETS.md
+before choosing it for students. The test is not a 4090 headset acceptance run.

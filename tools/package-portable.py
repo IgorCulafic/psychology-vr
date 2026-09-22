@@ -16,7 +16,7 @@ def sha(path):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--include-approved-voice',action='store_true')
-    parser.add_argument('--tag',default='v0.2.2-gpu-presets')
+    parser.add_argument('--tag',default='v0.2.3-fast-dialogue')
     args=parser.parse_args();out=ROOT/'.cache/releases'/args.tag;out.mkdir(parents=True,exist_ok=True)
     files={}
     def add(path,name=None):files[name or path.relative_to(ROOT).as_posix()]=path
@@ -58,14 +58,16 @@ def main():
     repair=out/'pc-settings-update.zip'
     with zipfile.ZipFile(repair,'w',zipfile.ZIP_DEFLATED) as bundle:
         for name in ['PC Settings.cmd','tools/setup-portable.py','tools/run-portable.ps1','tools/launch.ps1',
-                     'services/config.expressive.example.json','services/portable-manifest.json','docs/GPU_PRESETS.md']:
+                     'services/config.expressive.example.json','services/portable-manifest.json','services/alex_service.py','docs/GPU_PRESETS.md']:
             bundle.write(ROOT/name,name)
         bundle.writestr('APPLY PC SETTINGS UPDATE.txt',
             'Close the game. Extract this ZIP into your existing application folder, replacing matching files.\r\n'
-            'Double-click PC Settings.cmd and choose 1 (Auto-detect GPU). This stops this copy\'s AI services.\r\n'
+            'Double-click PC Settings.cmd and choose 4 (Fast dialogue) to try the smaller fully-GPU model.\r\n'
+            'This stops this copy\'s AI services. Auto and both existing 27B presets remain available.\r\n'
             'A 24 GB GPU selects IQ3_M / 32 GPU layers; 32 GB+ selects IQ4_XS / 48. BF16 voice is unchanged.\r\n'
             'Keep .tools, .cache, voices and logs. Setup reuses verified models and installs only the selected dialogue quant.\r\n'
-            'The smaller quant requires a one-time 12.8 GB download. Existing IQ4_XS files are kept for switching back.\r\n'
+            'Fast dialogue downloads 7.4 GB once. The 27B IQ3_M option downloads 12.8 GB once. Old models are kept.\r\n'
+            'Fast is opt-in: compare language and character behavior before use with students.\r\n'
             'Original configuration is backed up under services/.runtime/config-backups/. Start VR/Desktop after setup.\r\n'
             'This patch does not contain the game or voice. For a new installation, use psychology-vr-windows.zip.\r\n')
     record['pc_settings_update']=dict(file=repair.name,bytes=repair.stat().st_size,sha256=sha(repair))

@@ -14,7 +14,7 @@ SOURCES=[
 
 
 def main():
-    manifest=dict(version=2,python='3.12.13',uv=dict(
+    manifest=dict(version=3,python='3.12.13',uv=dict(
         url='https://github.com/astral-sh/uv/releases/download/0.11.23/uv-x86_64-pc-windows-msvc.zip',
         sha256='02ad29f07e674d68726ba3bb1ff25b335d83515756e2b1a194bb56c3cc30e07c'),models=[],runtimes=[])
     for repo,revision,destination in SOURCES:
@@ -31,6 +31,13 @@ def main():
     variant['files']=[f for f in variant['files'] if not f['name'].endswith('.gguf')]
     variant['files'].insert(0,dict(name=path.name,bytes=path.stat().st_size,sha256=sha))
     manifest['dialogue_variants']=[variant]
+    fast=dict(repo='HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive',
+              revision='0a41c68809d375475f954be12ba7c40efa56c2a9',destination='.cache/models/qwen9b',files=[])
+    for name in ['Qwen3.5-9B-Uncensored-HauhauCS-Aggressive-Q6_K.gguf','README.md']:
+        path=ROOT/fast['destination']/name
+        with path.open('rb') as stream:sha=hashlib.file_digest(stream,'sha256').hexdigest()
+        fast['files'].append(dict(name=name,bytes=path.stat().st_size,sha256=sha))
+    manifest['dialogue_variants'].append(fast)
     runtime=json.loads((ROOT/'docs/generated/llama-runtime.json').read_text())
     for index,row in enumerate(runtime['files']):
         manifest['runtimes'].append(dict(row,destination='.tools/llama',

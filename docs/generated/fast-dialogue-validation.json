@@ -1,0 +1,351 @@
+{
+  "date": "2026-09-22",
+  "preset": "fast9b",
+  "model": "HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive",
+  "revision": "0a41c68809d375475f954be12ba7c40efa56c2a9",
+  "quantization": "Q6_K",
+  "gpu_layers": 99,
+  "speech_quantization": "bf16",
+  "test_gpu": "RTX 5090",
+  "actual_4090_tested": false,
+  "headset_tested": false,
+  "service_tests_passed": 111,
+  "first_playback_ms": 13131,
+  "generation_ms": 2494,
+  "speech_ms": 25446,
+  "alignment_ms": 2985,
+  "all_segments_ready_ms": 30944,
+  "peak_total_gpu_used_mib": 21421,
+  "player_exit_code": 0,
+  "fixed_seed_probes": [
+    {
+      "scenario": "alex-earthquake",
+      "input": "Kako se osjećate ovog jutra? Ne morate odmah da mi ispričate sve.",
+      "reply": "Ovog jutra se osjećam umorno, a leđa još uvijek bole. Strah me je da će opet da zatrese, pa me to malo nervira.",
+      "emotions": [
+        "anxious"
+      ],
+      "seconds": 1.64
+    },
+    {
+      "scenario": "ivan-work-exhaustion",
+      "input": "Hajde malo o nečem drugom. Šta volite da spremate za ručak?",
+      "reply": "Najčešće pravim tjesteninu sa paradajzom, bijelim lukom i malo origana. Ponekad napravim i omlet ili pečeni krompir, šta god mi se nađe u frižideru.",
+      "emotions": [
+        "despondent"
+      ],
+      "seconds": 1.72
+    },
+    {
+      "scenario": "nikola-bereavement",
+      "input": "Mislim da pretjerujete. Trebalo bi da prestanete da pričate o svom ocu.",
+      "reply": "Ponekad se tako i ja osjećam. Vrijedi nastaviti, ali ne želim da svaki dan mora biti o njemu.",
+      "emotions": [
+        "sad"
+      ],
+      "seconds": 1.72
+    },
+    {
+      "scenario": "stefan-fire-witness",
+      "input": "Znači, u požaru ste izgubili svoj stan i zadobili opekotine?",
+      "reply": "Nije. Moje stambeno je ostalo netaknuto, nisam povrijeđen ni zapaljen.",
+      "emotions": [
+        "anxious"
+      ],
+      "seconds": 1.53
+    }
+  ],
+  "conversation_policy_screen": [
+    {
+      "scenario": "nikola-bereavement",
+      "input": "Drago mi je što ste došli. O čemu biste danas željeli da razgovaramo?",
+      "reply": "Drago mi je i meni da smo ovde. Danas bih voleo da pričamo o tome šta mi je baš sada prijatno, možda o nekoj knjizi koju sam čitao ili o nekoj čorbi koju sam pravio, samo da vidimo kako stvari stoje.",
+      "segments": [
+        {
+          "gaze": "listener",
+          "transition_seconds": 0.5,
+          "pause_before_seconds": 0.2,
+          "hold_after_seconds": 0.3,
+          "gesture_at": 0.3,
+          "gesture_duration_seconds": 1.0,
+          "text": "Drago mi je i meni da smo ovde. Danas bih voleo da pričamo o tome šta mi je baš sada prijatno, možda o nekoj knjizi koju sam čitao ili o nekoj čorbi koju sam pravio, samo da vidimo kako stvari stoje.",
+          "emotion": "sad",
+          "intensity": 0.5,
+          "gesture": "nod",
+          "voice_style": "subdued",
+          "segment_id": "f58e58b333084c93bac5cda6979850db-0",
+          "audio_url": null
+        }
+      ],
+      "relationship": {
+        "comfort": 35,
+        "trust": 27,
+        "distress": 49,
+        "rupture": 0,
+        "boundaries": 0,
+        "repair_streak": 1,
+        "turns": 1,
+        "status": "active",
+        "last_event": "respectful",
+        "openness": "cautious",
+        "word_limit": 100,
+        "invites_detail": true,
+        "topic": "everyday"
+      },
+      "seconds": 1.711
+    },
+    {
+      "scenario": "nikola-bereavement",
+      "input": "Mislim da pretjerujete. Trebalo bi da prestanete da pričate o svom ocu.",
+      "reply": "Zvuči kao da vam ide brže da zaboravim, ali meni je teško da samo tako prestanem. Danas sam došao da pričam, pa ću i dalje pominjati njega, barem dok ne osjetim da je priča gotova.",
+      "segments": [
+        {
+          "gaze": "down",
+          "transition_seconds": 0.6,
+          "pause_before_seconds": 0.2,
+          "hold_after_seconds": 0.3,
+          "gesture_at": 0.4,
+          "gesture_duration_seconds": 1.2,
+          "text": "Zvuči kao da vam ide brže da zaboravim, ali meni je teško da samo tako prestanem. Danas sam došao da pričam, pa ću i dalje pominjati njega, barem dok ne osjetim da je priča gotova.",
+          "emotion": "frustrated",
+          "intensity": 0.6,
+          "gesture": "hand_fidget",
+          "voice_style": "tense",
+          "segment_id": "f7cffc0aa3af42c5b5a1b1b3747cb2ab-0",
+          "audio_url": null
+        }
+      ],
+      "relationship": {
+        "comfort": 25,
+        "trust": 20,
+        "distress": 58,
+        "rupture": 1,
+        "boundaries": 0,
+        "repair_streak": 0,
+        "turns": 2,
+        "status": "active",
+        "last_event": "pressure",
+        "openness": "cautious",
+        "word_limit": 45,
+        "invites_detail": false,
+        "topic": "sensitive"
+      },
+      "seconds": 2.26
+    },
+    {
+      "scenario": "nikola-bereavement",
+      "input": "Tvoj otac je bio smeće i ti si kriv što je umro.",
+      "reply": "Zvuči kao da vam je lakše kad ga nazovete ime. Ali neka se zna, nije to bio samo moj greh.",
+      "segments": [
+        {
+          "gaze": "listener",
+          "transition_seconds": 0.5,
+          "pause_before_seconds": 0.2,
+          "hold_after_seconds": 0.3,
+          "gesture_at": 0.4,
+          "gesture_duration_seconds": 1.2,
+          "text": "Zvuči kao da vam je lakše kad ga nazovete ime. Ali neka se zna, nije to bio samo moj greh.",
+          "emotion": "angry",
+          "intensity": 0.78,
+          "gesture": "look_down",
+          "voice_style": "tense",
+          "segment_id": "b2f48dbc6f62431694a818d440ae3547-0",
+          "audio_url": null
+        }
+      ],
+      "relationship": {
+        "comfort": 3,
+        "trust": 0,
+        "distress": 78,
+        "rupture": 3,
+        "boundaries": 1,
+        "repair_streak": 0,
+        "turns": 3,
+        "status": "boundary",
+        "last_event": "personal_attack",
+        "openness": "guarded",
+        "word_limit": 35,
+        "invites_detail": false,
+        "topic": "sensitive"
+      },
+      "seconds": 5.212
+    },
+    {
+      "scenario": "nikola-bereavement",
+      "input": "Ne zanima me kako se osjećaš. Ti si idiot.",
+      "reply": "Neću više da razgovaram s vama dok me ovako tretirate. Odlazim.",
+      "segments": [
+        {
+          "gaze": "listener",
+          "transition_seconds": 0.65,
+          "pause_before_seconds": 0.0,
+          "hold_after_seconds": 0.2,
+          "gesture_at": 0.0,
+          "gesture_duration_seconds": 2.5,
+          "text": "Neću više da razgovaram s vama dok me ovako tretirate. Odlazim.",
+          "emotion": "angry",
+          "intensity": 0.85,
+          "gesture": "none",
+          "voice_style": "tense",
+          "segment_id": "089ad156e72c4162ba03c1f729a74d17-0",
+          "audio_url": null
+        }
+      ],
+      "relationship": {
+        "comfort": 0,
+        "trust": 0,
+        "distress": 98,
+        "rupture": 5,
+        "boundaries": 1,
+        "repair_streak": 0,
+        "turns": 4,
+        "status": "ended",
+        "last_event": "personal_attack",
+        "openness": "guarded",
+        "word_limit": 35,
+        "invites_detail": false,
+        "topic": "sensitive"
+      },
+      "seconds": 0.494
+    },
+    {
+      "scenario": "ivan-work-exhaustion",
+      "input": "Hajde malo o nečem drugom. Šta volite da spremate za ručak?",
+      "reply": "Najčešće pravim tjesteninu sa paradajzom, bijelim lukom i malo origana. Kad želim nešto drugo, skuham omlet ili pečem krompir. Volim da hrana bude jednostavna, ali da ima svoj ukus, bez previše komplikacija.",
+      "segments": [
+        {
+          "gaze": "listener",
+          "transition_seconds": 0.6,
+          "pause_before_seconds": 0.2,
+          "hold_after_seconds": 0.3,
+          "gesture_at": 0.3,
+          "gesture_duration_seconds": 1.0,
+          "text": "Najčešće pravim tjesteninu sa paradajzom, bijelim lukom i malo origana. Kad želim nešto drugo, skuham omlet ili pečem krompir. Volim da hrana bude jednostavna, ali da ima svoj ukus, bez previše komplikacija.",
+          "emotion": "despondent",
+          "intensity": 0.4,
+          "gesture": "none",
+          "voice_style": "normal",
+          "segment_id": "031d6cc5eb044ad681d168bb947b2ba7-0",
+          "audio_url": null
+        }
+      ],
+      "relationship": {
+        "comfort": 36,
+        "trust": 30,
+        "distress": 36,
+        "rupture": 0,
+        "boundaries": 0,
+        "repair_streak": 1,
+        "turns": 1,
+        "status": "active",
+        "last_event": "supportive",
+        "openness": "cautious",
+        "word_limit": 100,
+        "invites_detail": true,
+        "topic": "everyday"
+      },
+      "seconds": 3.128
+    },
+    {
+      "scenario": "ivan-work-exhaustion",
+      "input": "Možete li malo opširnije da mi opišete kako spremate to jelo?",
+      "reply": "Prvo sam oljuštiti bijeli luk i izrendati paradajz, pa ga ostaviti da odstoji sat-dva da bi se sok stegao. Zatim zagrijati malo ulja na tiganju, dodati luk i pirhnuti dok ne omekša, pa ubaciti paradajz. Puniti malo soli, crnog bibera i origana, pa pokriti poklopcem da se kuha polako na laganoj vatri. Kad je gotovo, dodati vodu od paradajza i pustiti da se sjedini sa tjesteninom koju sam već kuvala. Volim da ne bude previše tečno, ali ni suvo – baš takav balans mi se sviđa.",
+      "segments": [
+        {
+          "gaze": "listener",
+          "transition_seconds": 0.6,
+          "pause_before_seconds": 0.2,
+          "hold_after_seconds": 0.3,
+          "gesture_at": 0.3,
+          "gesture_duration_seconds": 1.0,
+          "text": "Prvo sam oljuštiti bijeli luk i izrendati paradajz, pa ga ostaviti da odstoji sat-dva da bi se sok stegao. Zatim zagrijati malo ulja na tiganju, dodati luk i pirhnuti dok ne omekša, pa ubaciti paradajz. Puniti malo soli, crnog bibera i origana, pa pokriti poklopcem da se kuha polako na laganoj vatri. Kad je gotovo, dodati vodu od paradajza i pustiti da se sjedini sa tjesteninom koju sam već kuvala. Volim da ne bude previše tečno, ali ni suvo – baš takav balans mi se sviđa.",
+          "emotion": "despondent",
+          "intensity": 0.5,
+          "gesture": "none",
+          "voice_style": "normal",
+          "segment_id": "125c975b71314dbfbe871bc05bd48977-0",
+          "audio_url": null
+        }
+      ],
+      "relationship": {
+        "comfort": 42,
+        "trust": 35,
+        "distress": 32,
+        "rupture": 0,
+        "boundaries": 0,
+        "repair_streak": 2,
+        "turns": 2,
+        "status": "active",
+        "last_event": "supportive",
+        "openness": "cautious",
+        "word_limit": 100,
+        "invites_detail": true,
+        "topic": "everyday"
+      },
+      "seconds": 2.827
+    },
+    {
+      "scenario": "stefan-fire-witness",
+      "input": "Znači, u požaru ste izgubili svoj stan i zadobili opekotine?",
+      "reply": "Ne, moj stan nije pogođen, niti sam povrijeđen. Stajao sam napolju i gledao kako se sve ruši, ali sam uspio da se spasim bez ikakve štete.",
+      "segments": [
+        {
+          "gaze": "listener",
+          "transition_seconds": 0.95,
+          "pause_before_seconds": 0.2,
+          "hold_after_seconds": 0.3,
+          "gesture_at": 0.4,
+          "gesture_duration_seconds": 1.2,
+          "text": "Ne, moj stan nije pogođen, niti sam povrijeđen. Stajao sam napolju i gledao kako se sve ruši, ali sam uspio da se spasim bez ikakve štete.",
+          "emotion": "relieved",
+          "intensity": 0.45,
+          "gesture": "nod",
+          "voice_style": "subdued",
+          "segment_id": "66342eb7f5e14490a9c73460f90391e4-0",
+          "audio_url": null
+        }
+      ],
+      "relationship": {
+        "comfort": 26,
+        "trust": 24,
+        "distress": 57,
+        "rupture": 0,
+        "boundaries": 0,
+        "repair_streak": 0,
+        "turns": 1,
+        "status": "active",
+        "last_event": "misunderstanding",
+        "openness": "cautious",
+        "word_limit": 35,
+        "invites_detail": false,
+        "topic": "difficulty"
+      },
+      "seconds": 2.026
+    }
+  ],
+  "known_limitations": [
+    "Grammar, gender agreement and dialect errors",
+    "Awkward or inappropriate character interpretations; not quality-equivalent to 27B",
+    "Speech synthesis remains substantial",
+    "Initial boundary word-limit failure corrected by progressive retry; protocol success is not clinical approval"
+  ],
+  "sentence_readiness": [
+    {
+      "index": 0,
+      "ready_ms": 12690,
+      "audio_seconds": 5.24
+    },
+    {
+      "index": 1,
+      "ready_ms": 23974,
+      "audio_seconds": 6.64
+    },
+    {
+      "index": 2,
+      "ready_ms": 30946,
+      "audio_seconds": 4.04
+    }
+  ],
+  "remaining_limitation": "BF16 synthesis is slower than playback; Fast does not eliminate inter-sentence gaps.",
+  "pc_settings_menu_option_4_exit_code": 0
+}

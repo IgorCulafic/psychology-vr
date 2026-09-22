@@ -25,13 +25,19 @@ and the CPU. Speech stays BF16 in both presets; this setting never reduces voice
 precision. Auto uses the capacity of CUDA device 0, not combined GPU memory.
 
 To change the setting, close the game and double-click **PC Settings.cmd**:
-choose **1 Auto**, **2 University / RTX 4090**, or **3 Original quality**.
+choose **1 Auto**, **2 University / RTX 4090**, **3 Original quality**, or
+**4 Fast dialogue (9B Q6)**. Fast keeps the smaller dialogue model fully on the
+GPU and preserves BF16 speech. It is opt-in: review language and character
+consistency before teaching. Auto continues selecting the existing 27B presets.
 This stops this installation's AI services, backs up configuration changes and
 prepares the selected model. Then use Start VR/Desktop/Text Chat normally.
 New installations download only the selected dialogue quant: about 25 GB total
 models for the 4090 preset versus 28 GB for original quality. Switching from the
 old installation requires a one-time 12.8 GB IQ3_M download; the previous model is
 kept for switching back. More CPU offload can increase reply latency.
+Fast dialogue needs a one-time 7.4 GB download, or approximately 19.1 GB total
+models on a fresh installation. See `docs/GPU_PRESETS.md` for measured timing and
+known quality tradeoffs. Existing models remain available when switching back.
 
 For VR, install Meta Quest Link, connect the Quest 3 to this PC, and enter its
 PC Link environment before starting. This is a Windows PCVR game, not a Quest APK.

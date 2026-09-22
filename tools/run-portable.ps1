@@ -16,12 +16,13 @@ try {
     if($Mode -eq 'Settings') {
         Write-Host 'PC settings - dialogue model and GPU allocation. Voice quality is unchanged.'
         Write-Host 'Close the game first. This will stop this installation''s AI services.'
-        Write-Host '1. Auto-detect GPU (recommended): 24 GB -> RTX 4090 preset; 32 GB+ -> original quality'
+        Write-Host '1. Auto-detect GPU (27B model): 24 GB -> RTX 4090 preset; 32 GB+ -> original quality'
         Write-Host '2. University / RTX 4090: IQ3_M, 32 GPU layers'
         Write-Host '3. Original quality: IQ4_XS, 48 GPU layers (32 GB+ recommended)'
+        Write-Host '4. Fast dialogue (9B Q6, fully on GPU): compare character/language quality before teaching'
         Write-Host 'Enter to cancel.'
-        $taskChoice=Read-Host 'Choose 1, 2 or 3'
-        $taskPreset=switch($taskChoice){'1'{'auto'} '2'{'rtx4090'} '3'{'quality'} default{$null}}
+        $taskChoice=Read-Host 'Choose 1, 2, 3 or 4'
+        $taskPreset=switch($taskChoice){'1'{'auto'} '2'{'rtx4090'} '3'{'quality'} '4'{'fast9b'} default{$null}}
         if(!$taskPreset){Write-Host 'No settings changed.';return}
         & (Join-Path $PSScriptRoot 'stop-services.ps1')
     }
@@ -39,7 +40,7 @@ try {
         $taskReady=($taskStamp.root -eq $taskRoot -and $taskStamp.key -eq $taskKey -and $Mode -notin @('Setup','Settings'))
     }
     if(-not $taskReady) {
-        Write-Host 'Setup: Python, speech libraries and approximately 25-28 GB of AI models, depending on GPU preset.'
+        Write-Host 'Setup: Python, speech libraries and approximately 19-28 GB of AI models, depending on GPU preset.'
         Write-Host 'Keep this window open. A failed download can be resumed by starting again.'
         $taskBootstrap=Join-Path $taskRoot '.tools/bootstrap'
         New-Item -ItemType Directory -Path $taskBootstrap -Force | Out-Null

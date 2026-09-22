@@ -17,11 +17,12 @@ MODEL_PREFIX='Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-'
 HARDWARE_PRESETS={
     'quality':dict(llm_model_path='.cache/models/qwen/'+MODEL_PREFIX+'IQ4_XS.gguf',llm_gpu_layers=48),
     'rtx4090':dict(llm_model_path='.cache/models/qwen/'+MODEL_PREFIX+'IQ3_M.gguf',llm_gpu_layers=32),
+    'fast9b':dict(llm_model_path='.cache/models/qwen9b/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive-Q6_K.gguf',llm_gpu_layers=99),
 }
 
 
 def resolve_preset(requested,total_bytes):
-    if requested not in ('auto',*HARDWARE_PRESETS):raise RuntimeError('Unknown hardware_preset; choose auto, quality or rtx4090 in PC Settings.cmd.')
+    if requested not in ('auto',*HARDWARE_PRESETS):raise RuntimeError('Unknown hardware_preset; choose auto, quality, rtx4090 or fast9b in PC Settings.cmd.')
     if total_bytes<23*1024**3:raise RuntimeError('These BF16 speech presets require a single NVIDIA GPU with at least 24 GB VRAM.')
     return ('quality' if total_bytes>=30*1024**3 else 'rtx4090') if requested=='auto' else requested
 

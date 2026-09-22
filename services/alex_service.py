@@ -331,7 +331,14 @@ class Bridge(StreamingTurns):
                 continue
             if not relationship or words <= relationship['word_limit']:
                 return segments
-            body['messages'][0]['content'] = system + '\nYour previous attempt was too long. Respond in at most ' + str(relationship['word_limit']) + ' spoken words total.'
+            limit=relationship['word_limit']
+            target=max(5,int(limit*(.6 if attempt==0 else .4)))
+            sentences='one or two short sentences' if limit<=45 else 'a few short connected sentences'
+            body['messages'][0]['content'] = system + (
+                f'\nREWRITE REQUIRED: Your reply was too long. Aim for about {target} spoken words TOTAL, '
+                f'with a HARD MAXIMUM of {limit} words across all segments. Use {sentences}. '
+                'Answer ONLY the latest remark. Do not repeat earlier assistant replies, recap the conversation, '
+                'or add an introduction. Preserve your character, emotional reaction and spoken language.')
         raise ContractError('Reply exceeded this patient’s current disclosure limit. Try again.')
 
     @staticmethod

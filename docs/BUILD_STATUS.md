@@ -1,5 +1,14 @@
 # Prototype build status
 
+## Fast dialogue option — 22 September 2026
+
+PC Settings option 4 runs Qwen3.5 9B Q6 entirely on the GPU while preserving BF16
+voice. The local 5090 full-player check passed: 2.494 s dialogue/appraisal,
+13.131 s first audio, 30.944 s all speech ready, 20.9 GiB total GPU peak. 111 tests
+pass. A progressive length-retry fix prevents repeating the same failed short
+response request. Fast remains opt-in due to observed language and character
+weaknesses; Auto and the 27B options are unchanged. See [GPU presets](GPU_PRESETS.md).
+
 ## Automatic GPU presets — 22 September 2026
 
 The optional PC Settings menu exposes Auto, University / RTX 4090 and Original

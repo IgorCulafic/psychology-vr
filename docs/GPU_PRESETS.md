@@ -10,6 +10,7 @@ Their GPU memory is not pooled. The deployment setting is `hardware_preset` in
 | Auto, 32 GB+ class device | IQ4_XS | 48 | Existing BF16 voice |
 | University / RTX 4090 (`rtx4090`) | IQ3_M | 32 | Unchanged |
 | Original quality (`quality`) | IQ4_XS | 48 | Unchanged |
+| Fast dialogue (`fast9b`, opt-in) | Qwen3.5 9B Q6_K | All (99 requested) | Unchanged BF16 |
 
 The original model remains available. Auto reads total memory from CUDA device 0:
 less than 23 GiB is unsupported, 23 to below 30 GiB selects the 24 GB preset,
@@ -81,3 +82,61 @@ speech and change characters. Confirm stable headset rendering, no memory errors
 and acceptable response time. Review Montenegrin and emotional behavior with a
 colleague. If this remains too slow or memory constrained, the next candidate is
 a smaller-parameter dialogue model while preserving BF16 speech.
+
+## Fast dialogue option — v0.2.3
+
+**PC Settings.cmd → 4** selects
+[HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive](https://huggingface.co/HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive)
+at Q6_K, pinned to `0a41c68809d375475f954be12ba7c40efa56c2a9`.
+Its 7,359,259,008-byte GGUF fits fully on the GPU in the local test. The original
+27B presets and Auto behavior are preserved. Reference voice, BF16 precision,
+character profiles, relationship policy, memory, logging and animations remain.
+
+Four fixed-seed, same-question dialogue-only probes took **1.53-1.72 s**, versus
+**26.54-45.46 s** for IQ3_M / 32 layers on this host. Generated wording differs;
+this is a small application screen, not a general model benchmark.
+
+The extracted built-player check passed audio/lip movement. Measurements on the
+**RTX 5090**, not a university 4090:
+
+| Measurement | Fast 9B Q6 |
+| --- | ---: |
+| Appraisal plus dialogue preparation | 2.494 s |
+| First audible playback | 13.131 s |
+| All three sentences prepared | 30.944 s |
+| BF16 synthesis across those sentences | 25.446 s |
+| Lip alignment across those sentences | 2.985 s |
+| Total GPU memory peak, including other applications | 21,421 MiB (20.9 GiB) |
+
+Speech plays while later sentences are synthesized. Full response preparation and
+finishing the spoken reply are different from time to first audio. BF16 synthesis
+is now the main measured delay. The earlier 27B first-playback observation was
+67.224 s, but that run produced different wording, so do not treat the ratio as a
+controlled speedup or a guarantee for a 4090.
+
+This does **not eliminate gaps between sentences**. The backend already prepares
+later sentences during playback, but the tested BF16 worker generates audio more
+slowly than it plays. The first sentence was ready at 12.690 s and lasted 5.24 s;
+the second was ready at 23.974 s, leaving about 6 s of synthesis starvation before
+client timing and performance pauses. Waiting for extra sentences before starting
+would move that delay into the initial silence. The Fast option addresses dialogue
+latency; faster BF16 speech generation remains separate work.
+
+The actual `PC Settings.cmd` menu was exercised with option 4 on an extracted
+installation: it selected the pinned 9B model, kept BF16, completed validation and
+returned exit code 0.
+
+**Quality is not equivalent.** The samples include grammatical errors, gender
+agreement errors, dialect drift, awkward phrasing and an inappropriate implication
+of guilt in a bereavement response. The option is for comparison before student
+use, not an automatic replacement for the larger model. Auto remains unchanged.
+
+A seven-turn text screen exercised appraisal, normal conversation, elaboration,
+boundary escalation and session exit. An initial boundary response exceeded the
+word limit; the old retry repeated the same request. The backend now gives each
+length retry a progressively shorter target, forbids replaying earlier replies,
+and retains the existing hard limit. It regenerates rather than truncating speech.
+The repeated screen completed without contract errors; that does not constitute
+clinical or native-language quality approval. 111 service/helper tests pass.
+Reproduce with `tools/evaluate_fast_dialogue.py --config <config> --output <path>`
+against the selected local model server.

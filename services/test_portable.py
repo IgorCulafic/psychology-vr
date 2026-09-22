@@ -23,11 +23,12 @@ class PortableTests(unittest.TestCase):
     def test_manual_presets_override_auto_detection(self):
         self.assertEqual(setup.resolve_preset('rtx4090',32*1024**3),'rtx4090')
         self.assertEqual(setup.resolve_preset('quality',24*1024**3),'quality')
+        self.assertEqual(setup.resolve_preset('fast9b',24*1024**3),'fast9b')
 
     def test_only_selected_dialogue_quant_is_required(self):
         manifest=json.loads((ROOT/'services/portable-manifest.json').read_text())
         snapshot=json.dumps(manifest)
-        for preset in ['quality','rtx4090']:
+        for preset in setup.HARDWARE_PRESETS:
             chosen=setup.selected_manifest(manifest,setup.HARDWARE_PRESETS[preset])
             quant=[f['name'] for f in chosen['models'][0]['files'] if f['name'].endswith('.gguf')]
             self.assertEqual(quant,[Path(setup.HARDWARE_PRESETS[preset]['llm_model_path']).name])
@@ -56,6 +57,12 @@ class PortableTests(unittest.TestCase):
                 self.assertEqual(config['llm_gpu_layers'],48)
                 self.assertEqual(config['hardware_preset'],'quality')
                 self.assertTrue(config['llm_model_path'].endswith('IQ4_XS.gguf'))
+                config=setup.configure('fast9b')
+                self.assertEqual(config['hardware_preset'],'fast9b')
+                self.assertEqual(config['llm_gpu_layers'],99)
+                self.assertTrue(config['llm_model_path'].endswith('Q6_K.gguf'))
+                self.assertEqual(config['higgs_quantization'],'bf16')
+                self.assertEqual(config['conversation_language'],'cnr')
 
     def test_partial_config_gets_missing_defaults_and_exact_backup(self):
         with tempfile.TemporaryDirectory() as folder:

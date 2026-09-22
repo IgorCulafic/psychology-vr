@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "python": "3.12.13",
   "uv": {
     "url": "https://github.com/astral-sh/uv/releases/download/0.11.23/uv-x86_64-pc-windows-msvc.zip",
@@ -201,6 +201,23 @@
           "name": "README.md",
           "bytes": 16474,
           "sha256": "482d5909625c06402ac758540298103b8ff087d7d014a3fc1101390591f5824b"
+        }
+      ]
+    },
+    {
+      "repo": "HauhauCS/Qwen3.5-9B-Uncensored-HauhauCS-Aggressive",
+      "revision": "0a41c68809d375475f954be12ba7c40efa56c2a9",
+      "destination": ".cache/models/qwen9b",
+      "files": [
+        {
+          "name": "Qwen3.5-9B-Uncensored-HauhauCS-Aggressive-Q6_K.gguf",
+          "bytes": 7359259008,
+          "sha256": "c0ba7beb68fd3fe47891bd549486d38dcf62d00817296ea314ad37017f5a4986"
+        },
+        {
+          "name": "README.md",
+          "bytes": 2952,
+          "sha256": "4821173448a4f39664285e81e638395a45033b93000794ea22f5f9988852301a"
         }
       ]
     }

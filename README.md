@@ -17,6 +17,11 @@ either manual preset. The 4090 preset targets the university's 64 GB RAM machine
 it trades some response speed for VR memory headroom. See [GPU presets](docs/GPU_PRESETS.md)
 for measurements and the remaining on-device acceptance check.
 
+For lower dialogue latency, **PC Settings.cmd → 4 Fast dialogue** selects a
+smaller 9B Q6 model fully on the GPU. BF16 speech stays unchanged. This is an
+opt-in comparison: local first playback was 13.1 seconds, but grammar and
+character-consistency weaknesses remain. Auto still selects the 27B model.
+
 ## Clone and open
 
 Install Git LFS before cloning so the character and room art download correctly:

@@ -112,6 +112,24 @@ class RelationshipTests(unittest.TestCase):
         with self.assertRaises(RuntimeError):self.bridge.turn(key,'insult')
         self.assertEqual(self.bridge.sessions[key].relationship,before)
 
+    def test_overlong_reply_retries_progressively_without_truncating_speech(self):
+        self.bridge.config['dialogue_provider']='llama.cpp'
+        self.bridge.config['conversation_language']='en'
+        self.bridge.fit_context=lambda *args,**kwargs:[]
+        relationship=initial_relationship(self.profile)
+        relationship.update(word_limit=35,status='boundary',invites_detail=False)
+        calls=[]
+        def model(url,body,timeout):
+            calls.append(deepcopy(body))
+            line='Please stop speaking about my father that way.' if len(calls)==3 else 'word '*50
+            return {'choices':[{'message':{'content':json.dumps({'segments':[dict(text=line,emotion='angry',intensity=.8,gesture='none',voice_style='tense')]})}}]}
+        self.bridge.post_json=model
+        result=self.bridge.generate('insult',[],False,dict(emotion='angry',intensity=.8,relationship=relationship),self.profile)
+        self.assertEqual(result[0]['text'],'Please stop speaking about my father that way.')
+        self.assertEqual(len(calls),3)
+        self.assertNotEqual(calls[1]['messages'][0]['content'],calls[2]['messages'][0]['content'])
+        self.assertEqual([c['messages'][-1]['content'] for c in calls],['insult']*3)
+
     def test_no_player_supplied_scores_and_strict_appraisal(self):
         for invalid in [{'event':'set_comfort_100','invites_detail':True},
                         {'event':'supportive','invites_detail':True,'comfort':100},
