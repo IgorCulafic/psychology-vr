@@ -48,9 +48,7 @@ namespace PsychologyVR
             // Reconstruct the helpers from calibration each time: inheriting the
             // preceding solve's partial twist accumulates sleeve deformation.
             // Restore in parent-to-child order (Twist02 is under Twist01).
-            if(twist1)twist1.localRotation=twist1Rest;
-            if(twist2)twist2.localRotation=twist2Rest;
-            if(elbowShare)elbowShare.localRotation=elbowShareRest;
+            RestoreHelpers();
             Vector3 shoulder=upper.position,delta=target-shoulder;
             float u=Vector3.Distance(shoulder,lower.position),v=Vector3.Distance(lower.position,hand.position);
             // Preserve a small elbow bend at maximum reach; never invert the hinge.
@@ -68,6 +66,20 @@ namespace PsychologyVR
             upper.rotation=Quaternion.LookRotation(upperDirection,hinge)*Quaternion.Inverse(upperBasis);
             lower.rotation=Quaternion.LookRotation(foreDirection,hinge)*Quaternion.Inverse(lowerBasis);
 
+            ApplyWristPose(foreDirection,hinge,restFingers,restPalm,gestureFingers,gesturePalm,gestureWeight,deltaTime);
+        }
+
+        public void ApplyWristPose(Vector3 restFingers,Vector3 restPalm,Vector3 gestureFingers,Vector3 gesturePalm,float gestureWeight,float deltaTime)
+        {
+            RestoreHelpers();
+            Vector3 foreDirection=(hand.position-lower.position).normalized;
+            Vector3 hinge=Vector3.Cross((lower.position-upper.position).normalized,foreDirection).normalized;
+            if(hinge.sqrMagnitude<.5f)hinge=upper.TransformDirection(hingeLocal).normalized;
+            ApplyWristPose(foreDirection,hinge,restFingers,restPalm,gestureFingers,gesturePalm,gestureWeight,deltaTime);
+        }
+
+        void ApplyWristPose(Vector3 foreDirection,Vector3 hinge,Vector3 restFingers,Vector3 restPalm,Vector3 gestureFingers,Vector3 gesturePalm,float gestureWeight,float deltaTime)
+        {
             // Neutral is the thumb-up forearm frame. Roll from palm-down to palm-up
             // travels through this frame, with no ambiguous 180-degree hand slerp.
             Vector3 neutralPalm=hinge*side;
@@ -108,6 +120,12 @@ namespace PsychologyVR
             WristTwist=Mathf.Abs(Vector3.SignedAngle(transportedPalm,hand.TransformDirection(palmLocal),actualFingers));
             ElbowBend=Vector3.Angle(actualUpper,actualFore);
             HingeError=Vector3.Angle(Vector3.Cross(actualUpper,actualFore),upper.TransformDirection(hingeLocal));
+        }
+        void RestoreHelpers()
+        {
+            if(twist1)twist1.localRotation=twist1Rest;
+            if(twist2)twist2.localRotation=twist2Rest;
+            if(elbowShare)elbowShare.localRotation=elbowShareRest;
         }
         static float PalmRoll(Vector3 neutral,Vector3 wanted,Vector3 axis)
         {

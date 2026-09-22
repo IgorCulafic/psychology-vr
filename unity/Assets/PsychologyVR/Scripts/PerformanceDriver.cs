@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
+using UnityEngine.Playables;
 namespace PsychologyVR
 {
     // Actor-space hand targets use two-bone IK over a stable seated foundation.
@@ -35,13 +37,14 @@ namespace PsychologyVR
         public Transform RightWrist=>right.hand;
         public BodyContactConstraints BodyContacts {get;private set;}
         class Pose {public Transform bone;public Quaternion rotation;public Vector3 position;}
-        class Arm {public Transform shoulder,upper,lower,hand,middle;public Vector3 fingerAxis,palmAxis;public HandArticulation articulation;public ArmJointMotion joints;public Vector3 rest,velocity;
+        class Arm {public Transform shoulder,upper,lower,hand,middle,ikTarget,ikHint;public Vector3 fingerAxis,palmAxis;public HandArticulation articulation;public ArmJointMotion joints;public TwoBoneIKConstraint ik;public float upperLength,lowerLength;public Vector3 rest,velocity;
             public BodyContactConstraints.Hand contact;public Vector3 target,pole,fingers,palm;public float side,weight;}
         readonly List<Pose> poses=new List<Pose>();
-        Transform head,spine,chest; Arm left,right;
+        Transform head,spine,chest; Arm left,right;RigBuilder rigBuilder;Avatar runtimeAvatar;
         float targetIntensity=.3f,started;
         Vector3 headAngles,torsoAngles,leftTarget,rightTarget;
         bool initialized;Vector3 headUp,headForward;FacialPerformance facePerformance;float speechWeight;
+        void OnDestroy(){if(runtimeAvatar)Destroy(runtimeAvatar);}
         Transform Bone(string name)
         {
             var bones=GetComponentsInChildren<Transform>();
@@ -88,7 +91,7 @@ namespace PsychologyVR
         }
         public void StopGesture(bool interrupt=false){Gesture="none";if(interrupt){TransientsSuppressed=true;directedGaze="automatic";}}
         void Restore(){foreach(var p in poses){p.bone.localRotation=p.rotation;p.bone.localPosition=p.position;}}
-        void Update(){if(initialized && !performancePaused)Restore();}
+        void Update(){if(initialized && !performancePaused && !useStaticSeatedPose)Restore();}
         Vector3 Local(Vector3 p)=>transform.InverseTransformPoint(p);
         void Rotate(Transform b,Vector3 angles){if(b)b.rotation=transform.rotation*Quaternion.Euler(angles)*Quaternion.Inverse(transform.rotation)*b.rotation;}
         void LateUpdate()
@@ -99,11 +102,13 @@ namespace PsychologyVR
             {
                 if(!useStaticSeatedPose && (!seatedAnimation || !seatedAnimation.isPlaying))return;
                 foreach(var b in GetComponentsInChildren<Transform>())if(b.name.Contains("mixamorig:") || b.name.StartsWith("CC_Base_"))poses.Add(new Pose{bone=b,rotation=b.localRotation,position=b.localPosition});
+                InitializeArmRig();
                 BodyContacts=gameObject.AddComponent<BodyContactConstraints>();
                 BodyContacts.Initialize(this,Bone("LeftUpLeg"),Bone("LeftLeg"),Bone("RightUpLeg"),Bone("RightLeg"),spine,chest,head);
                 foreach(var a in new[]{left,right})
                 {
                     a.fingerAxis=a.hand.InverseTransformDirection((a.middle.position-a.hand.position).normalized);
+                    a.upperLength=Vector3.Distance(a.upper.position,a.lower.position);a.lowerLength=Vector3.Distance(a.lower.position,a.hand.position);
                     string side=a==left?"Left":"Right";
                     Vector3 normal=Vector3.Cross(Bone(side+"HandIndex1").position-a.hand.position,Bone(side+"HandPinky1").position-a.hand.position).normalized;
                     if(Vector3.Dot(normal,transform.up)>0)normal=-normal;
@@ -283,8 +288,8 @@ namespace PsychologyVR
             if(Emotion=="frustrated" || Emotion=="confused"){fingers=transform.forward;palm=transform.up;upright=true;}
             if(Emotion=="despondent")upright=false;
             if(Emotion=="angry"){fingers=Vector3.Lerp(transform.forward,transform.up,AngerBeat(Time.time-started)*.55f);palm=-transform.up;}
-            a.joints.Solve(target,pole,transform.forward+transform.right*side*.08f,-transform.up,fingers,palm,upright?Mathf.SmoothStep(0,1,raised*2):0,Time.deltaTime);
             a.target=target;a.pole=pole;a.fingers=fingers;a.palm=palm;a.side=side;a.weight=upright?Mathf.SmoothStep(0,1,raised*2):0;
+            SolveArm(a,target,pole,Time.deltaTime);
             Measure(a,target);
             float fingerActivity=TransientsSuppressed?0:Gesture=="hand_fidget"?1:Emotion=="anxious"?Intensity:Emotion=="neutral"||Emotion=="calm"?speechWeight*.4f:0;
             a.articulation.Apply(Emotion,Intensity,FaceCover,Time.deltaTime,fingerActivity,raised,TransientsSuppressed);
@@ -301,12 +306,100 @@ namespace PsychologyVR
         }
         void SolveContact(Arm a,Vector3 target)
         {
-            a.joints.Solve(target,a.pole,transform.forward+transform.right*a.side*.08f,-transform.up,
-                a.fingers,a.palm,a.weight,0);
+            SolveArm(a,target,a.pole,0);
+        }
+        void SolveArm(Arm a,Vector3 target,Vector3 pole,float deltaTime)
+        {
+            if(!rigBuilder || !a.ik)
+            {
+                a.joints.Solve(target,pole,transform.forward+transform.right*a.side*.08f,-transform.up,
+                    a.fingers,a.palm,a.weight,deltaTime);
+                return;
+            }
+            Arm other=a==left?right:left;
+            a.ikTarget.position=ClampReach(a,target);
+            a.ikHint.position=a.upper.position+pole;
+            a.ik.weight=1;
+            if(other.ik)other.ik.weight=0;
+            rigBuilder.Evaluate(0);
+            a.joints.ApplyWristPose(transform.forward+transform.right*a.side*.08f,-transform.up,
+                a.fingers,a.palm,a.weight,deltaTime);
+            a.ik.weight=1;
+            if(other.ik)other.ik.weight=1;
+        }
+        Vector3 ClampReach(Arm arm,Vector3 target)
+        {
+            Vector3 delta=target-arm.upper.position;
+            float distance=delta.magnitude;
+            float min=Mathf.Sqrt(arm.upperLength*arm.upperLength+arm.lowerLength*arm.lowerLength+
+                2*arm.upperLength*arm.lowerLength*Mathf.Cos(145*Mathf.Deg2Rad));
+            float max=Mathf.Sqrt(arm.upperLength*arm.upperLength+arm.lowerLength*arm.lowerLength+
+                2*arm.upperLength*arm.lowerLength*Mathf.Cos(8*Mathf.Deg2Rad));
+            Vector3 direction=distance>.0001f?delta/distance:arm.upper.forward;
+            return arm.upper.position+direction*Mathf.Clamp(distance,min,max);
+        }
+        void InitializeArmRig()
+        {
+            Animator animator=null;
+            foreach(var candidate in GetComponentsInChildren<Animator>())
+            {animator=candidate;break;}
+            if(!animator && !useStaticSeatedPose)return;
+            if(!animator)animator=gameObject.AddComponent<Animator>();
+            if(!animator.avatar || !animator.avatar.isValid)
+            {
+                if(!useStaticSeatedPose)return;
+                runtimeAvatar=AvatarBuilder.BuildGenericAvatar(animator.gameObject,string.Empty);
+                if(!runtimeAvatar || !runtimeAvatar.isValid)
+                {
+                    Debug.LogError("Could not create a Generic Avatar for the procedural arm rig on "+name,this);
+                    return;
+                }
+                animator.avatar=runtimeAvatar;
+            }
+
+            animator.enabled=true;
+            foreach(var pose in poses)
+                if(!pose.bone.GetComponent<RigTransform>())pose.bone.gameObject.AddComponent<RigTransform>();
+
+            var rigObject=new GameObject("Procedural Arm Rig");
+            rigObject.transform.SetParent(animator.transform,false);
+            var rig=rigObject.AddComponent<Rig>();
+            SetupArmConstraint(rigObject.transform,left,"Left");
+            SetupArmConstraint(rigObject.transform,right,"Right");
+
+            rigBuilder=animator.GetComponent<RigBuilder>();
+            if(!rigBuilder)rigBuilder=animator.gameObject.AddComponent<RigBuilder>();
+            rigBuilder.enabled=false;
+            rigBuilder.layers.Add(new RigLayer(rig));
+            if(!rigBuilder.Build())
+            {
+                Debug.LogError("Could not build the procedural arm rig for "+name,this);
+                rigBuilder=null;
+                return;
+            }
+            rigBuilder.graph.SetTimeUpdateMode(DirectorUpdateMode.Manual);
+            Restore();
+        }
+        void SetupArmConstraint(Transform rigRoot,Arm arm,string side)
+        {
+            var targetObject=new GameObject(side+" Hand Target");
+            arm.ikTarget=targetObject.transform;arm.ikTarget.SetParent(rigRoot,false);arm.ikTarget.position=arm.hand.position;
+            var hintObject=new GameObject(side+" Elbow Hint");
+            arm.ikHint=hintObject.transform;arm.ikHint.SetParent(rigRoot,false);
+            arm.ikHint.position=arm.upper.position-transform.up;
+            var constraintObject=new GameObject(side+" Two Bone IK");
+            constraintObject.transform.SetParent(rigRoot,false);
+            arm.ik=constraintObject.AddComponent<TwoBoneIKConstraint>();
+            arm.ik.data=new TwoBoneIKConstraintData
+            {
+                root=arm.upper,mid=arm.lower,tip=arm.hand,target=arm.ikTarget,hint=arm.ikHint,
+                targetPositionWeight=1,targetRotationWeight=0,hintWeight=1,
+                maintainTargetPositionOffset=false,maintainTargetRotationOffset=false
+            };
         }
         public void ResolveBodyContacts()
         {
-            if(!initialized)return;
+            if(!initialized || performancePaused)return;
             BodyContacts.Resolve(left.contact,left.target,Time.deltaTime);
             BodyContacts.Resolve(right.contact,right.target,Time.deltaTime);
             BodyContacts.SeparateHands(left.contact,left.target,right.contact,right.target);

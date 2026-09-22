@@ -7,9 +7,18 @@ namespace PsychologyVR
     // Character Creator controls, composed with the shared audio-clock performer.
     public sealed class CCFacialRig
     {
-        struct Binding { public SkinnedMeshRenderer mesh; public int index; public string name; }
+        struct Binding
+        {
+            public SkinnedMeshRenderer mesh;
+            public int index;
+            public string name;
+            public float weight;
+            public bool suppressJaw,speechShape,blink;
+        }
         readonly List<Binding> bindings=new List<Binding>();
         readonly Dictionary<string,float> targets=new Dictionary<string,float>();
+        readonly List<string> targetKeys=new List<string>();
+        readonly Dictionary<string,(string left,string right)> pairNames=new Dictionary<string,(string,string)>();
         readonly Transform root,head,jaw,leftEye,rightEye;
         readonly Quaternion jawRest,leftRest,rightRest;
         readonly Vector3 jawAxis,leftForward,rightForward;
@@ -38,17 +47,30 @@ namespace PsychologyVR
                 for(int i=0;i<mesh.sharedMesh.blendShapeCount;i++)
                 {
                     string n=mesh.sharedMesh.GetBlendShapeName(i);int dot=n.LastIndexOf('.');if(dot>=0)n=n.Substring(dot+1);
-                    bindings.Add(new Binding{mesh=mesh,index=i,name=n});
+                    bool suppressJaw=(mesh.name.Contains("Mustache")||mesh.name.Contains("Soul_Patch"))&&(n=="Jaw_Open"||n=="V_Open");
+                    bindings.Add(new Binding{mesh=mesh,index=i,name=n,weight=mesh.GetBlendShapeWeight(i),suppressJaw=suppressJaw,
+                        speechShape=n.StartsWith("Mouth")||n.StartsWith("V_")||n=="Jaw_Open",blink=n.StartsWith("Eye_Blink")});
                 }
             }
         }
-        void Set(string n,float v)=>targets[n]=v;
-        void Pair(string n,float v){Set(n+"_L",v);Set(n+"_R",v);}
+        void Set(string n,float v)
+        {
+            if(!targets.ContainsKey(n))targetKeys.Add(n);
+            targets[n]=v;
+        }
+        void Pair(string n,float v)
+        {
+            if(!pairNames.TryGetValue(n,out var pair))
+            {
+                pair=(n+"_L",n+"_R");pairNames[n]=pair;
+            }
+            Set(pair.left,v);Set(pair.right,v);
+        }
         public void Apply(string emotion,float intensity,Dictionary<string,float> common,bool speech,string cue,bool suppress,float transition=.65f)
         {
             if(previous!=emotion){previous=emotion;started=Time.time;}
             float age=Time.time-started;
-            targets.Clear();
+            targets.Clear();targetKeys.Clear();
             switch(emotion)
             {
                 case "calm":Pair("Mouth_Smile",.15f);Pair("Eye_Squint",.1f);break;
@@ -71,13 +93,13 @@ namespace PsychologyVR
                 case "skeptical":Set("Brow_Raise_Outer_L",.85f);Set("Brow_Drop_R",.4f);Set("Eye_Squint_R",.45f);Set("Mouth_L",.3f);Pair("Mouth_Press",.35f);break;
                 case "numb":Pair("Eye_Squint",.15f);break;
             }
-            foreach(var key in new List<string>(targets.Keys))targets[key]*=intensity;
+            foreach(var key in targetKeys)targets[key]*=intensity;
             float blink=Mathf.Max(common["BlinkLeft"],Value("Eye_Blink_L"));Pair("Eye_Blink",blink);
             Pair("Eye_Wide",Value("Eye_Wide_L")*(1-blink));
             if(speech)
             {
                 // Speech owns closures; emotional mouth tension must not mask consonants.
-                foreach(var key in new List<string>(targets.Keys))if(key.StartsWith("Mouth_"))targets[key]*=.25f;
+                foreach(var key in targetKeys)if(key.StartsWith("Mouth_"))targets[key]*=.25f;
                 Set("Jaw_Open",common["JawOpen"]*.75f);
                 Pair("Mouth_Press",common["MouthPress"]);
                 Pair("Mouth_Pucker_Up",common["MouthPucker"]);Pair("Mouth_Pucker_Down",common["MouthPucker"]);
@@ -90,13 +112,18 @@ namespace PsychologyVR
             Pair("Mouth_Smile",Value("Mouth_Smile_L")*(1-mouth*.7f));Pair("Mouth_Frown",Value("Mouth_Frown_L")*(1-mouth*.7f));
             jawAmount=Mathf.Lerp(jawAmount,mouth,1-Mathf.Exp(-22*Time.deltaTime));
             jaw.localRotation=jawRest*Quaternion.AngleAxis(jawAmount*25,jawAxis);
-            foreach(var b in bindings)
+            float normalBlend=1-Mathf.Exp(-(3/Mathf.Clamp(transition,.15f,2))*Time.deltaTime);
+            float speechBlend=1-Mathf.Exp(-22*Time.deltaTime),blinkBlend=1-Mathf.Exp(-70*Time.deltaTime);
+            for(int i=0;i<bindings.Count;i++)
             {
+                var b=bindings[i];
                 float goal=Value(b.name);
-                if((b.mesh.name.Contains("Mustache")||b.mesh.name.Contains("Soul_Patch"))&&(b.name=="Jaw_Open"||b.name=="V_Open"))goal=0;
-                bool speechShape=b.name.StartsWith("Mouth")||b.name.StartsWith("V_")||b.name=="Jaw_Open";
-                float rate=b.name.StartsWith("Eye_Blink")?70:speech&&speechShape?22:3/Mathf.Clamp(transition,.15f,2);
-                b.mesh.SetBlendShapeWeight(b.index,Mathf.Lerp(b.mesh.GetBlendShapeWeight(b.index),goal*100,1-Mathf.Exp(-rate*Time.deltaTime)));
+                if(b.suppressJaw)goal=0;
+                float blend=b.blink?blinkBlend:speech&&b.speechShape?speechBlend:normalBlend;
+                float weight=Mathf.Lerp(b.weight,goal*100,blend);
+                if(weight==b.weight)continue;
+                b.weight=weight;bindings[i]=b;
+                b.mesh.SetBlendShapeWeight(b.index,weight);
             }
             float yaw=(common["EyeLookRight"]-common["EyeLookLeft"])*9.7f;
             float pitch=(common["EyeLookUp"]-common["EyeLookDown"])*6.9f;
@@ -110,6 +137,13 @@ namespace PsychologyVR
             eye.rotation=Quaternion.FromToRotation(eye.TransformDirection(forward),direction)*eye.rotation;
         }
         float Value(string n)=>targets.TryGetValue(n,out float v)?v:0;
-        public void Clear(){foreach(var b in bindings)if(b.mesh)b.mesh.SetBlendShapeWeight(b.index,0);if(jaw)jaw.localRotation=jawRest;}
+        public void Clear()
+        {
+            for(int i=0;i<bindings.Count;i++)
+            {
+                var b=bindings[i];if(b.mesh)b.mesh.SetBlendShapeWeight(b.index,0);b.weight=0;bindings[i]=b;
+            }
+            if(jaw)jaw.localRotation=jawRest;
+        }
     }
 }
