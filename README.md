@@ -1,6 +1,10 @@
 # Psychology VR — Alex prototype
 
-Unity 6000.6.0f1, Windows PCVR, Meta Quest 3. Seated patient simulations with local speech recognition, Qwen dialogue, BF16 Higgs voice, facial expressions, gaze, timed lip sync, and structured body cues.
+Unity 6000.6.0f1, Windows PCVR, Meta Quest 3. Seated patient simulations with local speech recognition, selectable dialogue models, BF16 Higgs voice, facial expressions, gaze, timed lip sync, and structured body cues.
+
+Current default: **Gemma 4 12B QAT Q4**, chosen after conversational testing. In Unity use **Settings → Dialogue model** to select an installed alternative. Bonsai 2 27B PQ2 and the original Qwen 27B IQ4 remain available for comparison. Changes apply between replies and preserve the conversation and BF16 voice. See [model switching](docs/MODEL_SWITCHING.md).
+
+The latest Quest Link check reached **22.40 GiB whole-GPU memory** with Gemma and BF16 speech on an RTX 5090. The headset froze while the desktop game continued, so this is a memory measurement, not a successful VR stability or RTX 4090 certification. See the [live Quest report](docs/QUEST_LINK_LIVE_TEST.md), [desktop memory breakdown](docs/GEMMA_VRAM.md), and [headset-free stress tests](docs/HEADSET_FREE_STRESS.md).
 
 ![Furnished consultation room](docs/generated/furnished-room.png)
 
@@ -12,7 +16,7 @@ Every release is a complete application package with all previous updates; no pa
 
 Use the release asset above, not GitHub's **Source code.zip**. The source repository is for development; the instructions below describe that workflow. Voice recordings are supplied only in the private release with the owner's permission, not in source history.
 
-**GPU presets:** Setup automatically selects the lighter IQ3_M / 32-layer dialogue
+**Legacy Qwen GPU presets:** Selecting Auto in PC Settings selects the lighter IQ3_M / 32-layer dialogue
 configuration on a 24 GB RTX 4090, or the original IQ4_XS / 48-layer configuration
 on a 32 GB+ GPU. Both keep BF16 speech. Use **PC Settings.cmd** to choose Auto or
 either manual preset. The 4090 preset targets the university's 64 GB RAM machines;
@@ -22,7 +26,7 @@ for measurements and the remaining on-device acceptance check.
 For lower dialogue latency, **PC Settings.cmd → 4 Fast dialogue** selects a
 smaller 9B Q6 model fully on the GPU. BF16 speech stays unchanged. This is an
 opt-in comparison: local first playback was 13.1 seconds, but grammar and
-character-consistency weaknesses remain. Auto still selects the 27B model.
+character-consistency weaknesses remain. PC Settings options **5 Bonsai** and **6 Gemma** install/select the newer alternatives. Fresh setup defaults to Gemma.
 
 ## Clone and open
 
@@ -141,6 +145,13 @@ python tools/start-model.py
 ```
 
 ## Verification
+
+For repeatable model comparisons, use the [terminal runner](docs/MODEL_LAB.md#running-a-comparison).
+The [six-model comparison report](docs/MODEL_COMPARISON_2026-09-27.md) includes actual
+local test results and saved replies. **Start Model Lab.cmd** retains the optional
+browser interface with side-by-side review. Both workflows share 16 multi-turn
+scenarios, separate patient and reasoning tracks, repeated seeds and automatic
+evidence exports, without changing game settings.
 
 ```powershell
 ./.venv/Scripts/python.exe -m unittest discover -s services -v

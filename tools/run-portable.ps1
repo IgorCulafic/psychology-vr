@@ -13,6 +13,7 @@ try {
     $taskLock=[IO.File]::Open((Join-Path $taskRuntime 'setup.lock'),'OpenOrCreate','ReadWrite','None')
     Start-Transcript -Path (Join-Path $taskRuntime 'setup-latest.log') -Force | Out-Null
     $taskPreset=$null
+    $taskModelChoice=$null
     if($Mode -eq 'Settings') {
         Write-Host 'PC settings - dialogue model and GPU allocation. Voice quality is unchanged.'
         Write-Host 'Close the game first. This will stop this installation''s AI services.'
@@ -20,10 +21,13 @@ try {
         Write-Host '2. University / RTX 4090: IQ3_M, 32 GPU layers'
         Write-Host '3. Original quality: IQ4_XS, 48 GPU layers (32 GB+ recommended)'
         Write-Host '4. Fast dialogue (9B Q6, fully on GPU): compare character/language quality before teaching'
+        Write-Host '5. Bonsai 2 27B PQ2 (compact comparison model)'
+        Write-Host '6. Gemma 4 12B QAT Q4 (current default)'
         Write-Host 'Enter to cancel.'
-        $taskChoice=Read-Host 'Choose 1, 2, 3 or 4'
+        $taskChoice=Read-Host 'Choose 1 to 6'
         $taskPreset=switch($taskChoice){'1'{'auto'} '2'{'rtx4090'} '3'{'quality'} '4'{'fast9b'} default{$null}}
-        if(!$taskPreset){Write-Host 'No settings changed.';return}
+        $taskModelChoice=switch($taskChoice){'5'{'bonsai'} '6'{'gemma'} default{$null}}
+        if(!$taskPreset -and !$taskModelChoice){Write-Host 'No settings changed.';return}
         & (Join-Path $PSScriptRoot 'stop-services.ps1')
     }
     $taskManifest=Get-Content (Join-Path $taskRoot 'services/portable-manifest.json') -Raw | ConvertFrom-Json
@@ -75,6 +79,7 @@ try {
         $env:HF_HUB_OFFLINE='0'
         $taskSetupArguments=@((Join-Path $PSScriptRoot 'setup-portable.py'))
         if($taskPreset){$taskSetupArguments+=@('--preset',$taskPreset)}
+        if($taskModelChoice){$taskSetupArguments+=@('--model',$taskModelChoice)}
         Invoke-Checked $taskPython $taskSetupArguments
         @{root=$taskRoot;key=$taskKey} | ConvertTo-Json | Set-Content -LiteralPath $taskStampPath -Encoding UTF8
     }

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Model Lab · Psychology VR</title><link rel="stylesheet" href="/style.css"><script src="/lab.js" defer></script></head>
+<body><header><div><p class="eyebrow">PSYCHOLOGY VR / EVALUATION</p><h1>Good conversation takes more than speed.</h1><p class="lede">Repeatable scenarios. Full conversations. Your judgement.</p></div><span class="badge">TEXT ONLY · LOCAL</span></header>
+<div id="notice" role="status" aria-live="polite"></div>
+<main><aside><section class="panel"><h2>Design a run</h2><p id="model" class="muted">Checking the loaded model…</p><button id="refresh-model" class="quiet">Refresh model</button>
+<label>Run label <input id="label" maxlength="120" placeholder="Detected model name"></label>
+<fieldset><legend>Response languages</legend><div id="languages" class="checks"></div></fieldset>
+<p class="hint">Regional questions share ijekavian Latin-script wording. The requested answer language changes. Native review is needed.</p>
+<label>Sampling seeds <input id="seeds" value="42" placeholder="42, 123, 2026"></label><p class="hint">Use up to three seeds to check consistency. Every scenario starts a fresh conversation.</p>
+<div class="row"><button id="quick" class="quiet">Quick screen</button><button id="full" class="quiet">Full suite</button></div>
+<fieldset><legend>Scenarios</legend><div id="cases" class="checks cases"></div></fieldset>
+<div class="estimate"><strong id="count">—</strong><span>planned turns</span></div>
+<button id="start" class="primary">Run selected scenarios</button><button id="stop" class="danger" disabled>Stop after current turn</button>
+<p class="hint">Uses the loaded llama.cpp model. Run one model at a time and avoid other chats while measuring. Voice settings stay as configured for the game.</p>
+</section></aside>
+<div class="workspace"><section class="panel"><div class="section-head"><div><p class="eyebrow">RUN HISTORY</p><h2>Compare the evidence</h2></div><label class="inline"><input id="blind" type="checkbox"> Hide model names</label></div>
+<p class="muted">Select up to two runs. Exact-answer checks measure specific reasoning and formatting tasks; they are not a general intelligence score.</p>
+<div class="table-wrap"><table><thead><tr><th>Compare</th><th>Run</th><th>Progress</th><th>Reviews</th><th>Export</th></tr></thead><tbody id="runs"></tbody></table></div>
+<p id="active" class="muted"></p></section>
+<section id="review" class="panel"><div class="section-head"><div><p class="eyebrow">CONVERSATION REVIEW</p><h2>Read the whole exchange</h2></div><button id="reload" class="quiet">Refresh replies</button></div>
+<p id="compatibility" class="hint"></p><label>Conversation <select id="conversation"><option>Run a scenario to begin</option></select></label>
+<div id="metrics" class="metrics"></div><div id="comparison" class="comparison"><p class="empty">Your first run will appear here. Language, character and emotional quality remain unscored until a reviewer assesses them.</p></div>
+</section></div></main><footer>Suite <span id="version"></span> · Text timings exclude model loading, speech generation and VR rendering. These tests support development; they do not validate clinical training outcomes.</footer></body></html>

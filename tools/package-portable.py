@@ -20,14 +20,19 @@ def main():
     args=parser.parse_args();out=ROOT/'.cache/releases'/args.tag;out.mkdir(parents=True,exist_ok=True)
     files={}
     def add(path,name=None):files[name or path.relative_to(ROOT).as_posix()]=path
-    for path in ROOT.glob('*.cmd'):add(path)
-    for name in ['START HERE.md','ASSET_CREDITS.md','docs/GPU_PRESETS.md']:add(ROOT/name)
+    # These source-only tools need Unreal/editor or evaluation assets not in the player ZIP.
+    for path in ROOT.glob('*.cmd'):
+        if 'Unreal' not in path.name and path.name!='Start Model Lab.cmd':add(path)
+    for name in ['START HERE.md','ASSET_CREDITS.md','docs/GPU_PRESETS.md','docs/MODEL_SWITCHING.md','docs/GEMMA_VRAM.md','docs/QUEST_LINK_LIVE_TEST.md','docs/HEADSET_FREE_STRESS.md']:add(ROOT/name)
+    for name in ['gemma-unity-vram.json','quest-link-live-vram.json','headset-free-stress-comparison.json',
+                 'headset-free-stress/report.json','headset-free-stress-2400/report.json','headset-free-stress-2000/report.json']:
+        add(ROOT/'docs/generated'/name)
     for folder in ['services','characters']:
         for path in (ROOT/folder).rglob('*'):
             if not path.is_file() or any(part.startswith('.') or part=='__pycache__' for part in path.relative_to(ROOT/folder).parts):continue
             if path.name=='config.local.json' or path.name.startswith('test_') or path.suffix=='.pyc':continue
             add(path)
-    for name in ['run-portable.ps1','setup-portable.py','launch.ps1','launch-text-chat.ps1','stop-services.ps1']:
+    for name in ['run-portable.ps1','setup-portable.py','launch.ps1','launch-text-chat.ps1','stop-services.ps1','select-model.ps1']:
         add(ROOT/'tools'/name)
     for name in ['EmotionCatalog.json','ScenarioCatalog.json']:
         add(ROOT/'unity/Assets/PsychologyVR/Resources'/name)

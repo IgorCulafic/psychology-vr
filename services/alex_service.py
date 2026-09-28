@@ -137,7 +137,7 @@ class Session:
     recent_gestures: list[str] = field(default_factory=list)
 
 class Bridge(StreamingTurns):
-    def __init__(self, config: dict):
+    def __init__(self, config: dict, config_path=None):
         self.config = config
         self.catalog = json.loads((ROOT / 'characters/catalog.json').read_text(encoding='utf-8'))
         self.profiles = {}
@@ -160,6 +160,8 @@ class Bridge(StreamingTurns):
         self.context_limit = None
         self.runtime = ROOT / 'services/.runtime'
         self.runtime.mkdir(parents=True, exist_ok=True)
+        from model_selection import ModelSelection
+        self.models = ModelSelection(self, config_path)
 
     def public_catalog(self):
         return {'default_scenario_id': self.catalog['default_scenario_id'], 'scenarios': [
@@ -413,6 +415,8 @@ class Bridge(StreamingTurns):
         if not isinstance(text, str) or len(text) > 2000 or (not opening and not text.strip()):
             raise ContractError('Enter 1–2000 characters')
         with self.lock:
+            if self.models.switching:
+                raise ContractError('The dialogue model is loading. Please wait.')
             session = self.sessions[key]
             if stream and (stream['closed'] or stream is not session.stream or stream['generation']!=session.generation):
                 raise StaleTurn('Turn was interrupted or reset')
@@ -583,7 +587,9 @@ def make_handler(bridge):
                 pass
 
         def do_GET(self):
-            if self.path == '/catalog':
+            if self.path == '/models':
+                self.send_json(200, bridge.models.status())
+            elif self.path == '/catalog':
                 self.send_json(200, bridge.public_catalog())
             elif self.path == '/health':
                 self.send_json(200, {'ok': True, 'character': 'Alex', 'dialogue_provider': bridge.config['dialogue_provider'],
@@ -618,7 +624,9 @@ def make_handler(bridge):
                 body = json.loads(self.rfile.read(length))
                 if not isinstance(body, dict):
                     raise ContractError('Expected JSON object')
-                if self.path == '/session':
+                if self.path == '/models/select':
+                    value = bridge.models.select(body.get('model_id'))
+                elif self.path == '/session':
                     value = bridge.new_session(body.get('scenario_id'), body.get('replace_session_id'))
                 elif self.path == '/turn':
                     value = bridge.turn(body['session_id'], body.get('text', ''), body.get('opening') is True)
@@ -658,7 +666,7 @@ def main():
         parser.error('This prototype binds only to loopback.')
     if config['dialogue_provider'] not in ('scripted', 'llama.cpp'):
         parser.error('dialogue_provider must be scripted or llama.cpp')
-    bridge = Bridge(config)
+    bridge = Bridge(config, args.config)
     server = ThreadingHTTPServer((config['host'], config['port']), make_handler(bridge))
     print(f"Alex bridge: http://{config['host']}:{config['port']} | dialogue={config['dialogue_provider']} | voice={config['tts_provider']}", flush=True)
     try:

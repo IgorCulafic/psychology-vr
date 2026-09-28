@@ -14,7 +14,7 @@ namespace PsychologyVR
     [Serializable] public class SpeechSegment { public string text, emotion, gesture, voice_style, gaze, audio_url, segment_id,lip_sync_source; public float intensity,transition_seconds,pause_before_seconds,hold_after_seconds,gesture_at,gesture_duration_seconds;public MouthCue[] mouth_cues; }
     [Serializable] public class RelationshipState { public string status,openness; public int comfort,trust,distress,word_limit; }
     [Serializable] public class Reply { public string session_id, turn_id, dialogue_provider, tts_provider, scenario_id, character_name, initial_emotion,error; public float initial_intensity; public SpeechSegment[] segments; public int total_ms,first_audio_ms,generation; public bool done,closed; public RelationshipState relationship; }
-    [Serializable] public class RequestBody { public string session_id, text, wav_base64, scenario_id, replace_session_id,turn_id; public bool opening,interrupted; public int completed_count,expected_generation;public float partial_seconds; }
+    [Serializable] public class RequestBody { public string session_id, text, wav_base64, scenario_id, replace_session_id,turn_id,model_id; public bool opening,interrupted; public int completed_count,expected_generation;public float partial_seconds; }
     [Serializable] public class Health { public string dialogue_provider, tts_provider, stt_provider; public bool sentence_streaming; }
     [Serializable] public class Transcript { public string text; }
 
@@ -79,6 +79,7 @@ namespace PsychologyVR
 
         void InitializeSession(GameObject loadedRoom)
         {
+            ConfigureHeadsetFreeStress();
             Application.runInBackground = true;
             NaturalSkin=PlayerPrefs.GetInt("NaturalSkin",1)==1;
             if(loadedRoom||environmentPrefab)
@@ -118,7 +119,7 @@ namespace PsychologyVR
             controllerRay.sharedMaterial.SetColor("_EmissionColor",new Color(.3f,.9f,.8f));
             if (Microphone.devices.Length > 0) micDevice = Microphone.devices[0];
             string savedMic=PlayerPrefs.GetString("Microphone","");if(Array.IndexOf(Microphone.devices,savedMic)>=0)micDevice=savedMic;
-            bool diagnostic=Array.Exists(Environment.GetCommandLineArgs(),a=>a=="--integration-preview"||a=="--record-alex"||a=="--alex-preview"||a=="--environment-preview"||a=="--smoke-test"||a=="--visuals-preview"||a=="--performance-replay"||a=="--streaming-check");
+            bool diagnostic=Array.Exists(Environment.GetCommandLineArgs(),a=>a=="--integration-preview"||a=="--record-alex"||a=="--alex-preview"||a=="--environment-preview"||a=="--smoke-test"||a=="--visuals-preview"||a=="--performance-replay"||a=="--streaming-check"||a=="--headset-free-stress");
             SetMenuOpen(!diagnostic);
             if(Array.IndexOf(Environment.GetCommandLineArgs(),"--menu-preview")>=0)StartCoroutine(MenuPreview.Run(this,menu,view,Capture));
             if(Array.IndexOf(Environment.GetCommandLineArgs(),"--visuals-preview")>=0) StartCoroutine(VisualsPreview.Run(this,menu,view,Capture));
@@ -130,6 +131,7 @@ namespace PsychologyVR
             if(Array.IndexOf(Environment.GetCommandLineArgs(),"--smoke-test")>=0) StartCoroutine(SmokeTest());
             if(Array.IndexOf(Environment.GetCommandLineArgs(),"--performance-replay")>=0) StartCoroutine(CheckPerformancePlayback());
             if(Array.IndexOf(Environment.GetCommandLineArgs(),"--streaming-check")>=0) StartCoroutine(CheckStreamingPlayback());
+            if(Array.IndexOf(Environment.GetCommandLineArgs(),"--headset-free-stress")>=0) StartCoroutine(HeadsetFreeStress());
         }
 
         IEnumerator Start()

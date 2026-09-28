@@ -10,7 +10,7 @@ namespace PsychologyVR
 {
     public class ConsultationMenu:MonoBehaviour
     {
-        public enum Page {Session,Characters,Settings,Preview,Visuals,Rendering}
+        public enum Page {Session,Characters,Settings,Preview,Visuals,Rendering,Models}
         public Page CurrentPage {get;private set;}
         public bool Visible=>canvas && canvas.gameObject.activeSelf;
         public bool DescriptionsHidden {get;private set;}
@@ -54,7 +54,7 @@ namespace PsychologyVR
             ButtonAt("Close  ×",800,28,128,48,()=>session.SetMenuOpen(false));
             string[] names={"Session","Characters & situations","Settings"};
             for(int i=0;i<3;i++){int index=i;ButtonAt(names[i],32+i*300,112,288,48,()=>Render((Page)index),active:(int)page==i);}
-            if(page==Page.Session)SessionPage();else if(page==Page.Characters)CharactersPage();else if(page==Page.Settings)SettingsPage();else if(page==Page.Visuals)VisualsPage();else if(page==Page.Rendering)RenderingPage();else PreviewPage();
+            if(page==Page.Session)SessionPage();else if(page==Page.Characters)CharactersPage();else if(page==Page.Settings)SettingsPage();else if(page==Page.Visuals)VisualsPage();else if(page==Page.Rendering)RenderingPage();else if(page==Page.Models)ModelsPage();else PreviewPage();
             TextAt("Esc / right B · Menu     Left X · Recenter",34,708,710,24,17,Muted);
             TextAt("PC VR",820,708,108,24,17,Muted);
             Refresh();
@@ -129,7 +129,8 @@ namespace PsychologyVR
             ButtonAt("Character preview",338,540,284,52,()=>Render(Page.Preview));
             ButtonAt("Quit game",644,540,284,52,()=>Application.Quit());
             ButtonAt("Visual style",32,608,284,48,()=>Render(Page.Visuals));
-            status=TextAt("",338,606,590,42,17,Accent);
+            ButtonAt("Dialogue model",338,608,284,48,()=>{Render(Page.Models);session.RefreshModels();});
+            status=TextAt("",644,606,284,42,15,Accent);
             TextAt("Right A / Space: hold to speak\nRight trigger: select    Grip: close your fingers",34,652,884,45,17,Muted);
         }
         void PreviewPage()
@@ -140,6 +141,21 @@ namespace PsychologyVR
             var moods=EmotionLibrary.Catalog.emotions;
             for(int i=0;i<moods.Length;i++){var mood=moods[i];ButtonAt(mood.label,32+(i%4)*226,300+(i/4)*56,214,44,()=>{session.PreviewEmotion(mood.name);session.SetMenuOpen(false);});}
             TextAt(session.Providers,34,602,890,42,16,Muted);
+            ButtonAt("Back to settings",32,650,896,38,()=>Render(Page.Settings));
+        }
+        void ModelsPage()
+        {
+            TextAt("Dialogue model",34,188,880,36,27,Ink,FontStyle.Bold);
+            TextAt("Changes apply between replies. Stop the current reply first. Your conversation is kept.",34,235,880,48,18,Muted);
+            var models=session.Models;
+            if(models?.models!=null)for(int i=0;i<models.models.Length;i++)
+            {
+                var model=models.models[i];float y=300+i*90;
+                ButtonAt(model.label+(models.current==model.id?"  ✓":!model.installed?" (not installed)":""),32,y,436,58,()=>session.ChangeModel(model.id),()=>session.CanChangeModel&&model.installed&&models.enabled&&!models.switching&&models.current!=model.id,active:models.current==model.id);
+                TextAt(model.description,490,y,438,70,18,Muted);
+            }
+            else TextAt("Loading model settings…",34,300,880,40,22,Ink);
+            status=TextAt("",34,582,880,60,17,Accent);
             ButtonAt("Back to settings",32,650,896,38,()=>Render(Page.Settings));
         }
         void VisualsPage()

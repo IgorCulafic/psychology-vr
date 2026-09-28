@@ -1,0 +1,2408 @@
+{
+  "started_utc": "2026-09-28T19:56:47.987355+00:00",
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "model": "gemma",
+  "voice": "bf16",
+  "stt_device": "cpu",
+  "mode": "normal Unity VR player, user interaction, Quest Link",
+  "samples": [
+    {
+      "t": 1790625408.1148875,
+      "used_mib": 22490,
+      "total_mib": 32607,
+      "gpu_percent": 19,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625409.1751924,
+      "used_mib": 22480,
+      "total_mib": 32607,
+      "gpu_percent": 24,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625410.2322335,
+      "used_mib": 22506,
+      "total_mib": 32607,
+      "gpu_percent": 22,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625411.2894487,
+      "used_mib": 22513,
+      "total_mib": 32607,
+      "gpu_percent": 23,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625412.3476381,
+      "used_mib": 22486,
+      "total_mib": 32607,
+      "gpu_percent": 22,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625413.4045312,
+      "used_mib": 22487,
+      "total_mib": 32607,
+      "gpu_percent": 22,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625414.4762218,
+      "used_mib": 22487,
+      "total_mib": 32607,
+      "gpu_percent": 22,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625415.5459883,
+      "used_mib": 22549,
+      "total_mib": 32607,
+      "gpu_percent": 22,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625416.604937,
+      "used_mib": 22560,
+      "total_mib": 32607,
+      "gpu_percent": 21,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625417.6774502,
+      "used_mib": 22560,
+      "total_mib": 32607,
+      "gpu_percent": 21,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625418.7486722,
+      "used_mib": 22560,
+      "total_mib": 32607,
+      "gpu_percent": 19,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625419.8042264,
+      "used_mib": 22560,
+      "total_mib": 32607,
+      "gpu_percent": 22,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625420.8600574,
+      "used_mib": 22561,
+      "total_mib": 32607,
+      "gpu_percent": 22,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625421.919501,
+      "used_mib": 22561,
+      "total_mib": 32607,
+      "gpu_percent": 22,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625422.9804895,
+      "used_mib": 22561,
+      "total_mib": 32607,
+      "gpu_percent": 22,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625424.0563293,
+      "used_mib": 22558,
+      "total_mib": 32607,
+      "gpu_percent": 23,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625425.1117427,
+      "used_mib": 22559,
+      "total_mib": 32607,
+      "gpu_percent": 23,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625426.1894445,
+      "used_mib": 22548,
+      "total_mib": 32607,
+      "gpu_percent": 20,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625427.25499,
+      "used_mib": 22560,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625428.3245304,
+      "used_mib": 22559,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625429.3940141,
+      "used_mib": 22559,
+      "total_mib": 32607,
+      "gpu_percent": 26,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625430.4804978,
+      "used_mib": 22560,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625431.540263,
+      "used_mib": 22559,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625432.608579,
+      "used_mib": 22559,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625433.66466,
+      "used_mib": 22560,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625434.7245636,
+      "used_mib": 22560,
+      "total_mib": 32607,
+      "gpu_percent": 28,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625435.783272,
+      "used_mib": 22558,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625436.841457,
+      "used_mib": 22560,
+      "total_mib": 32607,
+      "gpu_percent": 26,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625437.8986037,
+      "used_mib": 22560,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625438.9662197,
+      "used_mib": 22560,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625440.0364316,
+      "used_mib": 22560,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625441.0932155,
+      "used_mib": 22560,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625442.1530817,
+      "used_mib": 22560,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625443.224189,
+      "used_mib": 22560,
+      "total_mib": 32607,
+      "gpu_percent": 28,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625444.2937102,
+      "used_mib": 22560,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625445.3534377,
+      "used_mib": 22560,
+      "total_mib": 32607,
+      "gpu_percent": 31,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625446.4115958,
+      "used_mib": 22561,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625447.4831326,
+      "used_mib": 22563,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625448.5406044,
+      "used_mib": 22563,
+      "total_mib": 32607,
+      "gpu_percent": 31,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625449.6351078,
+      "used_mib": 22563,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625450.701526,
+      "used_mib": 22590,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625451.7729847,
+      "used_mib": 22574,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625452.8286479,
+      "used_mib": 22568,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625453.883483,
+      "used_mib": 22568,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625454.9554453,
+      "used_mib": 22569,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625456.018038,
+      "used_mib": 22560,
+      "total_mib": 32607,
+      "gpu_percent": 26,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625457.076171,
+      "used_mib": 22562,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625458.1327884,
+      "used_mib": 22562,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625459.188768,
+      "used_mib": 22562,
+      "total_mib": 32607,
+      "gpu_percent": 28,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625460.2489016,
+      "used_mib": 22569,
+      "total_mib": 32607,
+      "gpu_percent": 28,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625461.3079777,
+      "used_mib": 22580,
+      "total_mib": 32607,
+      "gpu_percent": 31,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625462.377618,
+      "used_mib": 22567,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625463.4519718,
+      "used_mib": 22579,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625464.508222,
+      "used_mib": 22572,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625465.57786,
+      "used_mib": 22572,
+      "total_mib": 32607,
+      "gpu_percent": 31,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625466.6548786,
+      "used_mib": 22572,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625467.7199805,
+      "used_mib": 22570,
+      "total_mib": 32607,
+      "gpu_percent": 31,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625468.7915792,
+      "used_mib": 22570,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625469.8506088,
+      "used_mib": 22570,
+      "total_mib": 32607,
+      "gpu_percent": 31,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625470.9091175,
+      "used_mib": 22570,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625471.969347,
+      "used_mib": 22570,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625473.0301607,
+      "used_mib": 22570,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625474.10362,
+      "used_mib": 22570,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625475.176374,
+      "used_mib": 22570,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625476.2485023,
+      "used_mib": 22572,
+      "total_mib": 32607,
+      "gpu_percent": 28,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625477.3075085,
+      "used_mib": 22572,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625478.3729763,
+      "used_mib": 22572,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625479.4292734,
+      "used_mib": 22572,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625480.5207198,
+      "used_mib": 22596,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625481.5809793,
+      "used_mib": 22597,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625482.6390102,
+      "used_mib": 22580,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625483.7104995,
+      "used_mib": 22578,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625484.7813997,
+      "used_mib": 22577,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625485.8406725,
+      "used_mib": 22567,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625486.898645,
+      "used_mib": 22567,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625487.9580388,
+      "used_mib": 22564,
+      "total_mib": 32607,
+      "gpu_percent": 32,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625489.0164702,
+      "used_mib": 22564,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625490.0770304,
+      "used_mib": 22564,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625491.1347392,
+      "used_mib": 22566,
+      "total_mib": 32607,
+      "gpu_percent": 28,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625492.2047045,
+      "used_mib": 22566,
+      "total_mib": 32607,
+      "gpu_percent": 21,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625493.2742267,
+      "used_mib": 22566,
+      "total_mib": 32607,
+      "gpu_percent": 22,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625494.334921,
+      "used_mib": 22571,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625495.4045186,
+      "used_mib": 22571,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625496.463489,
+      "used_mib": 22571,
+      "total_mib": 32607,
+      "gpu_percent": 26,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625497.523624,
+      "used_mib": 22571,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625498.59068,
+      "used_mib": 22571,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625499.6623936,
+      "used_mib": 22571,
+      "total_mib": 32607,
+      "gpu_percent": 28,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625500.7216265,
+      "used_mib": 22571,
+      "total_mib": 32607,
+      "gpu_percent": 27,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625501.7830584,
+      "used_mib": 22571,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625502.8417926,
+      "used_mib": 22573,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625503.9139166,
+      "used_mib": 22573,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625504.9729862,
+      "used_mib": 22573,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625506.0333467,
+      "used_mib": 22573,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625507.0914319,
+      "used_mib": 22102,
+      "total_mib": 32607,
+      "gpu_percent": 26,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625508.157374,
+      "used_mib": 22121,
+      "total_mib": 32607,
+      "gpu_percent": 8,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625509.2160606,
+      "used_mib": 22352,
+      "total_mib": 32607,
+      "gpu_percent": 17,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625510.275828,
+      "used_mib": 22352,
+      "total_mib": 32607,
+      "gpu_percent": 14,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625511.3577302,
+      "used_mib": 22404,
+      "total_mib": 32607,
+      "gpu_percent": 4,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625512.420298,
+      "used_mib": 22618,
+      "total_mib": 32607,
+      "gpu_percent": 17,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625513.493465,
+      "used_mib": 22696,
+      "total_mib": 32607,
+      "gpu_percent": 17,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625514.5824475,
+      "used_mib": 22813,
+      "total_mib": 32607,
+      "gpu_percent": 9,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625515.6464891,
+      "used_mib": 22755,
+      "total_mib": 32607,
+      "gpu_percent": 17,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625516.7147014,
+      "used_mib": 22755,
+      "total_mib": 32607,
+      "gpu_percent": 14,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625517.7984216,
+      "used_mib": 22835,
+      "total_mib": 32607,
+      "gpu_percent": 16,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625518.8618183,
+      "used_mib": 22850,
+      "total_mib": 32607,
+      "gpu_percent": 16,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625519.9281764,
+      "used_mib": 22836,
+      "total_mib": 32607,
+      "gpu_percent": 15,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625520.9979374,
+      "used_mib": 22751,
+      "total_mib": 32607,
+      "gpu_percent": 15,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625522.0621402,
+      "used_mib": 22739,
+      "total_mib": 32607,
+      "gpu_percent": 9,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625523.1341178,
+      "used_mib": 22816,
+      "total_mib": 32607,
+      "gpu_percent": 14,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625524.2048597,
+      "used_mib": 22813,
+      "total_mib": 32607,
+      "gpu_percent": 11,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625525.2689092,
+      "used_mib": 22808,
+      "total_mib": 32607,
+      "gpu_percent": 13,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625526.3272872,
+      "used_mib": 22787,
+      "total_mib": 32607,
+      "gpu_percent": 18,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625527.393386,
+      "used_mib": 22787,
+      "total_mib": 32607,
+      "gpu_percent": 15,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625528.468896,
+      "used_mib": 22787,
+      "total_mib": 32607,
+      "gpu_percent": 18,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625529.535246,
+      "used_mib": 22787,
+      "total_mib": 32607,
+      "gpu_percent": 18,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625530.6236002,
+      "used_mib": 22789,
+      "total_mib": 32607,
+      "gpu_percent": 16,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625531.6865277,
+      "used_mib": 22790,
+      "total_mib": 32607,
+      "gpu_percent": 18,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625532.7531567,
+      "used_mib": 22881,
+      "total_mib": 32607,
+      "gpu_percent": 17,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625533.8406806,
+      "used_mib": 22876,
+      "total_mib": 32607,
+      "gpu_percent": 15,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625534.9056907,
+      "used_mib": 22875,
+      "total_mib": 32607,
+      "gpu_percent": 15,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625535.9718554,
+      "used_mib": 22875,
+      "total_mib": 32607,
+      "gpu_percent": 14,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625537.025291,
+      "used_mib": 22866,
+      "total_mib": 32607,
+      "gpu_percent": 16,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625538.2021801,
+      "used_mib": 22805,
+      "total_mib": 32607,
+      "gpu_percent": 15,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625539.2573428,
+      "used_mib": 22799,
+      "total_mib": 32607,
+      "gpu_percent": 16,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625540.3250089,
+      "used_mib": 22792,
+      "total_mib": 32607,
+      "gpu_percent": 17,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625541.3774433,
+      "used_mib": 22802,
+      "total_mib": 32607,
+      "gpu_percent": 16,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625542.4667828,
+      "used_mib": 22801,
+      "total_mib": 32607,
+      "gpu_percent": 16,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625543.5890453,
+      "used_mib": 22798,
+      "total_mib": 32607,
+      "gpu_percent": 15,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625544.6950822,
+      "used_mib": 22791,
+      "total_mib": 32607,
+      "gpu_percent": 16,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625545.7576156,
+      "used_mib": 22801,
+      "total_mib": 32607,
+      "gpu_percent": 16,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625546.8155153,
+      "used_mib": 22801,
+      "total_mib": 32607,
+      "gpu_percent": 16,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625547.884504,
+      "used_mib": 22803,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": true
+    },
+    {
+      "t": 1790625548.974593,
+      "used_mib": 22800,
+      "total_mib": 32607,
+      "gpu_percent": 31,
+      "speech_generating": true
+    },
+    {
+      "t": 1790625550.0576675,
+      "used_mib": 22802,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": true
+    },
+    {
+      "t": 1790625551.127974,
+      "used_mib": 22798,
+      "total_mib": 32607,
+      "gpu_percent": 30,
+      "speech_generating": true
+    },
+    {
+      "t": 1790625552.199082,
+      "used_mib": 22791,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": true
+    },
+    {
+      "t": 1790625553.2625303,
+      "used_mib": 22802,
+      "total_mib": 32607,
+      "gpu_percent": 24,
+      "speech_generating": true
+    },
+    {
+      "t": 1790625554.3333015,
+      "used_mib": 22802,
+      "total_mib": 32607,
+      "gpu_percent": 31,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625555.4077814,
+      "used_mib": 22799,
+      "total_mib": 32607,
+      "gpu_percent": 33,
+      "speech_generating": true
+    },
+    {
+      "t": 1790625556.4819016,
+      "used_mib": 22792,
+      "total_mib": 32607,
+      "gpu_percent": 27,
+      "speech_generating": true
+    },
+    {
+      "t": 1790625557.5491273,
+      "used_mib": 22803,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": true
+    },
+    {
+      "t": 1790625558.6020446,
+      "used_mib": 22803,
+      "total_mib": 32607,
+      "gpu_percent": 28,
+      "speech_generating": true
+    },
+    {
+      "t": 1790625559.6724093,
+      "used_mib": 22799,
+      "total_mib": 32607,
+      "gpu_percent": 28,
+      "speech_generating": true
+    },
+    {
+      "t": 1790625560.7298613,
+      "used_mib": 22791,
+      "total_mib": 32607,
+      "gpu_percent": 27,
+      "speech_generating": true
+    },
+    {
+      "t": 1790625561.7822165,
+      "used_mib": 22803,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": true
+    },
+    {
+      "t": 1790625562.8403695,
+      "used_mib": 22803,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": true
+    },
+    {
+      "t": 1790625563.910228,
+      "used_mib": 22799,
+      "total_mib": 32607,
+      "gpu_percent": 29,
+      "speech_generating": true
+    },
+    {
+      "t": 1790625564.9790754,
+      "used_mib": 22795,
+      "total_mib": 32607,
+      "gpu_percent": 32,
+      "speech_generating": true
+    },
+    {
+      "t": 1790625566.0548253,
+      "used_mib": 22803,
+      "total_mib": 32607,
+      "gpu_percent": 19,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625567.110283,
+      "used_mib": 22798,
+      "total_mib": 32607,
+      "gpu_percent": 17,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625568.1643765,
+      "used_mib": 22791,
+      "total_mib": 32607,
+      "gpu_percent": 18,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625569.2195504,
+      "used_mib": 22802,
+      "total_mib": 32607,
+      "gpu_percent": 16,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625570.2718086,
+      "used_mib": 22802,
+      "total_mib": 32607,
+      "gpu_percent": 15,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625571.3301637,
+      "used_mib": 22798,
+      "total_mib": 32607,
+      "gpu_percent": 15,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625572.3866234,
+      "used_mib": 22791,
+      "total_mib": 32607,
+      "gpu_percent": 16,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625573.466346,
+      "used_mib": 22802,
+      "total_mib": 32607,
+      "gpu_percent": 16,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625574.5295854,
+      "used_mib": 22802,
+      "total_mib": 32607,
+      "gpu_percent": 14,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625575.5872169,
+      "used_mib": 22798,
+      "total_mib": 32607,
+      "gpu_percent": 16,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625576.8256795,
+      "used_mib": 22792,
+      "total_mib": 32607,
+      "gpu_percent": 18,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625577.9170365,
+      "used_mib": 22803,
+      "total_mib": 32607,
+      "gpu_percent": 19,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625578.971982,
+      "used_mib": 22803,
+      "total_mib": 32607,
+      "gpu_percent": 19,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625580.0795238,
+      "used_mib": 22799,
+      "total_mib": 32607,
+      "gpu_percent": 19,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625581.1436546,
+      "used_mib": 22889,
+      "total_mib": 32607,
+      "gpu_percent": 19,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625582.2130308,
+      "used_mib": 22885,
+      "total_mib": 32607,
+      "gpu_percent": 19,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625583.2667553,
+      "used_mib": 22939,
+      "total_mib": 32607,
+      "gpu_percent": 20,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625584.3268487,
+      "used_mib": 22926,
+      "total_mib": 32607,
+      "gpu_percent": 19,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625585.385841,
+      "used_mib": 22902,
+      "total_mib": 32607,
+      "gpu_percent": 19,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625586.4453495,
+      "used_mib": 22825,
+      "total_mib": 32607,
+      "gpu_percent": 18,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625587.5006204,
+      "used_mib": 22797,
+      "total_mib": 32607,
+      "gpu_percent": 18,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625588.5621355,
+      "used_mib": 22792,
+      "total_mib": 32607,
+      "gpu_percent": 18,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625589.6147993,
+      "used_mib": 22790,
+      "total_mib": 32607,
+      "gpu_percent": 19,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625590.6710756,
+      "used_mib": 22790,
+      "total_mib": 32607,
+      "gpu_percent": 18,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625591.7399118,
+      "used_mib": 22790,
+      "total_mib": 32607,
+      "gpu_percent": 18,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625592.831194,
+      "used_mib": 22786,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625593.8996398,
+      "used_mib": 22787,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625594.9689498,
+      "used_mib": 22787,
+      "total_mib": 32607,
+      "gpu_percent": 62,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625596.0262444,
+      "used_mib": 22787,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625597.0966647,
+      "used_mib": 22787,
+      "total_mib": 32607,
+      "gpu_percent": 68,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625598.1698651,
+      "used_mib": 22787,
+      "total_mib": 32607,
+      "gpu_percent": 67,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625599.2347512,
+      "used_mib": 22787,
+      "total_mib": 32607,
+      "gpu_percent": 69,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625600.3027794,
+      "used_mib": 22787,
+      "total_mib": 32607,
+      "gpu_percent": 61,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625601.3712049,
+      "used_mib": 22787,
+      "total_mib": 32607,
+      "gpu_percent": 63,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625602.4432685,
+      "used_mib": 22787,
+      "total_mib": 32607,
+      "gpu_percent": 64,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625603.5137587,
+      "used_mib": 22790,
+      "total_mib": 32607,
+      "gpu_percent": 64,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625604.5823066,
+      "used_mib": 22788,
+      "total_mib": 32607,
+      "gpu_percent": 57,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625605.6521814,
+      "used_mib": 22873,
+      "total_mib": 32607,
+      "gpu_percent": 57,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625606.7229452,
+      "used_mib": 22853,
+      "total_mib": 32607,
+      "gpu_percent": 66,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625607.7924705,
+      "used_mib": 22791,
+      "total_mib": 32607,
+      "gpu_percent": 55,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625608.8649235,
+      "used_mib": 22788,
+      "total_mib": 32607,
+      "gpu_percent": 58,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625609.935609,
+      "used_mib": 22788,
+      "total_mib": 32607,
+      "gpu_percent": 58,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625611.0083961,
+      "used_mib": 22788,
+      "total_mib": 32607,
+      "gpu_percent": 58,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625612.0752854,
+      "used_mib": 22788,
+      "total_mib": 32607,
+      "gpu_percent": 56,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625613.1398916,
+      "used_mib": 22788,
+      "total_mib": 32607,
+      "gpu_percent": 58,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625614.2080004,
+      "used_mib": 22788,
+      "total_mib": 32607,
+      "gpu_percent": 62,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625615.2799733,
+      "used_mib": 22788,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625616.3530893,
+      "used_mib": 22787,
+      "total_mib": 32607,
+      "gpu_percent": 61,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625617.4188092,
+      "used_mib": 22787,
+      "total_mib": 32607,
+      "gpu_percent": 66,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625618.4863389,
+      "used_mib": 22787,
+      "total_mib": 32607,
+      "gpu_percent": 66,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625619.6457226,
+      "used_mib": 22787,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625620.7510595,
+      "used_mib": 22787,
+      "total_mib": 32607,
+      "gpu_percent": 57,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625621.8203616,
+      "used_mib": 22787,
+      "total_mib": 32607,
+      "gpu_percent": 61,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625622.8854196,
+      "used_mib": 22787,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625623.95498,
+      "used_mib": 22787,
+      "total_mib": 32607,
+      "gpu_percent": 66,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625625.0280378,
+      "used_mib": 22785,
+      "total_mib": 32607,
+      "gpu_percent": 64,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625626.0999234,
+      "used_mib": 22786,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625627.1652744,
+      "used_mib": 22786,
+      "total_mib": 32607,
+      "gpu_percent": 69,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625628.2378533,
+      "used_mib": 22786,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625629.3271127,
+      "used_mib": 22787,
+      "total_mib": 32607,
+      "gpu_percent": 60,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625630.3918154,
+      "used_mib": 22787,
+      "total_mib": 32607,
+      "gpu_percent": 60,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625631.4630392,
+      "used_mib": 22786,
+      "total_mib": 32607,
+      "gpu_percent": 58,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625632.5922704,
+      "used_mib": 22792,
+      "total_mib": 32607,
+      "gpu_percent": 48,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625633.65879,
+      "used_mib": 22742,
+      "total_mib": 32607,
+      "gpu_percent": 54,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625634.7293942,
+      "used_mib": 22742,
+      "total_mib": 32607,
+      "gpu_percent": 61,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625635.8207448,
+      "used_mib": 22742,
+      "total_mib": 32607,
+      "gpu_percent": 66,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625636.9035795,
+      "used_mib": 22742,
+      "total_mib": 32607,
+      "gpu_percent": 64,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625637.966811,
+      "used_mib": 22742,
+      "total_mib": 32607,
+      "gpu_percent": 68,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625639.053793,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 63,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625640.1204338,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 68,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625641.1884556,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 66,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625642.2609682,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 68,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625643.3278275,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 63,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625644.39662,
+      "used_mib": 22732,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625645.4654486,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625646.602606,
+      "used_mib": 22735,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625647.6867685,
+      "used_mib": 22735,
+      "total_mib": 32607,
+      "gpu_percent": 63,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625648.7493634,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 69,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625649.8198938,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 58,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625650.9101255,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 60,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625651.994982,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 56,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625653.0628674,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 58,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625654.1313856,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 60,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625655.200597,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 60,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625656.2712748,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 62,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625657.3375864,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625658.4094439,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625659.477165,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625660.5459948,
+      "used_mib": 22731,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625661.612163,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 67,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625662.6820095,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 70,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625663.740821,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 66,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625664.7978187,
+      "used_mib": 22731,
+      "total_mib": 32607,
+      "gpu_percent": 63,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625665.866264,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 66,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625666.934303,
+      "used_mib": 22735,
+      "total_mib": 32607,
+      "gpu_percent": 66,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625668.002475,
+      "used_mib": 22735,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625669.0712917,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 64,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625670.1516962,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 68,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625671.218538,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 69,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625672.290819,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 59,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625673.3558717,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 56,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625674.4271004,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 58,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625675.4980168,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 57,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625676.58541,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 57,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625677.6526296,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 62,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625678.7203429,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 63,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625679.7911408,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 62,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625680.856932,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 64,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625681.927876,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 67,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625682.9949431,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 64,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625684.0846322,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 68,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625685.147034,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 66,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625686.2142298,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 67,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625687.2840858,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 61,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625688.3501997,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625689.423394,
+      "used_mib": 22735,
+      "total_mib": 32607,
+      "gpu_percent": 67,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625690.4931045,
+      "used_mib": 22735,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625691.560954,
+      "used_mib": 22735,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625692.6310318,
+      "used_mib": 22730,
+      "total_mib": 32607,
+      "gpu_percent": 68,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625693.7116685,
+      "used_mib": 22735,
+      "total_mib": 32607,
+      "gpu_percent": 71,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625694.8001862,
+      "used_mib": 22735,
+      "total_mib": 32607,
+      "gpu_percent": 57,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625695.8988311,
+      "used_mib": 22735,
+      "total_mib": 32607,
+      "gpu_percent": 54,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625696.9629505,
+      "used_mib": 22737,
+      "total_mib": 32607,
+      "gpu_percent": 57,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625698.0315797,
+      "used_mib": 22737,
+      "total_mib": 32607,
+      "gpu_percent": 57,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625699.0991125,
+      "used_mib": 22737,
+      "total_mib": 32607,
+      "gpu_percent": 63,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625700.168689,
+      "used_mib": 22737,
+      "total_mib": 32607,
+      "gpu_percent": 63,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625701.2358155,
+      "used_mib": 22737,
+      "total_mib": 32607,
+      "gpu_percent": 60,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625702.3065605,
+      "used_mib": 22733,
+      "total_mib": 32607,
+      "gpu_percent": 60,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625703.3795133,
+      "used_mib": 22734,
+      "total_mib": 32607,
+      "gpu_percent": 66,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625704.449253,
+      "used_mib": 22735,
+      "total_mib": 32607,
+      "gpu_percent": 64,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625705.5181723,
+      "used_mib": 22737,
+      "total_mib": 32607,
+      "gpu_percent": 64,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625706.589717,
+      "used_mib": 22738,
+      "total_mib": 32607,
+      "gpu_percent": 66,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625707.666145,
+      "used_mib": 22738,
+      "total_mib": 32607,
+      "gpu_percent": 63,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625708.7264566,
+      "used_mib": 22737,
+      "total_mib": 32607,
+      "gpu_percent": 67,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625709.8160539,
+      "used_mib": 22737,
+      "total_mib": 32607,
+      "gpu_percent": 58,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625710.9448137,
+      "used_mib": 22738,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625712.0137992,
+      "used_mib": 22738,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625713.0822668,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 62,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625714.148701,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 70,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625715.2196875,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 69,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625716.2870796,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 59,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625717.354326,
+      "used_mib": 22734,
+      "total_mib": 32607,
+      "gpu_percent": 56,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625718.4215245,
+      "used_mib": 22733,
+      "total_mib": 32607,
+      "gpu_percent": 57,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625719.4889355,
+      "used_mib": 22734,
+      "total_mib": 32607,
+      "gpu_percent": 57,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625720.5601046,
+      "used_mib": 22733,
+      "total_mib": 32607,
+      "gpu_percent": 59,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625721.6273913,
+      "used_mib": 22734,
+      "total_mib": 32607,
+      "gpu_percent": 61,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625722.699394,
+      "used_mib": 22734,
+      "total_mib": 32607,
+      "gpu_percent": 67,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625723.7678628,
+      "used_mib": 22734,
+      "total_mib": 32607,
+      "gpu_percent": 66,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625724.8278377,
+      "used_mib": 22734,
+      "total_mib": 32607,
+      "gpu_percent": 62,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625725.89631,
+      "used_mib": 22734,
+      "total_mib": 32607,
+      "gpu_percent": 63,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625726.9605224,
+      "used_mib": 22773,
+      "total_mib": 32607,
+      "gpu_percent": 63,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625728.028376,
+      "used_mib": 22773,
+      "total_mib": 32607,
+      "gpu_percent": 68,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625729.09895,
+      "used_mib": 22756,
+      "total_mib": 32607,
+      "gpu_percent": 60,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625730.1647866,
+      "used_mib": 22746,
+      "total_mib": 32607,
+      "gpu_percent": 60,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625731.2280972,
+      "used_mib": 22747,
+      "total_mib": 32607,
+      "gpu_percent": 64,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625732.2992375,
+      "used_mib": 22734,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625733.4465275,
+      "used_mib": 22734,
+      "total_mib": 32607,
+      "gpu_percent": 67,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625734.5160553,
+      "used_mib": 22730,
+      "total_mib": 32607,
+      "gpu_percent": 66,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625735.5887067,
+      "used_mib": 22734,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625736.6896243,
+      "used_mib": 22751,
+      "total_mib": 32607,
+      "gpu_percent": 60,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625737.7544954,
+      "used_mib": 22745,
+      "total_mib": 32607,
+      "gpu_percent": 68,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625738.8217497,
+      "used_mib": 22741,
+      "total_mib": 32607,
+      "gpu_percent": 61,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625739.893177,
+      "used_mib": 22739,
+      "total_mib": 32607,
+      "gpu_percent": 62,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625740.9622228,
+      "used_mib": 22739,
+      "total_mib": 32607,
+      "gpu_percent": 59,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625742.0327876,
+      "used_mib": 22738,
+      "total_mib": 32607,
+      "gpu_percent": 63,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625743.101598,
+      "used_mib": 22738,
+      "total_mib": 32607,
+      "gpu_percent": 67,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625744.1669815,
+      "used_mib": 22739,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625745.240336,
+      "used_mib": 22739,
+      "total_mib": 32607,
+      "gpu_percent": 64,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625746.3086262,
+      "used_mib": 22739,
+      "total_mib": 32607,
+      "gpu_percent": 64,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625747.3750052,
+      "used_mib": 22738,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625748.445919,
+      "used_mib": 22732,
+      "total_mib": 32607,
+      "gpu_percent": 64,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625749.544326,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 58,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625750.6090796,
+      "used_mib": 22733,
+      "total_mib": 32607,
+      "gpu_percent": 67,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625751.677617,
+      "used_mib": 22729,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625752.7456725,
+      "used_mib": 22735,
+      "total_mib": 32607,
+      "gpu_percent": 53,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625753.8179438,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 66,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625754.8849819,
+      "used_mib": 22736,
+      "total_mib": 32607,
+      "gpu_percent": 64,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625755.9503713,
+      "used_mib": 22752,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625757.0228715,
+      "used_mib": 22748,
+      "total_mib": 32607,
+      "gpu_percent": 60,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625758.0947247,
+      "used_mib": 22745,
+      "total_mib": 32607,
+      "gpu_percent": 64,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625759.1704342,
+      "used_mib": 22743,
+      "total_mib": 32607,
+      "gpu_percent": 68,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625760.2395551,
+      "used_mib": 22743,
+      "total_mib": 32607,
+      "gpu_percent": 60,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625761.311665,
+      "used_mib": 22743,
+      "total_mib": 32607,
+      "gpu_percent": 63,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625762.3819556,
+      "used_mib": 22741,
+      "total_mib": 32607,
+      "gpu_percent": 66,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625763.4506705,
+      "used_mib": 22741,
+      "total_mib": 32607,
+      "gpu_percent": 67,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625764.518006,
+      "used_mib": 22741,
+      "total_mib": 32607,
+      "gpu_percent": 64,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625765.5862656,
+      "used_mib": 22741,
+      "total_mib": 32607,
+      "gpu_percent": 65,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625766.6569972,
+      "used_mib": 22743,
+      "total_mib": 32607,
+      "gpu_percent": 67,
+      "speech_generating": false
+    },
+    {
+      "t": 1790625767.7269576,
+      "used_mib": 22743,
+      "total_mib": 32607,
+      "gpu_percent": 71,
+      "speech_generating": false
+    }
+  ],
+  "elapsed_seconds": 359.7,
+  "peak_mib": 22939,
+  "min_mib": 22102,
+  "speech_samples": 16,
+  "complete": true,
+  "verified_xr_interval": {
+    "start_utc": "2026-09-28T19:58:42.328000+00:00",
+    "end_utc": "2026-09-28T19:59:51.331000+00:00",
+    "sample_count": 64,
+    "peak_mib": 22939,
+    "min_mib": 22787,
+    "speech_generating_samples": 16,
+    "eye_width": 1824,
+    "eye_height": 1968,
+    "render_mode": "Single Pass Instanced",
+    "headset": "Meta Quest 3",
+    "completed_reply_count": 1,
+    "first_playback_ms": 7567,
+    "user_report": "Frozen on Quest while working on PC",
+    "result": "Inconclusive VR usability; headset freeze reported. Memory measurement only.",
+    "caveat": "XR focus does not prove that the headset displayed changing frames. Initial desktop fallback and post-session samples are excluded."
+  },
+  "link_evidence": {
+    "stats_time_local": "2026-09-28T21:59:06.270+02:00",
+    "transport": "USB2",
+    "reported_fps": 72,
+    "bitrate_mbps": 100,
+    "encoder_backups": 16,
+    "lost_pc_app_frames": 3,
+    "lost_pc_presented_frames": 53,
+    "note": "Aggregate window includes time before game focus; not a game FPS benchmark.",
+    "sequence": [
+      "21:59:51.212: proximity off / HMD unmounted",
+      "21:59:51.218: USB channel open reports no device",
+      "21:59:51.331: Unity OpenXR FOCUSED -> VISIBLE -> SYNCHRONIZED -> STOPPING -> IDLE",
+      "22:00:32: Meta reports ovrError_XRStreamingUSBIssue"
+    ],
+    "root_cause": "Unconfirmed; disconnect may be a consequence of user removing headset after freeze."
+  }
+}

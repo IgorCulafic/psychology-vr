@@ -13,6 +13,15 @@ setup=importlib.util.module_from_spec(spec);spec.loader.exec_module(setup)
 
 
 class PortableTests(unittest.TestCase):
+    def test_bonsai_and_gemma_downloads_match_menu_and_keep_bf16_speech(self):
+        manifest=json.loads((ROOT/'services/portable-manifest.json').read_text())
+        catalog=json.loads((ROOT/'services/dialogue-models.json').read_text(encoding='utf-8'))['models']
+        for model in catalog:
+            selected=setup.selected_manifest(manifest,{'dialogue_model':model['id']})
+            self.assertEqual(selected['models'][0]['destination']+'/'+selected['models'][0]['files'][0]['name'],model['model_path'])
+            self.assertEqual(selected['models'][1:],manifest['models'][1:])
+            self.assertTrue(any(r['executable']==model['server_path'] for r in selected['runtimes']))
+
     def test_auto_selects_by_device_memory_not_combined_gpu_capacity(self):
         self.assertEqual(setup.resolve_preset('auto',24*1024**3),'rtx4090')
         self.assertEqual(setup.resolve_preset('auto',int(23.7*1024**3)),'rtx4090')

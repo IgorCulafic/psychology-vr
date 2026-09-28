@@ -1,0 +1,8 @@
+{
+  "default": "gemma",
+  "models": [
+    {"id":"bonsai","label":"Bonsai 2 27B · PQ2","description":"Fast, compact dialogue model. Regional wording can be imperfect.","model_path":".cache/models/bonsai2-pq2/Ternary-Bonsai-2-27B-PQ2_0.gguf","server_path":".tools/bonsai-llama/llama-server.exe","gpu_layers":99},
+    {"id":"gemma","label":"Gemma 4 12B · QAT Q4","description":"Alternative for comparing conversation quality.","model_path":".cache/models/gemma4-12b-qat/gemma-4-12b-it-qat-q4_0.gguf","server_path":".tools/llama/llama-server.exe","gpu_layers":99},
+    {"id":"qwen","label":"Original Qwen 27B · IQ4","description":"Original model. Requires more memory; may be slow alongside speech.","model_path":".cache/models/qwen/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-IQ4_XS.gguf","server_path":".tools/llama/llama-server.exe","gpu_layers":32}
+  ]
+}
