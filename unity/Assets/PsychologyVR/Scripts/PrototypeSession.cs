@@ -118,7 +118,7 @@ namespace PsychologyVR
             controllerRay.sharedMaterial.SetColor("_EmissionColor",new Color(.3f,.9f,.8f));
             if (Microphone.devices.Length > 0) micDevice = Microphone.devices[0];
             string savedMic=PlayerPrefs.GetString("Microphone","");if(Array.IndexOf(Microphone.devices,savedMic)>=0)micDevice=savedMic;
-            bool diagnostic=Array.Exists(Environment.GetCommandLineArgs(),a=>a=="--integration-preview"||a=="--record-alex"||a=="--alex-preview"||a=="--environment-preview"||a=="--smoke-test"||a=="--visuals-preview"||a=="--performance-replay"||a=="--streaming-check");
+            bool diagnostic=Array.Exists(Environment.GetCommandLineArgs(),a=>a=="--integration-preview"||a=="--record-alex"||a=="--alex-preview"||a=="--environment-preview"||a=="--seat-preview"||a=="--smoke-test"||a=="--visuals-preview"||a=="--performance-replay"||a=="--streaming-check");
             SetMenuOpen(!diagnostic);
             if(Array.IndexOf(Environment.GetCommandLineArgs(),"--menu-preview")>=0)StartCoroutine(MenuPreview.Run(this,menu,view,Capture));
             if(Array.IndexOf(Environment.GetCommandLineArgs(),"--visuals-preview")>=0) StartCoroutine(VisualsPreview.Run(this,menu,view,Capture));
@@ -126,6 +126,8 @@ namespace PsychologyVR
             else if(Array.IndexOf(Environment.GetCommandLineArgs(),"--record-alex")>=0) StartCoroutine(AlexAnimationRecorder.Run(face,voice));
             else if(Array.IndexOf(Environment.GetCommandLineArgs(),"--alex-preview")>=0) StartCoroutine(AlexPerformancePreview.Run(face,voice,view,Capture));
             else if(Array.IndexOf(Environment.GetCommandLineArgs(),"--environment-preview")>=0) StartCoroutine(EnvironmentPreview());
+            else if(Array.IndexOf(Environment.GetCommandLineArgs(),"--seat-preview")>=0)
+            {Status="";StartCoroutine(SeatPreview.Run(this,performance,Capture));}
             else StartCoroutine(Connect());
             if(Array.IndexOf(Environment.GetCommandLineArgs(),"--smoke-test")>=0) StartCoroutine(SmokeTest());
             if(Array.IndexOf(Environment.GetCommandLineArgs(),"--performance-replay")>=0) StartCoroutine(CheckPerformancePlayback());
@@ -248,13 +250,16 @@ namespace PsychologyVR
             var appearance=Array.Find(appearances,a=>a.id==id&&a.prefab);
             if(appearance==null)throw new InvalidOperationException("Character appearance unavailable: "+id);
             if(actor){actor.SetActive(false);Destroy(actor);}
-            actor=Instantiate(appearance.prefab,new Vector3(0,0,1.15f),Quaternion.Euler(0,180,0));actor.name=CurrentScenario.character_name;
+            // Jumper's procedural seat sits closer to the back of the patient chair.
+            float seatZ=id=="jumper"&&!appearance.seatedClip?1.23f:1.15f;
+            actor=Instantiate(appearance.prefab,new Vector3(0,0,seatZ),Quaternion.Euler(0,180,0));actor.name=CurrentScenario.character_name;
             actor.AddComponent<AvatarSkinRendering>().Initialize(NaturalSkin);Bounce?.RegisterAvatar(actor);
             foreach(var animator in actor.GetComponentsInChildren<Animator>())animator.enabled=false;
             Animation animation=null;
             if(appearance.seatedClip){animation=actor.AddComponent<Animation>();animation.AddClip(appearance.seatedClip,"Seated");animation.clip=appearance.seatedClip;animation.wrapMode=WrapMode.Loop;animation.Play("Seated");}
-            else CandidateSeatedPose.Apply(actor);
+            else CandidateSeatedPose.Apply(actor,id=="jumper");
             performance=actor.AddComponent<PerformanceDriver>();performance.seatedAnimation=animation;performance.useStaticSeatedPose=!appearance.seatedClip;
+            performance.proceduralSeat=id=="jumper"&&!appearance.seatedClip;
             face=actor.AddComponent<FacialPerformance>();face.body=performance;face.conversationTarget=view.transform;
             var emitter=new GameObject("Character voice");emitter.transform.SetParent(face.Head?face.Head:actor.transform,false);
             voice=emitter.AddComponent<AudioSource>();voice.spatialBlend=1;voice.minDistance=1;voice.maxDistance=8;voice.volume=SpeechVolume;

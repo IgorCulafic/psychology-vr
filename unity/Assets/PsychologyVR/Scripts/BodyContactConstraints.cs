@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.Profiling;
 using UnityEngine;
 
 namespace PsychologyVR
@@ -9,6 +10,7 @@ namespace PsychologyVR
     [DefaultExecutionOrder(200)]
     public sealed class BodyContactConstraints : MonoBehaviour
     {
+        static readonly ProfilerMarker ContactMarker=new ProfilerMarker("Seat.BodyContacts");
         sealed class Boundary
         {
             public Transform startBone,endBone;
@@ -47,6 +49,10 @@ namespace PsychologyVR
         public readonly int[] RegionContacts=new int[3]; // thighs, torso, head
         public int BoundaryCount=>boundaries.Count;
         public bool drawBoundaries;
+        internal void SetThighRadius(float radius)
+        {
+            foreach(var boundary in boundaries)if(boundary.region==0)boundary.radius=radius;
+        }
 
         public void Initialize(PerformanceDriver owner,Transform leftThigh,Transform leftKnee,
             Transform rightThigh,Transform rightKnee,Transform waist,Transform chest,Transform head)
@@ -95,7 +101,7 @@ namespace PsychologyVR
         {
             if(!driver)return;
             CurrentPenetration=0;
-            driver.ResolveBodyContacts();
+            using(ContactMarker.Auto())driver.ResolveBodyContacts();
         }
         public void Resolve(Hand hand,Vector3 target,float delta)
         {

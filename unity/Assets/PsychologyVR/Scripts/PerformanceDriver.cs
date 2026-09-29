@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.Playables;
+using Unity.Profiling;
 namespace PsychologyVR
 {
     // Actor-space hand targets use two-bone IK over a stable seated foundation.
@@ -9,6 +10,10 @@ namespace PsychologyVR
     {
         public Animation seatedAnimation;
         public bool useStaticSeatedPose;
+        internal bool proceduralSeat;
+        internal string SeatPhaseName=>seatPhase.ToString();
+        internal Vector3 SeatOffsetLocal=>seatOffsetLocal;
+        internal bool SeatSupportReady=>seatSupportReady;
         public string Emotion {get;private set;}="anxious";
         public string Gesture {get;private set;}="none";
         public float Intensity {get;private set;}=.3f;
@@ -39,17 +44,24 @@ namespace PsychologyVR
         class Pose {public Transform bone;public Quaternion rotation;public Vector3 position;}
         class Arm {public Transform shoulder,upper,lower,hand,middle,ikTarget,ikHint;public Vector3 fingerAxis,palmAxis;public HandArticulation articulation;public ArmJointMotion joints;public TwoBoneIKConstraint ik;public float upperLength,lowerLength;public Vector3 rest,velocity;
             public BodyContactConstraints.Hand contact;public Vector3 target,pole,fingers,palm;public float side,weight;}
+        class Leg {public Transform thigh,knee,foot,ikTarget,ikHint,palmAnchor;public TwoBoneIKConstraint ik;}
+        enum SeatPhase { Idle, Drift, Brace, Load, Lift, Return, Lower, Release, Cancel }
         readonly List<Pose> poses=new List<Pose>();
-        Transform head,spine,chest; Arm left,right;RigBuilder rigBuilder;Avatar runtimeAvatar;
+        Transform head,spine,chest,hip; Arm left,right;Leg leftLeg,rightLeg;RigBuilder rigBuilder;Avatar runtimeAvatar;
         float targetIntensity=.3f,started;
         Vector3 headAngles,torsoAngles,leftTarget,rightTarget;
         bool initialized;Vector3 headUp,headForward;FacialPerformance facePerformance;float speechWeight;
-        void OnDestroy(){if(runtimeAvatar)Destroy(runtimeAvatar);}
+        bool seatEnabled,seatSupportReady;SeatPhase seatPhase;SeatedMocapOverlay seatedMocap;
+        float seatPhaseTime,relaxedSeconds,nextSeatCycle=60,seatForward,seatHeight,seatBraceWeight,seatLean;
+        float seatCancelForward,seatCancelBrace,seatCancelLean;
+        Vector3 seatOffsetLocal,mocapOffsetLocal;
+        static readonly ProfilerMarker RigEvaluateMarker=new ProfilerMarker("Seat.RigEvaluate");
+        void OnDestroy(){seatedMocap?.Dispose();if(runtimeAvatar)Destroy(runtimeAvatar);}
         Transform Bone(string name)
         {
             var bones=GetComponentsInChildren<Transform>();
             foreach(var b in bones)if(b.name.EndsWith("mixamorig:"+name))return b;
-            string mapped=name=="Head"?"Head":name=="Spine"?"Waist":name=="Spine2"?"Spine02":null;
+            string mapped=name=="Head"?"Head":name=="Spine"?"Waist":name=="Spine2"?"Spine02":name=="Hips"?"Hip":null;
             if(name.StartsWith("Left") || name.StartsWith("Right"))
             {
                 bool left=name.StartsWith("Left");string part=name.Substring(left?4:5);
@@ -64,7 +76,8 @@ namespace PsychologyVR
             foreach(var b in bones)if(b.name=="CC_Base_"+mapped)return b;return null;
         }
         Arm FindArm(string s)=>new Arm{shoulder=Bone(s+"Shoulder"),upper=Bone(s+"Arm"),lower=Bone(s+"ForeArm"),hand=Bone(s+"Hand"),middle=Bone(s+"HandMiddle1")};
-        void Awake(){head=Bone("Head");spine=Bone("Spine");chest=Bone("Spine2");left=FindArm("Left");right=FindArm("Right");}
+        Leg FindLeg(string s)=>new Leg{thigh=Bone(s+"UpLeg"),knee=Bone(s+"Leg"),foot=Bone(s+"Foot")};
+        void Awake(){head=Bone("Head");spine=Bone("Spine");chest=Bone("Spine2");hip=Bone("Hips");left=FindArm("Left");right=FindArm("Right");leftLeg=FindLeg("Left");rightLeg=FindLeg("Right");}
         public void Apply(string emotion,float intensity,string gesture,bool immediate=false)
         {
             string next=EmotionLibrary.Find(emotion).name;
@@ -103,6 +116,9 @@ namespace PsychologyVR
                 if(!useStaticSeatedPose && (!seatedAnimation || !seatedAnimation.isPlaying))return;
                 foreach(var b in GetComponentsInChildren<Transform>())if(b.name.Contains("mixamorig:") || b.name.StartsWith("CC_Base_"))poses.Add(new Pose{bone=b,rotation=b.localRotation,position=b.localPosition});
                 InitializeArmRig();
+                seatEnabled=proceduralSeat && hip && leftLeg.ik && rightLeg.ik && rigBuilder;
+                if(proceduralSeat && !seatEnabled)Debug.LogError("Procedural seat needs a pelvis and two Animation Rigging leg constraints on "+name,this);
+                if(seatEnabled)seatedMocap=new SeatedMocapOverlay(transform);
                 BodyContacts=gameObject.AddComponent<BodyContactConstraints>();
                 BodyContacts.Initialize(this,Bone("LeftUpLeg"),Bone("LeftLeg"),Bone("RightUpLeg"),Bone("RightLeg"),spine,chest,head);
                 foreach(var a in new[]{left,right})
@@ -125,14 +141,22 @@ namespace PsychologyVR
                 leftTarget=Local(left.hand.position);rightTarget=Local(right.hand.position);
                 // Support the wrists over the thighs in the actor frame, independently
                 // of breathing/leaning in the upper body. Keep a small left/right offset.
-                left.rest=SupportedWrist("Left",leftTarget,.64f);
-                right.rest=SupportedWrist("Right",rightTarget,.55f);
+                left.rest=SupportedWrist(leftLeg,leftTarget,.64f);
+                right.rest=SupportedWrist(rightLeg,rightTarget,.55f);
                 facePerformance=GetComponent<FacialPerformance>();
                 initialized=true;
                 Debug.Log("PERFORMANCE_BASE head="+Local(head.position)+" left="+leftTarget+" right="+rightTarget);
             }
             Restore();
             Intensity=Mathf.MoveTowards(Intensity,targetIntensity,Time.deltaTime/TransitionSeconds);
+            mocapOffsetLocal=seatedMocap!=null?seatedMocap.Tick(Time.deltaTime,
+                seatPhase==SeatPhase.Idle):Vector3.zero;
+            UpdateSeat(Time.deltaTime);
+            if(seatEnabled)
+            {
+                left.rest=SupportedWrist(leftLeg,leftTarget,.64f);
+                right.rest=SupportedWrist(rightLeg,rightTarget,.55f);
+            }
             float t=Time.time-started,k=Intensity;
             float poseRate=Emotion=="despondent"?1.35f:Emotion=="sad"?2.5f:5;
             float dt=1-Mathf.Exp(-Mathf.Min(poseRate,3/TransitionSeconds)*Time.deltaTime);
@@ -197,6 +221,7 @@ namespace PsychologyVR
                 torso.y+=Mathf.Sin(Time.time*.43f)*.35f;
                 torso.z+=Mathf.Sin(Time.time*.61f+.8f)*.22f;
             }
+            torso.x=torso.x*(1-seatBraceWeight)+seatLean;
             // Small speech beats only while audio is actually playing; listening
             // retains supported hands. Strong emotional actions keep precedence.
             speechWeight=Mathf.MoveTowards(speechWeight,facePerformance&&facePerformance.IsSpeaking&&!TransientsSuppressed?1:0,Time.deltaTime*2);
@@ -219,6 +244,7 @@ namespace PsychologyVR
             if(Gesture=="hand_fidget"){l+=new Vector3(.013f,.006f,-.01f)*envelope;r.z+=Mathf.Sin(gestureTime*3)*envelope*.007f;arms=1;}
             headAngles=Vector3.Lerp(headAngles,h,dt);torsoAngles=Vector3.Lerp(torsoAngles,torso,dt);
             Rotate(spine,torsoAngles*.55f);Rotate(chest,torsoAngles*.45f);Rotate(head,headAngles);
+            seatedMocap?.Apply(spine,chest,head);
             FaceCover=Mathf.Lerp(FaceCover,cover,dt);
             if(Emotion=="crying")
             {
@@ -228,11 +254,17 @@ namespace PsychologyVR
             }
             if(Gesture=="wipe_tear"){r=Vector3.Lerp(r,Local(head.position)+new Vector3(.065f,.04f,.15f),envelope);arms=1;upright=true;}
             l=Vector3.Lerp(left.rest,l,arms);r=Vector3.Lerp(right.rest,r,arms);
+            // A reseat keeps both hands on their supports even if the emotion changes.
+            if(seatBraceWeight>0)
+            {
+                l=Vector3.Lerp(l,KneeSupportWrist(leftLeg,left.rest),seatBraceWeight);
+                r=Vector3.Lerp(r,KneeSupportWrist(rightLeg,right.rest),seatBraceWeight);
+            }
             // A brief fidget lifts a resting palm so the fingers can actually curl
             // above the lap. This uses the previous frame's anticipated action.
             l.y=Mathf.Max(l.y,left.rest.y+left.articulation.LiftClearance);
             r.y=Mathf.Max(r.y,right.rest.y+right.articulation.LiftClearance);
-            float smooth=Emotion=="despondent"?.65f:Emotion=="angry"?.20f:.32f;
+            float smooth=seatBraceWeight>0?.10f:Emotion=="despondent"?.65f:Emotion=="angry"?.20f:.32f;
             // Critically damped targets preserve velocity through retargeting and
             // decelerate into hand contact instead of stopping on a pose boundary.
             leftTarget=Vector3.SmoothDamp(leftTarget,l,ref left.velocity,smooth*1.12f,1.4f,Time.deltaTime);
@@ -260,16 +292,98 @@ namespace PsychologyVR
             if(phase<2.8f)return 1-Mathf.SmoothStep(0,1,(phase-1.35f)/1.45f);
             return 0;
         }
-        Vector3 SupportedWrist(string side,Vector3 fallback,float alongThigh)
+        void StartSeatPhase(SeatPhase next)
         {
-            var thigh=Bone(side+"UpLeg");var knee=Bone(side+"Leg");
-            if(!thigh||!knee)return fallback;
-            Vector3 support=Vector3.Lerp(Local(thigh.position),Local(knee.position),alongThigh);
+            if(next==SeatPhase.Cancel){seatCancelForward=seatForward;seatCancelBrace=seatBraceWeight;seatCancelLean=seatLean;seatSupportReady=false;}
+            if(next==SeatPhase.Brace)seatSupportReady=false;
+            if(next==SeatPhase.Idle){relaxedSeconds=0;nextSeatCycle=Random.Range(45f,90f);seatSupportReady=false;}
+            seatPhase=next;seatPhaseTime=0;
+        }
+        void UpdateSeat(float delta)
+        {
+            if(!seatEnabled)return;
+            bool relaxed=Emotion=="neutral"||Emotion=="calm";
+            if(seatPhase==SeatPhase.Idle)
+            {
+                relaxedSeconds=relaxed?relaxedSeconds+delta:0;
+                if(relaxedSeconds>=nextSeatCycle)StartSeatPhase(SeatPhase.Drift);
+            }
+            else seatPhaseTime+=delta;
+            seatForward=0;seatHeight=0;seatBraceWeight=0;seatLean=0;
+            switch(seatPhase)
+            {
+                case SeatPhase.Drift:
+                    seatForward=.11f*Mathf.SmoothStep(0,1,seatPhaseTime/12f);
+                    seatLean=-2*Mathf.SmoothStep(0,1,seatPhaseTime/12f);
+                    if(seatPhaseTime>=12f)StartSeatPhase(SeatPhase.Brace);
+                    break;
+                case SeatPhase.Brace:
+                    seatForward=.11f;seatBraceWeight=Mathf.SmoothStep(0,1,seatPhaseTime/.8f);
+                    seatLean=Mathf.Lerp(-2,25,Mathf.SmoothStep(0,1,seatPhaseTime/.8f));
+                    break;
+                case SeatPhase.Load:
+                    seatForward=.11f;seatBraceWeight=1;
+                    seatLean=Mathf.Lerp(25,30,Mathf.SmoothStep(0,1,seatPhaseTime/.35f));
+                    if(seatPhaseTime>=.35f)StartSeatPhase(SeatPhase.Lift);
+                    break;
+                case SeatPhase.Lift:
+                    seatForward=.11f;seatBraceWeight=1;
+                    seatHeight=.035f*Mathf.SmoothStep(0,1,seatPhaseTime/.65f);
+                    seatLean=Mathf.Lerp(30,24,Mathf.SmoothStep(0,1,seatPhaseTime/.65f));
+                    if(seatPhaseTime>=.65f)StartSeatPhase(SeatPhase.Return);
+                    break;
+                case SeatPhase.Return:
+                    seatForward=.11f*(1-Mathf.SmoothStep(0,1,seatPhaseTime/1.2f));
+                    seatHeight=.035f;seatBraceWeight=1;
+                    seatLean=Mathf.Lerp(24,16,Mathf.SmoothStep(0,1,seatPhaseTime/1.2f));
+                    if(seatPhaseTime>=1.2f)StartSeatPhase(SeatPhase.Lower);
+                    break;
+                case SeatPhase.Lower:
+                    seatHeight=.035f*(1-Mathf.SmoothStep(0,1,seatPhaseTime/.7f));
+                    seatBraceWeight=1;seatLean=Mathf.Lerp(16,9,Mathf.SmoothStep(0,1,seatPhaseTime/.7f));
+                    if(seatPhaseTime>=.7f)StartSeatPhase(SeatPhase.Release);
+                    break;
+                case SeatPhase.Release:
+                    seatBraceWeight=1-Mathf.SmoothStep(0,1,seatPhaseTime/.75f);
+                    seatLean=9*seatBraceWeight;
+                    if(seatPhaseTime>=.75f)StartSeatPhase(SeatPhase.Idle);
+                    break;
+                case SeatPhase.Cancel:
+                    seatForward=seatCancelForward*(1-Mathf.SmoothStep(0,1,seatPhaseTime/1.2f));
+                    seatBraceWeight=seatCancelBrace*(1-Mathf.SmoothStep(0,1,seatPhaseTime/.6f));
+                    seatLean=seatCancelLean*(1-Mathf.SmoothStep(0,1,seatPhaseTime/1.2f));
+                    if(seatPhaseTime>=1.2f)StartSeatPhase(SeatPhase.Idle);
+                    break;
+            }
+            float fidget=0;
+            if(Gesture=="hand_fidget" && Emotion!="numb" && Emotion!="afraid" && seatPhase==SeatPhase.Idle)
+            {
+                float phase=Mathf.Clamp01((Time.time-gestureStarted)/gestureDuration);
+                fidget=.02f*Mathf.Sin(phase*Mathf.PI)*Mathf.Sin(phase*Mathf.PI*2);
+            }
+            seatOffsetLocal=new Vector3(Mathf.Clamp(fidget+mocapOffsetLocal.x,-.05f,.05f),
+                Mathf.Clamp(seatHeight+mocapOffsetLocal.y,0,.041f),
+                Mathf.Clamp(seatForward+mocapOffsetLocal.z,-.03f,.11f));
+            hip.position+=transform.TransformVector(seatOffsetLocal);
+            if(seatOffsetLocal.sqrMagnitude>.00000001f)SolveLegs();
+        }
+        Vector3 SupportedWrist(Leg leg,Vector3 fallback,float alongThigh)
+        {
+            if(leg.thigh==null||leg.knee==null)return fallback;
+            Vector3 support=Vector3.Lerp(Local(leg.thigh.position),Local(leg.knee.position),alongThigh);
             // Thigh centre to trouser surface, then allow for palm thickness.
             // The wrist sits behind the supported palm, with fingers toward the knee.
             support+=new Vector3(0,.115f,-.055f);
-            Debug.Log("HAND_SUPPORT "+side+" thigh="+Local(thigh.position)+" knee="+Local(knee.position)+" wrist="+support);
             return support;
+        }
+        Vector3 KneeSupportWrist(Leg leg,Vector3 fallback)
+        {return leg.palmAnchor?Local(leg.palmAnchor.position):fallback;}
+        void SolveLegs()
+        {
+            left.ik.weight=0;right.ik.weight=0;
+            leftLeg.ik.weight=1;rightLeg.ik.weight=1;
+            using(RigEvaluateMarker.Auto())rigBuilder.Evaluate(0);
+            left.ik.weight=1;right.ik.weight=1;
         }
         void ShoulderFollow(Arm arm,Vector3 target,float side)
         {
@@ -288,11 +402,12 @@ namespace PsychologyVR
             if(Emotion=="frustrated" || Emotion=="confused"){fingers=transform.forward;palm=transform.up;upright=true;}
             if(Emotion=="despondent")upright=false;
             if(Emotion=="angry"){fingers=Vector3.Lerp(transform.forward,transform.up,AngerBeat(Time.time-started)*.55f);palm=-transform.up;}
-            a.target=target;a.pole=pole;a.fingers=fingers;a.palm=palm;a.side=side;a.weight=upright?Mathf.SmoothStep(0,1,raised*2):0;
+            if(seatBraceWeight>0){fingers=Vector3.Slerp(fingers,transform.forward,seatBraceWeight);palm=Vector3.Slerp(palm,-transform.up,seatBraceWeight);}
+            a.target=target;a.pole=pole;a.fingers=fingers;a.palm=palm;a.side=side;a.weight=Mathf.Max(upright?Mathf.SmoothStep(0,1,raised*2):0,seatBraceWeight);
             SolveArm(a,target,pole,Time.deltaTime);
             Measure(a,target);
-            float fingerActivity=TransientsSuppressed?0:Gesture=="hand_fidget"?1:Emotion=="anxious"?Intensity:Emotion=="neutral"||Emotion=="calm"?speechWeight*.4f:0;
-            a.articulation.Apply(Emotion,Intensity,FaceCover,Time.deltaTime,fingerActivity,raised,TransientsSuppressed);
+            float fingerActivity=TransientsSuppressed||seatBraceWeight>0?0:Gesture=="hand_fidget"?1:Emotion=="anxious"?Intensity:Emotion=="neutral"||Emotion=="calm"?speechWeight*.4f:0;
+            a.articulation.Apply(seatBraceWeight>0?"neutral":Emotion,Intensity,FaceCover,Time.deltaTime,fingerActivity,raised,TransientsSuppressed||seatBraceWeight>0);
         }
         void Measure(Arm a,Vector3 target)
         {
@@ -321,7 +436,7 @@ namespace PsychologyVR
             a.ikHint.position=a.upper.position+pole;
             a.ik.weight=1;
             if(other.ik)other.ik.weight=0;
-            rigBuilder.Evaluate(0);
+            using(RigEvaluateMarker.Auto())rigBuilder.Evaluate(0);
             a.joints.ApplyWristPose(transform.forward+transform.right*a.side*.08f,-transform.up,
                 a.fingers,a.palm,a.weight,deltaTime);
             a.ik.weight=1;
@@ -366,6 +481,12 @@ namespace PsychologyVR
             var rig=rigObject.AddComponent<Rig>();
             SetupArmConstraint(rigObject.transform,left,"Left");
             SetupArmConstraint(rigObject.transform,right,"Right");
+            if(proceduralSeat && hip && leftLeg.thigh && leftLeg.knee && leftLeg.foot &&
+                rightLeg.thigh && rightLeg.knee && rightLeg.foot)
+            {
+                SetupLegConstraint(rigObject.transform,leftLeg,"Left");
+                SetupLegConstraint(rigObject.transform,rightLeg,"Right");
+            }
 
             rigBuilder=animator.GetComponent<RigBuilder>();
             if(!rigBuilder)rigBuilder=animator.gameObject.AddComponent<RigBuilder>();
@@ -397,12 +518,46 @@ namespace PsychologyVR
                 maintainTargetPositionOffset=false,maintainTargetRotationOffset=false
             };
         }
+        void SetupLegConstraint(Transform rigRoot,Leg leg,string side)
+        {
+            var palmAnchor=new GameObject(side+" Knee Palm Anchor").transform;
+            palmAnchor.position=Vector3.Lerp(leg.thigh.position,leg.knee.position,.78f)+
+                transform.TransformVector(new Vector3(0,.105f,-.055f));
+            palmAnchor.SetParent(leg.thigh,true);
+            leg.palmAnchor=palmAnchor;
+            var target=new GameObject(side+" Foot Target").transform;
+            target.SetParent(rigRoot,false);target.SetPositionAndRotation(leg.foot.position,leg.foot.rotation);
+            leg.ikTarget=target;
+            var hint=new GameObject(side+" Knee Hint").transform;
+            hint.SetParent(rigRoot,false);hint.position=leg.knee.position+transform.forward*.35f;
+            leg.ikHint=hint;
+            var constraint=new GameObject(side+" Leg Two Bone IK").transform;
+            constraint.SetParent(rigRoot,false);
+            leg.ik=constraint.gameObject.AddComponent<TwoBoneIKConstraint>();
+            leg.ik.data=new TwoBoneIKConstraintData
+            {
+                root=leg.thigh,mid=leg.knee,tip=leg.foot,target=leg.ikTarget,hint=leg.ikHint,
+                targetPositionWeight=1,targetRotationWeight=1,hintWeight=1,
+                maintainTargetPositionOffset=false,maintainTargetRotationOffset=false
+            };
+            leg.ik.weight=0;
+        }
         public void ResolveBodyContacts()
         {
             if(!initialized || performancePaused)return;
+            if(seatEnabled)BodyContacts.SetThighRadius(Mathf.Lerp(.093f,.073f,seatBraceWeight));
             BodyContacts.Resolve(left.contact,left.target,Time.deltaTime);
             BodyContacts.Resolve(right.contact,right.target,Time.deltaTime);
             BodyContacts.SeparateHands(left.contact,left.target,right.contact,right.target);
+            if(seatPhase==SeatPhase.Brace && seatPhaseTime>=.8f)
+            {
+                Vector3 leftSupport=transform.TransformPoint(KneeSupportWrist(leftLeg,left.rest));
+                Vector3 rightSupport=transform.TransformPoint(KneeSupportWrist(rightLeg,right.rest));
+                seatSupportReady=Vector3.Distance(left.hand.position,leftSupport)<.025f &&
+                    Vector3.Distance(right.hand.position,rightSupport)<.025f;
+                if(seatSupportReady)StartSeatPhase(SeatPhase.Load);
+                else if(seatPhaseTime>1.8f)StartSeatPhase(SeatPhase.Cancel);
+            }
             // Record final geometry as well as the uncorrected animation geometry.
             Measure(left,left.contact.target);Measure(right,right.contact.target);
         }

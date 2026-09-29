@@ -1,0 +1,6 @@
+13_05.fbx: CMU Graphics Lab Motion Capture Database, subject 13, trial 05.
+FBX conversion distributed by gbionics/cmu-fbx (from RancidMilk's conversion).
+https://mocap.cs.cmu.edu/
+https://huggingface.co/datasets/gbionics/cmu-fbx
+CMU permits use, modification and redistribution, including in commercial products;
+the motion data itself must not be resold, even in converted form.
