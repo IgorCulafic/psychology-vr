@@ -80,6 +80,8 @@ namespace PsychologyVR
                 directory.StartsWith(workspace+Path.DirectorySeparatorChar,StringComparison.OrdinalIgnoreCase))
             {Debug.LogError("SEAT_PREVIEW_FAILED: output must be outside the repository");Application.Quit(2);yield break;}
             Directory.CreateDirectory(directory);
+            if(Array.IndexOf(args,"--arms-preview")>=0)
+            {yield return RunArms(session,body,capture,directory,Array.IndexOf(args,"--capture-frames")>=0);yield break;}
             yield return null;yield return new WaitForEndOfFrame();
             var actor=body.transform;
             var hip=FindBone(actor,"CC_Base_Hip");
@@ -248,6 +250,75 @@ namespace PsychologyVR
             File.WriteAllText(Path.Combine(directory,"seat-preview-report.json"),JsonUtility.ToJson(report,true));
             Debug.Log(report.passed?"SEAT_PREVIEW_OK":"SEAT_PREVIEW_FAILED: see seat-preview-report.json");
             UnityEngine.Object.Destroy(front.gameObject);UnityEngine.Object.Destroy(side.gameObject);
+            Application.Quit(report.passed?0:5);
+        }
+
+        [Serializable] sealed class ArmReport
+        {
+            public bool pauseFrozen,passed;
+            public float pausedHandDrift,maxFootDrift,maxBodyPenetration,maxReachError,maxWristBend,maxWristTwist,maxElbowBend;
+            public List<string> emotions=new List<string>();
+        }
+
+        static IEnumerator RunArms(PrototypeSession session,PerformanceDriver body,Action<Camera,string> capture,string directory,bool record)
+        {
+            yield return null;yield return new WaitForEndOfFrame();
+            var actor=body.transform;var hip=FindBone(actor,"CC_Base_Hip");
+            var leftFoot=FindBone(actor,"CC_Base_L_Foot");var rightFoot=FindBone(actor,"CC_Base_R_Foot");
+            Vector3 footL=leftFoot.position,footR=rightFoot.position,focus=hip.position+actor.up*.28f;
+            var front=Camera("Arm preview front",focus+actor.forward*1.9f+actor.up*.32f,focus);
+            var side=Camera("Arm preview side",focus+actor.right*1.7f+actor.up*.24f+actor.forward*.14f,focus);
+            var report=new ArmReport();
+            string[] emotions={"neutral","calm","anxious","frustrated","confused","happy","crying","angry","panicked","afraid","numb"};
+            var render=record?new RenderTexture(640,720,24):null;
+            var frame=record?new Texture2D(1280,720,TextureFormat.RGB24,false):null;
+            string frames=Path.Combine(directory,"frames");if(record)Directory.CreateDirectory(frames);
+            int frameIndex=0;float nextCapture=Time.time;
+            foreach(string emotion in emotions)
+            {
+                body.Apply(emotion,emotion=="neutral"||emotion=="calm"?.5f:.8f,"none",true);
+                report.emotions.Add(emotion);
+                float started=Time.time;bool captured=false;
+                while(Time.time-started<6)
+                {
+                    yield return new WaitForEndOfFrame();
+                    report.maxFootDrift=Mathf.Max(report.maxFootDrift,Vector3.Distance(footL,leftFoot.position),Vector3.Distance(footR,rightFoot.position));
+                    report.maxBodyPenetration=Mathf.Max(report.maxBodyPenetration,body.BodyContacts.CurrentPenetration);
+                    if(!captured && Time.time-started>3)
+                    {
+                        captured=true;
+                        capture(front,Path.Combine(directory,"arms-"+emotion+"-front.png"));
+                        capture(side,Path.Combine(directory,"arms-"+emotion+"-side.png"));
+                    }
+                    if(record && Time.time>=nextCapture)
+                    {
+                        nextCapture+=.1f;
+                        var previous=RenderTexture.active;
+                        UnityEngine.Rendering.RenderPipeline.SubmitRenderRequest(front,new UnityEngine.Rendering.RenderPipeline.StandardRequest{destination=render});
+                        RenderTexture.active=render;frame.ReadPixels(new Rect(0,0,640,720),0,0);
+                        UnityEngine.Rendering.RenderPipeline.SubmitRenderRequest(side,new UnityEngine.Rendering.RenderPipeline.StandardRequest{destination=render});
+                        RenderTexture.active=render;frame.ReadPixels(new Rect(0,0,640,720),640,0);
+                        RenderTexture.active=previous;
+                        File.WriteAllBytes(Path.Combine(frames,(frameIndex++).ToString("D5")+".png"),frame.EncodeToPNG());
+                    }
+                    if(emotion=="anxious" && !report.pauseFrozen && Time.time-started>4)
+                    {
+                        Vector3 l=body.LeftWrist.position,r=body.RightWrist.position;session.SetMenuOpen(true);
+                        yield return new WaitForSecondsRealtime(.4f);
+                        report.pausedHandDrift=Mathf.Max(Vector3.Distance(l,body.LeftWrist.position),Vector3.Distance(r,body.RightWrist.position));
+                        report.pauseFrozen=report.pausedHandDrift<.002f;session.SetMenuOpen(false);
+                        nextCapture=Time.time;
+                    }
+                }
+            }
+            report.maxReachError=body.MaxReachError;report.maxWristBend=body.MaxWristBend;
+            report.maxWristTwist=body.MaxWristTwist;report.maxElbowBend=body.MaxElbowBend;
+            report.passed=report.pauseFrozen && report.maxFootDrift<.015f && report.maxBodyPenetration<.002f &&
+                report.maxReachError<.08f && report.maxWristBend<58 && report.maxWristTwist<15 && report.maxElbowBend<146;
+            File.WriteAllText(Path.Combine(directory,"arms-preview-report.json"),JsonUtility.ToJson(report,true));
+            if(render){render.Release();UnityEngine.Object.Destroy(render);UnityEngine.Object.Destroy(frame);}
+            UnityEngine.Object.Destroy(front.gameObject);UnityEngine.Object.Destroy(side.gameObject);
+            Debug.Log(report.passed?"ARMS_PREVIEW_OK":"ARMS_PREVIEW_FAILED: see arms-preview-report.json");
             Application.Quit(report.passed?0:5);
         }
     }

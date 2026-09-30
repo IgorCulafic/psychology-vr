@@ -8,15 +8,35 @@ namespace PsychologyVR
         const float Crossfade=.6f;
         // The intervening portions of the recording contain standing and walking.
         static readonly Vector2[] SeatedRanges={new Vector2(5.5f,10f),new Vector2(16.5f,23.25f),new Vector2(29.5f,36.5f)};
-        struct Motion {public Vector3 hip;public Quaternion abdomen,chest,head;}
-        readonly Transform actor,abdomen,chest,head,hip;
-        readonly GameObject source;
-        readonly AnimationClip clip;
+        internal struct ArmMotion
+        {
+            public Vector3 wrist;
+            public Quaternion elbow,hand;
+            internal static ArmMotion Rest=>new ArmMotion{elbow=Quaternion.identity,hand=Quaternion.identity};
+        }
+        struct ArmPose {public Vector3 wrist,elbow;public Quaternion hand;}
+        struct ArmBones
+        {
+            public Transform shoulder,elbow,hand,middle,index,pinky;
+            public float length;
+            public bool Valid=>shoulder&&elbow&&hand&&middle&&index&&pinky;
+        }
+        struct Motion {public Vector3 hip;public Quaternion abdomen,chest,head;public ArmPose left,right;}
+        readonly Transform actor,abdomen,chest,head,hip,neck,talkHip,talkNeck;
+        readonly GameObject source,talkSource;
+        readonly AnimationClip clip,talkClip;
+        readonly ArmBones left,right,talkLeft,talkRight;
+        readonly ArmPose talkOriginLeft,talkOriginRight;
         readonly Motion[] origins;
         readonly float loopDuration;
-        float time,weight;
+        const float TalkStart=1.5f,TalkEnd=16.75f;
+        float time,talkTime,weight;
         Vector3 offset,offsetVelocity;
         Quaternion abdomenMotion=Quaternion.identity,chestMotion=Quaternion.identity,headMotion=Quaternion.identity;
+        ArmMotion idleLeft=ArmMotion.Rest,idleRight=ArmMotion.Rest,gestureLeft=ArmMotion.Rest,gestureRight=ArmMotion.Rest;
+
+        internal ArmMotion IdleArm(bool isLeft)=>isLeft?idleLeft:idleRight;
+        internal ArmMotion GestureArm(bool isLeft)=>isLeft?gestureLeft:gestureRight;
 
         internal SeatedMocapOverlay(Transform actor)
         {
@@ -35,8 +55,10 @@ namespace PsychologyVR
             source.hideFlags=HideFlags.HideInHierarchy;
             // Generic clips require an Animator on the sampled root in a Player.
             if(!source.GetComponent<Animator>())source.AddComponent<Animator>();
-            abdomen=Find("abdomen");chest=Find("chest");head=Find("head");hip=Find("hip");
-            if(!abdomen || !chest || !head || !hip)
+            var bones=source.GetComponentsInChildren<Transform>();
+            abdomen=Find(bones,"abdomen");chest=Find(bones,"chest");head=Find(bones,"head");hip=Find(bones,"hip");neck=Find(bones,"neck");
+            left=FindArm(bones,"l");right=FindArm(bones,"r");
+            if(!abdomen || !chest || !head || !hip || !neck || !left.Valid || !right.Valid)
             {
                 Debug.LogError("Jumper seated mocap has an unexpected skeleton",actor);
                 Object.Destroy(source);
@@ -49,19 +71,72 @@ namespace PsychologyVR
                 origins[i]=Capture(SeatedRanges[i].x);
                 loopDuration+=SeatedRanges[i].y-SeatedRanges[i].x-Crossfade;
             }
+            const string talkPath="JumperMocap/18_08";
+            var talkPrefab=Resources.Load<GameObject>(talkPath);
+            foreach(var candidate in Resources.LoadAll<AnimationClip>(talkPath))
+                if(!candidate.name.StartsWith("__preview__")){talkClip=candidate;break;}
+            if(!talkPrefab || !talkClip || talkClip.length<TalkEnd)
+            {Debug.LogError("Jumper conversational mocap is missing or too short: Resources/"+talkPath+".fbx",actor);return;}
+            talkSource=Object.Instantiate(talkPrefab);talkSource.name="Jumper conversational mocap source";
+            talkSource.hideFlags=HideFlags.HideInHierarchy;
+            if(!talkSource.GetComponent<Animator>())talkSource.AddComponent<Animator>();
+            bones=talkSource.GetComponentsInChildren<Transform>();
+            talkHip=Find(bones,"hip");talkNeck=Find(bones,"neck");
+            talkLeft=FindArm(bones,"l");talkRight=FindArm(bones,"r");
+            if(!talkHip || !talkNeck || !talkLeft.Valid || !talkRight.Valid)
+            {Debug.LogError("Jumper conversational mocap has an unexpected skeleton",actor);Object.Destroy(talkSource);talkSource=null;return;}
+            CaptureTalk(TalkStart,out talkOriginLeft,out talkOriginRight);
         }
 
-        Transform Find(string boneName)
+        static Transform Find(Transform[] bones,string boneName)
         {
-            foreach(var bone in source.GetComponentsInChildren<Transform>())
+            foreach(var bone in bones)
                 if(bone.name==boneName)return bone;
             return null;
         }
 
+        static ArmBones FindArm(Transform[] bones,string side)
+        {
+            var arm=new ArmBones{shoulder=Find(bones,side+"Shldr"),elbow=Find(bones,side+"ForeArm"),
+                hand=Find(bones,side+"Hand"),middle=Find(bones,side+"Mid1"),index=Find(bones,side+"Index1"),pinky=Find(bones,side+"Pinky1")};
+            if(arm.Valid)arm.length=Vector3.Distance(arm.shoulder.position,arm.elbow.position)+Vector3.Distance(arm.elbow.position,arm.hand.position);
+            return arm;
+        }
+
+        static Quaternion BodyFrame(ArmBones left,ArmBones right,Transform hip,Transform neck)
+        {
+            Vector3 across=(right.shoulder.position-left.shoulder.position).normalized,up=(neck.position-hip.position).normalized;
+            return Quaternion.LookRotation(Vector3.Cross(across,up),up);
+        }
+
+        static ArmPose CaptureArm(ArmBones arm,Quaternion frame)
+        {
+            var inverse=Quaternion.Inverse(frame);
+            Vector3 fingers=(arm.middle.position-arm.hand.position).normalized;
+            Vector3 palm=Vector3.Cross(arm.index.position-arm.hand.position,arm.pinky.position-arm.hand.position).normalized;
+            return new ArmPose{wrist=inverse*(arm.hand.position-arm.shoulder.position)/arm.length,
+                elbow=inverse*(arm.elbow.position-arm.shoulder.position).normalized,hand=inverse*Quaternion.LookRotation(fingers,palm)};
+        }
+
+        static ArmMotion Difference(ArmPose pose,ArmPose origin)
+        {return new ArmMotion{wrist=pose.wrist-origin.wrist,elbow=Quaternion.FromToRotation(origin.elbow,pose.elbow),hand=pose.hand*Quaternion.Inverse(origin.hand)};}
+
+        static ArmMotion Blend(ArmMotion from,ArmMotion to,float t)
+        {return new ArmMotion{wrist=Vector3.Lerp(from.wrist,to.wrist,t),elbow=Quaternion.Slerp(from.elbow,to.elbow,t),hand=Quaternion.Slerp(from.hand,to.hand,t)};}
+
         Motion Capture(float at)
         {
             clip.SampleAnimation(source,at);
-            return new Motion{hip=hip.position,abdomen=abdomen.rotation,chest=chest.rotation,head=head.rotation};
+            var frame=BodyFrame(left,right,hip,neck);
+            return new Motion{hip=hip.position,abdomen=abdomen.rotation,chest=chest.rotation,head=head.rotation,
+                left=CaptureArm(left,frame),right=CaptureArm(right,frame)};
+        }
+
+        void CaptureTalk(float at,out ArmPose l,out ArmPose r)
+        {
+            talkClip.SampleAnimation(talkSource,at);
+            var frame=BodyFrame(talkLeft,talkRight,talkHip,talkNeck);
+            l=CaptureArm(talkLeft,frame);r=CaptureArm(talkRight,frame);
         }
 
         Motion Read(int segment,float at)
@@ -70,7 +145,7 @@ namespace PsychologyVR
             return new Motion{hip=pose.hip-origin.hip,
                 abdomen=pose.abdomen*Quaternion.Inverse(origin.abdomen),
                 chest=pose.chest*Quaternion.Inverse(origin.chest),
-                head=pose.head*Quaternion.Inverse(origin.head)};
+                head=pose.head*Quaternion.Inverse(origin.head),left=pose.left,right=pose.right};
         }
 
         internal Vector3 Tick(float delta,bool active)
@@ -86,6 +161,7 @@ namespace PsychologyVR
                 local-=length;segment++;
             }
             Motion motion=Read(segment,SeatedRanges[segment].x+local);
+            ArmMotion l=Difference(motion.left,origins[segment].left),r=Difference(motion.right,origins[segment].right);
             if(local<Crossfade)
             {
                 int previous=(segment+SeatedRanges.Length-1)%SeatedRanges.Length;
@@ -95,6 +171,8 @@ namespace PsychologyVR
                 motion.abdomen=Quaternion.Slerp(outgoing.abdomen,motion.abdomen,blend);
                 motion.chest=Quaternion.Slerp(outgoing.chest,motion.chest,blend);
                 motion.head=Quaternion.Slerp(outgoing.head,motion.head,blend);
+                l=Blend(Difference(outgoing.left,origins[previous].left),l,blend);
+                r=Blend(Difference(outgoing.right,origins[previous].right),r,blend);
             }
             // This FBX stores the CMU positions in centimetres. Smooth recorded
             // pelvis noise before the fixed-foot leg IK sees it.
@@ -106,6 +184,24 @@ namespace PsychologyVR
             abdomenMotion=Quaternion.Slerp(abdomenMotion,Limited(motion.abdomen,3f),smoothing);
             chestMotion=Quaternion.Slerp(chestMotion,Limited(motion.chest,2f),smoothing);
             headMotion=Quaternion.Slerp(headMotion,Limited(motion.head,2.5f),smoothing);
+            float armSmoothing=1-Mathf.Exp(-delta/.12f);
+            idleLeft=Blend(idleLeft,Blend(ArmMotion.Rest,l,weight),armSmoothing);
+            idleRight=Blend(idleRight,Blend(ArmMotion.Rest,r,weight),armSmoothing);
+            if(talkSource)
+            {
+                float duration=TalkEnd-TalkStart-Crossfade;
+                talkTime=Mathf.Repeat(talkTime+delta,duration);
+                CaptureTalk(TalkStart+talkTime,out var tl,out var tr);
+                l=Difference(tl,talkOriginLeft);r=Difference(tr,talkOriginRight);
+                if(talkTime<Crossfade)
+                {
+                    CaptureTalk(TalkEnd-Crossfade+talkTime,out tl,out tr);
+                    float blend=Mathf.SmoothStep(0,1,talkTime/Crossfade);
+                    l=Blend(Difference(tl,talkOriginLeft),l,blend);r=Blend(Difference(tr,talkOriginRight),r,blend);
+                }
+                gestureLeft=Blend(gestureLeft,Blend(ArmMotion.Rest,l,weight),armSmoothing);
+                gestureRight=Blend(gestureRight,Blend(ArmMotion.Rest,r,weight),armSmoothing);
+            }
             return offset;
         }
 
@@ -127,6 +223,6 @@ namespace PsychologyVR
             target.rotation=basis*delta*Quaternion.Inverse(basis)*target.rotation;
         }
 
-        internal void Dispose(){if(source)Object.Destroy(source);}
+        internal void Dispose(){if(source)Object.Destroy(source);if(talkSource)Object.Destroy(talkSource);}
     }
 }

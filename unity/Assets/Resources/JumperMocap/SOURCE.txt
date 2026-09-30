@@ -1,6 +1,9 @@
 13_05.fbx: CMU Graphics Lab Motion Capture Database, subject 13, trial 05.
+18_08.fbx: subject 18, trial 08, conversational hand gestures.
 FBX conversion distributed by gbionics/cmu-fbx (from RancidMilk's conversion).
 https://mocap.cs.cmu.edu/
 https://huggingface.co/datasets/gbionics/cmu-fbx
 CMU permits use, modification and redistribution, including in commercial products;
 the motion data itself must not be resold, even in converted form.
+The data used in this project was obtained from mocap.cs.cmu.edu.
+The database was created with funding from NSF EIA-0196217.
