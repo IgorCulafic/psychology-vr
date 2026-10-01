@@ -23,7 +23,7 @@ The following remain on the development machine and are ignored by Git:
 - `docs/generated/fish-local/` and other generated audition folders: personal voice references, cloned speech, listening pages and per-run records.
 - Unity import caches, editor preferences, preview videos and most screenshots.
 - Working build folders stay outside Git history; packaged Windows builds are available from GitHub Releases.
-- Session logs and the `voices/` folder stay outside source history. The owner explicitly approved including the reference WAV/transcript in the private v0.2 Windows release.
+- Session logs and personal facial capture data stay outside source history. The three contributed voice packs and selected audition material are tracked through Git LFS; the complete release also contains the approved shared reference voice.
 
 The documentation retains historical local-preview URLs and file paths. Those links describe development evidence, not hosted repository content. Small top-level audit/provenance JSON files and the room screenshot are included. Asset source URLs and credits are in `ASSET_CREDITS.md`.
 

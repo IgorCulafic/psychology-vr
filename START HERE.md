@@ -1,6 +1,6 @@
 # Run Psychology VR
 
-Download **psychology-vr-windows.zip** from this private repository's latest
+Download **psychology-vr-windows.zip** from this repository's latest
 [GitHub Release](https://github.com/IgorCulafic/psychology-vr/releases/latest).
 Extract the complete `PsychologyVR` folder to a writable location, such as
 `D:\PsychologyVR`. Do not run the game inside the ZIP or move only the EXE.
@@ -61,10 +61,18 @@ from students. The text tester opens in your browser at `http://127.0.0.1:8794/`
 Sessions save automatically as TXT and JSONL in `logs/sessions/`. Keep this folder
 when upgrading. Do not send student logs to GitHub.
 
-The private release includes the owner's approved reference voice and transcript
-in `voices/`. Keep that material within the intended testing group. Source-only
-checkouts omit it: supply `voices/reference.wav` and `voices/reference.json`
-containing `{"text":"The exact words in the recording."}` before setup.
+The release includes the approved shared reference voice and transcript, plus
+three contributed speaker packs in `voices/`. **Preview Voices.cmd** opens their
+selected generated samples without starting AI services. Patient-to-speaker
+assignment is still pending; these packs do not automatically change the game's
+configured voice. Source checkouts contain the contributed packs through Git LFS;
+for initial setup, supply `voices/reference.wav` and its matching JSON transcript
+or explicitly configure another prepared reference. See `voices/README.md`.
+
+**Preview Recorded Face.cmd** opens the separate facial/head-motion player with
+a prepared take folder dragged onto the launcher. Personal capture data is not
+bundled. See `docs/RECORDED_FACE_POC.md` for extraction, and
+`docs/RELEASE_0_4_0.md` for what is included and what remains unfinished.
 
 After closing the game/browser, double-click **Stop Services.cmd** to release GPU
 memory. Closing the browser alone does not stop the AI models.

@@ -1,0 +1,23 @@
+{
+  "original": "Ambient copy.m4a",
+  "original_sha256": "da7c2781514f40028e75e632e6295e6d48d0dd3cea9047ed7d5839e825856c7d",
+  "wav": "ambient_copy.wav",
+  "duration_seconds": 36.44,
+  "sample_rate": 48000,
+  "peak_dbfs": -36.42,
+  "rms_dbfs": -64.41,
+  "near_full_scale_percent": 0.0,
+  "script_number": null,
+  "detected_script": null,
+  "match_score": null,
+  "transcript_status": "not_transcribed_ambient",
+  "text": "",
+  "segments": [],
+  "decode_errors": [],
+  "container_duration_seconds": 36.522666666666666,
+  "preparation": {
+    "format": "mono PCM16 WAV",
+    "gain_db": 0.0,
+    "processing": "constant gain only; no denoising, pitch or timing changes"
+  }
+}

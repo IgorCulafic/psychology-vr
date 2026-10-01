@@ -17,17 +17,20 @@ __pycache__/
 docs/generated/*.log
 services/.runtime/
 /logs/sessions/
-# Keep ad-hoc voice experiments local; version the two contributed voice packs.
+# Keep ad-hoc voice experiments local; version the contributed voice packs.
 /voices/*
 !/voices/README.md
+!/voices/index.html
 !/voices/person_01/
 !/voices/person_02/
+!/voices/person_03/
 !/voices/auditions/
 /voices/auditions/*
 !/voices/auditions/2026-10-01/
 /voices/auditions/2026-10-01/*
 !/voices/auditions/2026-10-01/identity-refinement/
 !/voices/auditions/2026-10-01/person-2-stronger/
+!/voices/auditions/2026-10-01/person-3/
 /voices/auditions/2026-10-01/identity-refinement/*
 !/voices/auditions/2026-10-01/identity-refinement/person_01-B.wav
 !/voices/auditions/2026-10-01/identity-refinement/person_02-A.wav

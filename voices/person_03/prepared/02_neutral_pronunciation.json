@@ -1,0 +1,402 @@
+{
+  "original": "02 copy.m4a",
+  "original_sha256": "5f796cc83c6c9910e94d284690bfab6964b7d2f27e255ddb3ab19a2c3a0d74f0",
+  "wav": "02_neutral_pronunciation.wav",
+  "duration_seconds": 32.0,
+  "sample_rate": 48000,
+  "peak_dbfs": -11.6,
+  "rms_dbfs": -31.34,
+  "near_full_scale_percent": 0.0,
+  "script_number": 2,
+  "detected_script": 2,
+  "match_score": 0.86,
+  "transcript_status": "automatic_draft_not_listening_verified",
+  "text": "Hoću nešto da vam kažem, ali prvo da provjerim jednu stvar. Vidite, ovo je na mom kompjuteru. Mogu vam pokazati sliku čim pronađem odgovarajući folder. I če je sve radilo, jutro vas ne mogu da otvore isti dokument. Reći će vam šta se dogadilo, pa ćemo zajedno pogledati. Možemo li početi odavde, od ove poruke?",
+  "segments": [
+    {
+      "start": 1.17,
+      "end": 6.71,
+      "text": "Hoću nešto da vam kažem, ali prvo da provjerim jednu stvar.",
+      "words": [
+        {
+          "start": 1.17,
+          "end": 1.99,
+          "word": " Hoću",
+          "probability": 0.8712565104166666
+        },
+        {
+          "start": 1.99,
+          "end": 2.49,
+          "word": " nešto",
+          "probability": 0.9124348958333334
+        },
+        {
+          "start": 2.49,
+          "end": 2.59,
+          "word": " da",
+          "probability": 0.99072265625
+        },
+        {
+          "start": 2.59,
+          "end": 2.77,
+          "word": " vam",
+          "probability": 0.9970703125
+        },
+        {
+          "start": 2.77,
+          "end": 3.31,
+          "word": " kažem,",
+          "probability": 0.994140625
+        },
+        {
+          "start": 3.63,
+          "end": 4.17,
+          "word": " ali",
+          "probability": 0.99609375
+        },
+        {
+          "start": 4.17,
+          "end": 4.89,
+          "word": " prvo",
+          "probability": 0.996337890625
+        },
+        {
+          "start": 4.89,
+          "end": 5.59,
+          "word": " da",
+          "probability": 0.78662109375
+        },
+        {
+          "start": 5.59,
+          "end": 6.13,
+          "word": " provjerim",
+          "probability": 0.9925130208333334
+        },
+        {
+          "start": 6.13,
+          "end": 6.41,
+          "word": " jednu",
+          "probability": 0.998291015625
+        },
+        {
+          "start": 6.41,
+          "end": 6.71,
+          "word": " stvar.",
+          "probability": 0.997314453125
+        }
+      ]
+    },
+    {
+      "start": 8.65,
+      "end": 11.05,
+      "text": "Vidite, ovo je na mom kompjuteru.",
+      "words": [
+        {
+          "start": 8.65,
+          "end": 9.31,
+          "word": " Vidite,",
+          "probability": 0.990234375
+        },
+        {
+          "start": 9.37,
+          "end": 9.53,
+          "word": " ovo",
+          "probability": 0.995361328125
+        },
+        {
+          "start": 9.53,
+          "end": 9.57,
+          "word": " je",
+          "probability": 0.9990234375
+        },
+        {
+          "start": 9.57,
+          "end": 9.71,
+          "word": " na",
+          "probability": 0.99755859375
+        },
+        {
+          "start": 9.71,
+          "end": 10.07,
+          "word": " mom",
+          "probability": 0.83203125
+        },
+        {
+          "start": 10.07,
+          "end": 11.05,
+          "word": " kompjuteru.",
+          "probability": 0.96875
+        }
+      ]
+    },
+    {
+      "start": 11.39,
+      "end": 15.19,
+      "text": "Mogu vam pokazati sliku čim pronađem odgovarajući folder.",
+      "words": [
+        {
+          "start": 11.39,
+          "end": 12.03,
+          "word": " Mogu",
+          "probability": 0.986572265625
+        },
+        {
+          "start": 12.03,
+          "end": 12.13,
+          "word": " vam",
+          "probability": 0.99658203125
+        },
+        {
+          "start": 12.13,
+          "end": 12.73,
+          "word": " pokazati",
+          "probability": 0.9991861979166666
+        },
+        {
+          "start": 12.73,
+          "end": 13.03,
+          "word": " sliku",
+          "probability": 0.9990234375
+        },
+        {
+          "start": 13.03,
+          "end": 13.27,
+          "word": " čim",
+          "probability": 0.974365234375
+        },
+        {
+          "start": 13.27,
+          "end": 13.83,
+          "word": " pronađem",
+          "probability": 0.96376953125
+        },
+        {
+          "start": 13.83,
+          "end": 14.77,
+          "word": " odgovarajući",
+          "probability": 0.9679361979166666
+        },
+        {
+          "start": 14.77,
+          "end": 15.19,
+          "word": " folder.",
+          "probability": 0.99169921875
+        }
+      ]
+    },
+    {
+      "start": 17.07,
+      "end": 21.59,
+      "text": "I če je sve radilo, jutro vas ne mogu da otvore isti dokument.",
+      "words": [
+        {
+          "start": 17.07,
+          "end": 17.73,
+          "word": " I",
+          "probability": 0.70751953125
+        },
+        {
+          "start": 17.73,
+          "end": 17.97,
+          "word": " če",
+          "probability": 0.951171875
+        },
+        {
+          "start": 17.97,
+          "end": 18.11,
+          "word": " je",
+          "probability": 0.93115234375
+        },
+        {
+          "start": 18.11,
+          "end": 18.29,
+          "word": " sve",
+          "probability": 0.999267578125
+        },
+        {
+          "start": 18.29,
+          "end": 18.85,
+          "word": " radilo,",
+          "probability": 0.98876953125
+        },
+        {
+          "start": 19.57,
+          "end": 20.07,
+          "word": " jutro",
+          "probability": 0.80859375
+        },
+        {
+          "start": 20.07,
+          "end": 20.21,
+          "word": " vas",
+          "probability": 0.466552734375
+        },
+        {
+          "start": 20.21,
+          "end": 20.31,
+          "word": " ne",
+          "probability": 0.8515625
+        },
+        {
+          "start": 20.31,
+          "end": 20.53,
+          "word": " mogu",
+          "probability": 0.997802734375
+        },
+        {
+          "start": 20.53,
+          "end": 20.63,
+          "word": " da",
+          "probability": 0.97412109375
+        },
+        {
+          "start": 20.63,
+          "end": 20.91,
+          "word": " otvore",
+          "probability": 0.9505208333333334
+        },
+        {
+          "start": 20.91,
+          "end": 21.21,
+          "word": " isti",
+          "probability": 0.980224609375
+        },
+        {
+          "start": 21.21,
+          "end": 21.59,
+          "word": " dokument.",
+          "probability": 0.99853515625
+        }
+      ]
+    },
+    {
+      "start": 22.87,
+      "end": 26.35,
+      "text": "Reći će vam šta se dogadilo, pa ćemo zajedno pogledati.",
+      "words": [
+        {
+          "start": 22.87,
+          "end": 23.53,
+          "word": " Reći",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 23.53,
+          "end": 23.65,
+          "word": " će",
+          "probability": 0.79833984375
+        },
+        {
+          "start": 23.65,
+          "end": 23.73,
+          "word": " vam",
+          "probability": 0.99560546875
+        },
+        {
+          "start": 23.73,
+          "end": 23.89,
+          "word": " šta",
+          "probability": 0.972900390625
+        },
+        {
+          "start": 23.89,
+          "end": 24.03,
+          "word": " se",
+          "probability": 0.99560546875
+        },
+        {
+          "start": 24.03,
+          "end": 24.59,
+          "word": " dogadilo,",
+          "probability": 0.853515625
+        },
+        {
+          "start": 24.69,
+          "end": 24.79,
+          "word": " pa",
+          "probability": 0.99853515625
+        },
+        {
+          "start": 24.79,
+          "end": 25.09,
+          "word": " ćemo",
+          "probability": 0.999267578125
+        },
+        {
+          "start": 25.09,
+          "end": 25.67,
+          "word": " zajedno",
+          "probability": 0.9947916666666666
+        },
+        {
+          "start": 25.67,
+          "end": 26.35,
+          "word": " pogledati.",
+          "probability": 0.9990234375
+        }
+      ]
+    },
+    {
+      "start": 26.61,
+      "end": 31.19,
+      "text": "Možemo li početi odavde, od ove poruke?",
+      "words": [
+        {
+          "start": 26.61,
+          "end": 27.27,
+          "word": " Možemo",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 27.27,
+          "end": 27.43,
+          "word": " li",
+          "probability": 0.99951171875
+        },
+        {
+          "start": 27.43,
+          "end": 28.91,
+          "word": " početi",
+          "probability": 0.9586588541666666
+        },
+        {
+          "start": 28.91,
+          "end": 29.41,
+          "word": " odavde,",
+          "probability": 0.9777018229166666
+        },
+        {
+          "start": 29.69,
+          "end": 30.15,
+          "word": " od",
+          "probability": 0.990234375
+        },
+        {
+          "start": 30.15,
+          "end": 30.39,
+          "word": " ove",
+          "probability": 0.99609375
+        },
+        {
+          "start": 30.39,
+          "end": 31.19,
+          "word": " poruke?",
+          "probability": 0.95361328125
+        }
+      ]
+    }
+  ],
+  "decode_errors": [
+    {
+      "pts": 1536000,
+      "duration": 4096,
+      "seconds": 32.0
+    }
+  ],
+  "container_duration_seconds": 32.08533333333333,
+  "preparation": {
+    "format": "mono PCM16 WAV",
+    "gain_db": 8.601,
+    "processing": "constant gain only; no denoising, pitch or timing changes"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "text": "Hoću, hoću da vam kažem nešto. Važno mi je da me saslušate do kraja, da, i poslije, poslije možemo da razgovaramo, što ćemo dalje.",
+  "transcript_status": "provisionally_corrected_automatic_draft_not_listening_verified",
+  "automatic_transcript": "Hoću, hoću da vam kažem nešto. Važno mi je da me zaslušate do kraja, da, i poslije, poslije možemo da razgovaramo, što ćemo dalje.",
+  "provisional_corrections": [
+    [
+      "zaslušate",
+      "saslušate"
+    ]
+  ],
+  "source": "glas_srecno_copy.wav",
+  "original": "Glas srecno copy.m4a",
+  "original_sha256": "c27d478a9d4090af92b3310b59d34e93adbdaece96f9313e3b96c4e64d3269f1",
+  "trim_start": 0,
+  "trim_end": 10.73,
+  "denoised": false,
+  "active_in_game": false
+}

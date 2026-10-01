@@ -1,0 +1,30 @@
+[
+  {
+    "file": "happy-A.wav",
+    "seconds": 7.96,
+    "automatic_transcript": "Baš mi je drago što ste došli. Jedva čekam da vam ispričam što se dogodilo. Sve je ispalo bolje nego što sam očekivao.",
+    "expected_text": "Baš mi je drago što ste došli! Jedva čekam da vam ispričam šta se dogodilo. Sve je ispalo bolje nego što sam očekivao!",
+    "speaker_identity_and_emotion": "requires user listening review"
+  },
+  {
+    "file": "happy-B.wav",
+    "seconds": 7.76,
+    "automatic_transcript": "Baš mi je drago što ste došli. Jedva čekam da vam ispričam šta se dogodilo. Sve je ispalo bolje nego što sam očekivao.",
+    "expected_text": "Baš mi je drago što ste došli! Jedva čekam da vam ispričam šta se dogodilo. Sve je ispalo bolje nego što sam očekivao!",
+    "speaker_identity_and_emotion": "requires user listening review"
+  },
+  {
+    "file": "happy-C.wav",
+    "seconds": 9.92,
+    "automatic_transcript": "Baš mi je drago što ste došli. Jedva čekam da vam ispričam šta se dogodilo. Sve je ispalo bolje nego što sam očekivao.",
+    "expected_text": "Baš mi je drago što ste došli! Jedva čekam da vam ispričam šta se dogodilo. Sve je ispalo bolje nego što sam očekivao!",
+    "speaker_identity_and_emotion": "requires user listening review"
+  },
+  {
+    "file": "happy-D.wav",
+    "seconds": 9.8,
+    "automatic_transcript": "Baš mi je drago što ste došli. Jedva čekam da vam ispričam šta se dogodilo. Sve je ispalo bolje nego što sam očekivao.",
+    "expected_text": "Baš mi je drago što ste došli! Jedva čekam da vam ispričam šta se dogodilo. Sve je ispalo bolje nego što sam očekivao!",
+    "speaker_identity_and_emotion": "requires user listening review"
+  }
+]

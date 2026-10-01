@@ -1,0 +1,18 @@
+﻿original,prepared_wav,script_number,seconds,gain_db
+01 copy.m4a,01_neutral_conversation.wav,1,36.838,6.916
+02 copy.m4a,02_neutral_pronunciation.wav,2,32.0,8.601
+03 copy.m4a,03_frustrated.wav,3,27.597,5.257
+04 copy.m4a,04_angry.wav,4,31.0,-2.122
+05 copy.m4a,05_sad.wav,5,42.576,10.243
+06 copy.m4a,06_near_tears.wav,6,38.896,3.153
+07 copy.m4a,07_anxious.wav,7,30.861,5.909
+08 copy.m4a,08_happy.wav,8,38.094,3.319
+09 copy.m4a,09_afraid.wav,9,26.53,2.112
+10 copy.m4a,10_low_energy.wav,10,31.665,4.274
+11 copy.m4a,11_disgusted.wav,11,25.6,-1.395
+12 copy.m4a,12_relieved.wav,12,32.846,3.8
+Ambient copy.m4a,ambient_copy.wav,,36.44,0.0
+Glas ljutito copy.m4a,glas_ljutito_copy.wav,,14.6,1.636
+Glas neutralno copy.m4a,glas_neutralno_copy.wav,,11.77,9.369
+Glas srecno copy.m4a,glas_srecno_copy.wav,,10.8,4.353
+Glas tuzno copy.m4a,glas_tuzno_copy.wav,,16.035,14.282

@@ -1,0 +1,87 @@
+{
+  "person": "person_03",
+  "model": "Higgs TTS 3",
+  "precision": "bf16",
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "text": "Nije mi lako da govorim o ovome. Molim vas, pustite me da završim, pa ću vam objasniti šta se dogodilo.",
+  "samples": [
+    {
+      "id": "sad-A",
+      "title": "Sad A: recorded sadness only",
+      "reference_emotion": "sad",
+      "reference_sha256": "e9073007982e1528ed47293d62ab54d8e8558e64a1163306618e541f088ff414",
+      "reference_text": "Ovaj, hoću da vam kažem nešto, ali vrlo mi je važno da me saslušate do kraja. Poslije, poslije možemo da razgovaramo šta ćemo dalje.",
+      "cue": "",
+      "file": "sad-A.wav",
+      "duration_seconds": 7.04,
+      "generation_seconds": 16.38,
+      "output_gain": 1.0
+    },
+    {
+      "id": "sad-B",
+      "title": "Sad B: neutral voice + sadness cue",
+      "reference_emotion": "neutral",
+      "reference_sha256": "15ce492add56798043b8189d444969e9b7ca96105b6a412b13bafd49887066bb",
+      "reference_text": "Hoću nešto da vam kažem, važno mi je da me saslušate do kraja, poslije možemo da razgovaramo o tome šta ćemo dalje.",
+      "cue": "<|emotion:sadness|>",
+      "file": "sad-B.wav",
+      "duration_seconds": 7.28,
+      "generation_seconds": 17.871,
+      "output_gain": 1.0
+    },
+    {
+      "id": "sad-C",
+      "title": "Sad C: recorded sadness + restrained delivery",
+      "reference_emotion": "sad",
+      "reference_sha256": "e9073007982e1528ed47293d62ab54d8e8558e64a1163306618e541f088ff414",
+      "reference_text": "Ovaj, hoću da vam kažem nešto, ali vrlo mi je važno da me saslušate do kraja. Poslije, poslije možemo da razgovaramo šta ćemo dalje.",
+      "cue": "<|prosody:expressive_low|>",
+      "file": "sad-C.wav",
+      "duration_seconds": 7.6,
+      "generation_seconds": 18.888,
+      "output_gain": 1.0
+    },
+    {
+      "id": "happy-A",
+      "title": "Happy A: recorded happiness only",
+      "reference_emotion": "happy",
+      "reference_sha256": "e4952b4a221d99c9e6d1c74c86ac53cc08707397dbe18c00b6785959ae45b0f1",
+      "reference_text": "Hoću, hoću da vam kažem nešto. Važno mi je da me saslušate do kraja, da, i poslije, poslije možemo da razgovaramo, što ćemo dalje.",
+      "cue": "",
+      "file": "happy-A.wav",
+      "duration_seconds": 7.64,
+      "generation_seconds": 19.433,
+      "output_gain": 1.0
+    },
+    {
+      "id": "happy-B",
+      "title": "Happy B: recorded happiness + contentment",
+      "reference_emotion": "happy",
+      "reference_sha256": "e4952b4a221d99c9e6d1c74c86ac53cc08707397dbe18c00b6785959ae45b0f1",
+      "reference_text": "Hoću, hoću da vam kažem nešto. Važno mi je da me saslušate do kraja, da, i poslije, poslije možemo da razgovaramo, što ćemo dalje.",
+      "cue": "<|emotion:contentment|>",
+      "file": "happy-B.wav",
+      "duration_seconds": 7.2,
+      "generation_seconds": 17.363,
+      "output_gain": 1.0
+    },
+    {
+      "id": "happy-C",
+      "title": "Happy C: neutral voice + contentment",
+      "reference_emotion": "neutral",
+      "reference_sha256": "15ce492add56798043b8189d444969e9b7ca96105b6a412b13bafd49887066bb",
+      "reference_text": "Hoću nešto da vam kažem, važno mi je da me saslušate do kraja, poslije možemo da razgovaramo o tome šta ćemo dalje.",
+      "cue": "<|emotion:contentment|>",
+      "file": "happy-C.wav",
+      "duration_seconds": 8.84,
+      "generation_seconds": 22.751,
+      "output_gain": 1.0
+    }
+  ],
+  "listening_assessment": "Sad C (recorded sadness plus restrained delivery) preferred by user. Happiness candidates in this round rejected; happiness-2 C was subsequently selected.",
+  "active_in_game": false,
+  "hypothesis": "Separate reference identity from emotion-token effects; not a confirmed diagnosis."
+}

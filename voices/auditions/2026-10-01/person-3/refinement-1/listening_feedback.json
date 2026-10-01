@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-01",
+  "happiness": {
+    "status": "rejected_insufficient_happiness",
+    "user_feedback": "Happiness is not happy."
+  },
+  "sadness": {
+    "status": "preferred",
+    "sample": "sad-C",
+    "user_feedback": "Sad C: recorded sadness + restrained delivery"
+  }
+}

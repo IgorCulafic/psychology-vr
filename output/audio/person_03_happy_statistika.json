@@ -1,0 +1,17 @@
+{
+  "text": "Ja obožavam statistiku, to mi je omiljeni predmet, mogao bih tri kolokvijuma u ponedjeljak da uradim.",
+  "preset": "voices/person_03/prepared/preferred_happiness.json",
+  "reference_sha256": "39cb7b068b60b38981df05ccc47c504700029616d672b820af0d46e5e849d953",
+  "model": "Higgs TTS 3",
+  "precision": "bf16",
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": "<|emotion:enthusiasm|>",
+  "duration_seconds": 8.4,
+  "generation_seconds": 21.424,
+  "sample_rate": 24000,
+  "output_gain": 1.0,
+  "automatic_check_transcript": "Ja obožavam statistiku. To mi je omiljeni predmet, mogao bih tri kolokvijuma u ponedjeljak da uradim."
+}

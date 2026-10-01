@@ -10,11 +10,11 @@ The latest Quest Link check reached **22.40 GiB whole-GPU memory** with Gemma an
 
 ## Download and run
 
-For testing, download **psychology-vr-windows.zip** from the [latest private release](https://github.com/IgorCulafic/psychology-vr/releases/latest), extract it, and double-click **Start VR.cmd**, **Start Desktop.cmd**, or **Start Text Chat.cmd**. The built game and approved voice are included. First launch automatically downloads the pinned local AI models and installs its private runtime; no Unity, Git or Python installation is needed. Allow about 45 GB free disk space and internet for first setup. Subsequent launches run locally. See [START HERE](START%20HERE.md) for hardware, Quest Link and controls.
+For testing, download **psychology-vr-windows.zip** from the [latest release](https://github.com/IgorCulafic/psychology-vr/releases/latest), extract it, and double-click **Start VR.cmd**, **Start Desktop.cmd**, or **Start Text Chat.cmd**. The built game and approved voice are included. First launch automatically downloads the pinned local AI models and installs its private runtime; no Unity, Git or Python installation is needed. Allow about 45 GB free disk space and internet for first setup. Subsequent launches run locally. See [START HERE](START%20HERE.md) for hardware, Quest Link and controls.
 
 Every release is a complete application package with all previous updates; no patch ZIPs are needed. See the **Updating** section in [START HERE](START%20HERE.md) to keep existing downloads, settings and session logs.
 
-Use the release asset above, not GitHub's **Source code.zip**. The source repository is for development; the instructions below describe that workflow. Voice recordings are supplied only in the private release with the owner's permission, not in source history.
+Use the release asset above, not GitHub's **Source code.zip**. The source repository is for development; the instructions below describe that workflow. The three contributed voice packs are tracked through Git LFS and included in the release. Use **Preview Voices.cmd** to hear selected samples; assigning these voices to patient characters is still pending.
 
 **Legacy Qwen GPU presets:** Selecting Auto in PC Settings selects the lighter IQ3_M / 32-layer dialogue
 configuration on a 24 GB RTX 4090, or the original IQ4_XS / 48-layer configuration
@@ -27,6 +27,12 @@ For lower dialogue latency, **PC Settings.cmd → 4 Fast dialogue** selects a
 smaller 9B Q6 model fully on the GPU. BF16 speech stays unchanged. This is an
 opt-in comparison: local first playback was 13.1 seconds, but grammar and
 character-consistency weaknesses remain. PC Settings options **5 Bonsai** and **6 Gemma** install/select the newer alternatives. Fresh setup defaults to Gemma.
+
+## Voice and animation update
+
+The v0.4.0 complete package adds an offline voice listening library, person 3's selected emotion presets, and the standalone facial/head-motion preview player.
+The Unreal prototype remains source-only. See [release details](docs/RELEASE_0_4_0.md)
+for the contents, capture setup and remaining integration work.
 
 ## Clone and open
 
@@ -41,7 +47,7 @@ git lfs pull
 
 In Unity Hub, add **the `unity` subfolder**, use Unity **6000.6.0f1**, and open `Assets/PsychologyVR/Scenes/Consultation.unity`. The converted character, furniture, textures, prefabs and baked lighting are included. No original download packs are needed to open the scene. Follow the environment setup below before running live dialogue; build the Windows player from Unity before using the launcher.
 
-This repository contains the game, original model packs, local service, asset preparation tools, and speech research. Download Windows builds from [Releases](https://github.com/IgorCulafic/psychology-vr/releases). Personal recordings are excluded from source history; the approved reference is included in the private runnable release. Generated voice auditions, model weights and import caches stay out of Git. See [repository contents and setup notes](docs/REPOSITORY.md).
+This repository contains the game, original model packs, local service, asset preparation tools, and speech research. Download Windows builds from [Releases](https://github.com/IgorCulafic/psychology-vr/releases). The three contributed voice packs and selected audition material are versioned; personal facial-capture footage, other local auditions, model weights and import caches stay out of Git. The runnable release also includes the approved shared reference voice. See [repository contents and setup notes](docs/REPOSITORY.md).
 
 ## Speech research status
 

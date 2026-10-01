@@ -1,0 +1,20 @@
+{
+  "status": "preferred_by_user_in_listening_test",
+  "recorded_date": "2026-10-01",
+  "person": "person_03",
+  "performance_emotion": "happy",
+  "reference": "voices/person_03/prepared/reference_happy_long.wav",
+  "reference_transcript": "voices/person_03/prepared/reference_happy_long.json",
+  "reference_sha256": "39cb7b068b60b38981df05ccc47c504700029616d672b820af0d46e5e849d953",
+  "higgs_quantization": "bf16",
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": "<|emotion:enthusiasm|>",
+  "audition_display_label": "C: longer happy performance + enthusiasm",
+  "audition_audio": "voices/auditions/2026-10-01/person-3/happiness-2/happy-C.wav",
+  "audition_sha256": "57ce40cc889fc46d9fd0313922bec56d1392d5261f90b8d60c15d90ff289156d",
+  "user_feedback": "C: longer happy performance + enthusiasm is best",
+  "note": "Speaker-specific preferred happiness delivery. Not yet assigned to an in-game patient."
+}

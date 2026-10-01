@@ -45,6 +45,13 @@ these are not 52 independently validated character controls.
 
 ## Reproduce
 
+The v0.4.0 Windows release includes the preview player and extraction scripts,
+but not the personal source video or extracted take. Prepare a take as below,
+then drag its output folder (containing `performance.json`) onto
+`Preview Recorded Face.cmd`. With the prebuilt player, skip the Unity build step.
+MediaPipe extraction needs its own environment and model; normal game Setup does
+not install those optional dependencies.
+
 1. Install `tools/livelink-requirements.txt` into an isolated Python environment
    such as `.tools/livelink-venv`. The consultation Python environment is separate.
 2. Download the model linked from Google's documentation to

@@ -1,0 +1,22 @@
+{
+  "text": "Ovaj, hoću da vam kažem nešto, ali vrlo mi je važno da me saslušate do kraja. Poslije, poslije možemo da razgovaramo šta ćemo dalje.",
+  "transcript_status": "provisionally_corrected_automatic_draft_not_listening_verified",
+  "automatic_transcript": "Ovaj, hoću da vam kažem nešto, ali prlo mi je važno da me saslužate do kraja. Poslije, poslije možemo da razgovaramo šta ćemo dalje.",
+  "provisional_corrections": [
+    [
+      "prlo",
+      "vrlo"
+    ],
+    [
+      "saslužate",
+      "saslušate"
+    ]
+  ],
+  "source": "glas_tuzno_copy.wav",
+  "original": "Glas tuzno copy.m4a",
+  "original_sha256": "066dba1fc4d4cabcf95407152793b9f8b5b2d568cc0a3fecd7d5881079b8c15c",
+  "trim_start": 1.0,
+  "trim_end": 16.035395833333332,
+  "denoised": false,
+  "active_in_game": false
+}

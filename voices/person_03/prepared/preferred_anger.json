@@ -1,0 +1,20 @@
+{
+  "status": "preferred_by_user_in_listening_test",
+  "recorded_date": "2026-10-01",
+  "person": "person_03",
+  "performance_emotion": "angry",
+  "reference": "voices/person_03/prepared/reference_angry.wav",
+  "reference_transcript": "voices/person_03/prepared/reference_angry.json",
+  "reference_sha256": "9e8b92b7993accafd2c53283be9734a11b97af75c2752f4a5d15e44bb3d30fdd",
+  "higgs_quantization": "bf16",
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": "<|emotion:bitterness|>",
+  "audition_display_label": "Anger C: bitterness cue",
+  "audition_audio": "voices/auditions/2026-10-01/person-3/anger-C.wav",
+  "audition_sha256": "09ca63c247d8904278c459f990c22c85ad70b9d33adb304d37b7d555cd8f637d",
+  "user_feedback": "Anger C: bitterness cue is the best",
+  "note": "Speaker-specific preferred anger delivery. Not yet assigned to an in-game patient."
+}

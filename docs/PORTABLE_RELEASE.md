@@ -17,9 +17,16 @@ space for libraries, download caches and the game. Existing verified files are
 reused, and Setup checks/repairs missing or damaged model files.
 
 The selected speech remains BF16 and uses the approved full reference at
-temperature 0.70. The source repository does not contain the recording: the
-packager requires `--include-approved-voice` to add it to the private release.
-Publication must remain private. No student logs are packaged or uploaded.
+temperature 0.70. The packager requires `--include-approved-voice` to add the shared reference.
+The contributed person_01/person_02/person_03 packs are versioned separately and
+added with `--include-voice-packs`. This repository and its releases are public;
+the contributed voices are included as requested by the project owner. Personal
+facial-capture data and student logs are not packaged or uploaded.
+
+The v0.4.0 package also includes the voice listening page, contributed packs and
+standalone recorded-face preview player. The latter requires a separately prepared
+take; no personal capture data is included. The Unreal prototype stays in the
+source repository. See [current release details](RELEASE_0_4_0.md).
 
 ## Build and package
 
@@ -30,13 +37,14 @@ The official uv ZIP and its MIT/Apache notices are cached under `.cache/releases
 ```powershell
 ./.venv/Scripts/python.exe -m unittest discover -s services
 ./.venv/Scripts/python.exe tools/create-portable-manifest.py
-./.venv/Scripts/python.exe tools/package-portable.py --include-approved-voice --tag v0.2.4-complete-package
+./.venv/Scripts/python.exe tools/build-voice-index.py
+./.venv/Scripts/python.exe tools/package-portable.py --include-approved-voice --include-voice-packs --include-recorded-preview --tag v0.4.0-voices-animation
 ```
 
 Package after committing the source: the release manifest records that commit,
 each included file's size and hash, the archive hash, and whether the approved
 voice is included. Publish the ZIP, `release-manifest.json`, and `SHA256SUMS.txt`
-as private GitHub release assets. Publish one complete application ZIP each time;
+as GitHub release assets. Publish one complete application ZIP each time;
 do not create incremental patch ZIPs. Users can install it independently or merge
 the full package into an existing installation to retain models, settings and logs.
 The source ZIP alone is not the runnable game.
