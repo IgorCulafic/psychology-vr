@@ -1,0 +1,16 @@
+{
+  "status": "preferred_by_user_in_listening_test",
+  "recorded_date": "2026-10-01",
+  "person": "person_01",
+  "reference": "voices/person_01/prepared/reference_angry.wav",
+  "reference_transcript": "voices/person_01/prepared/reference_angry.json",
+  "higgs_quantization": "bf16",
+  "temperature": 0.60,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": "<|emotion:anger|>",
+  "audition_display_label": "Person 1 C — Own angry reference — tag — temperature 0.60",
+  "audition_audio": "voices/auditions/2026-10-01/identity-refinement/person_01-B.wav",
+  "note": "Display label C maps to source variant B in this audition. Selected as best by the user; not yet integrated into the game's per-person voice routing. Original recordings and fan-noise cleanup retained."
+}

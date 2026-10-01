@@ -17,7 +17,26 @@ __pycache__/
 docs/generated/*.log
 services/.runtime/
 /logs/sessions/
-/voices/
+# Keep ad-hoc voice experiments local; version the two contributed voice packs.
+/voices/*
+!/voices/README.md
+!/voices/person_01/
+!/voices/person_02/
+!/voices/auditions/
+/voices/auditions/*
+!/voices/auditions/2026-10-01/
+/voices/auditions/2026-10-01/*
+!/voices/auditions/2026-10-01/identity-refinement/
+!/voices/auditions/2026-10-01/person-2-stronger/
+/voices/auditions/2026-10-01/identity-refinement/*
+!/voices/auditions/2026-10-01/identity-refinement/person_01-B.wav
+!/voices/auditions/2026-10-01/identity-refinement/person_02-A.wav
+/voices/auditions/2026-10-01/person-2-stronger/*
+!/voices/auditions/2026-10-01/person-2-stronger/B.wav
+/tmp/
+/livelink/
+/unity/Assets/PsychologyVR/Generated/LiveLink/
+/unity/Assets/PsychologyVR/Generated/LiveLink.meta
 unity/Assets/Resources/PerformanceTestRunInfo.json*
 unity/Assets/Resources/PerformanceTestRunSettings.json*
 
@@ -43,3 +62,12 @@ unity/MemoryCaptures/
 unity/Recordings/
 unity/[Bb]uild/
 unity/*.slnx
+
+# Unreal generated output (source art remains in Unity's tracked Art folder).
+unreal/Binaries/
+unreal/Intermediate/
+unreal/Saved/
+unreal/DerivedDataCache/
+unreal/Builds/
+unreal/.vs/
+unreal/*.slnx

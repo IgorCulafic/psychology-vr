@@ -1,0 +1,13 @@
+﻿original,prepared_wav,script_number,seconds,gain_db
+01.m4a,01_neutral_conversation.wav,1,28.928,17.05
+02.m4a,02_neutral_pronunciation.wav,2,29.013,19.38
+03.m4a,03_frustrated.wav,3,25.899,19.38
+04.m4a,04_angry.wav,4,22.635,11.01
+05.m4a,05_sad.wav,5,34.752,21.79
+06.m4a,06_near_tears.wav,6,27.819,18.24
+07.m4a,07_anxious.wav,7,30.208,21.88
+08.m4a,08_happy.wav,8,19.904,18.32
+09.m4a,09_afraid.wav,9,22.656,20.03
+10.m4a,10_low_energy.wav,10,31.232,27.5
+11.m4a,11_disgusted.wav,11,19.797,18.97
+12.m4a,12_relieved.wav,12,25.429,23.05

@@ -1,0 +1,363 @@
+{
+  "original": "06 - Na ivici placa.m4a",
+  "original_sha256": "33c1ca0731d14c0f39a9a22f033283f97770be4a085fe35ad33aedcfa0da6c20",
+  "wav": "06_near_tears.wav",
+  "duration_seconds": 32.448,
+  "sample_rate": 48000,
+  "peak_dbfs": -1.399999976158142,
+  "near_full_scale_percent": 0.0,
+  "transcript_status": "automatic_draft_not_listening_verified",
+  "text": "Izvinite, treba mi trenutak. Mislio sam da mogu o ovome da pričam sasvim normalno, ali sad mi je mnogo teže nego pri nekoliko minuta. Toliko toga želim da vam kažem, a nikako da pronađem prave riječi. Molim vas, nemojte još ništa da pitate, samo da malo dođem sebi, pa ću pokušati ponovno.",
+  "matched_script": 6,
+  "match_score": 0.962,
+  "runner_up": 12,
+  "runner_up_score": 0.171,
+  "segments": [
+    {
+      "start": 2.77,
+      "end": 5.91,
+      "text": "Izvinite, treba mi trenutak.",
+      "words": [
+        {
+          "start": 2.77,
+          "end": 3.61,
+          "word": " Izvinite,",
+          "probability": 0.8693033854166666
+        },
+        {
+          "start": 4.25,
+          "end": 4.83,
+          "word": " treba",
+          "probability": 0.92578125
+        },
+        {
+          "start": 4.83,
+          "end": 5.01,
+          "word": " mi",
+          "probability": 0.9931640625
+        },
+        {
+          "start": 5.01,
+          "end": 5.91,
+          "word": " trenutak.",
+          "probability": 0.6378173828125
+        }
+      ]
+    },
+    {
+      "start": 7.29,
+      "end": 14.81,
+      "text": "Mislio sam da mogu o ovome da pričam sasvim normalno, ali sad mi je mnogo teže nego pri nekoliko minuta.",
+      "words": [
+        {
+          "start": 7.29,
+          "end": 7.69,
+          "word": " Mislio",
+          "probability": 0.9900716145833334
+        },
+        {
+          "start": 7.69,
+          "end": 7.83,
+          "word": " sam",
+          "probability": 0.9990234375
+        },
+        {
+          "start": 7.83,
+          "end": 7.99,
+          "word": " da",
+          "probability": 0.99951171875
+        },
+        {
+          "start": 7.99,
+          "end": 8.29,
+          "word": " mogu",
+          "probability": 0.9951171875
+        },
+        {
+          "start": 8.29,
+          "end": 8.41,
+          "word": " o",
+          "probability": 0.916015625
+        },
+        {
+          "start": 8.41,
+          "end": 8.61,
+          "word": " ovome",
+          "probability": 0.984130859375
+        },
+        {
+          "start": 8.61,
+          "end": 8.73,
+          "word": " da",
+          "probability": 0.9833984375
+        },
+        {
+          "start": 8.73,
+          "end": 9.25,
+          "word": " pričam",
+          "probability": 0.9993489583333334
+        },
+        {
+          "start": 9.25,
+          "end": 9.97,
+          "word": " sasvim",
+          "probability": 0.86578369140625
+        },
+        {
+          "start": 9.97,
+          "end": 10.59,
+          "word": " normalno,",
+          "probability": 0.9033203125
+        },
+        {
+          "start": 11.15,
+          "end": 11.33,
+          "word": " ali",
+          "probability": 0.99951171875
+        },
+        {
+          "start": 11.33,
+          "end": 12.05,
+          "word": " sad",
+          "probability": 0.9921875
+        },
+        {
+          "start": 12.05,
+          "end": 12.17,
+          "word": " mi",
+          "probability": 0.99951171875
+        },
+        {
+          "start": 12.17,
+          "end": 12.25,
+          "word": " je",
+          "probability": 1.0
+        },
+        {
+          "start": 12.25,
+          "end": 12.53,
+          "word": " mnogo",
+          "probability": 0.99951171875
+        },
+        {
+          "start": 12.53,
+          "end": 12.99,
+          "word": " teže",
+          "probability": 0.996337890625
+        },
+        {
+          "start": 12.99,
+          "end": 13.53,
+          "word": " nego",
+          "probability": 0.432861328125
+        },
+        {
+          "start": 13.53,
+          "end": 13.75,
+          "word": " pri",
+          "probability": 0.99560546875
+        },
+        {
+          "start": 13.75,
+          "end": 14.27,
+          "word": " nekoliko",
+          "probability": 0.9759114583333334
+        },
+        {
+          "start": 14.27,
+          "end": 14.81,
+          "word": " minuta.",
+          "probability": 0.995849609375
+        }
+      ]
+    },
+    {
+      "start": 16.97,
+      "end": 22.41,
+      "text": "Toliko toga želim da vam kažem, a nikako da pronađem prave riječi.",
+      "words": [
+        {
+          "start": 16.97,
+          "end": 17.49,
+          "word": " Toliko",
+          "probability": 0.998046875
+        },
+        {
+          "start": 17.49,
+          "end": 17.83,
+          "word": " toga",
+          "probability": 0.90625
+        },
+        {
+          "start": 17.83,
+          "end": 18.21,
+          "word": " želim",
+          "probability": 0.99560546875
+        },
+        {
+          "start": 18.21,
+          "end": 18.33,
+          "word": " da",
+          "probability": 0.99951171875
+        },
+        {
+          "start": 18.33,
+          "end": 18.47,
+          "word": " vam",
+          "probability": 0.998046875
+        },
+        {
+          "start": 18.47,
+          "end": 18.97,
+          "word": " kažem,",
+          "probability": 0.9990234375
+        },
+        {
+          "start": 19.45,
+          "end": 20.15,
+          "word": " a",
+          "probability": 1.0
+        },
+        {
+          "start": 20.15,
+          "end": 20.61,
+          "word": " nikako",
+          "probability": 0.99658203125
+        },
+        {
+          "start": 20.61,
+          "end": 20.73,
+          "word": " da",
+          "probability": 0.99951171875
+        },
+        {
+          "start": 20.73,
+          "end": 21.29,
+          "word": " pronađem",
+          "probability": 0.99892578125
+        },
+        {
+          "start": 21.29,
+          "end": 21.87,
+          "word": " prave",
+          "probability": 0.9951171875
+        },
+        {
+          "start": 21.87,
+          "end": 22.41,
+          "word": " riječi.",
+          "probability": 0.9827880859375
+        }
+      ]
+    },
+    {
+      "start": 23.41,
+      "end": 31.19,
+      "text": "Molim vas, nemojte još ništa da pitate, samo da malo dođem sebi, pa ću pokušati ponovno.",
+      "words": [
+        {
+          "start": 23.41,
+          "end": 23.99,
+          "word": " Molim",
+          "probability": 0.973388671875
+        },
+        {
+          "start": 23.99,
+          "end": 24.25,
+          "word": " vas,",
+          "probability": 0.98876953125
+        },
+        {
+          "start": 24.97,
+          "end": 25.41,
+          "word": " nemojte",
+          "probability": 0.9669189453125
+        },
+        {
+          "start": 25.41,
+          "end": 25.63,
+          "word": " još",
+          "probability": 0.99951171875
+        },
+        {
+          "start": 25.63,
+          "end": 25.95,
+          "word": " ništa",
+          "probability": 0.9280598958333334
+        },
+        {
+          "start": 25.95,
+          "end": 26.07,
+          "word": " da",
+          "probability": 0.998046875
+        },
+        {
+          "start": 26.07,
+          "end": 26.45,
+          "word": " pitate,",
+          "probability": 0.97509765625
+        },
+        {
+          "start": 27.41,
+          "end": 27.77,
+          "word": " samo",
+          "probability": 0.990234375
+        },
+        {
+          "start": 27.77,
+          "end": 28.19,
+          "word": " da",
+          "probability": 1.0
+        },
+        {
+          "start": 28.19,
+          "end": 28.49,
+          "word": " malo",
+          "probability": 0.999267578125
+        },
+        {
+          "start": 28.49,
+          "end": 28.85,
+          "word": " dođem",
+          "probability": 0.9954833984375
+        },
+        {
+          "start": 28.85,
+          "end": 29.27,
+          "word": " sebi,",
+          "probability": 0.873291015625
+        },
+        {
+          "start": 29.67,
+          "end": 30.03,
+          "word": " pa",
+          "probability": 0.8388671875
+        },
+        {
+          "start": 30.03,
+          "end": 30.19,
+          "word": " ću",
+          "probability": 0.999755859375
+        },
+        {
+          "start": 30.19,
+          "end": 30.67,
+          "word": " pokušati",
+          "probability": 0.995849609375
+        },
+        {
+          "start": 30.67,
+          "end": 31.19,
+          "word": " ponovno.",
+          "probability": 0.8767903645833334
+        }
+      ]
+    }
+  ],
+  "preparation": {
+    "format": "mono PCM16 WAV",
+    "gain_db": -1.6,
+    "target_peak_dbfs": -3,
+    "processing": "constant gain only; no denoising, compression, trimming, pitch or timing change"
+  }
+}

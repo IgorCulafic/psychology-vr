@@ -1,0 +1,49 @@
+AUTOMATIC TRANSCRIPTS — require listening review before using as exact voice-reference text.
+
+01_neutral_conversation.wav
+Dzień dobry. Dobar dan. Možemo da sjednemo ovdje, pored prozora. Napolje je malo hladnije nego jutros, ali unutra je prijatno. Prije dolazka sam svratio do prodavnice i kupio hlijep, mlijeko i nekoliko jabuka. Poslije ovog razgovora idem kući da spremim ručak. Još nijesam odlučio šta ću da pravi, ali vjerovatno nešto je dostalo.
+
+02_neutral_pronunciation.wav
+Hoću nešto da vam kažem, ali prvo da provjerim jednu stvar. Ovo je na mom kompjuteru. Mogu vam pokazati sliku čim prvo nađemo duvarajući folder. Juče je sve radilo, a jutro se ne mogu da otvorim isti dokument. Reći ću vam šta se dogodilo, pa ćemo zajedno pogledati. Možemo li početi od ove poruke?
+
+03_frustrated.wav
+Čekajte, mislim da se opet nismo razumijeli. Već treći put pokušavam da objasnem istu stvar, a razgovor se stalno vraća na nešto drugo. Nije mi problem da ponovim, ali mi smeta kad imam osjećaj da pričam uzavu. Možete li me pustiti da završim, pa onda da mi kažete šta mislite?
+
+04_angry.wav
+Ne, to nije u redu. Nema ne pravo da mi se obraćate na taj način. Mogu da prihvatim da se ne slažemo, ali neću da me vrijeđate i onda očekujete da nastavim kao da se ništa nije desilo. Prestanite da mi upadate u riječ. Ako se ovo nastavi, završit ćemo razgovor i ja ću otići.
+
+05_sad.wav
+Najdeži mi bude kad se vratim kući i sve utihne. Preko dana nekako skrenem misli, imam obaveze i ljude oko sebe. Onda dođe večer i primijetim koliko mi nedostaju neke sasvim obišne stvari. Razgor u skafu, neči korac u hodniku, pitanje kako mi je prošao dan, to mi nedostaje više nego što umijem da objasni.
+
+06_near_tears.wav
+Izvinite, treba mi trenutak. Mislio sam da mogu o ovome da pričam sasvim normalno, ali sad mi je mnogo teže nego pri nekoliko minuta. Toliko toga želim da vam kažem, a nikako da pronađem prave riječi. Molim vas, nemojte još ništa da pitate, samo da malo dođem sebi, pa ću pokušati ponovno.
+
+07_anxious.wav
+A šta ako se opet ogodi isto? Znam da sada nemamo razlog da to očekujemo, ali ta misla mi se stalno vraća. Proberim jednu stvar, pa se odmah svjetim druge. Ne znam da li pretjerujem ili nešto možda propušta. Možemo li samo još jednom proći kroz ono što slijedi. Lakše mi kada znam šta mogu da očekujem.
+
+08_happy.wav
+Eh, ovo mi je baš uljepšalo dan. Nijesam očekival da će se svi pojaviti, a na kraju je sto bio put i niko nije žurio kuće. Pričali smo, šalili se i dogovarili da to ponovimo. Još mi osmih na licu kad se sjeti. Volio bi da imamo više takvih običnjih, lijepih dana.
+
+09_afraid.wav
+Čekajte, nemojte još otvarati vrata. Ne znam ko je na polju i taj zvuk mi se nimala ne dopada. Možda nije ništa, ali sada ne mogu samo da se pravim da je sve u redu. Molim vas, postanite ovdje samo. Ajde prvo da pogledamo kroz prozor i provjerimo šta se dešava.
+
+10_low_energy.wav
+Ne znam. Danas mi je skoro sve jedno. Možemo ovdje da sjednemo, možemo i tamo. Nemam ništa posebno da dodam. Jutro sam ustao, završio ono što sam morao i došao ovam. Sad pokušavam da smislimo, dakle, da počnemo, ali mi je i to nekako napor. Možemo li malo spojiti? Jedno pitanje pojedno.
+
+11_disgusted.wav
+Uh, molim vas, stvonite to sa stola. Taj miris mi baš smeta. Ne mogu da nastavim da jedem dok je to ovdje i iskreno ne želim ni da gledam. Možemo li otvoriti prozor i preći na drugo mjesto? Znam da vama možda nije toliko neprijatno, ali meni je stvara previše.
+
+12_relieved.wav
+Dobra, sad mi je mnogo lakše kad ste to objasnili. U glavi sam već napravio čitav niz mogućih problema, a ispalo je da možemo sve rješiti korak po korak. Hvala vam što niste požurivali razgovor. Sad mogu da razmislim onome što ste rekli, umjesto da se samo brinem šta će biti dalje.
+
+glas_01_poredjenje_ljutito.wav
+Hoću nešto da vam kažem. Važno mi je da me saslušate do kraja. Posle možemo da razgovaramo o tome šta ćemo dalje.
+
+glas_01_poredjenje_neutralno.wav
+Hoću nešto da vam kažem. Važno mi je da me sasušate do kraja. Poslije možemo da razgovaramo o tome šta ćemo dalje.
+
+glas_01_poredjenje_radosno.wav
+Hoću nešto da vam kažem. Važno mi je da me sasvržate do kraja. Poslije možemo da razgovaramo o tome šta ćemo dađe.
+
+glas_01_poredjenje_tuzno.wav
+Hoću nešto da vam kažem. Važno mi je da me saslušate do kraja. Poslije možemo da razgovaramo o tome šta ćemo dalje.

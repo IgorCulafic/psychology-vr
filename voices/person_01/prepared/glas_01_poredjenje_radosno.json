@@ -1,0 +1,162 @@
+{
+  "original": "glas_01_poredjenje_radosno.m4a",
+  "original_sha256": "0edc119c9d51546dfbcb5458f4858230f8cef9d955df630fd6ef4fda39d40e96",
+  "wav": "glas_01_poredjenje_radosno.wav",
+  "duration_seconds": 10.859,
+  "sample_rate": 48000,
+  "peak_dbfs": -4.849999904632568,
+  "near_full_scale_percent": 0.0,
+  "transcript_status": "automatic_draft_not_listening_verified",
+  "text": "Hoću nešto da vam kažem. Važno mi je da me sasvržate do kraja. Poslije možemo da razgovaramo o tome šta ćemo dađe.",
+  "matched_script": null,
+  "match_score": 0.216,
+  "runner_up": 3,
+  "runner_up_score": 0.194,
+  "segments": [
+    {
+      "start": 1.14,
+      "end": 9.36,
+      "text": "Hoću nešto da vam kažem. Važno mi je da me sasvržate do kraja. Poslije možemo da razgovaramo o tome šta ćemo dađe.",
+      "words": [
+        {
+          "start": 1.14,
+          "end": 1.76,
+          "word": " Hoću",
+          "probability": 0.890625
+        },
+        {
+          "start": 1.76,
+          "end": 2.04,
+          "word": " nešto",
+          "probability": 0.99609375
+        },
+        {
+          "start": 2.04,
+          "end": 2.14,
+          "word": " da",
+          "probability": 0.99755859375
+        },
+        {
+          "start": 2.14,
+          "end": 2.28,
+          "word": " vam",
+          "probability": 0.99658203125
+        },
+        {
+          "start": 2.28,
+          "end": 2.8,
+          "word": " kažem.",
+          "probability": 0.9586588541666666
+        },
+        {
+          "start": 3.94,
+          "end": 4.36,
+          "word": " Važno",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 4.36,
+          "end": 4.48,
+          "word": " mi",
+          "probability": 0.9970703125
+        },
+        {
+          "start": 4.48,
+          "end": 4.58,
+          "word": " je",
+          "probability": 0.99267578125
+        },
+        {
+          "start": 4.58,
+          "end": 4.74,
+          "word": " da",
+          "probability": 0.99755859375
+        },
+        {
+          "start": 4.74,
+          "end": 4.86,
+          "word": " me",
+          "probability": 0.99853515625
+        },
+        {
+          "start": 4.86,
+          "end": 5.4,
+          "word": " sasvržate",
+          "probability": 0.72021484375
+        },
+        {
+          "start": 5.4,
+          "end": 5.52,
+          "word": " do",
+          "probability": 0.98046875
+        },
+        {
+          "start": 5.52,
+          "end": 5.9,
+          "word": " kraja.",
+          "probability": 0.999267578125
+        },
+        {
+          "start": 6.68,
+          "end": 7.24,
+          "word": " Poslije",
+          "probability": 0.8484700520833334
+        },
+        {
+          "start": 7.24,
+          "end": 7.54,
+          "word": " možemo",
+          "probability": 0.99365234375
+        },
+        {
+          "start": 7.54,
+          "end": 7.66,
+          "word": " da",
+          "probability": 0.998046875
+        },
+        {
+          "start": 7.66,
+          "end": 8.18,
+          "word": " razgovaramo",
+          "probability": 0.9852294921875
+        },
+        {
+          "start": 8.18,
+          "end": 8.28,
+          "word": " o",
+          "probability": 0.97607421875
+        },
+        {
+          "start": 8.28,
+          "end": 8.48,
+          "word": " tome",
+          "probability": 0.987548828125
+        },
+        {
+          "start": 8.48,
+          "end": 8.72,
+          "word": " šta",
+          "probability": 0.995849609375
+        },
+        {
+          "start": 8.72,
+          "end": 9.0,
+          "word": " ćemo",
+          "probability": 0.999267578125
+        },
+        {
+          "start": 9.0,
+          "end": 9.36,
+          "word": " dađe.",
+          "probability": 0.8165283203125
+        }
+      ]
+    }
+  ],
+  "preparation": {
+    "format": "mono PCM16 WAV",
+    "gain_db": 1.85,
+    "target_peak_dbfs": -3,
+    "processing": "constant gain only; no denoising, compression, trimming, pitch or timing change"
+  }
+}

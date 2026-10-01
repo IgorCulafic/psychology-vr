@@ -1,0 +1,22 @@
+{
+  "text": "Dobar dan. Možemo da sjednemo ovdje, pored prozora. Napolju je malo hladnije nego jutros, ali unutra je prijatno. Prije dolaska sam svratio do prodavnice i kupio hljeb, mlijeko i nekoliko jabuka. Poslije ovog razgovora idem kući da spremim ručak. Još nijesam odlučio šta ću da pravim, ali vjerovatno nešto jednostavno.",
+  "transcript_source": "supplied recording script, confirmed by user",
+  "original": "01 - Neutralan, prirodan razgovor.m4a",
+  "trim_start": 31.3,
+  "trim_end": 57.2,
+  "gain_db": 1.414,
+  "denoised": true,
+  "denoising": {
+    "method": "stationary spectral noise suppression with smoothed gain and 65 Hz high-pass",
+    "noise_profile_seconds": [
+      3,
+      18
+    ],
+    "noise_power_quantile": 0.9,
+    "gain_floor": 0.1,
+    "speech_rms_match_gain_db": 0.41,
+    "raw_source_sha256": "2757eadc5d50a0bf97c2ef18bea35c5bc49fcd90f68182b503b40099ff701f17",
+    "original_preserved": true,
+    "listening_assessment": "pending"
+  }
+}

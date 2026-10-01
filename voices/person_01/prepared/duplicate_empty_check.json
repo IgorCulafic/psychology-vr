@@ -1,0 +1,215 @@
+{
+  "method": "File and decoded-audio SHA256; amplitude scan; gain-invariant waveform cross-correlation allowing offsets with at least 90% of the shorter active span. This detects copies/re-encodes, not whether two different performances sound emotionally similar.",
+  "recordings": [
+    {
+      "file": "01 - Neutralan, prirodan razgovor.m4a",
+      "file_sha256": "2757eadc5d50a0bf97c2ef18bea35c5bc49fcd90f68182b503b40099ff701f17",
+      "decoded_sha256": "a1c49ca266c478547f04a3741feacd9691a0034223ccf9b534ae9ad924403686",
+      "seconds": 59.349,
+      "rms_dbfs": -29.12,
+      "active_seconds_above_threshold": 45.2,
+      "first_active_second": 0.3,
+      "last_active_second": 59.3,
+      "empty_or_near_silent": false
+    },
+    {
+      "file": "02 - Neutralan, jasne rijeci i prirodna pitanja.m4a",
+      "file_sha256": "4608bfff3e1f1777a2775cf610b2bb8cc595e824641c261aeda33c50a6a3aa83",
+      "decoded_sha256": "20d4e1486e407d32853380933df8fabbf974aa588191d6f5c2c2b144435816a4",
+      "seconds": 23.915,
+      "rms_dbfs": -23.26,
+      "active_seconds_above_threshold": 16.2,
+      "first_active_second": 0.5,
+      "last_active_second": 22.8,
+      "empty_or_near_silent": false
+    },
+    {
+      "file": "03 - Frustracija, jos uvijek pod kontrolom.m4a",
+      "file_sha256": "ebee21545130bd7f5a76218c9e657e0ee6f2cfed7ce8aad9f39b413f9489f735",
+      "decoded_sha256": "3ba7ee52356f4b896937f37015fc6d18f68b3e208a6d4aa246011a8c493c8eb9",
+      "seconds": 21.525,
+      "rms_dbfs": -23.06,
+      "active_seconds_above_threshold": 15.7,
+      "first_active_second": 1.7,
+      "last_active_second": 20.5,
+      "empty_or_near_silent": false
+    },
+    {
+      "file": "04 - Ljutnja i jasna granica.m4a",
+      "file_sha256": "0bc38dfe0146e0b8cb510024dad3755a1c7d1579c985950ea003301b31c609f1",
+      "decoded_sha256": "abd9bd9988db08b4e43c0a0b38a59b4c14ce51a99a0730970f1df74274f8c668",
+      "seconds": 21.227,
+      "rms_dbfs": -17.92,
+      "active_seconds_above_threshold": 15.7,
+      "first_active_second": 1.5,
+      "last_active_second": 20.1,
+      "empty_or_near_silent": false
+    },
+    {
+      "file": "05 - Tuga, uz zadrzanu razgovijetnost.m4a",
+      "file_sha256": "291a525f7ef2979508da5da6ae4a5d1323e773d10607d92c972a318a905e9bd1",
+      "decoded_sha256": "7cbeb93819b4d4226c3635abd4d8f39cbebb7266c54564ef0a0d9e0edbde6e5f",
+      "seconds": 32.299,
+      "rms_dbfs": -29.03,
+      "active_seconds_above_threshold": 31.9,
+      "first_active_second": 0.2,
+      "last_active_second": 32.2,
+      "empty_or_near_silent": false
+    },
+    {
+      "file": "06 - Na ivici placa.m4a",
+      "file_sha256": "33c1ca0731d14c0f39a9a22f033283f97770be4a085fe35ad33aedcfa0da6c20",
+      "decoded_sha256": "4234304b137a23b01b136940a96497c3c36a98c15e53bba1305d959592a6f556",
+      "seconds": 32.448,
+      "rms_dbfs": -26.73,
+      "active_seconds_above_threshold": 26.6,
+      "first_active_second": 0.1,
+      "last_active_second": 31.8,
+      "empty_or_near_silent": false
+    },
+    {
+      "file": "07 - Zabrinutost i nesigurnost.m4a",
+      "file_sha256": "9f74583f213e646941504fe2c39952a8e854486a8feab753db81815f977911e8",
+      "decoded_sha256": "fba519cb6e52e35d2d36c8dae06e8b9f4f9f4d4b783150858f27a66a75662272",
+      "seconds": 27.371,
+      "rms_dbfs": -28.68,
+      "active_seconds_above_threshold": 26.7,
+      "first_active_second": 0.2,
+      "last_active_second": 27.3,
+      "empty_or_near_silent": false
+    },
+    {
+      "file": "08 - Radost i toplina.m4a",
+      "file_sha256": "67e11ab3836b1c2e97e726b43a22024f7e2c7cb1f6378684be4b2c77a2e517a5",
+      "decoded_sha256": "0f5880f1443cb8fd87bb701e2ab124bfd130994596d162bff81fc24f7355fdb1",
+      "seconds": 26.88,
+      "rms_dbfs": -25.26,
+      "active_seconds_above_threshold": 20.3,
+      "first_active_second": 0.8,
+      "last_active_second": 26.1,
+      "empty_or_near_silent": false
+    },
+    {
+      "file": "09 - Strah, bez gubitka jasnog govora.m4a",
+      "file_sha256": "ccd8edbf53ac6e1b5b5abd333cab2600e7c6d7fcd900292fb6e189b218e30550",
+      "decoded_sha256": "2a2d237aeb512e47cca25ac5f300d5cc90cde319a7cb2cc5524fc22ffc28db45",
+      "seconds": 23.723,
+      "rms_dbfs": -25.25,
+      "active_seconds_above_threshold": 19.3,
+      "first_active_second": 0.4,
+      "last_active_second": 23.7,
+      "empty_or_near_silent": false
+    },
+    {
+      "file": "10 - Povlacenje i manjak energije.m4a",
+      "file_sha256": "92873c3db88810f3abe5fc99cc6c3a33b3965b54a383f5084f5307570c33e8bb",
+      "decoded_sha256": "d1402bff136c0848c968038d57ce4a02181e771b35337b9aed15203186f5ae40",
+      "seconds": 35.093,
+      "rms_dbfs": -30.15,
+      "active_seconds_above_threshold": 34.2,
+      "first_active_second": 0.3,
+      "last_active_second": 35.0,
+      "empty_or_near_silent": false
+    },
+    {
+      "file": "11 - Gadjenje i odbojnost.m4a",
+      "file_sha256": "910955c54c1ad7e062ec7175ccf36833bdd1f701af4fa111271508af16870ddc",
+      "decoded_sha256": "8eb671f7f91abc8f65fb31c4c6d3f6c2c022c5323f3c9ce50dc4c05a981f499e",
+      "seconds": 26.816,
+      "rms_dbfs": -28.13,
+      "active_seconds_above_threshold": 26.1,
+      "first_active_second": 0.1,
+      "last_active_second": 26.8,
+      "empty_or_near_silent": false
+    },
+    {
+      "file": "12 - Olaksanje i vracanje povjerenja.m4a",
+      "file_sha256": "12a455e17fab1a381a53f7d04e6f726f96c39c77cfda5ba785ca5199f5e9fb51",
+      "decoded_sha256": "815c529d3cea8709439e36ed43b00812ab72887b60a5146765280756e74c09e9",
+      "seconds": 26.987,
+      "rms_dbfs": -31.1,
+      "active_seconds_above_threshold": 25.9,
+      "first_active_second": 0.4,
+      "last_active_second": 26.9,
+      "empty_or_near_silent": false
+    },
+    {
+      "file": "glas_01_poredjenje_ljutito.m4a",
+      "file_sha256": "99397668a7f8f27051ab1d0a489e2a35023f9dc8ec0574659614564c55e604dd",
+      "decoded_sha256": "1b3a03bb487d7afe8e23b73ce15449fd46205dfb274d636e63a0905cef40369a",
+      "seconds": 10.667,
+      "rms_dbfs": -24.81,
+      "active_seconds_above_threshold": 6.7,
+      "first_active_second": 1.0,
+      "last_active_second": 10.6,
+      "empty_or_near_silent": false
+    },
+    {
+      "file": "glas_01_poredjenje_neutralno.m4a",
+      "file_sha256": "7bc02ae21fedd59ba850d61142b92349cd0ce8a73a2f8f4f86b25177ace0e335",
+      "decoded_sha256": "df0918c2d61c645461477fa65b3e8f1d34a9f976481d8a377bbe5042c68a0bb0",
+      "seconds": 11.2,
+      "rms_dbfs": -29.11,
+      "active_seconds_above_threshold": 11.0,
+      "first_active_second": 0.2,
+      "last_active_second": 11.2,
+      "empty_or_near_silent": false
+    },
+    {
+      "file": "glas_01_poredjenje_radosno.m4a",
+      "file_sha256": "0edc119c9d51546dfbcb5458f4858230f8cef9d955df630fd6ef4fda39d40e96",
+      "decoded_sha256": "991767a9539ebb7cd3d3c3c3106cb67dcb4ead4066baa7a79e217c4eda09d16b",
+      "seconds": 10.859,
+      "rms_dbfs": -26.8,
+      "active_seconds_above_threshold": 10.6,
+      "first_active_second": 0.2,
+      "last_active_second": 10.8,
+      "empty_or_near_silent": false
+    },
+    {
+      "file": "glas_01_poredjenje_tuzno.m4a",
+      "file_sha256": "772a2dd32683d9ba02e8d79c9c521b4123faa577d99088c5c5fbdc42ced96b3e",
+      "decoded_sha256": "955395bbc0d92733f4083f374c5a4833b13df04c6085e02011645593b89efe07",
+      "seconds": 15.232,
+      "rms_dbfs": -31.88,
+      "active_seconds_above_threshold": 13.4,
+      "first_active_second": 0.3,
+      "last_active_second": 15.2,
+      "empty_or_near_silent": false
+    }
+  ],
+  "exact_file_duplicates": 0,
+  "exact_decoded_duplicates": 0,
+  "most_similar_waveforms": [
+    {
+      "one": "10 - Povlacenje i manjak energije.m4a",
+      "two": "glas_01_poredjenje_neutralno.m4a",
+      "max_shifted_waveform_correlation": 0.11806
+    },
+    {
+      "one": "01 - Neutralan, prirodan razgovor.m4a",
+      "two": "glas_01_poredjenje_tuzno.m4a",
+      "max_shifted_waveform_correlation": 0.0836
+    },
+    {
+      "one": "12 - Olaksanje i vracanje povjerenja.m4a",
+      "two": "glas_01_poredjenje_neutralno.m4a",
+      "max_shifted_waveform_correlation": 0.08189
+    },
+    {
+      "one": "07 - Zabrinutost i nesigurnost.m4a",
+      "two": "glas_01_poredjenje_neutralno.m4a",
+      "max_shifted_waveform_correlation": 0.07778
+    },
+    {
+      "one": "01 - Neutralan, prirodan razgovor.m4a",
+      "two": "glas_01_poredjenje_neutralno.m4a",
+      "max_shifted_waveform_correlation": 0.077
+    },
+    {
+      "one": "08 - Radost i toplina.m4a",
+      "two": "glas_01_poredjenje_neutralno.m4a",
+      "max_shifted_waveform_correlation": 0.07561
+    }
+  ]
+}

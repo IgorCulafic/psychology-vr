@@ -1,0 +1,13 @@
+{
+  "assets": [
+    "/Game/Psychology/Generated/Character/SeatedIdle.SeatedIdle"
+  ],
+  "materials": [],
+  "warnings": [
+    "Existing consultation map preserved"
+  ],
+  "character_mesh": "/Game/Psychology/Generated/Character/Jumper.Jumper",
+  "animations": [
+    "/Game/Psychology/Generated/Character/SeatedIdle.SeatedIdle"
+  ]
+}

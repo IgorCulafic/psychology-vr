@@ -1,0 +1,17 @@
+﻿original,prepared_wav,script_number,seconds,gain_db
+"01 - Neutralan, prirodan razgovor.m4a",01_neutral_conversation.wav,1,59.349,1.01
+"02 - Neutralan, jasne rijeci i prirodna pitanja.m4a",02_neutral_pronunciation.wav,2,23.915,0.36
+"03 - Frustracija, jos uvijek pod kontrolom.m4a",03_frustrated.wav,3,21.525,-3.49
+04 - Ljutnja i jasna granica.m4a,04_angry.wav,4,21.227,-5.02
+"05 - Tuga, uz zadrzanu razgovijetnost.m4a",05_sad.wav,5,32.299,3.09
+06 - Na ivici placa.m4a,06_near_tears.wav,6,32.448,-1.6
+07 - Zabrinutost i nesigurnost.m4a,07_anxious.wav,7,27.371,4.71
+08 - Radost i toplina.m4a,08_happy.wav,8,26.88,0.45
+"09 - Strah, bez gubitka jasnog govora.m4a",09_afraid.wav,9,23.723,-2.04
+10 - Povlacenje i manjak energije.m4a,10_low_energy.wav,10,35.093,3.56
+11 - Gadjenje i odbojnost.m4a,11_disgusted.wav,11,26.816,0.76
+12 - Olaksanje i vracanje povjerenja.m4a,12_relieved.wav,12,26.987,4.47
+glas_01_poredjenje_ljutito.m4a,glas_01_poredjenje_ljutito.wav,,10.667,-0.13
+glas_01_poredjenje_neutralno.m4a,glas_01_poredjenje_neutralno.wav,,11.2,5.99
+glas_01_poredjenje_radosno.m4a,glas_01_poredjenje_radosno.wav,,10.859,1.85
+glas_01_poredjenje_tuzno.m4a,glas_01_poredjenje_tuzno.wav,,15.232,6.91

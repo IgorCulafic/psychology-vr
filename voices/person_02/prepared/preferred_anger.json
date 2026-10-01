@@ -1,0 +1,18 @@
+{
+  "status": "approved_by_user_in_listening_test",
+  "recorded_date": "2026-10-01",
+  "person": "person_02",
+  "performance_emotion": "angry",
+  "reference": "voices/person_02/prepared/reference_angry.wav",
+  "reference_transcript": "voices/person_02/prepared/reference_angry.json",
+  "higgs_quantization": "bf16",
+  "temperature": 0.60,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": "<|emotion:bitterness|>",
+  "audition_display_label": "Person 2 B — Frustration / bitterness cue",
+  "audition_audio": "voices/auditions/2026-10-01/person-2-stronger/B.wav",
+  "user_feedback": "B · Frustration / bitterness cue is perfect!",
+  "note": "Approved anger voice delivery for person 2 uses the bitterness speech cue with their own angry reference. This is a speaker-specific voice preference, not a change to the character's visual emotion or a global remapping of anger. Not yet integrated into the game's per-person voice routing."
+}
