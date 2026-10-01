@@ -22,7 +22,7 @@ namespace PsychologyVR
         readonly Transform root,head,jaw,leftEye,rightEye;
         readonly Quaternion jawRest,leftRest,rightRest;
         readonly Vector3 jawAxis,leftForward,rightForward;
-        float jawAmount,started; string previous;
+        float jawAmount;
         public int BindingCount=>bindings.Count;
         public float JawWeight=>jawAmount;
         public SkinnedMeshRenderer Skin {get;private set;}
@@ -66,10 +66,8 @@ namespace PsychologyVR
             }
             Set(pair.left,v);Set(pair.right,v);
         }
-        public void Apply(string emotion,float intensity,Dictionary<string,float> common,bool speech,string cue,bool suppress,float transition=.65f)
+        public void Apply(string emotion,float intensity,Dictionary<string,float> common,bool speech,string cue,bool suppress,float age,float action,float transition=.65f)
         {
-            if(previous!=emotion){previous=emotion;started=Time.time;}
-            float age=Time.time-started;
             targets.Clear();targetKeys.Clear();
             switch(emotion)
             {
@@ -79,11 +77,11 @@ namespace PsychologyVR
                 case "relieved":Pair("Mouth_Smile",.22f);Pair("Eye_Squint",.2f);Pair("Brow_Raise_Inner",.12f);break;
                 case "hopeful":Pair("Mouth_Smile",.35f);Pair("Brow_Raise_Inner",.45f);Pair("Eye_Wide",.15f);break;
                 case "sad":Pair("Brow_Raise_Inner",.9f);Pair("Brow_Drop",.2f);Pair("Mouth_Frown",.75f);Set("Mouth_Shrug_Lower",.3f);break;
-                case "angry":Pair("Brow_Drop",1);Pair("Brow_Compress",1);Pair("Eye_Squint",.72f);Pair("Mouth_Press",.6f);Pair("Mouth_Tighten",.2f);Pair("Mouth_Frown",.4f);Pair("Nose_Nostril_Dilate",.45f);Set("Jaw_Open",.015f+(suppress?0:PerformanceDriver.AngerBeat(age)*.055f));break;
-                case "afraid":Pair("Brow_Raise_Inner",.9f);Pair("Brow_Raise_Outer",.5f);Pair("Eye_Wide",.8f);Pair("Mouth_Stretch",.5f);Set("Jaw_Open",.25f);break;
-                case "panicked":Pair("Brow_Raise_Inner",1);Pair("Brow_Raise_Outer",.8f);Pair("Eye_Wide",1);Pair("Mouth_Stretch",.6f);Set("Jaw_Open",.35f);break;
+                case "angry":Pair("Brow_Drop",1);Pair("Brow_Compress",1);Pair("Eye_Squint",.72f);Pair("Mouth_Press",.6f);Pair("Mouth_Tighten",.2f);Pair("Mouth_Frown",.4f);Pair("Nose_Nostril_Dilate",.45f);Set("Jaw_Open",.015f+(suppress?0:action*.055f));break;
+                case "afraid":Pair("Brow_Raise_Inner",.9f);Pair("Brow_Raise_Outer",.5f);Pair("Eye_Wide",.8f);Pair("Mouth_Stretch",.5f);Set("Jaw_Open",.14f+.11f*(1-Mathf.SmoothStep(0,1,age/4))+(suppress?0:action*.035f));break;
+                case "panicked":Pair("Brow_Raise_Inner",1);Pair("Brow_Raise_Outer",.8f);Pair("Eye_Wide",1);Pair("Mouth_Stretch",.6f);Set("Jaw_Open",.22f+.13f*(1-Mathf.SmoothStep(0,1,age/4))+(suppress?0:action*.06f));break;
                 case "disgusted":Pair("Nose_Sneer",.9f);Pair("Nose_Crease",.5f);Pair("Mouth_Up_Upper",.6f);Pair("Eye_Squint",.45f);Pair("Brow_Drop",.4f);break;
-                case "crying":Pair("Brow_Raise_Inner",1);Pair("Mouth_Frown",.8f);Pair("Eye_Squint",.65f);Pair("Eye_Blink",.4f);Set("Jaw_Open",suppress?0:.12f+Mathf.Pow(Mathf.Max(0,Mathf.Sin(age*7)),3)*.17f);break;
+                case "crying":Pair("Brow_Raise_Inner",1);Pair("Mouth_Frown",.8f);Pair("Eye_Squint",.65f);Pair("Eye_Blink",.4f);Set("Jaw_Open",suppress?0:.12f+action*.17f);break;
                 case "surprised":float recovery=1-Mathf.SmoothStep(0,1,(age-1.2f)/2.5f);Pair("Brow_Raise_Outer",.25f+.65f*recovery);Pair("Brow_Raise_Inner",.2f+.5f*recovery);Pair("Eye_Wide",.15f+.55f*recovery);Set("Jaw_Open",.35f*recovery);break;
                 case "despondent":Pair("Brow_Raise_Inner",.2f);Pair("Mouth_Frown",.5f);Pair("Eye_Blink",.45f);Set("Jaw_Open",.035f);break;
                 case "frustrated":Pair("Brow_Compress",.35f);Set("Brow_Raise_Inner_L",.5f);Set("Brow_Raise_Outer_L",.65f);Pair("Mouth_Press",.5f);Set("Mouth_L",.2f);break;
@@ -93,7 +91,16 @@ namespace PsychologyVR
                 case "skeptical":Set("Brow_Raise_Outer_L",.85f);Set("Brow_Drop_R",.4f);Set("Eye_Squint_R",.45f);Set("Mouth_L",.3f);Pair("Mouth_Press",.35f);break;
                 case "numb":Pair("Eye_Squint",.15f);break;
             }
-            foreach(var key in targetKeys)targets[key]*=intensity;
+            foreach(var key in targetKeys)
+            {
+                float variation=1;
+                if(!suppress && emotion!="numb" && (key.StartsWith("Brow_")||key.StartsWith("Mouth_")||key.StartsWith("Cheek_")||key.StartsWith("Eye_Squint")))
+                {
+                    float side=key.EndsWith("_R")?4.7f:1.3f;
+                    variation=.84f+.16f*Mathf.PerlinNoise(age*.24f,side)+(emotion=="angry"||emotion=="crying"?action*.06f:0);
+                }
+                targets[key]*=intensity*variation;
+            }
             float blink=Mathf.Max(common["BlinkLeft"],Value("Eye_Blink_L"));Pair("Eye_Blink",blink);
             Pair("Eye_Wide",Value("Eye_Wide_L")*(1-blink));
             if(speech)
@@ -109,10 +116,11 @@ namespace PsychologyVR
                 if(cue=="H")Set("V_Lip_Open",.4f);
             }
             float mouth=Value("Jaw_Open");
-            Pair("Mouth_Smile",Value("Mouth_Smile_L")*(1-mouth*.7f));Pair("Mouth_Frown",Value("Mouth_Frown_L")*(1-mouth*.7f));
-            jawAmount=Mathf.Lerp(jawAmount,mouth,1-Mathf.Exp(-22*Time.deltaTime));
-            jaw.localRotation=jawRest*Quaternion.AngleAxis(jawAmount*25,jawAxis);
+            Set("Mouth_Smile_L",Value("Mouth_Smile_L")*(1-mouth*.7f));Set("Mouth_Smile_R",Value("Mouth_Smile_R")*(1-mouth*.7f));
+            Set("Mouth_Frown_L",Value("Mouth_Frown_L")*(1-mouth*.7f));Set("Mouth_Frown_R",Value("Mouth_Frown_R")*(1-mouth*.7f));
             float normalBlend=1-Mathf.Exp(-(3/Mathf.Clamp(transition,.15f,2))*Time.deltaTime);
+            jawAmount=Mathf.Lerp(jawAmount,mouth,speech?1-Mathf.Exp(-22*Time.deltaTime):normalBlend);
+            jaw.localRotation=jawRest*Quaternion.AngleAxis(jawAmount*25,jawAxis);
             float speechBlend=1-Mathf.Exp(-22*Time.deltaTime),blinkBlend=1-Mathf.Exp(-70*Time.deltaTime);
             for(int i=0;i<bindings.Count;i++)
             {

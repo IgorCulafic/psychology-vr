@@ -1,0 +1,11 @@
+MoCap Central Animation Pack - Sample, version 1.2.1 (Unity 2022.3).
+https://mocapcentral.com/products/mocap-studio-series-sample-pack-free
+License: https://mocapcentral.com/pages/licensing
+
+Talk.anim: MCU_am_Stand_Conv_Talk_05_Generic.FBX
+Sad.anim: MCU_am_Stand_Emotion_Sad_01.FBX
+Frustrated.anim: MCU_am_Stand_Emotion_Frustrated_01_All.FBX
+
+Humanoid motion retargeted to Jumper at 30 fps; only upper-body rotations
+are retained. Root, pelvis, legs, eyes and jaw are not animated by these clips.
+Licensed assets: do not distribute these files as a standalone animation pack.

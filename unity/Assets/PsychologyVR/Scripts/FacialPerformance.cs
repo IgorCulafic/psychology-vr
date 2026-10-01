@@ -32,6 +32,10 @@ namespace PsychologyVR
             "BrowRaiseLeft","EyeWide","NoseWrinkle","UpperLipRaise"};
         Transform head; Vector3 localForward,localUp,gazeOffset,smoothedDirection;
         float nextBlink,blinkStart=-10,nextGaze;
+        float performanceTime;
+        Vector3 leftFaceSupport,rightFaceSupport;
+        internal bool HasFaceSupports {get;private set;}
+        internal Vector3 FaceSupport(float side)=>head.TransformPoint(side<0?leftFaceSupport:rightFaceSupport)+head.TransformDirection(localForward)*.012f;
         SkinnedMeshRenderer faceSkin;
         MaterialPropertyBlock flushBlock;
         float flush;
@@ -40,6 +44,7 @@ namespace PsychologyVR
 
         void Awake()
         {
+            performanceTime=Time.time;
             foreach(string shape in Shapes) {weights[shape]=0;targets[shape]=0;}
             foreach(var renderer in GetComponentsInChildren<SkinnedMeshRenderer>())
             {
@@ -56,12 +61,35 @@ namespace PsychologyVR
             {
                 ccRig=new CCFacialRig(gameObject,head);ShapeBindingCount=ccRig.BindingCount;
                 faceSkin=ccRig.Skin;flushBlock=new MaterialPropertyBlock();Tears=gameObject.AddComponent<FaceTears>();
+                CacheFaceSupports();
                 Tears.startHeight=ccRig.EyeHeight-.012f;Tears.endHeight=Tears.startHeight-.085f;Tears.startWidth=.026f;Tears.endWidth=.040f;
                 Tears.Initialize(head,faceSkin);
             }
             foreach(var binding in bindings)if(binding.name=="NoseWrinkle" && head)
             {faceSkin=binding.renderer;flushBlock=new MaterialPropertyBlock();Tears=gameObject.AddComponent<FaceTears>();Tears.Initialize(head,binding.renderer);break;}
-            nextBlink=Time.time+UnityEngine.Random.Range(1.5f,3.5f);
+            nextBlink=performanceTime+UnityEngine.Random.Range(1.5f,3.5f);
+        }
+
+        void CacheFaceSupports()
+        {
+            // Sample cheek skin once, not a spherical head proxy or a guessed
+            // distance from the neck bone. The anchors then follow the head.
+            var baked=new Mesh();faceSkin.BakeMesh(baked);
+            var vertices=baked.vertices;var normals=baked.normals;
+            float leftScore=float.MaxValue,rightScore=float.MaxValue;
+            for(int i=0;i<vertices.Length;i++)
+            {
+                Vector3 world=faceSkin.transform.TransformPoint(vertices[i]);
+                Vector3 d=Quaternion.Inverse(transform.rotation)*(world-head.position);
+                if(d.y<ccRig.EyeHeight-.075f || d.y>ccRig.EyeHeight-.015f || Mathf.Abs(d.x)<.025f || Mathf.Abs(d.x)>.075f)continue;
+                if(Vector3.Dot(faceSkin.transform.TransformDirection(normals[i]),transform.forward)<.55f)continue;
+                Vector3 wanted=new Vector3(Mathf.Sign(d.x)*.048f,ccRig.EyeHeight-.045f,.09f);
+                float score=(d-wanted).sqrMagnitude;
+                if(d.x<0 && score<leftScore){leftScore=score;leftFaceSupport=head.InverseTransformPoint(world);}
+                if(d.x>0 && score<rightScore){rightScore=score;rightFaceSupport=head.InverseTransformPoint(world);}
+            }
+            Destroy(baked);HasFaceSupports=leftScore<float.MaxValue && rightScore<float.MaxValue;
+            if(!HasFaceSupports)Debug.LogError("Facial hand support needs front-facing cheek skin on "+name,this);
         }
 
         public void BeginSpeech(AudioSource source,MouthCue[] mouthCues)
@@ -83,10 +111,12 @@ namespace PsychologyVR
         }
         public void PauseSpeech(bool value) {paused=value;}
         public void StopSpeech() {speaking=false;paused=false;cues=null;envelope=null;speech=null;CurrentMouthCue="X";}
-        public void BlinkNow() {blinkStart=Time.time;nextBlink=Time.time+UnityEngine.Random.Range(2.5f,5.0f)*EmotionLibrary.Find(body?body.Emotion:"neutral").blinkInterval;}
+        public void BlinkNow() {blinkStart=performanceTime;nextBlink=performanceTime+UnityEngine.Random.Range(2.5f,5.0f)*EmotionLibrary.Find(body?body.Emotion:"neutral").blinkInterval;}
 
         void LateUpdate()
         {
+            if(body && body.PerformancePaused)return;
+            performanceTime+=Time.deltaTime;
             foreach(string key in Shapes)targets[key]=0;
             string emotion=body?body.Emotion:"neutral";float intensity=body?body.Intensity:0;
             var preset=EmotionLibrary.Find(emotion);
@@ -96,9 +126,9 @@ namespace PsychologyVR
             if(faceSkin){faceSkin.GetPropertyBlock(flushBlock,0);flushBlock.SetColor("_BaseColor",Color.Lerp(Color.white,new Color(1,.76f,.70f),flush));faceSkin.SetPropertyBlock(flushBlock,0);}
             if(Tears)Tears.SetIntensity(body && body.TransientsSuppressed?0:preset.tears*intensity);
             if(emotion=="crying" && body && !body.TransientsSuppressed)
-                targets["JawOpen"]=(.15f+Mathf.Pow(Mathf.Max(0,Mathf.Sin(Time.time*7f)),2)*.4f)*intensity;
-            if(Time.time>=nextBlink)BlinkNow();
-            float age=Time.time-blinkStart;
+                targets["JawOpen"]=(.15f+body.EmotionMotion*.4f)*intensity;
+            if(performanceTime>=nextBlink)BlinkNow();
+            float age=performanceTime-blinkStart;
             float blink=age<.075f?Mathf.Clamp01(age/.075f):age<.18f?1-Mathf.Clamp01((age-.075f)/.105f):0;
             if(blinkOverride>=0)blink=blinkOverride;
             blink=Mathf.Max(blink,Mathf.Max(targets["BlinkLeft"],targets["BlinkRight"]));
@@ -113,11 +143,12 @@ namespace PsychologyVR
             foreach(string shape in Shapes)
             {
                 bool speechShape=shape=="JawOpen"||shape=="MouthPucker"||shape=="MouthWide"||shape=="MouthPress";
-                float rate=shape.StartsWith("Blink")?70:speechShape&&speaking?22:body?3/body.TransitionSeconds:5;
+                float rate=shape.StartsWith("Blink")?70:shape.StartsWith("EyeLook")?35:speechShape&&IsSpeaking?22:body?3/body.TransitionSeconds:5;
                 weights[shape]=Mathf.Lerp(weights[shape],Mathf.Clamp01(targets[shape]),1-Mathf.Exp(-rate*Time.deltaTime));
             }
             foreach(var binding in bindings)binding.renderer.SetBlendShapeWeight(binding.index,weights[binding.name]*ShapeGain(binding.name)*100);
-            ccRig?.Apply(emotion,intensity,weights,speaking,CurrentMouthCue,body && body.TransientsSuppressed,body?body.TransitionSeconds:.65f);
+            ccRig?.Apply(emotion,intensity,weights,IsSpeaking,CurrentMouthCue,body && body.TransientsSuppressed,
+                body?body.EmotionAge:performanceTime,body?body.EmotionMotion:0,body?body.TransitionSeconds:.65f);
             JawWeight=ccRig!=null?ccRig.JawWeight:weights["JawOpen"];
         }
         static float ShapeGain(string name)
@@ -158,16 +189,17 @@ namespace PsychologyVR
         }
         void UpdateGaze(string emotion)
         {
-            if(!automaticGaze || !head || !conversationTarget || (body && body.GazeWeight<.01f))return;
-            if(Time.time>=nextGaze)
+            if(!automaticGaze || !head || !conversationTarget)return;
+            if(performanceTime>=nextGaze)
             {
-                nextGaze=Time.time+UnityEngine.Random.Range(2.2f,4.5f);
+                nextGaze=performanceTime+UnityEngine.Random.Range(2.2f,4.5f);
                 float away=EmotionLibrary.Find(emotion).lookAwayChance;
                 gazeOffset=gazeAversion && UnityEngine.Random.value<away?transform.right*UnityEngine.Random.Range(-.65f,.65f)+Vector3.down*.35f:Vector3.zero;
             }
             Vector3 forward=head.TransformDirection(localForward),up=head.TransformDirection(localUp);
             Vector3 direction=(conversationTarget.position+gazeOffset-(head.position+up*.10f)).normalized;
             if(Vector3.Dot(direction,transform.forward)<.25f)return;
+            Vector3 eyeDirection=direction;
             if(smoothedDirection==Vector3.zero)smoothedDirection=forward;
             smoothedDirection=Vector3.Slerp(smoothedDirection,direction,1-Mathf.Exp(-5*Time.deltaTime));
             direction=smoothedDirection;
@@ -178,9 +210,11 @@ namespace PsychologyVR
                 head.rotation=Quaternion.Slerp(Quaternion.identity,Quaternion.RotateTowards(Quaternion.identity,correction,25),.65f*body.GazeWeight)*head.rotation;
             forward=head.TransformDirection(localForward);up=head.TransformDirection(localUp);
             Vector3 right=Vector3.Cross(up,forward).normalized;
-            float yaw=Mathf.Atan2(Vector3.Dot(direction,right),Vector3.Dot(direction,forward))*Mathf.Rad2Deg;
+            // Eyes acquire the target before the slower head turn; an emotional
+            // head pose may suppress head tracking without freezing the eyes.
+            float yaw=Mathf.Atan2(Vector3.Dot(eyeDirection,right),Vector3.Dot(eyeDirection,forward))*Mathf.Rad2Deg;
             EyeYaw=yaw;
-            float pitch=Mathf.Asin(Mathf.Clamp(Vector3.Dot(direction,up),-1,1))*Mathf.Rad2Deg;
+            float pitch=Mathf.Asin(Mathf.Clamp(Vector3.Dot(eyeDirection,up),-1,1))*Mathf.Rad2Deg;
             targets["EyeLookLeft"]=Mathf.Clamp01(-yaw/9.7f);targets["EyeLookRight"]=Mathf.Clamp01(yaw/9.7f);
             targets["EyeLookUp"]=Mathf.Clamp01(pitch/6.9f);targets["EyeLookDown"]=Mathf.Clamp01(-pitch/6.9f);
         }

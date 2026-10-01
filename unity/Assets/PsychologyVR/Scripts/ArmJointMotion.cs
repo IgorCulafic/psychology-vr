@@ -112,7 +112,11 @@ namespace PsychologyVR
             Quaternion bend=Quaternion.AngleAxis(deviation,palm)*Quaternion.AngleAxis(-flex,across);
             hand.rotation=Quaternion.LookRotation(bend*foreDirection,bend*palm)*Quaternion.Inverse(handBasis);
 
-            // Measure the resulting bone geometry, not just the requested angles.
+            ObservePose();
+        }
+        public void ObservePose()
+        {
+            // Measure FK clips and IK using the same resulting bone geometry.
             Vector3 actualUpper=(lower.position-upper.position).normalized,actualFore=(hand.position-lower.position).normalized;
             WristBend=Vector3.Angle(actualFore,hand.TransformDirection(fingerLocal));
             Vector3 actualFingers=hand.TransformDirection(fingerLocal);
@@ -120,6 +124,25 @@ namespace PsychologyVR
             WristTwist=Mathf.Abs(Vector3.SignedAngle(transportedPalm,hand.TransformDirection(palmLocal),actualFingers));
             ElbowBend=Vector3.Angle(actualUpper,actualFore);
             HingeError=Vector3.Angle(Vector3.Cross(actualUpper,actualFore),upper.TransformDirection(hingeLocal));
+        }
+        public void DistributeRecordedRoll()
+        {
+            RestoreHelpers();
+            Vector3 fore=(hand.position-lower.position).normalized;
+            Vector3 fingers=hand.TransformDirection(fingerLocal);
+            Vector3 transported=Quaternion.FromToRotation(fore,fingers)*lower.TransformDirection(lowerPalmLocal);
+            float twist=Vector3.SignedAngle(transported,hand.TransformDirection(palmLocal),fingers);
+            Quaternion wrist=hand.rotation;
+            Quaternion t1=twist1?twist1.rotation:Quaternion.identity,t2=twist2?twist2.rotation:Quaternion.identity;
+            Quaternion share=elbowShare?elbowShare.rotation:Quaternion.identity;
+            // Humanoid retargeting may put pronation into the wrist. Move that
+            // rotation into the forearm without changing the recorded hand pose.
+            lower.rotation=Quaternion.AngleAxis(twist,fore)*lower.rotation;
+            hand.rotation=wrist;
+            if(twist1)twist1.rotation=Quaternion.AngleAxis(twist*.4f,fore)*t1;
+            if(twist2)twist2.rotation=Quaternion.AngleAxis(twist*.75f,fore)*t2;
+            if(elbowShare)elbowShare.rotation=share;
+            ObservePose();
         }
         void RestoreHelpers()
         {
