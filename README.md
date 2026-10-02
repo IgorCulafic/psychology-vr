@@ -1,12 +1,48 @@
-# Psychology VR — Alex prototype
+# Psychology VR
 
-Unity 6000.6.0f1, Windows PCVR, Meta Quest 3. Seated patient simulations with local speech recognition, selectable dialogue models, BF16 Higgs voice, facial expressions, gaze, timed lip sync, and structured body cues.
+Psychology VR is a working prototype of a training tool where psychology students can practise counselling conversations with simulated patients. Students speak to an AI character who listens, responds, and expresses emotions through its voice, facial expressions and body language. The experience works in a VR headset or on a desktop, with speech recognition, dialogue and voice generation running locally on a single PC.
 
-Current default: **Gemma 4 12B QAT Q4**, chosen after conversational testing. In Unity use **Settings → Dialogue model** to select an installed alternative. Bonsai 2 27B PQ2 and the original Qwen 27B IQ4 remain available for comparison. Changes apply between replies and preserve the conversation and BF16 voice. See [model switching](docs/MODEL_SWITCHING.md).
+The project brings together character design, local AI, expressive speech and interactive 3D development. It is being developed for psychology training, with limited early testing so far and broader student testing planned for **November 2026**.
 
-The latest Quest Link check reached **22.40 GiB whole-GPU memory** with Gemma and BF16 speech on an RTX 5090. The headset froze while the desktop game continued, so this is a memory measurement, not a successful VR stability or RTX 4090 certification. See the [live Quest report](docs/QUEST_LINK_LIVE_TEST.md), [desktop memory breakdown](docs/GEMMA_VRAM.md), and [headset-free stress tests](docs/HEADSET_FREE_STRESS.md).
+![Alex speaking in the virtual consultation room, with a Montenegrin subtitle](docs/images/consultation-speaking.png)
 
-![Furnished consultation room](docs/generated/furnished-room.png)
+*The consultation prototype in action: Alex speaks in the furnished room, with subtitles accompanying his voice.*
+
+## What works today
+
+- **Spoken conversations:** talk through a microphone and hear the character reply, with text input and subtitles also available.
+- **Four fictional patient profiles:** Alex, Nikola, Stefan and Ivan have distinct backstories and conversation guidance. Session memory helps retain earlier disclosures and corrections, and case descriptions can be hidden during practice.
+- **Expressive characters:** facial expressions, gaze, tears, seated gestures and lip sync accompany speech. The live character currently uses procedural animation.
+- **Voice cloning:** all three contributed voices have been cloned, with generated samples and selected emotional delivery presets available in an offline listening library. Assigning the voices to individual patients is still pending.
+- **Reviewable sessions:** conversations are saved locally as readable transcripts and structured records for later review.
+
+| Choose a patient and scenario | Practise with the case details hidden |
+| --- | --- |
+| ![Patient selection showing Alex's scenario and the four available profiles](docs/images/patient-selection.png) | ![Student view hides the patient's backstory and revealing scenario title](docs/images/student-view.png) |
+
+For a quick look, see the [one-page project overview in Montenegrin](output/pdf/Psychology_VR_pregled_projekta_CG.pdf). The [latest Windows release](https://github.com/IgorCulafic/psychology-vr/releases/latest) also includes **Preview Voices.cmd**, which plays selected voice samples without loading the AI models.
+
+## Development and model testing
+
+Development has covered the Unity consultation environment, the local AI services, patient behaviour and memory, voice preparation, animation tools, model comparisons and Windows release packaging. The main engineering challenge is making speech recognition, dialogue, expressive voice generation and VR rendering work together on one PC.
+
+| Part | Current choice | Why it was selected |
+| --- | --- | --- |
+| Dialogue | **Gemma 4 12B QAT Q4** | Preferred in conversational testing, with a smaller memory footprint that leaves more room for speech and VR. Tests also examined recall, character consistency and regional language quality. |
+| Speech recognition | **Whisper large-v3-turbo**, through faster-whisper | Improved recognition in the project's Montenegrin speech checks. It runs on the CPU to leave GPU capacity for dialogue, voice and rendering. |
+| Voice generation | **Higgs TTS 3 in BF16** | Selected through listening comparisons for expressive delivery and voice similarity. The higher-precision voice model was retained after testing lighter alternatives. |
+
+Optimisation includes keeping the speech model loaded between replies, preparing voice references in advance, controlling dialogue context and GPU memory use, and playing completed sentences while later speech is being generated. Lip sync follows the audio playback clock so it stays aligned through pauses and interruptions.
+
+These are development results, with language accuracy, character consistency and response delay still under review. See the [dialogue comparison](docs/GEMMA_VS_ORIGINAL.md), [speech recognition checks](docs/MONTENEGRIN_CONVERSATION.md), [voice listening tests](docs/ALTERNATIVE_TTS_AUDITIONS.md) and [sentence playback work](docs/SENTENCE_PLAYBACK.md) for measurements and their limits. Historical reports retain the models and settings used at the time; **Gemma is the current default**.
+
+## Current status and next steps
+
+The project is in active development. Some early testing has taken place; broader use with psychology students is planned for November 2026. It is not yet a fully implemented or validated training programme.
+
+Current work focuses on **acted animations and video-based motion extraction (rotoscoping)**. A separate proof of concept transfers recorded facial expressions and head rotation onto the 3D character. Integrating these performances into live conversations, developing body animations, and assigning the cloned voices to patients are the next steps. See the [facial and head-motion prototype](docs/RECORDED_FACE_POC.md) and [voice library](voices/README.md).
+
+Build stability and longer stress tests remain essential before student sessions. In the latest Quest Link test, the headset froze while the desktop game continued. The RTX 5090 test reached **22.40 GiB of total GPU memory use**; it does not establish stability on the intended RTX 4090 university PCs. Headset controls, microphone routing and sustained VR performance still need on-device checks. See the [Quest test report](docs/QUEST_LINK_LIVE_TEST.md), [memory breakdown](docs/GEMMA_VRAM.md) and [stress-test results](docs/HEADSET_FREE_STRESS.md).
 
 ## Download and run
 
@@ -16,17 +52,7 @@ Every release is a complete application package with all previous updates; no pa
 
 Use the release asset above, not GitHub's **Source code.zip**. The source repository is for development; the instructions below describe that workflow. The three contributed voice packs are tracked through Git LFS and included in the release. Use **Preview Voices.cmd** to hear selected samples; assigning these voices to patient characters is still pending.
 
-**Legacy Qwen GPU presets:** Selecting Auto in PC Settings selects the lighter IQ3_M / 32-layer dialogue
-configuration on a 24 GB RTX 4090, or the original IQ4_XS / 48-layer configuration
-on a 32 GB+ GPU. Both keep BF16 speech. Use **PC Settings.cmd** to choose Auto or
-either manual preset. The 4090 preset targets the university's 64 GB RAM machines;
-it trades some response speed for VR memory headroom. See [GPU presets](docs/GPU_PRESETS.md)
-for measurements and the remaining on-device acceptance check.
-
-For lower dialogue latency, **PC Settings.cmd → 4 Fast dialogue** selects a
-smaller 9B Q6 model fully on the GPU. BF16 speech stays unchanged. This is an
-opt-in comparison: local first playback was 13.1 seconds, but grammar and
-character-consistency weaknesses remain. PC Settings options **5 Bonsai** and **6 Gemma** install/select the newer alternatives. Fresh setup defaults to Gemma.
+Fresh setup selects **Gemma 4 12B QAT Q4**, **BF16 Higgs speech** and **CPU Whisper**. On an existing installation, **PC Settings.cmd → 6 Gemma** installs/selects the current default. In Unity, **Settings → Dialogue model** switches between installed alternatives between replies, preserving the conversation and voice settings. Older PC Settings presets remain available for comparisons; see [model switching](docs/MODEL_SWITCHING.md) before changing them.
 
 ## Voice and animation update
 
@@ -110,7 +136,7 @@ Unity menu **Psychology VR → Build Windows prototype** writes `unity/Builds/Wi
 
 ## Current features and limits
 
-The local configuration is `services/config.local.json`. The expressive setup uses Qwen IQ4_XS through llama.cpp on port 8087, resident Higgs on port 8766, and multilingual faster-whisper on CPU. See [live expressive speech](docs/LIVE_EXPRESSIVE_SPEECH.md) for setup, private voice prerequisites, Montenegrin input/output, performance timing and measured limitations. `config.live.example.json` retains the lighter English/Kokoro baseline; `config.expressive.example.json` selects the new pipeline. The bridge binds only to 127.0.0.1:8765. Thinking is disabled both in the model startup configuration and each dialogue request.
+The local configuration is `services/config.local.json`. The current expressive setup uses **Gemma 4 12B QAT Q4** through llama.cpp on port 8087, resident **Higgs TTS 3 BF16** on port 8766, and **Whisper large-v3-turbo** through faster-whisper on CPU. `services/dialogue-models.json` records the selectable dialogue models. `config.live.example.json` retains the older English/Kokoro baseline; `config.expressive.example.json` describes the expressive pipeline. Use **Setup.cmd** for the current pinned runtime and machine-specific configuration. The bridge binds only to 127.0.0.1:8765. Thinking is disabled both in the model startup configuration and each dialogue request.
 
 `services/config.example.json` is explicitly **scripted test mode** with Windows' built-in voice and no STT. It exists for transport and animation testing; its responses are not AI. To use it, stop live services and run `./tools/launch.ps1 -Scripted -Desktop`.
 
@@ -124,31 +150,15 @@ Desktop tests cannot verify headset comfort, controller mappings, microphone rou
 
 ## Reproduce the local environment
 
-The core bridge uses Python's standard library. Neural speech dependencies are pinned in `services/requirements-lock.txt`.
+Use the same pinned installer as the Windows release. In a source checkout, first supply `voices/reference.wav` and `voices/reference.json` with its matching `text` transcript, or configure an existing prepared reference as described in the [voice setup notes](voices/README.md#runtime-status). The release already supplies its shared reference.
 
 ```powershell
-uv venv --python 3.11 .venv
-uv pip install --python .venv/Scripts/python.exe -r services/requirements-lock.txt
-Copy-Item services/config.live.example.json services/config.local.json
-./.venv/Scripts/python.exe tools/download-runtime.py
-./.venv/Scripts/python.exe tools/download-lipsync.py
+./Setup.cmd
 ```
 
-Download the selected model with the current Hugging Face CLI:
+The installer prepares a private Python environment, downloads the selected dialogue model, Higgs, Whisper and lip-sync tools, and writes the local configuration. Fresh installations select Gemma; existing configurations are preserved. To move an older setup to Gemma, use **PC Settings.cmd → 6 Gemma**. Build the Unity Windows player before using the game launcher, or use `./tools/launch.ps1 -NoGame` to start the services for the editor.
 
-```powershell
-./.venv/Scripts/hf.exe download HauhauCS/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-MTP-GGUF Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-IQ4_XS.gguf --revision 993a5971fda8f30dd1b7eb2654792ba4415c7460 --local-dir .cache/models/qwen
-./.venv/Scripts/hf.exe download Systran/faster-whisper-small.en --local-dir .cache/whisper/small.en
-```
-
-Put `kokoro-v1.0.onnx` and `voices-v1.0.bin` from the [kokoro-onnx model-files-v1.1 release](https://github.com/thewh1teagle/kokoro-onnx/releases/tag/model-files-v1.1) into `.cache/kokoro/`.
-
-Standalone terminals for debugging:
-
-```powershell
-python tools/start-model.py
-./tools/start-service.ps1
-```
+See [START HERE](START%20HERE.md) for setup requirements and troubleshooting, and [portable release setup](docs/PORTABLE_RELEASE.md) for packaging details. Neural speech dependencies are pinned in `services/requirements-lock.txt`.
 
 ## Verification
 
@@ -165,4 +175,4 @@ evidence exports, without changing game settings.
 
 The suite covers response validation, reasoning separation, reset, late responses, HTTP boundaries, and the model request contract. Generated evidence is in `docs/generated/`. See `docs/BUILD_STATUS.md` for the latest verified results and remaining work.
 
-The AI model weights, virtual environments, downloaded runtimes, audio auditions, local configuration and Unity build/import caches are excluded from Git. Source character descriptions, original 3D model packs and converted Unity assets are included. Compiled builds are distributed separately through GitHub Releases. See `ASSET_CREDITS.md` for attribution. No blanket license is granted over the bundled third-party assets.
+The AI model weights, virtual environments, downloaded runtimes, personal facial-capture footage, local configuration, session logs and Unity build/import caches are excluded from Git. Source character descriptions, original 3D model packs, converted Unity assets and the three contributed voice packs with selected auditions are included. Compiled builds are distributed separately through GitHub Releases. See `ASSET_CREDITS.md` for attribution. No blanket license is granted over the bundled third-party assets.
