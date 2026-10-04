@@ -1,0 +1,15 @@
+{
+  "status": "approved_by_user_for_use",
+  "approval_date": "2026-10-04",
+  "approval_quote": "There, I think this is good enough now.",
+  "feedback_source": "voices/igor_2026-10-03/remaining-voice-repairs/feedback/afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd/remaining-voice-repairs-feedback.json",
+  "feedback_sha256": "afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd",
+  "feedback_saved_at": "2026-10-03T23:31:45.757Z",
+  "choice": "A is best",
+  "notes": "",
+  "tts_script": "latin",
+  "person": "igor_2026-10-03",
+  "kind": "text_input_preference",
+  "new_dialogue_wording": "nisam",
+  "note": "Latin spelling retained. Listening preference is not a guarantee of exact č/ć pronunciation."
+}

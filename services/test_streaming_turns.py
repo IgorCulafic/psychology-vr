@@ -71,6 +71,16 @@ class StreamingTests(unittest.TestCase):
         self.assertTrue(records[-1]['partial_sentence_words_unknown'])
         self.assertEqual(records[-1]['confirmed_text'],'First sentence.')
 
+    def test_interrupted_whole_performance_does_not_claim_unconfirmed_words(self):
+        self.b.config['tts_provider']='higgs'
+        self.b.generate=lambda *args:[dict(beat(),emotion='despondent')]
+        self.b.synthesize=lambda *args:None
+        turn=self.start()
+        self.assertEqual(len(self.b.poll_stream(self.key,turn)['segments']),1)
+        self.b.finish_stream(self.key,turn,0,1.5,'interrupted')
+        self.assertEqual(self.b.sessions[self.key].memory[-1]['patient'],'')
+        self.assertNotIn('First sentence.',self.b.sessions[self.key].history[-1]['content'])
+
     def test_out_of_order_and_invalid_acknowledgements(self):
         turn=self.start();self.b.acknowledge(self.key,turn,1,.8);self.b.acknowledge(self.key,turn,0)
         self.assertEqual(self.b.sessions[self.key].stream['completed_count'],1)

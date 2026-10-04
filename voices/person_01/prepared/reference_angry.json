@@ -1,10 +1,24 @@
 {
-  "text": "Ne, to nije u redu. Nemate pravo da mi se obraćate na taj način. Mogu da prihvatim da se ne slažemo, ali neću da me vrijeđate i onda očekujete da nastavim kao da se ništa nije desilo. Prestanite da mi upadate u riječ. Ako se ovo nastavi, završićemo razgovor i ja ću otići.",
-  "transcript_source": "user-confirmed supplied script",
-  "original": "04 - Ljutnja i jasna granica.m4a",
-  "trim": [
-    0.85,
-    20.6
+  "source": "voices\\person_01\\04 - Ljutnja i jasna granica_01.wav",
+  "sha256": "10cbe20290081064199510010891e399376ed818c1467c39940e7c2bbeab351e",
+  "output": "voices\\person_01\\dereverb-mono-2026-10-04\\cleaned\\04_angry.wav",
+  "output_sha256": "3a8c2fbf0bba1dd71c1c1c3ef5457cf3781eabe87a70ec338b880114b42885c7",
+  "channels": 1,
+  "sample_rate": 48000,
+  "seconds": 21.226666666666667,
+  "processing": "Reverb separation only. Model at native 44.1kHz; polyphase resampling back to 48kHz; mono output; constant speech-level matching gain. No extra denoising, EQ, gating or compression.",
+  "constant_gain": 0.99945256878079,
+  "model": "dereverb_mel_band_roformer_anvuew_sdr_19.1729.ckpt",
+  "model_sha256": "9262877b87e9ebb0fb808a456b0a411fa677f5df31c8383c1254af531c078970",
+  "trim_seconds": [
+    0,
+    21.226666666666667
   ],
-  "denoised": true
+  "source_preserved": true,
+  "text": "Ne, to nije u redu. Nemate pravo da mi se obraćate na taj način. Mogu da prihvatim da se ne slažemo, ali neću da me vrijeđate i onda očekujete da nastavim kao da se ništa nije desilo. Prestanite da mi upadate u riječ. Ako se ovo nastavi, završićemo razgovor i ja ću otići.",
+  "transcript_status": "user-confirmed supplied script",
+  "transcript_provenance": "Previous reference text; supplied WAV is newly cleaned/trimmed, checked separately with ASR.",
+  "approval_date": "2026-10-04",
+  "status": "approved_by_user_good_enough",
+  "reference_sha256": "3a8c2fbf0bba1dd71c1c1c3ef5457cf3781eabe87a70ec338b880114b42885c7"
 }

@@ -16,7 +16,8 @@ namespace PsychologyVR
     }
     [Serializable] public class CharacterAppearance
     {
-        public string id,label;
+        public string id,label,resourcePath;
+        public bool Available=>prefab||!string.IsNullOrEmpty(resourcePath);
         public GameObject prefab;
         public AnimationClip seatedClip;
     }

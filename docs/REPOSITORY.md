@@ -23,11 +23,11 @@ The following remain on the development machine and are ignored by Git:
 - `docs/generated/fish-local/` and other generated audition folders: personal voice references, cloned speech, listening pages and per-run records.
 - Unity import caches, editor preferences, preview videos and most screenshots.
 - Working build folders stay outside Git history; packaged Windows builds are available from GitHub Releases.
-- Session logs and personal facial capture data stay outside source history. The three contributed voice packs and selected audition material are tracked through Git LFS; the complete release also contains the approved shared reference voice.
+- Session logs, resource logs, exported diagnostics and personal facial capture data stay outside source history. All four runtime voice packs and selected listening references are tracked through Git LFS; the complete release also contains the approved shared reference voice.
 
 The documentation retains historical local-preview URLs and file paths. Those links describe development evidence, not hosted repository content. Small top-level audit/provenance JSON files and the room screenshot are included. Asset source URLs and credits are in `ASSET_CREDITS.md`.
 
-The asset-conversion/audit scripts can read the original download packs after cloning with Git LFS. They also need their documented tools, such as Blender. Source checkouts omit personal recordings; auditions need a locally provided recording and its exact transcript. The private Windows release separately includes the approved reference for running the game.
+The asset-conversion/audit scripts can read the original download packs after cloning with Git LFS. They also need their documented tools, such as Blender. Runtime packs include the approved references and transcripts needed for the assigned voices. Other recordings and rejected auditions remain local. The Windows release includes the same runtime voice assignments.
 
 ## Prebuilt Windows downloads
 
@@ -51,7 +51,7 @@ For a lightweight transport/animation check without downloaded models, use `tool
 
 ## Speech experiments
 
-The expressive game now uses BF16 Higgs with sentence playback. Kokoro remains an optional older configuration; OmniVoice and Fish remain comparison experiments. See `ALTERNATIVE_TTS_AUDITIONS.md` for historical auditions and `SENTENCE_PLAYBACK.md` for current behavior.
+The expressive game uses BF16 Higgs with each approved preset's whole-beat or sentence-pause delivery mode. Kokoro remains an optional older configuration; OmniVoice and Fish remain comparison experiments. See `ALTERNATIVE_TTS_AUDITIONS.md` for historical auditions and `LIVE_EXPRESSIVE_SPEECH.md` for current behavior.
 
 The alternative-TTS environment is separate from the game's Python 3.11 environment. Its Python 3.12 package snapshot is `experiments/tts/requirements-alternative-lock.txt`. Install with the PyTorch CUDA wheel index available:
 

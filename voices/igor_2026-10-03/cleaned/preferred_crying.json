@@ -1,0 +1,38 @@
+{
+  "status": "preferred_by_user_in_listening_test",
+  "recorded_date": "2026-10-03",
+  "person": "igor_2026-10-03",
+  "performance_emotion": "crying",
+  "audition_emotion": "crying",
+  "user_choice": "A",
+  "default_variant": "A",
+  "default_reason": "explicit user selection",
+  "accepted_variants": [
+    "A"
+  ],
+  "reference": "voices/igor_2026-10-03/emotion-validation/igor_2026-10-03/references/06_near_tears.wav",
+  "reference_transcript": "voices/igor_2026-10-03/emotion-validation/igor_2026-10-03/references/06_near_tears.json",
+  "reference_sha256": "07a70bce49724b07aa83b327b1b048da3fc7486ad98f3b32c45f8f10d0485f7f",
+  "reference_transcript_status": "confirmed_by_speaker",
+  "higgs_quantization": "bf16",
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": null,
+  "prosody_tag": null,
+  "audition_audio": "voices/igor_2026-10-03/emotion-validation/igor_2026-10-03/crying-A.wav",
+  "audition_sha256": "f8d61254018fbbcbbbb0f877ee8e65a3d9cd0dfab772f944c1f503838e38b99c",
+  "user_notes": "",
+  "must_fix_before_runtime": false,
+  "active_in_game": false,
+  "feedback_source": "voices/igor_2026-10-03/emotion-validation/feedback/igor_2026-10-03-emotion-feedback.json",
+  "approved_candidates": [
+    {
+      "variant": "A",
+      "tag": "",
+      "audio": "voices/igor_2026-10-03/emotion-validation/igor_2026-10-03/crying-A.wav",
+      "sha256": "f8d61254018fbbcbbbb0f877ee8e65a3d9cd0dfab772f944c1f503838e38b99c"
+    }
+  ]
+}

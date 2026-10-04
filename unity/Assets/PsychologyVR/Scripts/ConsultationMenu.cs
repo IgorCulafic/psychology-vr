@@ -10,7 +10,7 @@ namespace PsychologyVR
 {
     public class ConsultationMenu:MonoBehaviour
     {
-        public enum Page {Session,Characters,Settings,Preview,Visuals,Rendering,Models}
+        public enum Page {Session,Characters,Settings,Preview,Visuals,Rendering,Models,Display}
         public Page CurrentPage {get;private set;}
         public bool Visible=>canvas && canvas.gameObject.activeSelf;
         public bool DescriptionsHidden {get;private set;}
@@ -54,7 +54,7 @@ namespace PsychologyVR
             ButtonAt("Close  ×",800,28,128,48,()=>session.SetMenuOpen(false));
             string[] names={"Session","Characters & situations","Settings"};
             for(int i=0;i<3;i++){int index=i;ButtonAt(names[i],32+i*300,112,288,48,()=>Render((Page)index),active:(int)page==i);}
-            if(page==Page.Session)SessionPage();else if(page==Page.Characters)CharactersPage();else if(page==Page.Settings)SettingsPage();else if(page==Page.Visuals)VisualsPage();else if(page==Page.Rendering)RenderingPage();else if(page==Page.Models)ModelsPage();else PreviewPage();
+            if(page==Page.Session)SessionPage();else if(page==Page.Characters)CharactersPage();else if(page==Page.Settings)SettingsPage();else if(page==Page.Visuals)VisualsPage();else if(page==Page.Rendering)RenderingPage();else if(page==Page.Models)ModelsPage();else if(page==Page.Display)DisplayPage();else PreviewPage();
             TextAt("Esc / right B · Menu     Left X · Recenter",34,708,710,24,17,Muted);
             TextAt("PC VR",820,708,108,24,17,Muted);
             Refresh();
@@ -100,7 +100,7 @@ namespace PsychologyVR
             ButtonAt(DescriptionsHidden?"Show descriptions":"Hide descriptions",32,556,274,54,()=>SetDescriptionsHidden(!DescriptionsHidden),active:DescriptionsHidden);
             Box(326,185,602,425,Card);
             var texture=Resources.Load<Texture2D>("Menu/"+appearance)??Resources.Load<Texture2D>("Menu/"+selected.character_id);
-            if(texture){var photo=Rect("Portrait",content,346,205,144,144).gameObject.AddComponent<RawImage>();photo.texture=texture;photo.uvRect=selected.character_id=="alex"?new Rect(.28f,.16f,.44f,.7f):new Rect(0,0,1,1);photo.raycastTarget=false;}
+            if(texture){var photo=Rect("Portrait",content,346,205,144,144).gameObject.AddComponent<RawImage>();photo.texture=texture;photo.uvRect=selected.character_id=="alex"&&!appearance.StartsWith("metahuman-")?new Rect(.28f,.16f,.44f,.7f):new Rect(0,0,1,1);photo.raycastTarget=false;}
             TextAt(selected.character_name,510,207,396,36,31,Ink,FontStyle.Bold);
             TextAt(selected.age+" years old",512,252,390,30,19,Muted);
             TextAt(DescriptionsHidden?"Student view":selected.focus,512,291,388,56,19,Accent);
@@ -130,7 +130,7 @@ namespace PsychologyVR
             ButtonAt("Quit game",644,540,284,52,()=>Application.Quit());
             ButtonAt("Visual style",32,608,284,48,()=>Render(Page.Visuals));
             ButtonAt("Dialogue model",338,608,284,48,()=>{Render(Page.Models);session.RefreshModels();});
-            status=TextAt("",644,606,284,42,15,Accent);
+            ButtonAt("Display & subtitles",644,608,284,48,()=>Render(Page.Display));
             TextAt("Right A / Space: hold to speak\nRight trigger: select    Grip: close your fingers",34,652,884,45,17,Muted);
         }
         void PreviewPage()
@@ -141,6 +141,18 @@ namespace PsychologyVR
             var moods=EmotionLibrary.Catalog.emotions;
             for(int i=0;i<moods.Length;i++){var mood=moods[i];ButtonAt(mood.label,32+(i%4)*226,300+(i/4)*56,214,44,()=>{session.PreviewEmotion(mood.name);session.SetMenuOpen(false);});}
             TextAt(session.Providers,34,602,890,42,16,Muted);
+            ButtonAt("Back to settings",32,650,896,38,()=>Render(Page.Settings));
+        }
+        void DisplayPage()
+        {
+            TextAt("Display and dialogue",34,188,880,36,27,Ink,FontStyle.Bold);
+            TextAt("Desktop display mode · F11 to toggle",34,250,890,36,22,Muted);
+            ButtonAt("Borderless fullscreen",32,305,436,64,()=>{session.SetBorderless(true);Render(Page.Display);},()=>!UnityEngine.XR.XRSettings.isDeviceActive,active:session.Borderless);
+            ButtonAt("Windowed",490,305,438,64,()=>{session.SetBorderless(false);Render(Page.Display);},()=>!UnityEngine.XR.XRSettings.isDeviceActive,active:!session.Borderless);
+            TextAt("Desktop subtitle size  ·  "+session.DesktopSubtitleSize,34,435,710,36,24,Ink);
+            ButtonAt("−",770,425,62,46,()=>{session.SetDesktopSubtitleSize(session.DesktopSubtitleSize-2);Render(Page.Display);});
+            ButtonAt("+",848,425,62,46,()=>{session.SetDesktopSubtitleSize(session.DesktopSubtitleSize+2);Render(Page.Display);});
+            TextAt("Dialogue stays at the bottom of the desktop screen. Headset subtitles keep their seated position.",34,510,890,70,22,Muted);
             ButtonAt("Back to settings",32,650,896,38,()=>Render(Page.Settings));
         }
         void ModelsPage()

@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "precision": "bf16",
+  "scenarios": {
+    "ivan-work-exhaustion": "igor_2026-10-03",
+    "stefan-fire-witness": "person_01",
+    "nikola-bereavement": "person_02",
+    "alex-earthquake": "person_03"
+  },
+  "speakers": {
+    "igor_2026-10-03": "voices/runtime/igor_2026-10-03/manifest.json",
+    "person_01": "voices/runtime/person_01/manifest.json",
+    "person_02": "voices/runtime/person_02/manifest.json",
+    "person_03": "voices/runtime/person_03/manifest.json"
+  }
+}

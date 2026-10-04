@@ -1,0 +1,6 @@
+{
+  "scenario": "alex-earthquake",
+  "speaker": "person_03",
+  "source": "voices/person_03/prepared/auditions/person_03-anger-B-1.wav",
+  "precision": "bf16"
+}

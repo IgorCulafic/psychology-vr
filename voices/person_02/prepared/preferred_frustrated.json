@@ -1,0 +1,38 @@
+{
+  "status": "preferred_by_user_in_listening_test",
+  "recorded_date": "2026-10-03",
+  "person": "person_02",
+  "performance_emotion": "frustrated",
+  "audition_emotion": "frustrated",
+  "user_choice": "B",
+  "default_variant": "B",
+  "default_reason": "explicit user selection",
+  "accepted_variants": [
+    "B"
+  ],
+  "reference": "voices/igor_2026-10-03/emotion-validation/person_02/references/03_frustrated.wav",
+  "reference_transcript": "voices/igor_2026-10-03/emotion-validation/person_02/references/03_frustrated.json",
+  "reference_sha256": "f2f7870b8b0c604c2c3a284ce5f3ce82c269c3b19f6cd5d049bcc5fb84c925eb",
+  "reference_transcript_status": "automatic_draft_not_listening_verified",
+  "higgs_quantization": "bf16",
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": "<|emotion:bitterness|>",
+  "prosody_tag": null,
+  "audition_audio": "voices/igor_2026-10-03/emotion-validation/person_02/frustrated-B.wav",
+  "audition_sha256": "ac18682d14fc12e84a9d7693fedc81727d0ccdfae77997dacc9a4d7dfaf14af6",
+  "user_notes": "",
+  "must_fix_before_runtime": false,
+  "active_in_game": false,
+  "feedback_source": "voices/igor_2026-10-03/emotion-validation/feedback/person_02-emotion-feedback.json",
+  "approved_candidates": [
+    {
+      "variant": "B",
+      "tag": "<|emotion:bitterness|>",
+      "audio": "voices/igor_2026-10-03/emotion-validation/person_02/frustrated-B.wav",
+      "sha256": "ac18682d14fc12e84a9d7693fedc81727d0ccdfae77997dacc9a4d7dfaf14af6"
+    }
+  ]
+}

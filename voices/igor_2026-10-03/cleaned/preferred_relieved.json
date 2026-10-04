@@ -1,0 +1,38 @@
+{
+  "status": "preferred_by_user_in_listening_test",
+  "recorded_date": "2026-10-03",
+  "person": "igor_2026-10-03",
+  "performance_emotion": "relieved",
+  "audition_emotion": "relieved",
+  "user_choice": "B",
+  "default_variant": "B",
+  "default_reason": "explicit user selection",
+  "accepted_variants": [
+    "B"
+  ],
+  "reference": "voices/igor_2026-10-03/emotion-validation/igor_2026-10-03/references/12_relieved.wav",
+  "reference_transcript": "voices/igor_2026-10-03/emotion-validation/igor_2026-10-03/references/12_relieved.json",
+  "reference_sha256": "d0ca5812e9126b727ed51ac789bf9585c86cd95ff6bd7bf528c81ae29f7953ab",
+  "reference_transcript_status": "confirmed_by_speaker",
+  "higgs_quantization": "bf16",
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": "<|emotion:relief|>",
+  "prosody_tag": null,
+  "audition_audio": "voices/igor_2026-10-03/emotion-validation/igor_2026-10-03/relieved-B.wav",
+  "audition_sha256": "9268fafc63581668eae4a5476ffd5fa3eacdec5d36e2758e8e9b3fefad37c3b2",
+  "user_notes": "",
+  "must_fix_before_runtime": false,
+  "active_in_game": false,
+  "feedback_source": "voices/igor_2026-10-03/emotion-validation/feedback/igor_2026-10-03-emotion-feedback.json",
+  "approved_candidates": [
+    {
+      "variant": "B",
+      "tag": "<|emotion:relief|>",
+      "audio": "voices/igor_2026-10-03/emotion-validation/igor_2026-10-03/relieved-B.wav",
+      "sha256": "9268fafc63581668eae4a5476ffd5fa3eacdec5d36e2758e8e9b3fefad37c3b2"
+    }
+  ]
+}

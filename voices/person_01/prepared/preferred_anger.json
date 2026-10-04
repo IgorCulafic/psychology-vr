@@ -1,16 +1,39 @@
 {
-  "status": "preferred_by_user_in_listening_test",
-  "recorded_date": "2026-10-01",
+  "status": "approved_by_user_for_use",
+  "recorded_date": "2026-10-04",
   "person": "person_01",
+  "performance_emotion": "angry",
+  "audition_emotion": "anger",
   "reference": "voices/person_01/prepared/reference_angry.wav",
   "reference_transcript": "voices/person_01/prepared/reference_angry.json",
+  "reference_sha256": "3a8c2fbf0bba1dd71c1c1c3ef5457cf3781eabe87a70ec338b880114b42885c7",
   "higgs_quantization": "bf16",
-  "temperature": 0.60,
+  "temperature": 0.6,
   "top_p": 0.95,
   "top_k": 50,
   "seed": 42,
   "emotion_tag": "<|emotion:anger|>",
-  "audition_display_label": "Person 1 C — Own angry reference — tag — temperature 0.60",
-  "audition_audio": "voices/auditions/2026-10-01/identity-refinement/person_01-B.wav",
-  "note": "Display label C maps to source variant B in this audition. Selected as best by the user; not yet integrated into the game's per-person voice routing. Original recordings and fan-noise cleanup retained."
+  "prosody_tag": null,
+  "audition_display_label": "Anger · sentence 1 · selected anger cue — approved mono reference with reverb removed",
+  "audition_audio": "voices/person_01/prepared/auditions/preferred_anger-1-dereverb.wav",
+  "audition_sha256": "cfd6b5af9d5be0c7f3e64edbc9a7b5520e3400bb473f223b5b91ba133d6824b1",
+  "approval_quote": "It's good enough, lets use the settings we previosly made for the generated voices.",
+  "source_review": "voices/igor_2026-10-03/person-1-mono-dereverb/validation.json",
+  "must_fix_before_runtime": false,
+  "active_in_game": false,
+  "ready_for_assignment": true,
+  "approved_candidates": [
+    {
+      "variant": "preferred_anger-1",
+      "tag": "<|emotion:anger|>",
+      "audio": "voices/person_01/prepared/auditions/preferred_anger-1-dereverb.wav",
+      "sha256": "cfd6b5af9d5be0c7f3e64edbc9a7b5520e3400bb473f223b5b91ba133d6824b1"
+    },
+    {
+      "variant": "preferred_anger-2",
+      "tag": "<|emotion:anger|>",
+      "audio": "voices/person_01/prepared/auditions/preferred_anger-2-dereverb.wav",
+      "sha256": "00133d8c0a1ad27711b07e14543789dad090c2096c6ccbee713c80ced0ccf6d9"
+    }
+  ]
 }

@@ -1,7 +1,8 @@
-"""Sentence audio delivery with explicit, monotonic playback acknowledgements.
+"""Speech-segment delivery with explicit, monotonic playback acknowledgements.
 
 Generation is validated before publishing speech. Only client-confirmed complete
-sentences enter patient history; partial audio is recorded without guessing words.
+segments enter patient history; partial audio is recorded without guessing words.
+An approved whole-performance preset may contain several sentences in one segment.
 """
 from copy import deepcopy
 import json

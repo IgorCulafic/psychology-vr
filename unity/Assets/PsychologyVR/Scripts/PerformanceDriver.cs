@@ -11,6 +11,7 @@ namespace PsychologyVR
         public string Gesture {get;private set;}="none";
         public float Intensity {get;private set;}=.3f;
         public bool TransientsSuppressed {get;private set;}
+        public bool IsPaused=>performancePaused;
         public float GazeWeight {get;private set;}=1;
         public float TransitionSeconds {get;private set;}=.65f;
         string directedGaze="automatic";float gestureStarted,gestureDuration=2.5f;
@@ -94,6 +95,7 @@ namespace PsychologyVR
         void LateUpdate()
         {
             if(performancePaused)return;
+            Intensity=Mathf.MoveTowards(Intensity,targetIntensity,Time.deltaTime/TransitionSeconds);
             if(!head || !left.hand || !right.hand)return;
             if(!initialized)
             {
@@ -127,7 +129,6 @@ namespace PsychologyVR
                 Debug.Log("PERFORMANCE_BASE head="+Local(head.position)+" left="+leftTarget+" right="+rightTarget);
             }
             Restore();
-            Intensity=Mathf.MoveTowards(Intensity,targetIntensity,Time.deltaTime/TransitionSeconds);
             float t=Time.time-started,k=Intensity;
             float poseRate=Emotion=="despondent"?1.35f:Emotion=="sad"?2.5f:5;
             float dt=1-Mathf.Exp(-Mathf.Min(poseRate,3/TransitionSeconds)*Time.deltaTime);

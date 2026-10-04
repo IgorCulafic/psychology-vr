@@ -17,10 +17,17 @@ __pycache__/
 docs/generated/*.log
 services/.runtime/
 /logs/sessions/
+/logs/performance/
+/diagnostics/
+/experiments/dialogue-naturalness/session-logs/
+/experiments/voice-runtime-parity/*.wav
+/voices/person_01/dereverb-mono-2026-10-04/
 # Keep ad-hoc voice experiments local; version the contributed voice packs.
 /voices/*
 !/voices/README.md
 !/voices/index.html
+!/voices/cast.json
+!/voices/runtime/
 !/voices/person_01/
 !/voices/person_02/
 !/voices/person_03/

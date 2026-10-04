@@ -1,0 +1,42 @@
+[
+  {
+    "original": "Ponekad je odmor samo fizičko prisustvo kod kuće, a ne pravi oporak. Iako sam prošli vikenda samo mirno sradio, gledao film i jeo, umor se ne nestane jer mozak ne prestaje da razmišlja. To je kao da samo smisliš motor, ali on i dalje teži.",
+    "revised": "Ponekad je odmor samo fizičko prisustvo kod kuće, a ne pravi oporak. Iako sam prošli vikenda samo mirno sradio, gledao film i jeo, umor se ne nestaje jer mozak ne prestaje da razmišlja. To je kao da samo smisliš motor, ali on i dalje teži.",
+    "seconds": 1.86
+  },
+  {
+    "original": "Nisam siguran, zaista nisam siguran. Čini mi se da je nešto u meni promijenilo način na koji se odmaram, jer čak i kad provedem vikend kod kuće, ne osjećam taj pravi odmor koji bi trebalo da mi pruži snagu za ponovni rad.",
+    "revised": "Nisam siguran, zaista nisam siguran. Čini mi se da se nešto u meni promijenilo u vezi sa odmorom, jer čak i kad provedem vikend kod kuće, ne osjećam taj pravi odmor koji bi trebalo da mi pruži snagu za ponovni rad.",
+    "seconds": 3.5
+  },
+  {
+    "original": "Uglavnom sam bio kod kuće. Spremio sam tjesteninu sa paradajzom, gledao neki kriminalistički film i u nedjelju sam samo kratko prošetao. Nije bilo puno akcije, ali se i nisam osjećao kao da sam stvarno napunio baterije, iako sam bio u miru.",
+    "revised": "Uglavnom sam bio kod kuće. Spremio sam testeninu sa paradajzom, gledao neki kriminalistički film, a u nedjelju sam samo kratko prošetao. Nije bilo puno akcije, ali se i nisam osjećao kao da sam stvarno napunio baterije, iako sam bio u miru.",
+    "seconds": 0.95
+  },
+  {
+    "original": "Najviše volim da spremam tjesteninu sa paradajzom, bijelim lukom i malo origana. To je jednostavan obrok, ali mi uvek odgovori, a ponekad volim da napravim i omlet ili pečeni krompir ako imam više vremena. Kad kuvam tjesteninu, fokus sam stavim na to da paradajz bude dobro začinjen, jer mi je to bitno za ukus.",
+    "revised": "Najviše volim da spremam tjesteninu sa paradajzom, bijelim lukom i malo origana. To je jednostavan obrok, ali mi uvijek odgovori, a ponekad volim da napravim i omlet ili pečeni krompir ako imam više vremena. Kad kuvam tjesteninu, fokus sam stavim na to da paradajz bude dobro začinjen, jer mi je to bitno za ukus.",
+    "seconds": 1.1
+  },
+  {
+    "original": "Ne znam šta je to tačno i ne znam li je to baš to. Nisam stručnjak da dijagnostičem sebe, samo znam da se osjećam kao da mi nešto ne funkcioniše kako je trebalo da bude.",
+    "revised": "Ne znam šta je to tačno i ne znam da li je baš to. Nisam stručnjak da dijagnostičem sebe, samo znam da se osjećam kao da mi nešto ne funkcioniše kako treba da bude.",
+    "seconds": 0.74
+  },
+  {
+    "original": "Nisam lijen. Radim više nego ikad prije i trudim se da sve završim na vrijeme, ali jednostavno više ne mogu da funkcionišem kao ranije.",
+    "revised": "Nisam lijen. Radim više nego ikad prije i trudim se da sve završim na vrijeme, ali jednostavno više ne mogu da funkcionišem kao ranije.",
+    "seconds": 0.6
+  },
+  {
+    "original": "Nisam siguran, iskreno. Čini mi se da mi je odmor bio samo u smislu da sam bio kod kuće i ništa nisam radio, ali umor nije nestao. U nedjelju sam samo kratko prošetao i gledao neki film, ali kad se ponovo probudim u ponedjeljjak, osjećam se kao da nisam ni jedan dan odmorio. Kao da mi je umor ostao u tijelu, bez obzira na to što sam bio u miru.",
+    "revised": "Nisam siguran, iskreno. Čini mi se da mi je odmor bio samo u smislu da sam bio kod kuće i ništa nisam radio, ali umor nije nestao. U nedjelju sam samo kratko prošetao i gledao neki film, ali kad se ponovo probudim u ponedjeljak, osjećam se kao da nisam ni jedan dan odmorio. Kao da mi je umor ostao u tijelu, bez obzira na to što sam bio u miru.",
+    "seconds": 1.2
+  },
+  {
+    "original": "Uglavnom sam bio kod kuće. Spremio sam tjesteninu sa paradajzom, bijelim lukom i malo origana, a onda sam samo gledao jedan kriminalistički film. Nedjelju sam kratko prošetao, ali ništa više značajno nisam radio, samo sam pokušavao da se malo smirujem.",
+    "revised": "Uglavnom sam bio kod kuće. Spremio sam testeninu sa paradajzom, bijelim lukom i malo origana, a onda sam samo gledao jedan kriminalistički film. Nedjelju sam kratko prošetao, ali ništa više značajno nisam radio, samo sam pokušavao da se malo smirim.",
+    "seconds": 0.87
+  }
+]

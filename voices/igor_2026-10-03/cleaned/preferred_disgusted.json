@@ -1,0 +1,104 @@
+{
+  "status": "approved_by_user_for_use",
+  "recorded_date": "2026-10-03",
+  "person": "igor_2026-10-03",
+  "performance_emotion": "disgusted",
+  "audition_emotion": "disgusted",
+  "user_choice": "B is best",
+  "default_variant": "B",
+  "default_reason": "explicit user selection after repair",
+  "accepted_variants": [
+    "B"
+  ],
+  "reference": "voices/igor_2026-10-03/cleaned/approved-references/igor-disgust.wav",
+  "reference_transcript": "voices/igor_2026-10-03/cleaned/approved-references/igor-disgust.json",
+  "reference_sha256": "9c2ce345b08c997e727867f5508d9574e5935053b2b12027379af8b6be9879bf",
+  "reference_transcript_status": "confirmed_by_speaker",
+  "higgs_quantization": "bf16",
+  "temperature": 0.45,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": null,
+  "prosody_tag": null,
+  "audition_audio": "voices/igor_2026-10-03/cleaned/auditions/igor-disgust-B-1.wav",
+  "audition_sha256": "6fc5be840565d09c221753e4247e914eb0fc9ba3ed4a31bbe3fd7cbd669fb896",
+  "user_notes": "",
+  "must_fix_before_runtime": false,
+  "active_in_game": false,
+  "feedback_source": "voices/igor_2026-10-03/remaining-voice-repairs/feedback/afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd/remaining-voice-repairs-feedback.json",
+  "approved_candidates": [
+    {
+      "group": "igor-disgust",
+      "speaker": "igor_2026-10-03",
+      "variant": "B",
+      "title": "Whole reply · lower temperature 0.45 with failure recovery",
+      "index": 1,
+      "id": "igor-disgust-B-1",
+      "text": "Molim vas, sklonite to od mene. Od tog mirisa mi je muka. Hajde da otvorimo prozor.",
+      "temperature": 0.45,
+      "tag": "",
+      "reference": "voices/igor_2026-10-03/emotion-validation/igor_2026-10-03/references/11_disgusted.wav",
+      "reference_text": "Molim vas, sklonite to sa stola. Taj miris mi baš smeta. Ne mogu da nastavim dok jedem, dok je to ođe. Iskreno, ne želim ni da gledam. Možemo li otvoriti prozor i preći na drugo mjesto? Znam da vam možda nije toliko neprijatno, ali meni je stvarno previše.",
+      "reference_sha256": "9c2ce345b08c997e727867f5508d9574e5935053b2b12027379af8b6be9879bf",
+      "mode": "checked",
+      "script": "latin",
+      "file": "voices/igor_2026-10-03/cleaned/auditions/igor-disgust-B-1.wav",
+      "duration_seconds": 6.68,
+      "generation_seconds": 9.055,
+      "quality": {
+        "ok": true,
+        "seconds": 6.68,
+        "leading_seconds": 0.12,
+        "trailing_seconds": 0.34,
+        "longest_gap_seconds": 0.5,
+        "issues": []
+      },
+      "recovery": [
+        {
+          "regenerated": false,
+          "quality": {
+            "ok": true,
+            "seconds": 6.68,
+            "leading_seconds": 0.12,
+            "trailing_seconds": 0.34,
+            "longest_gap_seconds": 0.5,
+            "issues": []
+          }
+        }
+      ],
+      "sha256": "6fc5be840565d09c221753e4247e914eb0fc9ba3ed4a31bbe3fd7cbd669fb896",
+      "audio": "voices/igor_2026-10-03/cleaned/auditions/igor-disgust-B-1.wav"
+    }
+  ],
+  "approval_date": "2026-10-04",
+  "approval_quote": "There, I think this is good enough now.",
+  "feedback_sha256": "afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd",
+  "feedback_saved_at": "2026-10-03T23:31:45.757Z",
+  "reference_text": "Molim vas, sklonite to sa stola. Taj miris mi baš smeta. Ne mogu da nastavim dok jedem, dok je to ođe. Iskreno, ne želim ni da gledam. Možemo li otvoriti prozor i preći na drugo mjesto? Znam da vam možda nije toliko neprijatno, ali meni je stvarno previše.",
+  "tts_script": "latin",
+  "synthesis_mode": "checked",
+  "sentence_gap_seconds": 0,
+  "generation_recipe": {
+    "tag": "",
+    "mode": "checked",
+    "max_new_tokens": 900,
+    "quality_check": "speech_audio.checked_synthesis",
+    "retry_seed": 43,
+    "retry_temperature": 0.45,
+    "recovery_gap_seconds": 0.25
+  },
+  "audition_display_label": "B · Whole reply · lower temperature 0.45 with failure recovery",
+  "user_feedback": "B is best",
+  "note": "Approved speaker-specific repair recipe. Patient voice routing remains pending.",
+  "repair_review": {
+    "status": "approved_by_user_for_use",
+    "approval_date": "2026-10-04",
+    "approval_quote": "There, I think this is good enough now.",
+    "feedback_source": "voices/igor_2026-10-03/remaining-voice-repairs/feedback/afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd/remaining-voice-repairs-feedback.json",
+    "feedback_sha256": "afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd",
+    "feedback_saved_at": "2026-10-03T23:31:45.757Z",
+    "choice": "B is best",
+    "notes": ""
+  }
+}

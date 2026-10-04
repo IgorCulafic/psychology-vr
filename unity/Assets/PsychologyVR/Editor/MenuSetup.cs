@@ -17,6 +17,12 @@ namespace PsychologyVR.Editor
             if(File.Exists(portrait))File.Copy(portrait,root+"/Resources/Menu/alex.png",true);
             string original="../docs/generated/alex-unity-neutral.png";
             if(File.Exists(original))File.Copy(original,root+"/Resources/Menu/original-alex.png",true);
+            string[] cast={"ivan","stefan","nikola","alex"};
+            for(int i=0;i<cast.Length;i++)
+            {
+                string source="../experiments/metahuman/unity-review/"+i+"-neutral.png";
+                if(File.Exists(source))File.Copy(source,root+"/Resources/Menu/metahuman-"+cast[i]+".png",true);
+            }
             AssetDatabase.Refresh();
             var texture=AssetImporter.GetAtPath(root+"/Resources/Menu/alex.png") as TextureImporter;
             if(texture && texture.maxTextureSize!=1024){texture.maxTextureSize=1024;texture.SaveAndReimport();}
@@ -31,13 +37,29 @@ namespace PsychologyVR.Editor
         }
         public static void AssignAppearances(PrototypeSession session)
         {
-            if(session.appearances!=null&&session.appearances.Length>0)return;
+            if(session.appearances!=null&&session.appearances.Length>0){AssignMetaHumans(session);return;}
             const string root="Assets/PsychologyVR";
             var clip=AssetDatabase.LoadAllAssetsAtPath(root+"/Art/Characters/Alex/Alex.fbx").OfType<AnimationClip>().First(c=>!c.name.StartsWith("__")&&c.name.ToLowerInvariant().EndsWith("sit"));
             session.appearances=new[]{
                 new CharacterAppearance{id="jumper",label="Jumper",prefab=AssetDatabase.LoadAssetAtPath<GameObject>(root+"/Prefabs/JumperCandidate.prefab")},
                 new CharacterAppearance{id="original-alex",label="Original Alex",prefab=AssetDatabase.LoadAssetAtPath<GameObject>(root+"/Prefabs/Alex.prefab"),seatedClip=clip}
             };
+            AssignMetaHumans(session);
+        }
+        static void AssignMetaHumans(PrototypeSession session)
+        {
+            var list=session.appearances.ToList();
+            foreach(string id in new[]{"ivan","stefan","nikola","alex"})
+            {
+                var prefab=AssetDatabase.LoadAssetAtPath<GameObject>("Assets/PsychologyVR/Art/MetaHumans/"+id+"/Character.prefab");
+                if(!prefab||!prefab.GetComponent<MetaHumanJointRig>())continue;
+                list.RemoveAll(a=>a.id=="metahuman-"+id);
+                const string destination="Assets/PsychologyVR/Resources/MetaHumans";Directory.CreateDirectory(destination);
+                var instance=(GameObject)PrefabUtility.InstantiatePrefab(prefab);
+                PrefabUtility.SaveAsPrefabAsset(instance,destination+"/"+id+".prefab");Object.DestroyImmediate(instance);
+                list.Add(new CharacterAppearance{id="metahuman-"+id,label=char.ToUpper(id[0])+id.Substring(1)+" · MetaHuman",resourcePath="MetaHumans/"+id});
+            }
+            session.appearances=list.ToArray();
         }
         [MenuItem("Psychology VR/Build menu and character library")]
         public static void Build(){Prepare();ProjectSetup.ConfigureAndBuild();Debug.Log("MENU_BUILD_OK");}

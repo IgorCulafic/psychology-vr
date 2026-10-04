@@ -1,0 +1,53 @@
+{
+  "status": "approved_by_user_for_use",
+  "recorded_date": "2026-10-04",
+  "person": "person_01",
+  "performance_emotion": "frustrated",
+  "audition_emotion": "frustrated",
+  "reference": "voices/person_01/prepared/03_frustrated.wav",
+  "reference_transcript": "voices/person_01/prepared/03_frustrated.json",
+  "reference_sha256": "61b66095e01adcf55abe2f91b34642084f4bc275f24fde64c76f5b6754a4f698",
+  "higgs_quantization": "bf16",
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": null,
+  "prosody_tag": null,
+  "audition_display_label": "Frustration A · recorded emotion only — approved mono reference with reverb removed",
+  "audition_audio": "voices/person_01/prepared/auditions/frustrated-A-dereverb.wav",
+  "audition_sha256": "2422be554b705f9706ade5a4d64c52e854b1081b020bff373da321e2502fe7ce",
+  "approval_quote": "It's good enough, lets use the settings we previosly made for the generated voices.",
+  "source_review": "voices/igor_2026-10-03/person-1-mono-dereverb/validation.json",
+  "must_fix_before_runtime": false,
+  "active_in_game": false,
+  "ready_for_assignment": true,
+  "approved_candidates": [
+    {
+      "variant": "frustrated-A",
+      "tag": "",
+      "audio": "voices/person_01/prepared/auditions/frustrated-A-dereverb.wav",
+      "sha256": "2422be554b705f9706ade5a4d64c52e854b1081b020bff373da321e2502fe7ce"
+    },
+    {
+      "variant": "frustrated-B",
+      "tag": "<|emotion:bitterness|>",
+      "audio": "voices/person_01/prepared/auditions/frustrated-B-dereverb.wav",
+      "sha256": "820b186e4f3e41c251aa0c32db5efe730cbe8aceb7151e34d019f8cc4da2aa3c"
+    }
+  ],
+  "user_choice": "Both are good",
+  "default_variant": "A",
+  "previous_review": {
+    "choice": "Both are good",
+    "default_variant": "A",
+    "status": "preferred_by_user_with_audio_notes",
+    "notes": "echo in the audio from the original probably.",
+    "preference_file": "voices/person_01/prepared/preferred_frustrated.json"
+  },
+  "accepted_variants": [
+    "A",
+    "B"
+  ],
+  "default_reason": "Preserved previous default: recorded frustration without extra cue; bitterness alternative also retained."
+}

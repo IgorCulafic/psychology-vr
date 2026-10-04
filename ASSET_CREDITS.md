@@ -22,8 +22,13 @@ Include this credit file when sharing the prototype. Preserve the individual dep
 
 ## User-supplied candidate audition
 
+- **Integrated MetaHuman cast (2026-10-04):** Epic's installed UE 5.8 MetaHuman presets Dominic (Alex), Bruce (Ivan), Mateo (Stefan) and Victor (Nikola), assembled locally and exported to Unity with baked facial poses and neck movement. Clothing and tear integration are project additions. Exported game assets are in `unity/Assets/PsychologyVR/Art/MetaHumans/`; the local Unreal authoring project and source capture footage are not part of the Windows release. Mikel was an earlier audition and is not the selected Ivan model. Epic's asset terms remain applicable; this project does not relicense their content.
+- **MetaHuman tear-film effect:** original project shader and animation setup, using procedural masks and head-following decal projection; no third-party tear texture pack. See `experiments/metahuman/TEARS.md`.
+
+- **Microsoft Rocketbox candidate set (2026-10-04):** four adult male characters, `Male_Adult_01` through `Male_Adult_04`, from [Microsoft's official library](https://github.com/microsoft/Microsoft-Rocketbox), revision `0943055db6ec570bcef9f2c8b41c9e5467c808f9`. MIT, Copyright (c) 2020 Microsoft. Original license, models, textures, source URLs and checksums are in `Assets/CharacterCandidates/Microsoft-Rocketbox/`. Downloaded for comparison; not integrated into the production Unity cast. Preserve LICENSE.md when redistributing these assets.
+
 Repository packaging: original download folders (`man/`, `jumper_man/`, `Characters_with_expressions/`) and their converted Unity assets are preserved in the private project through Git LFS. Asset-specific rights still apply; this repository does not relicense third-party work.
 
 - `jumper_man/source/Ex wife's new husband.fbx` and `Characters_with_expressions/FBX/`: supplied by the user, who identified Sketchfab as their source. Exact author/source/license records were not included; this entry does not assert redistribution permission.
-- `JumperCandidate.prefab`, audition scene, facial cue combinations, URP material conversion and combined opacity textures: project integration work derived from the supplied jumper asset. Originals remain in their supplied folders. The jumper now represents Alex in the main consultation scene as well as in the separate audition.
+- `JumperCandidate.prefab`, audition scene, facial cue combinations, URP material conversion and combined opacity textures: earlier project integration work derived from the supplied jumper asset. Originals remain in their supplied folders. The current patient cast uses the MetaHuman models above.
 - `SeatedPlayer.prefab`, `HeadlessBody.asset` and tinted sweater materials: derived from the same supplied jumper for the local player. Head/facial geometry is removed from this copy; controller/headset posing is original project code.

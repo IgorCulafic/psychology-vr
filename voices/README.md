@@ -1,11 +1,18 @@
 # Contributed character voice packs
 
+Person 1's updated mono recordings with reverb removed were approved on 2026-10-04.
+The canonical references, transcripts and selected generated examples are in
+`person_01/prepared/`; `voice_profile.json` lists the saved emotion presets.
+They retain Higgs BF16, temperature 0.60, top-p 0.95, top-k 50 and seed 42.
+Frustration keeps the previous no-cue default and its accepted bitterness alternative.
+These presets are assigned to Stefan's fire scenario through `cast.json`.
+
 The `person_01`, `person_02` and `person_03` packs contain original M4A recordings, prepared
 mono WAV files, transcripts, reference clips and listening-test preferences.
 Audio is stored in Git LFS; run `git lfs pull` after cloning.
 The passages are described in [the recording script](../docs/VOICE_RECORDING_SCRIPT_ME.md).
 
-## Selected anger performances
+## Earlier anger auditions (historical)
 
 | Speaker | Reference | Higgs cue | Selected sample |
 | --- | --- | --- | --- |
@@ -24,19 +31,58 @@ weights. The prepared numbered transcripts remain drafts unless explicitly
 marked as confirmed. The source recordings and preparation metadata are retained
 for further review.
 
-## Runtime status
+## Runtime assignments
 
-The packs are available for integration. They have not yet been assigned to
-individual patient characters. The game still uses its configured shared Higgs
-reference. Do not infer character assignments from the anonymous speaker IDs.
+| Scenario | Character | Speaker |
+| --- | --- | --- |
+| Burnout / work exhaustion | Ivan | Igor |
+| Witnessing a fire | Stefan | Person 1 |
+| Losing a loved one | Nikola | Person 2 |
+| Earthquake | Alex | Person 3 |
 
-For a manual single-reference audition, point `higgs_reference` in the ignored
-`services/config.local.json` at a prepared reference WAV (paths are relative to
-the repository root) and restart the speech worker. Higgs reads the same-stem
-JSON's `text` field. Per-speaker emotion cues and automatic character routing
-still require integration; changing the reference alone does not implement them.
+`cast.json` is the runtime assignment registry. `runtime/` contains compact,
+self-contained voice packs with approved audio references, transcripts and
+per-emotion recipes. Rebuild these with `python tools/build-voice-cast.py` after
+changing approved preferences. Restart the bridge and Higgs worker to load changes.
+No Unity rebuild is needed: the bridge derives voice identity from the session's
+selected scenario, independently of model-generated text.
+
+One BF16 Higgs model handles every speaker. Encoded references are cached in CPU
+memory. Approved tags, temperature and pacing override generic speech directions.
+Unreviewed emotions use that speaker's neutral recipe; they never change speaker.
+Igor's sadness keeps separate sentences and an added 0.38-second pause, including
+streamed replies. The visual emotion remains unchanged by voice fallback.
+
+Direct auditions without a scenario retain `higgs_reference` from local config.
+Portable releases built with `--include-voice-packs` include the runtime assets;
+older packages without `cast.json` retain their shared voice.
 
 Other audition variants and personal runtime configuration remain untracked.
+
+## Approved repair selections — October 4, 2026
+
+The remaining listening repairs were approved as good enough. Exact feedback,
+the previous presets and file hashes are preserved under
+`igor_2026-10-03/remaining-voice-repairs/feedback/`; `approval.json` records the
+selections. Canonical `preferred_*.json` files now use:
+
+| Speaker / delivery | Selected repair | Settings |
+| --- | --- | --- |
+| Person 2 anger and transition | A | Own angry reference, bitterness cue, temperature 0.45 |
+| Person 3 anger and transition | B | Longer 04 angry reference, bitterness cue, temperature 0.55 |
+| Igor sadness | B | Restrained delivery, separate sentences, added 0.38-second gap, temperature 0.50 |
+| Igor happiness | A | Enthusiasm cue, temperature 0.45 |
+| Igor disgust | B | Whole reply with audio checks and bounded recovery, no cue, temperature 0.45 |
+
+All retain BF16 speech, top-p 0.95, top-k 50 and initial seed 42. The presets
+also record retry settings and approved sample paths. Latin input (A) was
+preferred in all three pronunciation comparisons. New dialogue uses `nisam`;
+recorded reference transcripts remain verbatim. Person 3's longer reference
+transcript remains a draft used in the approved audition; listening approval
+does not certify its transcription.
+
+Person 1's approved mono references with reverb removed and previous generation
+settings remain unchanged. The runtime assignments above apply these recipes.
 
 ## Person 3: initial listening comparison
 
@@ -70,7 +116,8 @@ reference and settings are saved in `person_03/prepared/preferred_happiness.json
 The user also selected sadness C (recorded sadness plus restrained delivery).
 Its settings are saved in `person_03/prepared/preferred_sadness.json`: the sad
 reference plus `<|prosody:expressive_low|>`, with no sadness emotion tag.
-Anger, sadness and happiness preferences are saved; patient routing is still pending.
+These earlier preferences are superseded where noted in the approved repair selections;
+Person 3 is now assigned to Alex's earthquake scenario.
 
 Reproduce a new preparation with `.venv/Scripts/python.exe
 tools/prepare-voice-pack.py person_XX`; use `--device cpu` if CUDA libraries are

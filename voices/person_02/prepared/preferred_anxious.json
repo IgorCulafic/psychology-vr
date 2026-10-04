@@ -1,0 +1,38 @@
+{
+  "status": "preferred_by_user_in_listening_test",
+  "recorded_date": "2026-10-03",
+  "person": "person_02",
+  "performance_emotion": "anxious",
+  "audition_emotion": "anxious",
+  "user_choice": "A",
+  "default_variant": "A",
+  "default_reason": "explicit user selection",
+  "accepted_variants": [
+    "A"
+  ],
+  "reference": "voices/igor_2026-10-03/emotion-validation/person_02/references/07_anxious.wav",
+  "reference_transcript": "voices/igor_2026-10-03/emotion-validation/person_02/references/07_anxious.json",
+  "reference_sha256": "819f7147ef52023ad32b1c39359801ad76c58005054414762bdfccab7cec3ef6",
+  "reference_transcript_status": "automatic_draft_not_listening_verified",
+  "higgs_quantization": "bf16",
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": null,
+  "prosody_tag": null,
+  "audition_audio": "voices/igor_2026-10-03/emotion-validation/person_02/anxious-A.wav",
+  "audition_sha256": "e540c18f49cb75d561576b23a67c5a390ecac7a395d4fba03182600a439858e0",
+  "user_notes": "A is better, B is simmilar and for some reason there is around 20 seconds of silence",
+  "must_fix_before_runtime": false,
+  "active_in_game": false,
+  "feedback_source": "voices/igor_2026-10-03/emotion-validation/feedback/person_02-emotion-feedback.json",
+  "approved_candidates": [
+    {
+      "variant": "A",
+      "tag": "",
+      "audio": "voices/igor_2026-10-03/emotion-validation/person_02/anxious-A.wav",
+      "sha256": "e540c18f49cb75d561576b23a67c5a390ecac7a395d4fba03182600a439858e0"
+    }
+  ]
+}

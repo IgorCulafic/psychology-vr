@@ -1,0 +1,13 @@
+{
+  "text": "Aaaa, evo, ovo mi je baš uljepšalo dan. Nisam očekivao da će se svi pojaviti, a na kraju je sto bio pun i niko nije žurio kući. Stvarno, super. Pričali smo, šalili se i dogovarali. Da to ponovimo. A još mi je osmijeh na licu kad se sjetim. Stvarno je bilo lijepo.",
+  "automatic_transcript": "Aaaa, evo, ovo mi je baš uljep šalo dan. Nisam očekivao da će se svi pojaviti, a na kraju je sto bio pun i niko nije žvurio kući. Stvarno, super. Pričali smo, šalili se i dogovarali. Da to ponovimo. A još mi je osmijeh na licu kad se sjetim. Stvarno je bilo lijepo.",
+  "transcript_status": "provisionally_corrected_automatic_draft_not_listening_verified",
+  "source": "08_happy.wav",
+  "original": "08 copy.m4a",
+  "original_sha256": "76eeb935eff868cbece7ffe91638847b67c01957c778e0f32e7ceb3e3d8cba2e",
+  "trim_start": 1.03,
+  "trim_end": 27.78,
+  "denoised": false,
+  "active_in_game": false,
+  "note": "Complete opening sentences of the longer acted happiness recording; excludes the trailing incomplete phrases."
+}

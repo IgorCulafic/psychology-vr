@@ -1,0 +1,40 @@
+{
+  "file": "07_anxious.wav",
+  "section": 7,
+  "title": "Zabrinutost i nesigurnost",
+  "text": "Šta ako se opet dogodi isto? Znam da sad nemamo razloga da to očekujemo, ali ta misao mi je stalno se vraća. Provjerim jednu stvar, pa onda odmah se sjetim druge. Ne znam da li pretjerujem ili nešto propuštam. Možemo li samo još jednom proći kroz ono što slijedi? Lakše mi je kad znam da nešto mogu da očekujem.",
+  "script_text": "A šta ako se opet dogodi isto? Znam da sada nemamo razlog da to očekujemo, ali ta misao mi se stalno vraća. Provjerim jednu stvar, pa se odmah sjetim druge. Ne znam da li pretjerujem ili nešto propuštam. Možemo li samo još jednom proći kroz ono što slijedi? Lakše mi je kad znam šta mogu da očekujem.",
+  "transcript_status": "confirmed_by_speaker",
+  "transcript_provenance": "transcripts_confirmed_by_igor.json",
+  "source_start_seconds": 143.2,
+  "source_end_seconds": 173.5,
+  "duration_seconds": 30.3,
+  "sample_rate": 48000,
+  "ready_for_tts": true,
+  "source_sha256": "17b3e44b961fdae5e6fe66029a2c3d6ccd65c13fcb94eaa269eb02c1ca344094",
+  "audio_processing": {
+    "lead_in_silenced_until_seconds": 1.615,
+    "lead_in_fade_complete_seconds": 1.65,
+    "fade_ms": 35,
+    "speech_internal_edits": false
+  },
+  "metrics": {
+    "file": "07_anxious.wav",
+    "duration_seconds": 30.3,
+    "source_peak_dbfs": -2.8029138236294115,
+    "cleaned_peak_dbfs": -2.8029138236294115,
+    "cleaned_true_peak_4x_dbtp": -2.797386448598343,
+    "source_rms_dbfs": -23.426545975592617,
+    "cleaned_rms_dbfs": -23.426557300333076,
+    "near_full_scale_samples_before": 0,
+    "near_full_scale_samples_after": 0,
+    "processing": {
+      "lead_in_silenced_until_seconds": 1.615,
+      "lead_in_fade_complete_seconds": 1.65,
+      "fade_ms": 35,
+      "speech_internal_edits": false
+    }
+  },
+  "source_prepared_file": "voices/igor_2026-10-03/cleaned/07_anxious.wav",
+  "source_prepared_sha256": "41e336c3cc4a124c6efc4898abd5e3334118a3fc39f295c33b9b2f275711e920"
+}

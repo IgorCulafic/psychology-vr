@@ -1,0 +1,166 @@
+[
+  {
+    "variant": "serbian",
+    "seed": 61,
+    "question": "I za što je to tako?",
+    "content": {
+      "role": "assistant",
+      "content": "{\n  \"segments\": [\n    {\n      \"text\": \"Nisam siguran zašto je tako, zapravo mi je baš to najviše čudno. Ranije bi mi vikend bio dovoljan da se napunim, a sada se budim u ponedjeljak i osjećam se kao da me je neko izmamirio.\",\n      \"emotion\": \"confused\",\n      \"intensity\": 0.5,\n      \"gesture\": \"none\",\n      \"voice_style\": \"subdued\",\n      \"gaze\": \"away\",\n      \"transition_seconds\": 0.8,\n      \"pause_before_seconds\": 0.3,\n      \"hold_after_seconds\": 0.5,\n      \"gesture_at\": 0,\n      \"gesture_duration_seconds\": 0\n    }\n  ]\n}"
+    },
+    "seconds": 2.79
+  },
+  {
+    "variant": "serbian",
+    "seed": 62,
+    "question": "I za što je to tako?",
+    "content": {
+      "role": "assistant",
+      "content": "{\n  \"segments\": [\n    {\n      \"text\": \"I ja se pitam zašto je tako. Nekad mi se čini da je to samo zbog previše posla u posljednjih osam mjeseci, ali osjećaj je čudan jer običan odmor više ne pomaže kao nekad.\",\n      \"emotion\": \"despondent\",\n      \"intensity\": 0.4,\n      \"gesture\": \"none\",\n      \"voice_style\": \"subdued\",\n      \"gaze\": \"listener\",\n      \"transition_seconds\": 0.8,\n      \"pause_before_seconds\": 0.3,\n      \"hold_after_seconds\": 0.5,\n      \"gesture_at\": 0,\n      \"gesture_duration_seconds\": 0\n    }\n  ]\n}"
+    },
+    "seconds": 1.58
+  },
+  {
+    "variant": "bosnian",
+    "seed": 61,
+    "question": "I za što je to tako?",
+    "content": {
+      "role": "assistant",
+      "content": "{\n  \"segments\": [\n    {\n      \"text\": \"Nisam siguran zašto je tako. Čini mi se da mi tijelo jednostavno ne prestaje da se napreže, čak i kad sjedim kod kuće i pokušavam da se opustim.\",\n      \"emotion\": \"despondent\",\n      \"intensity\": 0.4,\n      \"gesture\": \"none\",\n      \"voice_style\": \"subdued\",\n      \"gaze\": \"down\",\n      \"transition_seconds\": 0.8,\n      \"pause_before_seconds\": 0.3,\n      \"hold_after_seconds\": 0.4,\n      \"gesture_at\": 0,\n      \"gesture_duration_seconds\": 0\n    }\n  ]\n}"
+    },
+    "seconds": 2.31
+  },
+  {
+    "variant": "bosnian",
+    "seed": 62,
+    "question": "I za što je to tako?",
+    "content": {
+      "role": "assistant",
+      "content": "{\n  \"segments\": [\n    {\n      \"text\": \"Nisam siguran zašto je tako. Čini mi se da mi je jednostavno teško da se isključim, čak i kad sam kod kuće. Često samo sedim i ništa ne radim, ali umor se ne povlači.\",\n      \"emotion\": \"despondent\",\n      \"intensity\": 0.4,\n      \"gesture\": \"none\",\n      \"voice_style\": \"subdued\",\n      \"gaze\": \"down\",\n      \"transition_seconds\": 0.8,\n      \"pause_before_seconds\": 0.3,\n      \"hold_after_seconds\": 0.4,\n      \"gesture_at\": 0,\n      \"gesture_duration_seconds\": 0\n    }\n  ]\n}"
+    },
+    "seconds": 1.54
+  },
+  {
+    "variant": "simple",
+    "seed": 61,
+    "question": "I za što je to tako?",
+    "content": {
+      "role": "assistant",
+      "content": "Ne znam tačno zašto. Samo se budim i osjećam se kao da nisam spavao ni sat vremena. Posao mi se gomila, stalno imam listove na stolu koje moram da obradim, i to mi samo dodatno opterećuje glavu. Čak i kad se sednem da se odmorim, ne mogu da se opustim."
+    },
+    "seconds": 1.17
+  },
+  {
+    "variant": "simple",
+    "seed": 62,
+    "question": "I za što je to tako?",
+    "content": {
+      "role": "assistant",
+      "content": "Ne znam tačno zašto. Samo se osjećam kao da mi nešto tereti. Posao se nagomilao, stalno mislim o onim papirima i obavezama koje ne završim, pa čak i kad pokušam da se opustim, mozak mi ne prestaje da radi. Spavam jako loše, često se budim usred noći i ne mogu da se vratim u san. Čak i kad odmorujem, taj osjećaj težine ne nestaje."
+    },
+    "seconds": 0.87
+  },
+  {
+    "variant": "thinking",
+    "seed": 61,
+    "question": "I za što je to tako?",
+    "content": {
+      "role": "assistant",
+      "content": "",
+      "reasoning_content": "*   User question: \"I za što je to tako?\" (And why is it like that?)\n    *   Context: Ivan (39, administrative work, increasingly tired, making mistakes, feeling incompetent/lazy).\n    *   Constraints:\n        *   Speak as Ivan (practical, direct, slightly defensive, not a symptom script).\n        *   Language: Montenegrin (Latin, ijekavian, \"nisam\").\n        *   No clinical explanations, no \"why\" of the brain/mechanism.\n        *   Don't invent causes (no \"burnout\" labels, no specific medical reasons).\n        *   Focus on personal experience.\n        *   Word limit: 75 words total (target 20-60).\n        *   Current state: Despondent (intensity 0.4).\n\n    *   Ivan doesn't know the exact \"why\" clinically. He just knows the *feeling* of it.\n    *   He's been working harder for 8 months.\n    *   He feels like he's losing his edge.\n    *   He's frustrated because rest doesn't work anymore.\n\n    *   *Draft 1 (Mental):* Ne znam tačno zašto. Samo znam da se osjećam kao da mi nešto nije u redu. Radim više od osam mjeseci i sad mi se čini da mozak ne funkcioniše kao prije. Čak i kad odmorim, ne osjećam se bolje, što me samo još više frustrira.\n\n    *   *Refining for \"Ivan\" persona:* Practical, direct.\n    *   *Draft 2:* Iskreno, ne znam. To je najgore, da ne znam razlog. Samo znam da se osjećam kao da mi nešto \"puca\" unutar, iako na površini sve izgleda normalno. Ranije sam mogao da završim sve i da se ponosim time, a sada mi se svaki običan zadatak čini kao planina.\n\n    *   *Checking constraints:*\n        *   Montenegrin? Yes.\n        *   No clinical terms? Yes.\n        *   No \"why\" of the brain? Yes.\n        *   Word count? ~40 words.\n        *   Emotion? Despondent (0.4).\n\n    *   *Final Polish:*\n        \"Iskreno, ne znam. To je najgore – da ne znam razlog. Samo znam da se osjećam kao da mi nešto više nije kao prije, iako na površini sve izgleda normalno. Ranije sam mogao da završim sve bez problema, a sada mi se svaki običan zadatak čini kao planina.\"\n\n    *   *JSON Structure:*\n        *   text: \"Iskreno, ne znam. To je najgore – da ne znam razlog. Samo znam da se osjećam kao da mi nešto više nije kao prije, iako na površini sve izgleda normalno. Ranije sam mogao da završim sve bez problema, a sada mi se svaki običan zadatak čini kao planina.\"\n        *   emotion: \"despondent\"\n        *   intensity: 0.4\n        *   gesture: none\n        *   voice_style: \"subdued\"\n        *   gaze: \"down\"\n        *   transition_seconds: 0.6\n        *   pause_before_seconds: 0.3\n        *   hold_after_seconds: 0.4\n        *   gesture_at: 0\n        *   gesture_duration_seconds: 0\n\n    *   Wait, the prompt says \"Answer the actual question first.\" The question is \"Why is it like that?\".\n    *   Ivan's answer: \"Iskreno, ne znam.\" (Direct answer).\n    *   Then elaboration: \"To je najgore...\"\n\n    Let's re-check the \"don't explain mechanisms\" rule. I must not say \"It's stress\" or \"It's burnout\". I must describe the *experience*.\n\n    *Revised Text:*\n    \"Iskreno, ne znam. To je najgore – da ne znam razlog. Samo znam da se osjećam kao da mi nešto više nije kao prije, iako na površini sve izgleda normalno. Ranije sam mogao da završim sve bez problema, a sada mi se svaki običan zadatak čini kao planina, čak i oni koje sam nekad radio bez razmišljanja.\"\n\n    *Word count check:* 43 words. Good.\n\n    *JSON construction"
+    },
+    "seconds": 8.35
+  },
+  {
+    "variant": "thinking",
+    "seed": 62,
+    "question": "I za što je to tako?",
+    "content": {
+      "role": "assistant",
+      "content": "",
+      "reasoning_content": "*   User question: \"I za što je to tako?\" (And why is it like that?)\n    *   Context: Ivan (39, administrative job, increasing workload, feeling exhausted, losing concentration, making mistakes, feeling like he's becoming lazy/incapable).\n    *   Current state: Despondent (0.4).\n    *   Constraint: Don't give a clinical diagnosis, don't explain the \"mechanism\" of the brain, don't give a therapy lecture. Speak in everyday language. Use \"nisam\". Stay in character (Ivan).\n\n    *   Ivan doesn't know *why* it's happening. He's frustrated because he wants to function like before but can't.\n    *   He's tired even after a weekend.\n    *   He feels the pressure of work and the fear of disappointing others.\n\n    *   \"Ne znam tačno zašto. Čisto mi je naporno da se probudim i počnem dan, iako sam imao slobodno. Čini mi se da se nešto u meni promijenilo, ali ne mogu da razumijem šta je uzrok.\"\n    *   Check word count: ~30 words.\n    *   Check tone: Practical, direct, slightly frustrated/despondent.\n    *   Check language: Montenegrin, Ijekavian, \"nisam\".\n\n    *   The user asked \"why\". Ivan should express his own observation: he's doing the same things (or less), but the result is the same. He doesn't have a \"reason\" other than the feeling of heaviness.\n\n    *   \"I ne znam. Čini mi se da sam samo previše naporan prema sebi. Radim više nego prije, a osjećaj je da se svaki dan samo teže probijam kroz onaj posao koji sam nekada završavao bez problema.\"\n\n    *   *Wait, the prompt says: \"Kad te pitaju zašto ti se nešto dešava, razlikuj ono što primjećuješ od onoga što ne znaš. Ne izmišljaj uzrok... Možeš reći da ne znaš zašto i opisati konkretno iskustvo.\"*\n\n    *   Revised draft: \"I ne znam zašto je tako. Čini mi se da je jednostavno postalo previše teško da se fokusiram. Čak i kad odmorim vikend, ponedjeljkom se osjećam kao da mi je cijelo tijelo teško.\"\n\n    *   JSON format required.\n    *   Emotion: despondent (0.4).\n    *   Voice: subdued/hesitant.\n    *   Gaze: down/away.\n\n    \"I ne znam zašto je tako. Čini mi se da je jednostavno postalo previše teško da se fokusiram. Čak i kad odmorim vikend, ponedjeljkom se osjećam kao da mi je cijelo tijelo teško i da mi se svaki zadatak čini kao planina.\"\n\n    *Word count check*: 34 words. Good.\n\n    *Segment details*:\n    - text: \"I ne znam zašto je tako. Čini mi se da je jednostavno postalo previše teško da se fokusiram. Čak i kad odmorim vikend, ponedjeljkom se osjećam kao da mi je cijelo tijelo teško i da mi se svaki zadatak čini kao planina.\"\n    - emotion: despondent\n    - intensity: 0.4\n    - gesture: none\n    - voice_style: subdued\n    - gaze: down\n    - transition_seconds: 0.6\n    - pause_before_seconds: 0.2\n    - hold_after_seconds: 0.4\n    - gesture_at: 0\n    - gesture_duration_seconds: 0\n\n    Wait, the prompt says \"Answer the actual question first... Usually 2-4 connected sentences...\".\n    The draft fits.\n\n    Let's double check \"nisam\" vs \"nijesam\". The prompt says use \"nisam\". My draft doesn't use \"nisam\" yet, but if it did, I'd use it.\n\n    Let's refine the text slightly to be more natural for Ivan:\n    \"I ne znam zašto je tako. Čini mi se da je jednostavno postalo previše teško da se fokusiram. Čak i kad odmorim vikend, ponedjeljkom se osjećam kao da mi je cijelo tijelo teško i"
+    },
+    "seconds": 7.5
+  },
+  {
+    "variant": "serbian",
+    "seed": 61,
+    "question": "Šta voliš da kuvaš? Opiši mi malo kako to spremaš.",
+    "content": {
+      "role": "assistant",
+      "content": "{\n  \"segments\": [\n    {\n      \"text\": \"Najviše volim da pravim tjesteninu sa paradajzom, bijelim lukom i malo origana. To je jednostavan obrok, ali mi ugođa baš dobro ide, a ponekad mi je lakše samo da zapečem krompir ili napravim omlet.\",\n      \"emotion\": \"calm\",\n      \"intensity\": 0.3,\n      \"gesture\": \"none\",\n      \"voice_style\": \"normal\",\n      \"gaze\": \"listener\",\n      \"transition_seconds\": 0.6,\n      \"pause_before_seconds\": 0.2,\n      \"hold_after_seconds\": 0.4,\n      \"gesture_at\": 0,\n      \"gesture_duration_seconds\": 0\n    },\n    {\n      \"text\": \"Za tjesteninu obično samo prodijem luk dok ne postane proziran, dodam paradajz i začine, pa pustim da se malo smota. Volim taj miris koji se širi po kuhinji dok se sve polako kuva, to mi je jedan od malo opuštajućih trenutaka tokom dana.\",\n      \"emotion\": \"calm\",\n      \"intensity\": 0.3,\n      \"gesture\": \"nod\",\n      \"voice_style\": \"gentle\",\n      \"gaze\": \"listener\",\n      \"transition_seconds\": 0.8,\n      \"pause_before_seconds\": 0.3,\n      \"hold_after_seconds\": 0.5,\n      \"gesture_at\": 0.3,\n      \"gesture_duration_seconds\": 1.2\n    }\n  ]\n}"
+    },
+    "seconds": 4.38
+  },
+  {
+    "variant": "serbian",
+    "seed": 62,
+    "question": "Šta voliš da kuvaš? Opiši mi malo kako to spremaš.",
+    "content": {
+      "role": "assistant",
+      "content": "{\n  \"segments\": [\n    {\n      \"text\": \"Najviše volim da pravim tjesteninu sa paradajzom, bijelim lukom i malo origana. To je jednostavan obrok, ali mi uvek bude odlično. Pored toga, ponekad napravim omlet ili pečeni krompir kad imam manje vremena.\",\n      \"emotion\": \"calm\",\n      \"intensity\": 0.3,\n      \"gesture\": \"none\",\n      \"voice_style\": \"normal\",\n      \"gaze\": \"listener\",\n      \"transition_seconds\": 0.8,\n      \"pause_before_seconds\": 0.2,\n      \"hold_after_seconds\": 0.4,\n      \"gesture_at\": 0,\n      \"gesture_duration_seconds\": 0\n    },\n    {\n      \"text\": \"Kad pravim tjesteninu, obavezno prvo prodijem luk da pusti miris, pa dodam paradajz i začine dok se ne zgusne. Volim taj jednostavan proces jer ne zahtijeva puno razmišljanja, a rezultat je uvek dobar. Meni je bitno da hrana bude ukusna, a ne komplikovana.\",\n      \"emotion\": \"calm\",\n      \"intensity\": 0.3,\n      \"gesture\": \"nod\",\n      \"voice_style\": \"normal\",\n      \"gaze\": \"listener\",\n      \"transition_seconds\": 0.6,\n      \"pause_before_seconds\": 0.3,\n      \"hold_after_seconds\": 0.5,\n      \"gesture_at\": 0.4,\n      \"gesture_duration_seconds\": 1.2\n    }\n  ]\n}"
+    },
+    "seconds": 3.25
+  },
+  {
+    "variant": "bosnian",
+    "seed": 61,
+    "question": "Šta voliš da kuvaš? Opiši mi malo kako to spremaš.",
+    "content": {
+      "role": "assistant",
+      "content": "{\n  \"segments\": [\n    {\n      \"text\": \"Najviše volim da pravim tjesteninu sa paradajzom, bijelim lukom i malo origana. To je jednostavan obrok, ali mi upečao ukus, pa je često pravim kad želim nešto domaće. Pored toga, ponekad napravim omlet ili pečeni krompir ako mi se ne da ništa komplikovanije.\",\n      \"emotion\": \"calm\",\n      \"intensity\": 0.3,\n      \"gesture\": \"none\",\n      \"voice_style\": \"normal\",\n      \"gaze\": \"listener\",\n      \"transition_seconds\": 0.6,\n      \"pause_before_seconds\": 0.2,\n      \"hold_after_seconds\": 0.4,\n      \"gesture_at\": 0,\n      \"gesture_duration_seconds\": 0\n    }\n  ]\n}"
+    },
+    "seconds": 2.84
+  },
+  {
+    "variant": "bosnian",
+    "seed": 62,
+    "question": "Šta voliš da kuvaš? Opiši mi malo kako to spremaš.",
+    "content": {
+      "role": "assistant",
+      "content": "{\n  \"segments\": [\n    {\n      \"text\": \"Najviše volim da pravim tjesteninu sa paradajzom, bijelim lukom i malo origana. To je jednostavan obrok, ali mi uvek bude odlično jer su sastojci prirodni i brzo se spremaju. Ponekad, kad imam malo više vremena, volim da pecem krompir ili napravim omlet.\",\n      \"emotion\": \"calm\",\n      \"intensity\": 0.3,\n      \"gesture\": \"none\",\n      \"voice_style\": \"normal\",\n      \"gaze\": \"listener\",\n      \"transition_seconds\": 0.6,\n      \"pause_before_seconds\": 0.2,\n      \"hold_after_seconds\": 0.4,\n      \"gesture_at\": 0,\n      \"gesture_duration_seconds\": 0\n    }\n  ]\n}"
+    },
+    "seconds": 1.78
+  },
+  {
+    "variant": "simple",
+    "seed": 61,
+    "question": "Šta voliš da kuvaš? Opiši mi malo kako to spremaš.",
+    "content": {
+      "role": "assistant",
+      "content": "Najviše volim da kuvam tjesteninu sa paradajzom i bijelim lukom. To je jednostavno, a uvek mi bude dobro.\n\nPrvo isečem dosta bijelog luka na sitne kockice. Na dnu posude zagrijem malo maslinovog ulja i propržim luk dok ne postane prozirni i lagano mirisan. Zatim dodam pelatirane paradajzove i malo soli, a nekad i malo bibera. Pustim da se to krčka na vatri oko deset minuta dok se sos ne zgusne. Dok se to kuva, skuvam tjesteninu u posebnoj posudici. Na kraju sve samo pomiješam i poslužim. To je moj omiljeni obrok kad želim nešto lagano."
+    },
+    "seconds": 1.94
+  },
+  {
+    "variant": "simple",
+    "seed": 62,
+    "question": "Šta voliš da kuvaš? Opiši mi malo kako to spremaš.",
+    "content": {
+      "role": "assistant",
+      "content": "Najviše volim da kuvam tjesteninu sa paradajzom i bijelim lukom. To je nešto jednostavno, ali mi uzeta.\n\nKad počnem, prvo dobro isečem bijeli luk na sitne kockice i stavim ga u tiganj da malo proprži na malo ulja dok ne postane prozirni. Onda dodam rendani paradajz, malo soli i bibera, i pustim da se to malo prokrčka dok se sos ne zgusne. Dok se to kuva, stavim vodu da provri i skuvam tjesteninu. Kad je gotova, samo je ocedim, ubacim u tiganj sa sosom i sve dobro promešam. To je sve, ali mi baš odgovara."
+    },
+    "seconds": 1.46
+  },
+  {
+    "variant": "thinking",
+    "seed": 61,
+    "question": "Šta voliš da kuvaš? Opiši mi malo kako to spremaš.",
+    "content": {
+      "role": "assistant",
+      "content": "",
+      "reasoning_content": "*   User question: \"What do you like to cook? Describe a bit how you prepare it.\" (Šta voliš da kuvaš? Opiši mi malo kako to spremaš.)\n    *   Context: Ivan (39, administrative worker).\n    *   Personality/Traits: Practical, direct, specific opinions, explains reasoning, can disagree mildly, enjoys ordinary talk.\n    *   Everyday life: Likes pasta with tomato, garlic, and oregano. Makes omelets or roasted potatoes. Knows how to cook simple meals and has his own taste.\n    *   Constraints: Answer the actual question first (2-4 sentences, 20-60 words). Provide a concrete detail/perspective for elaboration (40-80 words). No symptom disclaimer. Use Montenegrin (Latin, ijekavica). No \"nijesam\", use \"nisam\". No closing fatigue/fear. No role-playing as a therapist.\n\n    *   *Direct Answer:* I like cooking pasta with tomato sauce. It's simple but tastes good. I also make omelets or roasted potatoes when I want something different.\n    *   *Elaboration (Process):* For the pasta, I usually fry some garlic first until it smells good, then add the tomatoes and a bit of oregano. I like it when the sauce is thick enough to coat the pasta. It's my go-to meal because it doesn't take much time but still feels like a proper dinner.\n\n    *   *Direct Answer (Montenegrin):* Najviše volim da spremam tjesteninu sa paradajzom, bijelim lukom i malo origana. To je jednostavan obrok, ali mi uvek dobro odgovara. Pored toga, često pravim omlet ili pečeni krompir kad mi se pojavi nešto drugo.\n    *   *Elaboration (Montenegrin):* Kad pravim tjesteninu, obavezno prvo propržim bijeli luk da pusti miris, a onda dodam paradajz i začine. Volim da se sos malo zgusne prije nego što ga prelijem preko tjestenine. To mi je omiljeno jer ne zahtijeva puno vremena, a rezultat je uvijek solidan i ukusan, baš onako kako volim da jedem.\n\n    *   Direct answer length: ~30 words.\n    *   Elaboration length: ~45 words.\n    *   Total words: ~75 words (within the 100-word limit).\n    *   Language: Montenegrin, Latin, ijekavica, \"nisam\".\n    *   No symptoms mentioned.\n    *   No \"nijesam\".\n    *   No \"I am Ivan\".\n    *   No therapy talk.\n\n    *   Emotion: despondent (current state), but the topic is neutral/positive.\n    *   Intensity: 0.4.\n    *   Voice: normal/gentle.\n    *   Gaze: listener.\n\n    *   \"Najviše volim da spremam tjesteninu sa paradajzom, bijelim lukom i malo origana. To je jednostavan obrok, ali mi uvijek dobro odgovara. Pored toga, često pravim omlet ili pečeni krompir kad mi se pojavi nešto drugo.\"\n    *   \"Kad pravim tjesteninu, obavezno prvo propržim bijeli luk da pusti miris, a onda dodam paradajz i začine. Volim da se sos malo zgusne prije nego što ga prelijem preko tjestenine. To mi je omiljeno jer ne zahtijeva puno vremena, a rezultat je uvijek solidan i ukusan, baš onako kako volim da jedem.\"\n\n    *Wait, checking word count again.*\n    \"Najviše volim da spremam tjesteninu sa paradajzom, bijelim lukom i malo origana. To je jednostavan obrok, ali mi uvijek dobro odgovara. Pored toga, često pravim omlet ili pečeni krompir kad mi se pojavi nešto drugo. Kad pravim tjesteninu, obavezno prvo propržim bijeli luk da pusti miris, a onda dodam paradajz i začine. Volim da se sos malo zgusne prije nego što ga prelijem preko tjestenine. To mi je omiljeno jer ne zahtijeva puno vremena, a rezultat je uvijek solidan i ukusan, baš onako kako volim da jedem.\"\n    Total: 82 words. Perfect.\n\n    *Refining \"nisam\" vs \"nijesam\":* I didn't use \"nisam\" in this specific text because there was no negation, but I will ensure it's used if needed.\n\n    *Emotion/Intensity check:* The prompt says current state is \"despondent\" (0.4). I should keep the tone somewhat low energy but not \"crying\" or \"angry\".\n\n    *Segment Structure:*\n    Text: Najviše volim da spremam tjesteninu sa paradajzom, bijelim lukom i malo origana. To je jednostavan obrok, ali mi uvijek dobro odgovara. Pored toga, često pravim omlet ili pečeni krompir kad mi se pojavi nešto drugo. Kad pravim tjesteninu, obavezno prvo propržim bijeli luk da pusti miris, a onda dodam paradajz i začine. Volim da se sos malo zgusne prije nego što ga prelijem preko tjestenine. To mi je omiljeno jer ne zahtijeva puno vremena, a rezultat je uvijek solidan i ukusan, baš onako kako volim da jedem.\n    Emotion: despondent\n    Intensity: 0.4\n    Gesture: none\n    Voice: normal\n    Gaze: listener\n    Transition: 0.6\n    Pause: 0.2\n    Hold: 0.3\n    Gesture_at: 0\n    Gesture_duration: 0\n\n    *Wait, check \"ijekavica\" and \"č/ć\".*\n    \"uvek\" -> \"uvijek\" (ijekavica).\n    \"paradajz\" -> correct.\n    \"bijeli luk\" -> correct.\n    \"tjesteninu\" -> correct.\n    \"pečeni\" -> correct.\n\n    *Word check:*\n    \"Najviše volim da spremam tjesteninu sa paradajzom, bijelim lukom i malo origana. To je jednostavan obrok, ali mi uvijek dobro odgovara. Pored toga, često pravim omlet ili pečeni krompir kad mi se pojavi nešto drugo.\" (30 words)\n    \"Kad pravim tjesteninu, obavezno prvo propržim bij"
+    },
+    "seconds": 12.62
+  },
+  {
+    "variant": "thinking",
+    "seed": 62,
+    "question": "Šta voliš da kuvaš? Opiši mi malo kako to spremaš.",
+    "content": {
+      "role": "assistant",
+      "content": "",
+      "reasoning_content": "*   User asks: \"Šta voliš da kuvaš? Opiši mi malo kako to spremaš.\" (What do you like to cook? Describe a bit how you prepare it.)\n    *   Context: Ordinary topic during a consultation. The user wants to know about my cooking preferences and methods.\n    *   Character Profile (Ivan):\n        *   Age: 39, administrative job.\n        *   Food: Likes pasta with tomato, garlic, and a little oregano. Makes omelets or roasted potatoes. Can cook simple meals and has his own taste.\n        *   Conversational Style: Practical, direct, specific opinions. Explains reasoning when asked.\n        *   Current State: Despondent (0.4 intensity), but the instructions say to discuss ordinary food/interests normally without symptom disclaimers.\n        *   Language: Montenegrin (Latin, ijekavica, \"nisam\" instead of \"nijesam\").\n\n    *   *What I like to cook:* Pasta with tomato, garlic, and oregano. Also omelets and roasted potatoes.\n    *   *How I prepare it:* Keep it simple.\n    *   *Style:* Practical and direct.\n\n    *   *Draft 1 (Mental):* Volim da pravim tjesteninu sa paradajzom. Samo samo prokuvam tjesteninu, a onda u tiganju prodijem beli luk, dodam paradajz i malo origana. To je jednostavno, ali ukusno. Ponekad napravim i pečeni krompir ili omlet ako mi se nešto drugo bude htelo.\n\n    *   *Refining for Montenegrin (Ijekavica):* \"Volim da pravim tjesteninu sa paradajzom, bijelim lukom i malo origana. To je moj najjednostavniji obrok – samo prokuvam tjesteninu, a u tiganju lagano prodijem bijeli luk prije nego što dodam paradajz i začine. Ponekad, kad mi se ne bude htelo nešto komplikovanije, samo napravim omlet ili pečeni krompir.\"\n\n    *   *Checking Constraints:*\n        *   Answer first? Yes.\n        *   2-4 connected sentences? Yes.\n        *   Word count? ~40 words (well within 100 limit).\n        *   No symptom disclaimer? Checked.\n        *   No \"I am tired\"/fatigue? Checked.\n        *   Natural language? Checked.\n        *   No \"nijesam\"? Checked.\n        *   No \"I am a person, not a script\"? Checked.\n        *   No closing question? Checked.\n\n    *   *Segment:*\n        *   Text: Volim da pravim tjesteninu sa paradajzom, bijelim lukom i malo origana. To je moj najjednostavniji obrok – samo prokuvam tjesteninu, a u tiganju lagano prodijem bijeli luk prije nego što dodam paradajz i začine. Ponekad, kad mi se ne bude htelo nešto komplikovanije, samo napravim omlet ili pečeni krompir.\n        *   Emotion: despondent (from state) -> maybe neutral/calm for food talk? The prompt says \"Current simulated delivery state: despondent\". I should stick to that unless a change is warranted. Actually, the prompt says \"Emotion describes the present feeling\". Talking about food usually feels neutral or calm, but the state is despondent. I'll keep it slightly subdued/despondent as per the state but the content is normal.\n        *   Intensity: 0.4.\n        *   Voice: subdued.\n        *   Gaze: listener.\n\n    *   *Refining Text for better flow:*\n        \"Najviše volim da pravim tjesteninu sa paradajzom, bijelim lukom i malo origana. To je jednostavan obrok – samo prokuvam tjesteninu, a u tiganju lagano prodijem bijeli luk prije nego što dodam paradajz i začine. Ponekad, kad mi se ne bude htelo ništa komplikovanije, napravim samo omlet ili pečeni krompir.\"\n\n    *   *Final Check:*\n        - Montenegrin? Yes.\n        - Latin? Yes.\n        - Ijekavica? Yes (tjestenina, bijeli).\n        - No \"nijesam\"? Yes.\n        - No \"I am a therapist\"? Yes.\n        - No \"fatigue\" mentioned? Yes.\n\n    *   *JSON construction:*\n        - text: \"Najviše volim da pravim tjesteninu sa paradajzom, bijelim lukom i malo origana. To je jednostavan obrok – samo prokuvam tjesteninu, a u tiganju lagano prodijem bijeli luk prije nego što dodam paradajz i začine. Ponekad, kad mi se ne bude htelo ništa komplikovanije, napravim samo omlet ili pečeni krompir.\"\n        - emotion: \"despondent\"\n        - intensity: 0.4\n        - gesture: \"none\"\n        - voice_style: \"subdued\"\n        - gaze: \"listener\"\n        - transition_seconds: 0.8\n        - pause_before_seconds: 0.2\n        - hold_after_seconds: 0.3\n        - gesture_at: 0\n        - gesture_duration_seconds: 0\n\n    Wait, the prompt says \"Respond to the main points of a longer message without a life-story dump.\" and \"Answer the actual question first.\"\n    The user asked \"What do you like to cook? Describe a bit how you prepare it.\"\n    My draft covers both.\n\n    One detail: \"Explain his reasoning when asked.\" -> The user didn't ask why, just how.\n    \"Do not add a closing fatigue, grief or fear disclaimer.\" -> Checked.\n    \"Never claim that ordinary enjoyment cured you.\" -> Checked.\n\n    Let's double check \"nisam\". \"Nijesam\" is forbidden. I didn't use \"nisam\" in the draft, but I should be careful if I do.\n\n    Final Text:\n    Najviše volim da pravim tjesteninu sa paradajzom, bijelim lukom i malo origana. To je jednostavan obrok – samo prokuvam tjesteninu, a u tiganju lagano prodijem bijeli luk prije nego što dodam paradajz i začine. Ponekad, kad mi se ne bude htelo ništa komplikovanije, napravim samo omlet ili pečeni krompir.\n\n    Word count: "
+    },
+    "seconds": 11.9
+  }
+]

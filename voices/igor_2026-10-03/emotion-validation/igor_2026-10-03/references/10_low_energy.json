@@ -1,0 +1,40 @@
+{
+  "file": "10_low_energy.wav",
+  "section": 10,
+  "title": "Povlačenje i manjak energije",
+  "text": "Ne znam, danas mi je skoro svejedno. Možemo ovdje da sjednemo, možemo i tamo. Nemam ništa posebno da dodam. Jutros sam ustao, završio ono što sam morao i došao ovamo. Sad pokušavam da smislim odakle ja počnem, ali mi je to nekako naporno. Može malo sporije, jedno pitanje po jedno.",
+  "script_text": "Ne znam, danas mi je skoro svejedno. Možemo ovdje da sjednemo, možemo i tamo. Nemam ništa posebno da dodam. Jutros sam ustao, završio ono što sam morao i došao ovamo. Sad pokušavam da smislim odakle da počnem, ali mi je i to nekako naporno. Možemo li malo sporije, jedno pitanje po jedno?",
+  "transcript_status": "confirmed_by_speaker",
+  "transcript_provenance": "transcripts_confirmed_by_igor.json",
+  "source_start_seconds": 219.6,
+  "source_end_seconds": 246.0,
+  "duration_seconds": 26.4,
+  "sample_rate": 48000,
+  "ready_for_tts": true,
+  "source_sha256": "17b3e44b961fdae5e6fe66029a2c3d6ccd65c13fcb94eaa269eb02c1ca344094",
+  "audio_processing": {
+    "lead_in_silenced_until_seconds": 1.315,
+    "lead_in_fade_complete_seconds": 1.35,
+    "fade_ms": 35,
+    "speech_internal_edits": false
+  },
+  "metrics": {
+    "file": "10_low_energy.wav",
+    "duration_seconds": 26.4,
+    "source_peak_dbfs": -3.9834277042422253,
+    "cleaned_peak_dbfs": -3.9834277042422253,
+    "cleaned_true_peak_4x_dbtp": -3.977900329211156,
+    "source_rms_dbfs": -25.485342673221588,
+    "cleaned_rms_dbfs": -25.48537196520136,
+    "near_full_scale_samples_before": 0,
+    "near_full_scale_samples_after": 0,
+    "processing": {
+      "lead_in_silenced_until_seconds": 1.315,
+      "lead_in_fade_complete_seconds": 1.35,
+      "fade_ms": 35,
+      "speech_internal_edits": false
+    }
+  },
+  "source_prepared_file": "voices/igor_2026-10-03/cleaned/10_low_energy.wav",
+  "source_prepared_sha256": "9250935b702e397e0409053611939fe216fc0df6e376c3080ac9b97ed3934a14"
+}

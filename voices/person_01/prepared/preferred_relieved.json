@@ -1,0 +1,42 @@
+{
+  "status": "approved_by_user_for_use",
+  "recorded_date": "2026-10-04",
+  "person": "person_01",
+  "performance_emotion": "relieved",
+  "audition_emotion": "relieved",
+  "reference": "voices/person_01/prepared/12_relieved.wav",
+  "reference_transcript": "voices/person_01/prepared/12_relieved.json",
+  "reference_sha256": "4aa96fb1ff4cad1bebbd51aab5da6164ba1b786713504c71e05824e84572630c",
+  "higgs_quantization": "bf16",
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": "<|emotion:relief|>",
+  "prosody_tag": null,
+  "audition_display_label": "Relief · selected relief cue — approved mono reference with reverb removed",
+  "audition_audio": "voices/person_01/prepared/auditions/relieved-B-dereverb.wav",
+  "audition_sha256": "dbb79f1ebaef75aa5840b490f9e28f3ff6e70b1204be2a6c339cb02ec46b0ffa",
+  "approval_quote": "It's good enough, lets use the settings we previosly made for the generated voices.",
+  "source_review": "voices/igor_2026-10-03/person-1-mono-dereverb/validation.json",
+  "must_fix_before_runtime": false,
+  "active_in_game": false,
+  "ready_for_assignment": true,
+  "approved_candidates": [
+    {
+      "variant": "relieved-B",
+      "tag": "<|emotion:relief|>",
+      "audio": "voices/person_01/prepared/auditions/relieved-B-dereverb.wav",
+      "sha256": "dbb79f1ebaef75aa5840b490f9e28f3ff6e70b1204be2a6c339cb02ec46b0ffa"
+    }
+  ],
+  "user_choice": "B",
+  "default_variant": "B",
+  "previous_review": {
+    "choice": "B",
+    "default_variant": "B",
+    "status": "preferred_by_user_with_audio_notes",
+    "notes": "very qquiet, but good, seems to be getting quieter at the end.",
+    "preference_file": "voices/person_01/prepared/preferred_relieved.json"
+  }
+}

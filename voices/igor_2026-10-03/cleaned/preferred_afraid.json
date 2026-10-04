@@ -1,0 +1,38 @@
+{
+  "status": "preferred_by_user_in_listening_test",
+  "recorded_date": "2026-10-03",
+  "person": "igor_2026-10-03",
+  "performance_emotion": "afraid",
+  "audition_emotion": "afraid",
+  "user_choice": "A",
+  "default_variant": "A",
+  "default_reason": "explicit user selection",
+  "accepted_variants": [
+    "A"
+  ],
+  "reference": "voices/igor_2026-10-03/emotion-validation/igor_2026-10-03/references/09_afraid.wav",
+  "reference_transcript": "voices/igor_2026-10-03/emotion-validation/igor_2026-10-03/references/09_afraid.json",
+  "reference_sha256": "ca5feb078933a9db5e109d8cde2030aad64a8b488655b1f39dc6f3deeaf81188",
+  "reference_transcript_status": "confirmed_by_speaker",
+  "higgs_quantization": "bf16",
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": null,
+  "prosody_tag": null,
+  "audition_audio": "voices/igor_2026-10-03/emotion-validation/igor_2026-10-03/afraid-A.wav",
+  "audition_sha256": "98faaec71de6f80d6e6b8f80df8d088a37e5d37247dc18c7273674bd113ed002",
+  "user_notes": "",
+  "must_fix_before_runtime": false,
+  "active_in_game": false,
+  "feedback_source": "voices/igor_2026-10-03/emotion-validation/feedback/igor_2026-10-03-emotion-feedback.json",
+  "approved_candidates": [
+    {
+      "variant": "A",
+      "tag": "",
+      "audio": "voices/igor_2026-10-03/emotion-validation/igor_2026-10-03/afraid-A.wav",
+      "sha256": "98faaec71de6f80d6e6b8f80df8d088a37e5d37247dc18c7273674bd113ed002"
+    }
+  ]
+}

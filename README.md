@@ -12,9 +12,11 @@ The project brings together character design, local AI, expressive speech and in
 
 - **Spoken conversations:** talk through a microphone and hear the character reply, with text input and subtitles also available.
 - **Four fictional patient profiles:** Alex, Nikola, Stefan and Ivan have distinct backstories and conversation guidance. Session memory helps retain earlier disclosures and corrections, and case descriptions can be hidden during practice.
-- **Expressive characters:** facial expressions, gaze, tears, seated gestures and lip sync accompany speech. The live character currently uses procedural animation.
-- **Voice cloning:** all three contributed voices have been cloned, with generated samples and selected emotional delivery presets available in an offline listening library. Assigning the voices to individual patients is still pending.
+- **Four clothed MetaHumans:** Dominic (Alex), Bruce (Ivan), Mateo (Stefan) and Victor (Nikola), with baked facial reactions, neck movement, speech/emotion blending and tears. Torso and hand acting remain a resting pose for now.
+- **Assigned voices:** Igor speaks as Ivan, Person 1 as Stefan, Person 2 as Nikola and Person 3 as Alex. The selected BF16 emotional presets and cleaned references are connected to live conversation.
 - **Reviewable sessions:** conversations are saved locally as readable transcripts and structured records for later review.
+- **Performance diagnostics:** automatic GPU load, dedicated VRAM and system RAM measurements, with an **Export Diagnostics.cmd** launcher for a local ZIP of resource data and reply timings. Dialogue and recordings are excluded from this export.
+- **Readable desktop view:** borderless fullscreen/windowed display options and adjustable subtitle size in Settings.
 
 | Choose a patient and scenario | Practise with the case details hidden |
 | --- | --- |
@@ -32,7 +34,7 @@ Development has covered the Unity consultation environment, the local AI service
 | Speech recognition | **Whisper large-v3-turbo**, through faster-whisper | Improved recognition in the project's Montenegrin speech checks. It runs on the CPU to leave GPU capacity for dialogue, voice and rendering. |
 | Voice generation | **Higgs TTS 3 in BF16** | Selected through listening comparisons for expressive delivery and voice similarity. The higher-precision voice model was retained after testing lighter alternatives. |
 
-Optimisation includes keeping the speech model loaded between replies, preparing voice references in advance, controlling dialogue context and GPU memory use, and playing completed sentences while later speech is being generated. Lip sync follows the audio playback clock so it stays aligned through pauses and interruptions.
+Optimisation includes keeping the speech model loaded between replies, preparing approved voices and fixed opening lines in advance, and controlling dialogue context and GPU memory use. Speech keeps each approved preset's delivery mode: whole emotional beats are no longer forcibly split into sentences. Lip sync follows the audio playback clock; interrupted, unfinished speech is not treated as fully heard.
 
 These are development results, with language accuracy, character consistency and response delay still under review. See the [dialogue comparison](docs/GEMMA_VS_ORIGINAL.md), [speech recognition checks](docs/MONTENEGRIN_CONVERSATION.md), [voice listening tests](docs/ALTERNATIVE_TTS_AUDITIONS.md) and [sentence playback work](docs/SENTENCE_PLAYBACK.md) for measurements and their limits. Historical reports retain the models and settings used at the time; **Gemma is the current default**.
 
@@ -50,15 +52,17 @@ For testing, download **psychology-vr-windows.zip** from the [latest release](ht
 
 Every release is a complete application package with all previous updates; no patch ZIPs are needed. See the **Updating** section in [START HERE](START%20HERE.md) to keep existing downloads, settings and session logs.
 
-Use the release asset above, not GitHub's **Source code.zip**. The source repository is for development; the instructions below describe that workflow. The three contributed voice packs are tracked through Git LFS and included in the release. Use **Preview Voices.cmd** to hear selected samples; assigning these voices to patient characters is still pending.
+Use the release asset above, not GitHub's **Source code.zip**. The source repository is for development; the instructions below describe that workflow. All four runtime voice packs and their scenario assignments are included. Use **Preview Voices.cmd** to hear selected samples offline.
 
 Fresh setup selects **Gemma 4 12B QAT Q4**, **BF16 Higgs speech** and **CPU Whisper**. On an existing installation, **PC Settings.cmd → 6 Gemma** installs/selects the current default. In Unity, **Settings → Dialogue model** switches between installed alternatives between replies, preserving the conversation and voice settings. Older PC Settings presets remain available for comparisons; see [model switching](docs/MODEL_SWITCHING.md) before changing them.
 
 ## Voice and animation update
 
-The v0.4.0 complete package adds an offline voice listening library, person 3's selected emotion presets, and the standalone facial/head-motion preview player.
-The Unreal prototype remains source-only. See [release details](docs/RELEASE_0_4_0.md)
-for the contents, capture setup and remaining integration work.
+The v0.5.0 complete package integrates the clothed MetaHuman cast, all four assigned voices,
+approved emotional delivery, fullscreen controls and automatic performance diagnostics.
+It contains the full application and previous tools; no older release or patch folders are needed.
+The Unreal game prototype remains excluded from the Windows package. See
+[release details](docs/RELEASE_0_5_0.md) for contents, upgrading and remaining limitations.
 
 ## Clone and open
 
@@ -144,7 +148,7 @@ Alex has 20 configurable delivery states, including crying, fear, panic, disgust
 
 The live character uses the supplied jumper rig, with authored facial controls, tears, flushing, eye/jaw bones and seated body poses. Crying includes face-in-hands and sobbing motion; anger uses clenched hands and emphatic beats. The `wipe_tear` cue has a short right-hand reach. Model replies can now direct gaze, transitions, pauses and timed gestures. Higgs maps validated emotion cues into expressive speech; voice identity and pronunciation still need listening tests. The headless player has a blue-green sweater, seated legs, headset-driven upper body and controller-driven arms/fingers. See `docs/PLAYER_AVATAR.md` for controls and limitations. Props remain static.
 
-The player now [plays completed sentences while later speech is being prepared](docs/SENTENCE_PLAYBACK.md), keeping BF16 Higgs. The complete model reply is validated first. Playback acknowledgements keep unheard sentences out of history after interruption; unfinished sentence words are marked as unknown. Stop/reset suppress stale results and queued playback, although a running GPU call may finish in the background. The legacy text endpoint still returns a complete reply. Hands-free turn detection remains a follow-up.
+The player keeps each approved voice preset's delivery mode with BF16 Higgs; see [current expressive speech behavior](docs/LIVE_EXPRESSIVE_SPEECH.md). Whole emotional beats are not forcibly split. The complete model reply is validated first. Playback acknowledgements keep unheard segments out of history after interruption; unfinished segment words are marked as unknown. Stop/reset suppress stale results and queued playback, although a running GPU call may finish in the background. The legacy text endpoint still returns a complete reply. Hands-free turn detection remains a follow-up.
 
 Desktop tests cannot verify headset comfort, controller mappings, microphone routing, or sustained 90 Hz. Those require a Quest playtest. This development machine reported an RTX 5090/32 GB; performance must also be checked on the intended RTX 4090 target.
 

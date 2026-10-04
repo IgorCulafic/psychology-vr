@@ -1,0 +1,40 @@
+{
+  "file": "06_near_tears.wav",
+  "section": 6,
+  "title": "Na ivici plača",
+  "text": "Izvinite, treba mi trenutak. Mislio sam da mogu o ovome da pričam sasvim normalno. Ali sad mi je mnogo teže nego što prije koliko minuta. Toliko toga želim da vam kažem, a nikako da prođe prava riječ. Molim vas, nemojte još ništa da pitate. Samo malo da dođem sebi, pa ću pokušati ponovo.",
+  "script_text": "Izvinite, treba mi trenutak. Mislio sam da mogu o ovome da pričam sasvim normalno, ali sad mi je mnogo teže nego prije nekoliko minuta. Toliko toga želim da vam kažem, a nikako da pronađem prave riječi. Molim vas, nemojte još ništa da pitate. Samo da malo dođem sebi, pa ću pokušati ponovo.",
+  "transcript_status": "confirmed_by_speaker",
+  "transcript_provenance": "transcripts_confirmed_by_igor.json",
+  "source_start_seconds": 117.7,
+  "source_end_seconds": 143.2,
+  "duration_seconds": 25.5,
+  "sample_rate": 48000,
+  "ready_for_tts": true,
+  "source_sha256": "17b3e44b961fdae5e6fe66029a2c3d6ccd65c13fcb94eaa269eb02c1ca344094",
+  "audio_processing": {
+    "lead_in_silenced_until_seconds": 0.835,
+    "lead_in_fade_complete_seconds": 0.87,
+    "fade_ms": 35,
+    "speech_internal_edits": false
+  },
+  "metrics": {
+    "file": "06_near_tears.wav",
+    "duration_seconds": 25.5,
+    "source_peak_dbfs": -1.2872173530151534,
+    "cleaned_peak_dbfs": -1.2872173530151534,
+    "cleaned_true_peak_4x_dbtp": -1.2694912335803825,
+    "source_rms_dbfs": -22.16850655060083,
+    "cleaned_rms_dbfs": -22.168518696763897,
+    "near_full_scale_samples_before": 0,
+    "near_full_scale_samples_after": 0,
+    "processing": {
+      "lead_in_silenced_until_seconds": 0.835,
+      "lead_in_fade_complete_seconds": 0.87,
+      "fade_ms": 35,
+      "speech_internal_edits": false
+    }
+  },
+  "source_prepared_file": "voices/igor_2026-10-03/cleaned/06_near_tears.wav",
+  "source_prepared_sha256": "07a70bce49724b07aa83b327b1b048da3fc7486ad98f3b32c45f8f10d0485f7f"
+}

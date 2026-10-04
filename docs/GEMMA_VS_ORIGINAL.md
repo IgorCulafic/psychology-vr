@@ -1,5 +1,40 @@
 # Gemma 4 12B versus the original game model
 
+## 4 October follow-up: regional dialogue remains unreliable
+
+A live Ivan reply to `I za što je to tako?` contained malformed words and a
+meaningless motor metaphor. The session log confirms these were LLM text errors,
+before TTS. The selected model was still Gemma 4 12B QAT Q4, not Bonsai.
+
+The patient-specific Montenegrin guidance now explicitly separates personal
+experience from unknown causes and discourages expert explanations and invented
+metaphors. The bridge no longer regenerates every reply below 30 words merely
+because appraisal marked an open question as inviting detail. Elaboration stays
+available, with the existing upper disclosure limit, but has no forced minimum.
+
+The final text-only regression covered five successive questions across three
+seeds (15 turns). Replies to the original why question expressed uncertainty and
+personal experience, but cooking answers still contained severe language errors
+(for example `prokuhamam` and `ne budealo`). This is a partial role/length fix,
+**not a fluency fix or readiness approval**. Eighteen prompt/relationship unit
+tests pass, including keeping both useful brief answers and requested detail;
+those tests do not measure natural-language quality.
+
+Serbian/Bosnian prompt labels, a simpler text-only prompt, and same-model
+proofreading did not reliably fix wording in local probes. The experimental
+thinking runs exhausted their 1700-token output budget before a final answer;
+they do not establish the quality of a completed thinking-mode response. None
+of these experimental alternatives was enabled in the game. Speech presets,
+BF16 quality, and the selected dialogue model remain unchanged.
+
+Local evidence is in `experiments/dialogue-naturalness/`: `results.json`,
+`language-results.json`, `review-results.json`, and `final-prompt-results.json`.
+`tools/check-dialogue-naturalness.py` reruns the real bridge text path without
+speech, with configurable seeds and an optional experimental temperature override.
+This follow-up used the development RTX 5090; it is not a 4090 latency benchmark.
+
+---
+
 Date: 27 September 2026.
 
 **Gemma is a promising lighter alternative, not a demonstrated dialogue-quality

@@ -2,6 +2,7 @@
 import math
 import re
 import unicodedata
+from speech_language import preferred_dialogue_wording
 
 GAZES = ('automatic', 'listener', 'down', 'away')
 TIMING_DEFAULTS = {'transition_seconds': .65, 'pause_before_seconds': 0.,
@@ -99,13 +100,13 @@ def refine_delivery(segments,state,recent_gestures=()):
 
 
 def speech_text(text,pronunciation=None):
-    """TTS-only, explicit pronunciation aliases; original transcript is preserved."""
+    """Generated dialogue wording and explicit TTS-only pronunciation aliases."""
     text=unicodedata.normalize('NFC',text)
     for source,target in (pronunciation or {}).items():
         if not isinstance(source,str) or not source.strip() or not isinstance(target,str) or not target.strip() or len(source)>80 or len(target)>120 or re.search(r'[<>\[\]{}*`]',source+target):
             raise ValueError('Invalid pronunciation alias')
         text=re.sub(r'(?<!\w)'+re.escape(source)+r'(?!\w)',lambda match:target,text)
-    return re.sub(r'\s+',' ',text).strip()
+    return preferred_dialogue_wording(re.sub(r'\s+',' ',text).strip())
 
 
 def higgs_text(segment,pronunciation=None):

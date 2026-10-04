@@ -1,0 +1,6 @@
+{
+  "scenario": "stefan-fire-witness",
+  "speaker": "person_01",
+  "source": "voices/person_01/prepared/auditions/preferred_anger-1-dereverb.wav",
+  "precision": "bf16"
+}

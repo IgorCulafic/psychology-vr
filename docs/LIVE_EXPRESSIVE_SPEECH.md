@@ -65,4 +65,26 @@ Qwen and Higgs compete with Unity and other applications for VRAM. `llm_gpu_laye
 
 ## Verification
 
+**4 October runtime parity fix:** assigned BF16 voice presets now retain whole
+emotional beats. Forced sentence splitting changed prosody despite using the
+correct approved reference and sampling settings. Only presets explicitly
+approved in `sentences` mode still split (including Igor's sadness repair).
+The transport retains stop/playback acknowledgements between complete audio
+segments; interrupted partial segments are logged without inventing heard words.
+This favors voice quality over time to first sound. Fixed character openings
+are prepared at service startup before the launcher opens the game; new replies
+are still generated live. Speech logs identify the selected source preset/mode.
+
+The exact Igor low-energy audition text regenerated through the live worker was
+sample-for-sample identical to the approved `low_energy-B.wav` (24 kHz, 7.68 s).
+This confirms that recipe's parity, not subjective quality for arbitrary text.
+
+On the 5090 development PC, a prepared Ivan opening reached the bridge in 964 ms.
+A new 229-character reply took 31.6 s (6.5 dialogue, 23.6 speech, 1.5 alignment).
+Prewarming improves startup/known openings; it does not solve general synthesis
+latency. Persons 1 and 2 currently lack saved approved sadness/happiness recipes
+in the final cleaned voice packs; those states use their own neutral reference.
+They need a separate listening approval rather than being described as matching
+an approved expressive preset.
+
 Run `./.venv/Scripts/python.exe -m unittest discover -s services`. Tests cover direction bounds, backward compatibility, language prompting, speech-token isolation, history, HTTP limits, scenario changes and cancellation. A successful build or desktop smoke test does not establish natural voice identity, Montenegrin pronunciation or sustained headset frame rate; verify those with the next focused Quest session.

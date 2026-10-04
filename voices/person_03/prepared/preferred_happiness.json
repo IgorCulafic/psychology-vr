@@ -1,5 +1,5 @@
 {
-  "status": "preferred_by_user_in_listening_test",
+  "status": "preferred_by_user_multi_sentence_checked",
   "recorded_date": "2026-10-01",
   "person": "person_03",
   "performance_emotion": "happy",
@@ -16,5 +16,14 @@
   "audition_audio": "voices/auditions/2026-10-01/person-3/happiness-2/happy-C.wav",
   "audition_sha256": "57ce40cc889fc46d9fd0313922bec56d1392d5261f90b8d60c15d90ff289156d",
   "user_feedback": "C: longer happy performance + enthusiasm is best",
-  "note": "Speaker-specific preferred happiness delivery. Not yet assigned to an in-game patient."
+  "note": "Speaker-specific preferred happiness delivery. Not yet assigned to an in-game patient.",
+  "consistency_review": {
+    "date": "2026-10-03",
+    "choice": "Both sentences are good",
+    "notes": "",
+    "status": "passed_two_new_sentences",
+    "feedback_source": "voices/igor_2026-10-03/emotion-validation/feedback/person_03-emotion-feedback.json"
+  },
+  "original_selection_status": "preferred_by_user_in_listening_test",
+  "must_fix_before_runtime": false
 }

@@ -71,7 +71,7 @@ Koristite šifru osobe, na primjer `glas_01`, pa nazive poput `glas_01_04_ljutnj
 
 > E, ovo mi je baš uljepšalo dan. Nijesam očekivao da će se svi pojaviti, a na kraju je sto bio pun i niko nije žurio kući. Pričali smo, šalili se i dogovarali da to ponovimo. Još mi je osmijeh na licu kad se sjetim. Volio bih da imamo više takvih običnih, lijepih dana.
 
-*Po potrebi: „Nijesam očekivala“ i „Voljela bih“, ili vaša uobičajena ekavska verzija.*
+*Po potrebi: „Nijesam očekivala“ i „Voljela bih“, ili vaša uobičajena ekavska verzija.* 
 
 ## 09 — Strah, bez gubitka jasnog govora
 

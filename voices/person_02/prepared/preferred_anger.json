@@ -1,18 +1,169 @@
 {
-  "status": "approved_by_user_in_listening_test",
+  "status": "approved_by_user_for_use",
   "recorded_date": "2026-10-01",
   "person": "person_02",
   "performance_emotion": "angry",
   "reference": "voices/person_02/prepared/reference_angry.wav",
   "reference_transcript": "voices/person_02/prepared/reference_angry.json",
   "higgs_quantization": "bf16",
-  "temperature": 0.60,
+  "temperature": 0.45,
   "top_p": 0.95,
   "top_k": 50,
   "seed": 42,
   "emotion_tag": "<|emotion:bitterness|>",
-  "audition_display_label": "Person 2 B — Frustration / bitterness cue",
-  "audition_audio": "voices/auditions/2026-10-01/person-2-stronger/B.wav",
-  "user_feedback": "B · Frustration / bitterness cue is perfect!",
-  "note": "Approved anger voice delivery for person 2 uses the bitterness speech cue with their own angry reference. This is a speaker-specific voice preference, not a change to the character's visual emotion or a global remapping of anger. Not yet integrated into the game's per-person voice routing."
+  "audition_display_label": "A · Selected reference and cue · lower temperature 0.45",
+  "audition_audio": "voices/person_02/prepared/auditions/person_02-anger-A-1.wav",
+  "user_feedback": "A is best",
+  "note": "Approved speaker-specific repair recipe. Patient voice routing remains pending.",
+  "original_selection_status": "approved_by_user_in_listening_test",
+  "must_fix_before_runtime": false,
+  "review_history": [
+    {
+      "consistency_review": {
+        "date": "2026-10-03",
+        "choice": "Sentence 1 needs work",
+        "notes": "It's higher pitch than the old one.",
+        "status": "needs_refinement",
+        "feedback_source": "voices/igor_2026-10-03/emotion-validation/feedback/person_02-emotion-feedback.json"
+      }
+    }
+  ],
+  "approval_date": "2026-10-04",
+  "approval_quote": "There, I think this is good enough now.",
+  "feedback_source": "voices/igor_2026-10-03/remaining-voice-repairs/feedback/afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd/remaining-voice-repairs-feedback.json",
+  "feedback_sha256": "afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd",
+  "feedback_saved_at": "2026-10-03T23:31:45.757Z",
+  "default_variant": "A",
+  "user_choice": "A is best",
+  "accepted_variants": [
+    "A"
+  ],
+  "default_reason": "explicit user selection after repair",
+  "reference_sha256": "e602ea8bd3f36a3ceaaf877fbb54a8eb27d7efc0df52ebf66c3a7fc53baf9b55",
+  "reference_text": "Ne, to nije u redu. Nemate pravo da mi se obraćate na taj način. Mogu da prihvatim da se ne slažemo, ali neću da me vrijeđate i onda očekujete da nastavim kao da se ništa nije desilo. Prestanite da mi upadate u riječ. Ako se ovo nastavi, završićemo razgovor i ja ću otići.",
+  "prosody_tag": null,
+  "tts_script": "latin",
+  "synthesis_mode": "whole",
+  "sentence_gap_seconds": 0,
+  "generation_recipe": {
+    "tag": "<|emotion:bitterness|>",
+    "mode": "whole",
+    "max_new_tokens": 900,
+    "quality_check": "speech_audio.checked_synthesis",
+    "retry_seed": 43,
+    "retry_temperature": 0.45,
+    "recovery_gap_seconds": 0.25
+  },
+  "audition_sha256": "d04b2622d2458cfb4beda643ed20f9140adc17fadde392fb214d4c09895a765c",
+  "approved_candidates": [
+    {
+      "group": "person_02-anger",
+      "speaker": "person_02",
+      "variant": "A",
+      "title": "Selected reference and cue · lower temperature 0.45",
+      "index": 1,
+      "id": "person_02-anger-A-1",
+      "text": "Smeta mi kad odlučite šta osjećam prije nego što me saslušate. Pustite me da završim.",
+      "temperature": 0.45,
+      "tag": "<|emotion:bitterness|>",
+      "reference": "voices/igor_2026-10-03/emotion-validation/person_02/references/preferred_anger.wav",
+      "reference_text": "Ne, to nije u redu. Nemate pravo da mi se obraćate na taj način. Mogu da prihvatim da se ne slažemo, ali neću da me vrijeđate i onda očekujete da nastavim kao da se ništa nije desilo. Prestanite da mi upadate u riječ. Ako se ovo nastavi, završićemo razgovor i ja ću otići.",
+      "reference_sha256": "e602ea8bd3f36a3ceaaf877fbb54a8eb27d7efc0df52ebf66c3a7fc53baf9b55",
+      "mode": "whole",
+      "script": "latin",
+      "file": "voices/person_02/prepared/auditions/person_02-anger-A-1.wav",
+      "duration_seconds": 5.56,
+      "generation_seconds": 7.096,
+      "quality": {
+        "ok": true,
+        "seconds": 5.56,
+        "leading_seconds": 0.08,
+        "trailing_seconds": 0.32,
+        "longest_gap_seconds": 0.68,
+        "issues": []
+      },
+      "recovery": [
+        {
+          "regenerated": false,
+          "quality": {
+            "ok": true,
+            "seconds": 5.56,
+            "leading_seconds": 0.08,
+            "trailing_seconds": 0.32,
+            "longest_gap_seconds": 0.68,
+            "issues": []
+          }
+        }
+      ],
+      "sha256": "d04b2622d2458cfb4beda643ed20f9140adc17fadde392fb214d4c09895a765c",
+      "audio": "voices/person_02/prepared/auditions/person_02-anger-A-1.wav"
+    },
+    {
+      "group": "person_02-anger",
+      "speaker": "person_02",
+      "variant": "A",
+      "title": "Selected reference and cue · lower temperature 0.45",
+      "index": 2,
+      "id": "person_02-anger-A-2",
+      "text": "Ne, nisam to rekao. Molim vas, prestanite da mi pripisujete riječi koje nisam izgovorio.",
+      "temperature": 0.45,
+      "tag": "<|emotion:bitterness|>",
+      "reference": "voices/igor_2026-10-03/emotion-validation/person_02/references/preferred_anger.wav",
+      "reference_text": "Ne, to nije u redu. Nemate pravo da mi se obraćate na taj način. Mogu da prihvatim da se ne slažemo, ali neću da me vrijeđate i onda očekujete da nastavim kao da se ništa nije desilo. Prestanite da mi upadate u riječ. Ako se ovo nastavi, završićemo razgovor i ja ću otići.",
+      "reference_sha256": "e602ea8bd3f36a3ceaaf877fbb54a8eb27d7efc0df52ebf66c3a7fc53baf9b55",
+      "mode": "whole",
+      "script": "latin",
+      "file": "voices/person_02/prepared/auditions/person_02-anger-A-2.wav",
+      "duration_seconds": 7.44,
+      "generation_seconds": 9.276,
+      "quality": {
+        "ok": true,
+        "seconds": 7.44,
+        "leading_seconds": 0.1,
+        "trailing_seconds": 0.3,
+        "longest_gap_seconds": 0.36,
+        "issues": []
+      },
+      "recovery": [
+        {
+          "regenerated": false,
+          "quality": {
+            "ok": true,
+            "seconds": 7.44,
+            "leading_seconds": 0.1,
+            "trailing_seconds": 0.3,
+            "longest_gap_seconds": 0.36,
+            "issues": []
+          }
+        }
+      ],
+      "sha256": "6a7f08297f28a1b08a8b08c5c07f6d7ab7ba95156cf5b3d9dcaea5be2c091310",
+      "audio": "voices/person_02/prepared/auditions/person_02-anger-A-2.wav"
+    }
+  ],
+  "user_notes": "A is really good.",
+  "active_in_game": false,
+  "repair_review": {
+    "status": "approved_by_user_for_use",
+    "approval_date": "2026-10-04",
+    "approval_quote": "There, I think this is good enough now.",
+    "feedback_source": "voices/igor_2026-10-03/remaining-voice-repairs/feedback/afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd/remaining-voice-repairs-feedback.json",
+    "feedback_sha256": "afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd",
+    "feedback_saved_at": "2026-10-03T23:31:45.757Z",
+    "choice": "A is best",
+    "notes": "A is really good."
+  },
+  "reference_transcript_status": "unchanged_from_source",
+  "transition_review": {
+    "status": "approved_by_user_for_use",
+    "approval_date": "2026-10-04",
+    "approval_quote": "There, I think this is good enough now.",
+    "feedback_source": "voices/igor_2026-10-03/remaining-voice-repairs/feedback/afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd/remaining-voice-repairs-feedback.json",
+    "feedback_sha256": "afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd",
+    "feedback_saved_at": "2026-10-03T23:31:45.757Z",
+    "choice": "A is best",
+    "notes": "",
+    "audio": "voices/person_02/prepared/auditions/person_02-transition-A.wav",
+    "sha256": "e4e43baa6f32b59ee911218cc12d60c24480429f614d1c20d2e830de680ca57a"
+  }
 }

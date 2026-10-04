@@ -1,0 +1,40 @@
+{
+  "file": "12_relieved.wav",
+  "section": 12,
+  "title": "Olakšanje i vraćanje povjerenja",
+  "text": "Uh, dobro, sad mi je mnogo lakše kad ste to objasnili. U glavi već napravio čitav niz mogućih problema, a ispalo je da možemo sve riješit korak po korak. Hvala vam što niste požurivali razgovor. Sad mogu da razmislim o onome što ste rekli, umjesto da samo brinem šta će biti dalje.",
+  "script_text": "Dobro, sad mi je mnogo lakše kad ste to objasnili. U glavi sam već napravio čitav niz mogućih problema, a ispalo je da možemo sve riješiti korak po korak. Hvala vam što nijeste požurivali razgovor. Sad mogu da razmislim o onome što ste rekli, umjesto da se samo brinem šta će biti dalje.",
+  "transcript_status": "confirmed_by_speaker",
+  "transcript_provenance": "transcripts_confirmed_by_igor.json",
+  "source_start_seconds": 269.9,
+  "source_end_seconds": 293.2885416666667,
+  "duration_seconds": 23.388541666666665,
+  "sample_rate": 48000,
+  "ready_for_tts": true,
+  "source_sha256": "17b3e44b961fdae5e6fe66029a2c3d6ccd65c13fcb94eaa269eb02c1ca344094",
+  "audio_processing": {
+    "lead_in_silenced_until_seconds": 0.825,
+    "lead_in_fade_complete_seconds": 0.86,
+    "fade_ms": 35,
+    "speech_internal_edits": false
+  },
+  "metrics": {
+    "file": "12_relieved.wav",
+    "duration_seconds": 23.388541666666665,
+    "source_peak_dbfs": -2.1557310634031497,
+    "cleaned_peak_dbfs": -2.1557310634031497,
+    "cleaned_true_peak_4x_dbtp": -2.1466254703548096,
+    "source_rms_dbfs": -22.52147256185474,
+    "cleaned_rms_dbfs": -22.521478130237092,
+    "near_full_scale_samples_before": 0,
+    "near_full_scale_samples_after": 0,
+    "processing": {
+      "lead_in_silenced_until_seconds": 0.825,
+      "lead_in_fade_complete_seconds": 0.86,
+      "fade_ms": 35,
+      "speech_internal_edits": false
+    }
+  },
+  "source_prepared_file": "voices/igor_2026-10-03/cleaned/12_relieved.wav",
+  "source_prepared_sha256": "d0ca5812e9126b727ed51ac789bf9585c86cd95ff6bd7bf528c81ae29f7953ab"
+}

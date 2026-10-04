@@ -26,9 +26,10 @@ from conversation_memory import remember, select as select_memories, memory_prom
 from session_log import SessionLog, SessionLogError
 from streaming_turns import StreamingTurns, sentence_segments
 from performance_contract import refine_delivery
-from speech_language import whisper_language, latin_script, obvious_english_leak
+from voice_cast import VoiceCast
+from speech_language import whisper_language, latin_script, obvious_english_leak, preferred_dialogue_wording
 from patient_relationship import (initial_relationship, validate_appraisal, advance,
-    relationship_prompt, enforce_boundary_cues, ending_segments, APPRAISAL_PROMPT, APPRAISAL_SCHEMA, wants_fuller_reply)
+    relationship_prompt, enforce_boundary_cues, ending_segments, APPRAISAL_PROMPT, APPRAISAL_SCHEMA)
 
 ROOT = Path(__file__).resolve().parents[1]
 EMOTION_CATALOG = json.loads((ROOT/'unity/Assets/PsychologyVR/Resources/EmotionCatalog.json').read_text(encoding='utf-8'))
@@ -113,7 +114,7 @@ def validate_reply(content: str | dict) -> list[dict]:
             raise ContractError(str(exc)) from exc
         result.append({
             **performance,
-            'text': text.strip(),
+            'text': preferred_dialogue_wording(text.strip()),
             'emotion': emotion if emotion in EMOTIONS else 'neutral',
             'intensity': min(1., max(0., intensity)),
             'gesture': segment.get('gesture') if segment.get('gesture') in GESTURES else 'none',
@@ -156,6 +157,7 @@ class Bridge(StreamingTurns):
         self.inference_lock = threading.Lock()
         self.stt_lock = threading.Lock()
         self.stt = None
+        self.voice_cast = VoiceCast(ROOT)
         self.kokoro = None
         self.context_limit = None
         self.runtime = ROOT / 'services/.runtime'
@@ -291,7 +293,6 @@ class Bridge(StreamingTurns):
             line, emotion, gesture, voice = examples[(len(history) // 2) % len(examples)]
             return [{'text': line, 'emotion': emotion, 'intensity': .5, 'gesture': gesture, 'voice_style': voice}]
         relationship = state.get('relationship')
-        fuller = wants_fuller_reply(relationship)
         system = character_prompt(profile, self.config.get('conversation_language'), relationship)
         system += '\nReturn only a JSON object with a segments array. Every segment has text, emotion, intensity (0-1), gesture, voice_style, gaze, transition_seconds, pause_before_seconds, hold_after_seconds, gesture_at and gesture_duration_seconds.'
         system += '\nAllowed gestures: '+', '.join(GESTURES)+'; voices: '+', '.join(VOICES)+'; gaze: '+', '.join(GAZES)+'.'
@@ -328,9 +329,6 @@ class Bridge(StreamingTurns):
                 body['messages'][0]['content'] = system + '\nRewrite the reply entirely in Montenegrin Latin script. No English clauses, including short denials or emotional reactions. Keep the meaning, character facts and word limit.'
                 continue
             words = sum(len(s['text'].split()) for s in segments)
-            if fuller and words < 30 and attempt == 0:
-                body['messages'][0]['content'] = system + '\nYour first draft was too terse for the question. Give 3-5 connected sentences, about 40-80 words within word_limit, explaining a concrete relevant detail and your own perspective. Discuss the requested topic, not a repeated symptom. A genuine sensitive refusal can remain brief.'
-                continue
             if not relationship or words <= relationship['word_limit']:
                 return segments
             limit=relationship['word_limit']
@@ -373,8 +371,11 @@ class Bridge(StreamingTurns):
             audio, rate = self.kokoro.create(segment['text'], voice=self.config['tts_voice'], speed=.95, lang='en-us')
             soundfile.write(path, audio, rate, subtype='PCM_16')
         elif provider == 'higgs':
+            body = {'segment': {k: segment[k] for k in FIELDS}}
+            if segment.get('scenario_id') is not None and self.voice_cast.scenarios:
+                body['scenario_id'] = segment['scenario_id']
             request = urllib.request.Request(self.config.get('higgs_url', 'http://127.0.0.1:8766/synthesize'),
-                data=json.dumps({'segment': {k: segment[k] for k in FIELDS}}).encode(),
+                data=json.dumps(body).encode(),
                 headers={'Content-Type': 'application/json'})
             with urllib.request.urlopen(request, timeout=self.config.get('tts_timeout_seconds', 120)) as response:
                 data = response.read(5_000_001)
@@ -468,7 +469,15 @@ class Bridge(StreamingTurns):
                 if relationship and not opening:
                     segments = enforce_boundary_cues(segments, relationship, profile)
                 segments = refine_delivery(segments,state,recent_gestures)
-                if stream:segments=sentence_segments(segments)
+                if stream:
+                    if self.config['tts_provider']=='higgs':
+                        # Whole-performance presets were auditioned with a full
+                        # emotional beat. Restarting Higgs for every sentence
+                        # changes pacing/prosody even with identical seeds.
+                        segments=self.voice_cast.delivery_segments(session.scenario_id,segments)
+                        self.voice_cast.apply_stream_pauses(session.scenario_id,segments)
+                    else:
+                        segments=sentence_segments(segments)
             self.assert_current(key, generation)
             generation_ms = round((time.perf_counter() - started) * 1000)
             turn_id = stream['turn_id'] if stream else uuid.uuid4().hex
@@ -479,6 +488,8 @@ class Bridge(StreamingTurns):
                     audio_id = uuid.uuid4().hex
                     created_files.append(self.runtime / (audio_id + '.wav'))
                     segment['segment_id'] = f'{turn_id}-{i}'
+                    # Routing comes from the selected session, never model output.
+                    segment['scenario_id'] = session.scenario_id
                     stage_started = time.perf_counter()
                     segment['audio_url'] = self.synthesize(segment, audio_id)
                     speech_ms += round((time.perf_counter() - stage_started) * 1000)
@@ -668,6 +679,10 @@ def main():
         parser.error('dialogue_provider must be scripted or llama.cpp')
     bridge = Bridge(config, args.config)
     server = ThreadingHTTPServer((config['host'], config['port']), make_handler(bridge))
+    from performance_log import PerformanceLog, bridge_context
+    monitor = PerformanceLog(ROOT, lambda: bridge_context(bridge))
+    bridge.config['_performance_run_id'] = monitor.run_id
+    monitor.start()
     print(f"Alex bridge: http://{config['host']}:{config['port']} | dialogue={config['dialogue_provider']} | voice={config['tts_provider']}", flush=True)
     try:
         server.serve_forever()
@@ -675,6 +690,7 @@ def main():
         pass
     finally:
         server.server_close()
+        monitor.close()
 
 if __name__ == '__main__':
     main()

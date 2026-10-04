@@ -1,0 +1,31 @@
+{
+  "status": "preferred_by_user_multi_sentence_checked",
+  "recorded_date": "2026-10-03",
+  "person": "igor_2026-10-03",
+  "performance_emotion": "angry",
+  "reference": "voices/igor_2026-10-03/cleaned/04_angry.wav",
+  "reference_transcript": "voices/igor_2026-10-03/cleaned/04_angry.json",
+  "reference_sha256": "5b8ab963663c2e69a82e560be1a48d4c5d7f0386b16470615b9dc9be89f07892",
+  "higgs_quantization": "bf16",
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": null,
+  "prosody_tag": null,
+  "audition_display_label": "Anger A · recorded anger only",
+  "audition_audio": "voices/igor_2026-10-03/audition-1/anger-A.wav",
+  "audition_sha256": "27f55deeabd717c1388f725c84e4b0c5a1254226e519c86fb678b85ebdbcf729",
+  "user_feedback": "Anger A · recorded anger only",
+  "active_in_game": false,
+  "note": "Speaker-specific preferred delivery. Patient voice routing is not enabled by saving this preference.",
+  "consistency_review": {
+    "date": "2026-10-03",
+    "choice": "Both sentences are good",
+    "notes": "",
+    "status": "passed_two_new_sentences",
+    "feedback_source": "voices/igor_2026-10-03/emotion-validation/feedback/igor_2026-10-03-emotion-feedback.json"
+  },
+  "original_selection_status": "preferred_by_user_in_listening_test",
+  "must_fix_before_runtime": false
+}

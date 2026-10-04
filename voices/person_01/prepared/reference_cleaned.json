@@ -1,22 +1,24 @@
 {
+  "source": "voices\\person_01\\01 - Neutralan, prirodan razgovor_01.wav",
+  "sha256": "f9c299c385047b21efa65787d7138e5d3ed137e03ca932e2a9ea442295fc8366",
+  "output": "voices\\person_01\\dereverb-mono-2026-10-04\\cleaned\\01_neutral_conversation.wav",
+  "output_sha256": "b560759ad8e171a1b7393322b8420218822a470f7a115d532367151767ad1183",
+  "channels": 1,
+  "sample_rate": 48000,
+  "seconds": 25.629020833333332,
+  "processing": "Reverb separation only. Model at native 44.1kHz; polyphase resampling back to 48kHz; mono output; constant speech-level matching gain. No extra denoising, EQ, gating or compression.",
+  "constant_gain": 0.9996055208680866,
+  "model": "dereverb_mel_band_roformer_anvuew_sdr_19.1729.ckpt",
+  "model_sha256": "9262877b87e9ebb0fb808a456b0a411fa677f5df31c8383c1254af531c078970",
+  "trim_seconds": [
+    0,
+    25.629020833333332
+  ],
+  "source_preserved": true,
   "text": "Dobar dan. Možemo da sjednemo ovdje, pored prozora. Napolju je malo hladnije nego jutros, ali unutra je prijatno. Prije dolaska sam svratio do prodavnice i kupio hljeb, mlijeko i nekoliko jabuka. Poslije ovog razgovora idem kući da spremim ručak. Još nijesam odlučio šta ću da pravim, ali vjerovatno nešto jednostavno.",
-  "transcript_source": "supplied recording script, confirmed by user",
-  "original": "01 - Neutralan, prirodan razgovor.m4a",
-  "trim_start": 31.3,
-  "trim_end": 57.2,
-  "gain_db": 1.414,
-  "denoised": true,
-  "denoising": {
-    "method": "stationary spectral noise suppression with smoothed gain and 65 Hz high-pass",
-    "noise_profile_seconds": [
-      3,
-      18
-    ],
-    "noise_power_quantile": 0.9,
-    "gain_floor": 0.1,
-    "speech_rms_match_gain_db": 0.41,
-    "raw_source_sha256": "2757eadc5d50a0bf97c2ef18bea35c5bc49fcd90f68182b503b40099ff701f17",
-    "original_preserved": true,
-    "listening_assessment": "pending"
-  }
+  "transcript_status": "supplied recording script, confirmed by user",
+  "transcript_provenance": "Previous reference text; supplied WAV is newly cleaned/trimmed, checked separately with ASR.",
+  "approval_date": "2026-10-04",
+  "status": "approved_by_user_good_enough",
+  "reference_sha256": "b560759ad8e171a1b7393322b8420218822a470f7a115d532367151767ad1183"
 }

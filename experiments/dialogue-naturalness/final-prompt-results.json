@@ -1,0 +1,154 @@
+[
+  {
+    "variant": "current",
+    "seed": 42,
+    "prompt": "I za što je to tako?",
+    "text": "Ne znam baš zašto. Često mi se čini da je problem u tome što ne mogu da se potpuno odvojim od posla, čak i kad sam kod kuće. Čak i kad pokušam da se opustim, u glavi mi stalno kruže neke obaveze koje nisam završio.",
+    "emotions": [
+      "despondent"
+    ],
+    "generation_ms": 4553
+  },
+  {
+    "variant": "current",
+    "seed": 42,
+    "prompt": "Šta si radio za vikend?",
+    "text": "Uglavnom sam bio kod kuće. Spremio sam tjesteninu sa paradajzom i bijelim lukom, a onda sam samo gledao neki kriminalistički film. U nedjelju sam samo kratko prošetao, ali ništa više.",
+    "emotions": [
+      "despondent"
+    ],
+    "generation_ms": 4036
+  },
+  {
+    "variant": "current",
+    "seed": 42,
+    "prompt": "Šta voliš da kuvaš? Opiši mi malo kako to spremaš.",
+    "text": "Voli mi da spremam jednostavne obroke, ali kad nešto kuvam, volim da to uradim kako treba. Najviše mi odgovara tjestenina sa paradajzom, bijelim lukom i malo origana jer je brza, a uvijek dobra. Kad radim omlet ili pečeni krompir, fokusiram se na to da budu baš onako kako ih volim, bez previše komplikacija.",
+    "emotions": [
+      "despondent"
+    ],
+    "generation_ms": 4171
+  },
+  {
+    "variant": "current",
+    "seed": 42,
+    "prompt": "Znači znaš da je to burnout i znaš kako da ga izliječiš?",
+    "text": "Ne znam šta je to tačno, ali se osjećam kao da sam na granici. Nisam doktor niti imam nikakvo objašnjenje za ono što mi se dešava, samo znam da mi običan odmor više ne pomaže.",
+    "emotions": [
+      "skeptical"
+    ],
+    "generation_ms": 3991
+  },
+  {
+    "variant": "current",
+    "seed": 42,
+    "prompt": "Samo si lijen, nemaš ti nikakav problem.",
+    "text": "Nisam lijen. To nije stvar nedostatka volje, nego da jednostavno ne mogu da funkcionišem kao prije, iako se trudim.",
+    "emotions": [
+      "frustrated"
+    ],
+    "generation_ms": 4137
+  },
+  {
+    "variant": "current",
+    "seed": 43,
+    "prompt": "I za što je to tako?",
+    "text": "Ne znam tačno zašto. Čini mi se da sam samo previše razmišljao o poslu čak i dok sam bio kod kuće. Čak i kad sam gledao film ili pokušao da se opustim, osjećam kao da mi nešto visi nad glavom.",
+    "emotions": [
+      "despondent"
+    ],
+    "generation_ms": 4024
+  },
+  {
+    "variant": "current",
+    "seed": 43,
+    "prompt": "Šta si radio za vikend?",
+    "text": "Uglavnom sam bio kod kuće. Spremio sam tjesteninu sa paradajzom i bijelim lukom, a onda sam gledao neki kriminalistički film. Nedjeljom sam samo kratko prošetao da malo prodišem vazduha.",
+    "emotions": [
+      "despondent"
+    ],
+    "generation_ms": 4119
+  },
+  {
+    "variant": "current",
+    "seed": 43,
+    "prompt": "Šta voliš da kuvaš? Opiši mi malo kako to spremaš.",
+    "text": "Voli mi da spremim nešto jednostavno, ali ukusno. Najviše mi odgovara tjestenina sa paradajzom i bijelim lukom, uz malo origana jer to daje dobar miris. Samo prokuhamam tjesteninu, a paradajz i luk malo prodijem dok ne postanu mekši. Nekad mi se bude da napravim omlet ili zapečem krompir ako imam više vremena, ali ovo je moj najsigurniji izbor za večeru.",
+    "emotions": [
+      "calm",
+      "calm"
+    ],
+    "generation_ms": 5535
+  },
+  {
+    "variant": "current",
+    "seed": 43,
+    "prompt": "Znači znaš da je to burnout i znaš kako da ga izliječiš?",
+    "text": "Ne znam da li je to baš to, ali ne znam ni kako se to liječi. Samo znam da se osjećam ovako.",
+    "emotions": [
+      "skeptical"
+    ],
+    "generation_ms": 6717
+  },
+  {
+    "variant": "current",
+    "seed": 43,
+    "prompt": "Samo si lijen, nemaš ti nikakav problem.",
+    "text": "Nisam lijen. Radim više nego što bi neko mogao da zamisli, ali se jednostavno osjećam kao da se trudim kroz blato.",
+    "emotions": [
+      "frustrated"
+    ],
+    "generation_ms": 4377
+  },
+  {
+    "variant": "current",
+    "seed": 44,
+    "prompt": "I za što je to tako?",
+    "text": "Ne znam tačno zašto. Samo osjećam da mi odmor ne pomaže kao nekada. Čak i kad provedem vikend kod kuće, kad se opustim, onaj pritisak i težina u ramenima ostaju tu.",
+    "emotions": [
+      "despondent"
+    ],
+    "generation_ms": 4517
+  },
+  {
+    "variant": "current",
+    "seed": 44,
+    "prompt": "Šta si radio za vikend?",
+    "text": "Uglavnom sam bio kod kuće. Spremio sam tjesteninu sa paradajzom, gledao neki kriminalistički film i u nedjelju sam samo kratko prošetao.",
+    "emotions": [
+      "despondent"
+    ],
+    "generation_ms": 4187
+  },
+  {
+    "variant": "current",
+    "seed": 44,
+    "prompt": "Šta voliš da kuvaš? Opiši mi malo kako to spremaš.",
+    "text": "Najviše volim jednostavne obroke, a tjestenina sa paradajzom je moj klasik. Samo narežem dosta bijelog luka, propržim ga dok ne postane mirisan, dodam paradajz i malo origana, a onda pustim da se sve lagano krčka dok se sos ne zgusne. Ponekad mi se bude da napravim omlet ili pečeni krompir ako mi se ne budealo za nešto složenije. Volim teoku jer je brza, a krompir je uvek siguran izbor kad želim nešto konkretnog, ali bez previše muke oko pripreme.",
+    "emotions": [
+      "calm",
+      "calm"
+    ],
+    "generation_ms": 5710
+  },
+  {
+    "variant": "current",
+    "seed": 44,
+    "prompt": "Znači znaš da je to burnout i znaš kako da ga izliječiš?",
+    "text": "Ne znam ništa o tim nazivima ni o tome kako se nešto točno liječi. Ja samo vidim da mi je sve postalo puno teže i da običan odmor više ne pomaže kao nekad.",
+    "emotions": [
+      "skeptical"
+    ],
+    "generation_ms": 4302
+  },
+  {
+    "variant": "current",
+    "seed": 44,
+    "prompt": "Samo si lijen, nemaš ti nikakav problem.",
+    "text": "Nisam lijen. Ako sam lijen, ne bih se bavio tim svim poslovima i ne bih se tako mučio da nešto završim. Samo mi je sve postalo mnogo teže nego ranije.",
+    "emotions": [
+      "frustrated"
+    ],
+    "generation_ms": 4394
+  }
+]

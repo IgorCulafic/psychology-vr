@@ -8,7 +8,7 @@
             "title": "After the earthquake",
             "summary": "A first conversation with an earthquake survivor staying in temporary accommodation. His family is safe, but he has lost his home and fears further aftershocks.",
             "focus": "Trust, safety and gradual disclosure",
-            "avatar_id": "jumper",
+            "avatar_id": "metahuman-alex",
             "age": 35
         },
         {
@@ -18,7 +18,7 @@
             "title": "After a loss",
             "summary": "An adult coping with the death of his father. Feelings of loss, anger and guilt emerge gradually through conversation.",
             "focus": "Listening, grief and sensitive disclosure",
-            "avatar_id": "jumper",
+            "avatar_id": "metahuman-nikola",
             "age": 42
         },
         {
@@ -28,7 +28,7 @@
             "title": "After witnessing a fire",
             "summary": "An uninjured witness who remains unsettled after a neighbourhood fire and avoids reminders of what he saw.",
             "focus": "Safety, pacing and helplessness",
-            "avatar_id": "jumper",
+            "avatar_id": "metahuman-stefan",
             "age": 31
         },
         {
@@ -38,7 +38,7 @@
             "title": "Running out of energy",
             "summary": "An adult struggling with persistent exhaustion, work mistakes and self-doubt, unsure why ordinary rest is not helping.",
             "focus": "Exploring daily functioning without premature conclusions",
-            "avatar_id": "jumper",
+            "avatar_id": "metahuman-ivan",
             "age": 39
         }
     ]

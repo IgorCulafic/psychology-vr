@@ -4,6 +4,19 @@ Script conversion is not accent correction: preserve words, negations and diacri
 """
 import re
 
+
+def preferred_dialogue_wording(text):
+    """Apply the project's spoken-word preference only to generated dialogue.
+
+    Callers must not apply this to STT input or recorded reference transcripts.
+    Keep all other dialect forms and the distinct č/ć characters intact.
+    """
+    def replace(match):
+        source = match.group()
+        target = 'нисам' if source[0].lower() == 'н' else 'nisam'
+        return target.upper() if source.isupper() else target.capitalize() if source[0].isupper() else target
+    return re.sub(r'(?<!\w)(?:nijesam|нијесам)(?!\w)', replace, text, flags=re.I)
+
 CYRILLIC = dict(zip('абвгдђежзијклљмнњопрстћуфхцчџш',
                    ('a','b','v','g','d','đ','e','ž','z','i','j','k','l','lj','m','n',
                     'nj','o','p','r','s','t','ć','u','f','h','c','č','dž','š')))

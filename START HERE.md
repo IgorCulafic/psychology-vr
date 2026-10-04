@@ -13,6 +13,11 @@ models and runtimes. Leave its setup window open. Internet and approximately
 45 GB free disk space are required for setup; later launches use local files.
 There is no Unity, Git, Python, API key or paid speech service setup to perform.
 
+In the current project build, desktop starts in borderless fullscreen. Press
+**F11** or use **Settings → Display & subtitles** to switch to windowed mode.
+The same menu changes desktop subtitle size; dialogue appears in a readable
+panel at the bottom of the screen. These preferences persist between launches.
+
 Requirements: Windows 10/11 x64, a current NVIDIA driver, an NVIDIA GPU with at
 least 24 GB VRAM, and preferably 64 GB system RAM. The university's RTX 4090 / 64 GB
 PCs are the target hardware. Development checks use an RTX 5090;
@@ -61,11 +66,32 @@ from students. The text tester opens in your browser at `http://127.0.0.1:8794/`
 Sessions save automatically as TXT and JSONL in `logs/sessions/`. Keep this folder
 when upgrading. Do not send student logs to GitHub.
 
+Resource logging is automatic while the updated conversation service is running.
+`logs/performance/` records GPU load, dedicated VRAM usage, temperature and system
+RAM approximately every two seconds, with UTC timestamps and selected model settings.
+Measurements cover all applications on the PC. They do not measure headset FPS,
+and brief spikes between samples can be missed. GPU load (%) and VRAM (MiB) are
+separate measurements; missing readings are reported as unavailable.
+
+After testing, double-click **Export Diagnostics.cmd**. Send the resulting ZIP from
+`diagnostics/` back for review. It includes the last seven days of resource samples,
+response preparation timings, playback progress and a readable `SUMMARY.txt`.
+Cached opening lines are summarized separately from normal conversation replies.
+First audio ready measures server preparation after accepted text, not the full
+delay from releasing the microphone. Conversation text, recordings, credentials
+and raw service logs are excluded from this export; nothing is uploaded automatically.
+The original conversation logs remain in `logs/sessions/` for separate dialogue review.
+No model downloads or Unity Editor are required to export after initial setup.
+
 The release includes the approved shared reference voice and transcript, plus
 three contributed speaker packs in `voices/`. **Preview Voices.cmd** opens their
-selected generated samples without starting AI services. Patient-to-speaker
-assignment is still pending; these packs do not automatically change the game's
-configured voice. Source checkouts contain the contributed packs through Git LFS;
+selected generated samples without starting AI services. The current project
+build assigns Igor to Ivan (burnout), Person 1 to Stefan (fire), Person 2 to
+Nikola (bereavement), and Person 3 to Alex (earthquake). Each scenario selects
+its clothed MetaHuman and approved emotion-specific voice settings automatically;
+Ivan uses the Bruce model. Facial reactions, neck movement, tears and live lip
+sync follow the conversation. Torso/hand acting remains a resting pose.
+Source checkouts contain the contributed packs through Git LFS;
 for initial setup, supply `voices/reference.wav` and its matching JSON transcript
 or explicitly configure another prepared reference. See `voices/README.md`.
 
