@@ -64,7 +64,7 @@ namespace PsychologyVR
             Vector3 direction=index<2 && chain[index+1]?chain[index+1].position-b.position:b.position-chain[index-1].position;
             return new Joint{bone=b,rest=b.localRotation,axis=b.InverseTransformDirection(Vector3.Cross(direction.normalized,palm).normalized),spreadAxis=Vector3.up,tipLocal=b.InverseTransformVector(direction*.85f)};
         }
-        public void Apply(string emotion,float intensity,float cover,float delta,float activity=0,float handLift=0,bool suppressMotion=false,bool supported=false,float action=0)
+        public void Apply(string emotion,float intensity,float cover,float delta,float activity=0,float handLift=0,bool suppressMotion=false)
         {
             if(previousEmotion!=emotion){previousEmotion=emotion;poseTime=0;}
             poseTime+=delta;
@@ -72,16 +72,21 @@ namespace PsychologyVR
             bool presenting=emotion=="frustrated"||emotion=="confused"||emotion=="happy";
             float open=presenting||emotion=="afraid"||emotion=="panicked"||emotion=="disgusted"?intensity:0;
             float cup=emotion=="crying"?Mathf.Lerp(.35f,1,cover):0;
-            float moving=suppressMotion||emotion=="numb"?0:1;
-            // Finger effort follows the current body/speech action. Independent
-            // repeating finger clocks made the hand perform a different gesture.
-            float thumbRub=action*activity*moving;
-            float emphasis=presenting&&!supported?intensity*moving:0;
-            float squeeze=grip*action*moving;
-            float clutch=cup*action*moving;
-            float settle=!supported&&(emotion=="neutral"||emotion=="calm")?.25f*moving:0;
-            float clearancePulse=action*activity;
-            LiftClearance=supported&&activity<=0?0:Mathf.Max(grip*.045f,clearancePulse*.07f*moving);
+            float time=poseTime+phase*.43f;
+            float moving=suppressMotion||emotion=="numb"||emotion=="afraid"?0:1;
+            // Distinct articulated actions continue while an emotion is held.
+            // Rounded pulses contain a pause, rather than perpetual sine-wave flutter.
+            float thumbRub=Pulse(time,3.2f,1.45f)*activity*moving;
+            float emphasis=presenting?intensity*moving:0;
+            float squeeze=grip*Pulse(time,3.7f,1.8f)*moving;
+            float clutch=cup*Pulse(time,3.1f,1.5f)*moving;
+            float settle=emotion=="neutral"||emotion=="calm"?.25f*moving:0;
+            float clearancePulse=0;
+            for(int f=0;f<4;f++)clearancePulse=Mathf.Max(clearancePulse,
+                Pulse(time+.3f-f*.16f,3.2f,2.05f)*activity,
+                Pulse(time+.3f-f*.18f,2.9f,1.9f)*emphasis,
+                Pulse(time+.3f-f*.22f,5.3f,2.2f)*settle);
+            LiftClearance=Mathf.Max(grip*.045f,clearancePulse*.07f*moving);
             // Wait for the supporting hand to clear the trouser surface before
             // curling into the palm. Raised gestures already have this clearance.
             float clearance=Mathf.SmoothStep(0,1,handLift*.45f/.045f);
@@ -92,15 +97,13 @@ namespace PsychologyVR
                 float unfurl=Mathf.SmoothStep(0,1,(handLift-.025f*f)*3.5f);
                 float openAmount=presenting?open*Mathf.Lerp(.25f,1,unfurl):open;
                 float target=Mathf.Lerp(Relaxed[f,j],Open[f,j],openAmount);
-                if(supported)target+=(1-grip)*(1-open)*Mathf.Exp(-poseTime*.5f)*(j==1?3:1.5f);
                 target=Mathf.Lerp(target,Cupped[f,j],cup);
                 target=Mathf.Lerp(target,Closed[f,j],grip);
-                float curl=action*activity*(f<2?.75f:1)*moving*clearance;
-                float explain=action*emphasis*clearance;
-                float release=action*grip*moving;
-                float press=action*cup*moving;
-                float idle=action*settle*clearance;
-                if(!supported && (emotion=="afraid"||emotion=="panicked"))target+=action*moving*(j==1?5:2)*(1+f*.1f);
+                float curl=Pulse(time-f*.16f,3.2f,1.65f)*activity*(f<2?.75f:1)*moving*clearance;
+                float explain=Pulse(time-f*.18f,2.9f,1.5f)*emphasis*clearance;
+                float release=Pulse(time-f*.12f,3.7f,1.8f)*grip*moving;
+                float press=Pulse(time-f*.14f,3.1f,1.5f)*cup*moving;
+                float idle=Pulse(time-f*.22f,5.3f,1.8f)*settle*clearance;
                 target+=(curl+idle)*(j==0?20:j==1?38:24);
                 target+=explain*(j==0?16:j==1?32:20)*(f<2?.65f:1);
                 target-=release*(j==0?14:j==1?24:14);
@@ -113,7 +116,7 @@ namespace PsychologyVR
                 separation*=1-Mathf.Clamp01(curl+explain)*.55f;
                 if(fingers[f][j]!=null)
                 {
-                    fingers[f][j].rateOffset=f*.6f-j*.4f+phase*.1f;
+                    fingers[f][j].rateOffset=f*.6f-j*.4f;
                     fingers[f][j].Apply(target,delta,j==0?separation:0);
                 }
             }
@@ -121,10 +124,18 @@ namespace PsychologyVR
             float opposition=Mathf.Lerp(Mathf.Lerp(3,-14,open),14,cup);
             float knuckle=Mathf.Lerp(Mathf.Lerp(14,5,open),20,cup);
             float tip=Mathf.Lerp(Mathf.Lerp(9,4,open),13,cup);
-            float thumbGesture=action*emphasis*clearance;
+            float thumbGesture=Pulse(time-.22f,2.9f,1.5f)*emphasis*clearance;
             thumb[0]?.Apply(Mathf.Lerp(opposition,32,grip)+thumbRub*12+thumbGesture*12-squeeze*8+clutch*5,delta);
             thumb[1]?.Apply(Mathf.Lerp(knuckle,38,grip)+thumbRub*20+thumbGesture*18-squeeze*13+clutch*9,delta);
             thumb[2]?.Apply(Mathf.Lerp(tip,25,grip)+thumbRub*25+thumbGesture*20-squeeze*12+clutch*12,delta);
+        }
+        static float Pulse(float time,float period,float duration)
+        {
+            if(time<0)return 0;
+            float t=Mathf.Repeat(time,period)/duration;
+            if(t>=1)return 0;
+            // Ease into the squeeze, then release more slowly.
+            return t<.4f?Mathf.SmoothStep(0,1,t/.4f):1-Mathf.SmoothStep(0,1,(t-.4f)/.6f);
         }
         public int ConstrainContact(BodyContactConstraints contacts)
         {

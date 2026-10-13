@@ -21,7 +21,7 @@ namespace PsychologyVR.Editor
             int removed=0;
             foreach(var renderer in player.GetComponentsInChildren<SkinnedMeshRenderer>())
             {
-                bool clothing=renderer.name=="Slacks"||renderer.name=="Men_s_sweater_2"||renderer.name=="hoshoes_10652_Shape";
+                bool clothing=renderer.name=="Boxers"||renderer.name=="Slacks"||renderer.name=="Men_s_sweater_2"||renderer.name=="hoshoes_10652_Shape";
                 if(renderer.name!="CC_Base_Body" && !clothing){UnityEngine.Object.DestroyImmediate(renderer.gameObject);continue;}
                 renderer.updateWhenOffscreen=true;
                 if(renderer.name=="CC_Base_Body")

@@ -1,0 +1,6 @@
+{
+  "scenario": "nikola-bereavement",
+  "speaker": "person_02",
+  "source": "voices/person_02/prepared/auditions/person_02-anger-A-1.wav",
+  "precision": "bf16"
+}

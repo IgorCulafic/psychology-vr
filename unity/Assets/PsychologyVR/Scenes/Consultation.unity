@@ -152,12 +152,34 @@ MonoBehaviour:
   appearances:
   - id: jumper
     label: Jumper
+    resourcePath: 
     prefab: {fileID: 263650895900885043, guid: 7d31a67c71e13f3458a65896bb8002f3, type: 3}
     seatedClip: {fileID: 0}
   - id: original-alex
     label: Original Alex
+    resourcePath: 
     prefab: {fileID: 285756575916863964, guid: d5db67a804d4990499ee60d428a22ce4, type: 3}
     seatedClip: {fileID: -2331164793176568970, guid: 20a68793e73369e488c69717cf82d0ca, type: 3}
+  - id: metahuman-ivan
+    label: "Ivan \xB7 MetaHuman"
+    resourcePath: MetaHumans/ivan
+    prefab: {fileID: 0}
+    seatedClip: {fileID: 0}
+  - id: metahuman-stefan
+    label: "Stefan \xB7 MetaHuman"
+    resourcePath: MetaHumans/stefan
+    prefab: {fileID: 0}
+    seatedClip: {fileID: 0}
+  - id: metahuman-nikola
+    label: "Nikola \xB7 MetaHuman"
+    resourcePath: MetaHumans/nikola
+    prefab: {fileID: 0}
+    seatedClip: {fileID: 0}
+  - id: metahuman-alex
+    label: "Alex \xB7 MetaHuman"
+    resourcePath: MetaHumans/alex
+    prefab: {fileID: 0}
+    seatedClip: {fileID: 0}
   playerPrefab: {fileID: 8752970271363441789, guid: badb79145ea25364cae82a8b5d3d8869, type: 3}
   environmentPrefab: {fileID: 4901215732636495581, guid: 4201d1de82b72df45b0c034d346ea615, type: 3}
   seatedClip: {fileID: 0}

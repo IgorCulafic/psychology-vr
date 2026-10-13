@@ -13,6 +13,7 @@ namespace PsychologyVR
         struct Anchor {public int a,b,c;public Vector3 weights;}
         const int Rows=18;
         public float startHeight=.094f,endHeight=.017f,startWidth=.020f,endWidth=.034f;
+        public float filmOpacity=.62f,beadOpacity=.8f;
         SkinnedMeshRenderer skin;
         Transform head;
         Mesh baked,ribbon;
@@ -134,8 +135,8 @@ namespace PsychologyVR
                 ribbonVertices[i]=head.InverseTransformPoint(WorldPoint(p)+skin.transform.TransformDirection(normal)*.0006f);
             }
             ribbon.vertices=ribbonVertices;ribbon.RecalculateNormals();ribbon.RecalculateBounds();
-            material.SetColor("_BaseColor",new Color(.78f,.86f,.9f,.62f*wetness));
-            dropMaterial.SetColor("_BaseColor",new Color(.80f,.91f,1,.8f*wetness));
+            material.SetColor("_BaseColor",new Color(.78f,.86f,.9f,filmOpacity*wetness));
+            dropMaterial.SetColor("_BaseColor",new Color(.80f,.91f,1,beadOpacity*wetness));
             for(int i=0;i<drops.Length;i++)
             {
                 float progress=Mathf.Repeat(Time.time*.37f+i*.41f,1),row=progress*(Rows-1);

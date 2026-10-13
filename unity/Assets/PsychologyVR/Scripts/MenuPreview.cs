@@ -15,6 +15,19 @@ namespace PsychologyVR
             var args=Environment.GetCommandLineArgs();int at=Array.IndexOf(args,"--capture-path");
             if(at<0){Debug.LogError("MENU_PREVIEW_FAILED: capture path missing");Application.Quit(2);yield break;}
             string folder=Path.GetDirectoryName(args[at+1]);Directory.CreateDirectory(folder);
+            if(Array.IndexOf(args,"--models-preview")>=0)
+            {
+                float until=Time.realtimeSinceStartup+30;
+                while(!session.CanSelect&&Time.realtimeSinceStartup<until)yield return null;
+                menu.Render(ConsultationMenu.Page.Settings);
+                var modelButton=Array.Find(menu.GetComponentsInChildren<Button>(),b=>b.name=="Dialogue model");
+                modelButton.onClick.Invoke();
+                while(session.Models==null&&Time.realtimeSinceStartup<until)yield return null;
+                yield return null;yield return new WaitForEndOfFrame();
+                bool passed=session.Models?.models?.Length==3&&menu.CurrentPage==ConsultationMenu.Page.Models;
+                capture(view,Path.Combine(folder,"menu-models.png"));
+                Debug.Log(passed?"MODEL_MENU_OK":"MODEL_MENU_FAILED");Application.Quit(passed?0:4);yield break;
+            }
             if(Array.IndexOf(args,"--descriptions-preview")>=0)
             {
                 yield return DescriptionPreview(session,menu,view,capture,folder);yield break;

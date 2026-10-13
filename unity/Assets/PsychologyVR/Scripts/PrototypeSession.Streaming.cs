@@ -101,7 +101,7 @@ namespace PsychologyVR
                 }
                 if(batch.done){failed=!string.IsNullOrEmpty(batch.error);failure=batch.error;break;}
                 if(Time.realtimeSinceStartup-lastProgress>180){failed=true;failure="Speech preparation timed out.";break;}
-                Status=streamCompleted>0?"Preparing the next sentence…":CurrentScenario.character_name+" is preparing a reply…";
+                Status=streamCompleted>0?"Preparing the next part…":CurrentScenario.character_name+" is preparing a reply…";
                 yield return new WaitForSecondsRealtime(.12f);
             }
             if(token!=version)yield break;

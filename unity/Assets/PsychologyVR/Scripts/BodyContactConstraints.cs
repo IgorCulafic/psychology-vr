@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.Profiling;
 using UnityEngine;
 
 namespace PsychologyVR
@@ -10,7 +9,6 @@ namespace PsychologyVR
     [DefaultExecutionOrder(200)]
     public sealed class BodyContactConstraints : MonoBehaviour
     {
-        static readonly ProfilerMarker ContactMarker=new ProfilerMarker("Seat.BodyContacts");
         sealed class Boundary
         {
             public Transform startBone,endBone;
@@ -49,21 +47,6 @@ namespace PsychologyVR
         public readonly int[] RegionContacts=new int[3]; // thighs, torso, head
         public int BoundaryCount=>boundaries.Count;
         public bool drawBoundaries;
-        internal void SetThighRadius(float radius)
-        {
-            foreach(var boundary in boundaries)if(boundary.region==0)boundary.radius=radius;
-        }
-        internal void FitHeadToFace(Vector3 left,Vector3 right)
-        {
-            foreach(var boundary in boundaries)if(boundary.region==2)
-            {
-                Closest(left,left,boundary.Start,boundary.End,out _,out Vector3 a);
-                Closest(right,right,boundary.Start,boundary.End,out _,out Vector3 b);
-                // Anchors include palm thickness. Do not let the spherical proxy
-                // push a supported palm away from the sampled cheek skin.
-                boundary.radius=Mathf.Min(boundary.radius,Vector3.Distance(left,a)-.017f,Vector3.Distance(right,b)-.017f);
-            }
-        }
 
         public void Initialize(PerformanceDriver owner,Transform leftThigh,Transform leftKnee,
             Transform rightThigh,Transform rightKnee,Transform waist,Transform chest,Transform head)
@@ -112,16 +95,15 @@ namespace PsychologyVR
         {
             if(!driver)return;
             CurrentPenetration=0;
-            using(ContactMarker.Auto())driver.ResolveBodyContacts();
+            driver.ResolveBodyContacts();
         }
-        public void Resolve(Hand hand,Vector3 target,float delta,bool alreadyPosed=false)
+        public void Resolve(Hand hand,Vector3 target,float delta)
         {
             // Retain the previous frame's correction, releasing slowly. New outward
             // corrections are immediate: smoothing penetration lets skin clip.
             hand.offset*=Mathf.Exp(-delta/.22f);
             Vector3 offset=transform.TransformVector(hand.offset);
-            hand.target=target+offset;
-            if(!alreadyPosed || offset.sqrMagnitude>.00000001f)hand.solve(hand.target);
+            hand.target=target+offset;hand.solve(hand.target);
             float before=Query(hand,out _,out _);
             MaxBefore=Mathf.Max(MaxBefore,before);
             for(int pass=0;pass<10;pass++)
@@ -196,8 +178,7 @@ namespace PsychologyVR
             {
                 Closest(a,b,boundary.Start,boundary.End,out Vector3 onHand,out Vector3 onBody);
                 Vector3 separation=onHand-onBody;
-                float probeRadius=boundary.region==2 && radius>.02f?.012f:radius;
-                float depth=boundary.radius+probeRadius+Margin-separation.magnitude;
+                float depth=boundary.radius+radius+Margin-separation.magnitude;
                 if(depth<=deepest)continue;
                 deepest=depth;region=boundary.region;
                 normal=separation.sqrMagnitude>.000001f?separation.normalized:transform.forward;

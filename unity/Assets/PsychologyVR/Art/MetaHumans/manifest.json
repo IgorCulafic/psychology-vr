@@ -1,0 +1,1474 @@
+{
+  "characters": [
+    {
+      "id": "ivan",
+      "label": "Ivan",
+      "scenario": "Burnout",
+      "voice": "igor_2026-10-03",
+      "meshes": [
+        {
+          "name": "Body",
+          "asset": "/Game/MetaHumans/IvanBruce/Body/SKM_IvanBruce_BodyMesh.SKM_IvanBruce_BodyMesh",
+          "file": "ivan/models/Body.fbx",
+          "type": "skeletal",
+          "materials": [
+            "/Game/MetaHumans/IvanBruce/Body/Materials/MI_Body_Baked.MI_Body_Baked"
+          ]
+        },
+        {
+          "name": "Face",
+          "asset": "/Game/MetaHumans/IvanBruce/Face/SKM_IvanBruce_FaceMesh.SKM_IvanBruce_FaceMesh",
+          "file": "ivan/models/Face.fbx",
+          "type": "skeletal",
+          "materials": [
+            "/Game/MetaHumans/IvanBruce/Face/Materials/MI_Teeth_Baked.MI_Teeth_Baked",
+            "/Game/MetaHumans/Common/Materials/M_Hide.M_Hide",
+            "/Game/MetaHumans/IvanBruce/Face/Materials/MI_EyeL_Baked.MI_EyeL_Baked",
+            "/Game/MetaHumans/IvanBruce/Face/Materials/MI_EyeR_Baked.MI_EyeR_Baked",
+            "/Game/MetaHumans/IvanBruce/Face/Materials/MI_Face_EyeShell.MI_Face_EyeShell",
+            "/Game/MetaHumans/IvanBruce/Face/Materials/MI_Face_Eyelashes.MI_Face_Eyelashes",
+            "/Game/MetaHumans/IvanBruce/Face/Materials/MI_Face_LacrimalFluid.MI_Face_LacrimalFluid",
+            "/Game/MetaHumans/Common/Materials/M_Hide.M_Hide",
+            "/Game/MetaHumans/IvanBruce/Face/Materials/MI_Face_Skin_Baked_LOD1.MI_Face_Skin_Baked_LOD1",
+            "/Game/MetaHumans/IvanBruce/Face/Materials/MI_Face_EyelashesHiLODs.MI_Face_EyelashesHiLODs",
+            "/Game/MetaHumans/IvanBruce/Face/Materials/MI_Face_Skin_Baked_LOD3.MI_Face_Skin_Baked_LOD3",
+            "/Game/MetaHumans/IvanBruce/Face/Materials/MI_Face_Skin_Baked_LOD5to7.MI_Face_Skin_Baked_LOD5to7"
+          ]
+        },
+        {
+          "name": "SkeletalMesh",
+          "asset": "/Game/MetaHumans/IvanBruce/Clothing/IvanBruce_Outfits.IvanBruce_Outfits",
+          "file": "ivan/models/SkeletalMesh.fbx",
+          "type": "skeletal",
+          "materials": [
+            "/Game/MetaHumans/IvanBruce/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeD_Short.MI_WI_DefaultGarment_M_DG_bodyShapeD_Short",
+            "/Game/MetaHumans/IvanBruce/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeD_Shirt.MI_WI_DefaultGarment_M_DG_bodyShapeD_Shirt",
+            "/Game/MetaHumans/IvanBruce/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeD_Shirt.MI_WI_DefaultGarment_M_DG_bodyShapeD_Shirt",
+            "/Game/MetaHumans/IvanBruce/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeD_Short.MI_WI_DefaultGarment_M_DG_bodyShapeD_Short",
+            "/Game/MetaHumans/IvanBruce/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeD_Short.MI_WI_DefaultGarment_M_DG_bodyShapeD_Short",
+            "/Game/MetaHumans/IvanBruce/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeD_Shirt.MI_WI_DefaultGarment_M_DG_bodyShapeD_Shirt",
+            "/Game/MetaHumans/IvanBruce/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeD_Shirt.MI_WI_DefaultGarment_M_DG_bodyShapeD_Shirt",
+            "/Game/MetaHumans/IvanBruce/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeD_Short.MI_WI_DefaultGarment_M_DG_bodyShapeD_Short"
+          ]
+        },
+        {
+          "name": "Hair_cards_0",
+          "asset": "/Game/MetaHumans/IvanBruce/Grooms/Hair_S_Casual_CardsMesh_Group0_LOD1.Hair_S_Casual_CardsMesh_Group0_LOD1",
+          "file": "ivan/models/Hair_cards_0.fbx",
+          "type": "hair_cards",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "texture_layout": "<HairTextureLayout.LAYOUT2: 2>",
+          "atlas": [
+            "/Game/MetaHumans/Common/Optional/Grooms/GroomAssets/Hair/Hair_S_Casual/Hair_S_Casual_CardsAtlas_Tangent.Hair_S_Casual_CardsAtlas_Tangent",
+            "/Game/MetaHumans/IvanBruce/Grooms/Textures/Hair_S_Casual_CardsAtlas_Attribute.Hair_S_Casual_CardsAtlas_Attribute",
+            null
+          ],
+          "groom_mesh": false,
+          "card_description": "<Struct 'HairGroupsCardsSourceDescription' (0x00000218A7854800) {}>",
+          "uvChannel": 0,
+          "hairMap": "ivan/Hair_cards_0_RGBA.png"
+        },
+        {
+          "name": "Eyebrows_cards_0",
+          "asset": "/Game/MetaHumans/IvanBruce/Grooms/Eyebrows_M_FlatThick_CardsMesh_Group0_LOD1.Eyebrows_M_FlatThick_CardsMesh_Group0_LOD1",
+          "file": "ivan/models/Eyebrows_cards_0.fbx",
+          "type": "hair_cards",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "texture_layout": "<HairTextureLayout.LAYOUT2: 2>",
+          "atlas": [
+            "/Game/MetaHumans/Common/Optional/Grooms/GroomAssets/Eyebrows/Eyebrows_M_FlatThick/Eyebrows_M_FlatThick_CardsAtlas_Tangent.Eyebrows_M_FlatThick_CardsAtlas_Tangent",
+            "/Game/MetaHumans/Common/Optional/Grooms/GroomAssets/Eyebrows/Eyebrows_M_FlatThick/Eyebrows_M_FlatThick_CardsAtlas_Attribute.Eyebrows_M_FlatThick_CardsAtlas_Attribute",
+            null
+          ],
+          "groom_mesh": false,
+          "card_description": "<Struct 'HairGroupsCardsSourceDescription' (0x00000218A7859E40) {}>",
+          "uvChannel": 0,
+          "hairMap": "ivan/Eyebrows_cards_0_RGBA.png"
+        },
+        {
+          "name": "Mustache_cards_0",
+          "asset": "/Game/MetaHumans/IvanBruce/Grooms/Mustache_S_Horseshoe_CardMesh_Group0_LOD1.Mustache_S_Horseshoe_CardMesh_Group0_LOD1",
+          "file": "ivan/models/Mustache_cards_0.fbx",
+          "type": "hair_cards",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "texture_layout": "<HairTextureLayout.LAYOUT2: 2>",
+          "atlas": [
+            "/Game/MetaHumans/Common/Optional/Grooms/GroomAssets/Mustaches/Mustache_S_Horseshoe/Mustache_S_Horseshoe_CardsAtlas_Tangent.Mustache_S_Horseshoe_CardsAtlas_Tangent",
+            "/Game/MetaHumans/Common/Optional/Grooms/GroomAssets/Mustaches/Mustache_S_Horseshoe/Mustache_S_Horseshoe_CardsAtlas_Attribute.Mustache_S_Horseshoe_CardsAtlas_Attribute",
+            null
+          ],
+          "groom_mesh": false,
+          "card_description": "<Struct 'HairGroupsCardsSourceDescription' (0x00000218A785C6C0) {}>",
+          "uvChannel": 0,
+          "hairMap": "ivan/Mustache_cards_0_RGBA.png"
+        },
+        {
+          "name": "Beard_cards_1",
+          "asset": "/Game/MetaHumans/IvanBruce/Grooms/Beard_M_MuttonChops_CardsMesh_Group0_LOD1.Beard_M_MuttonChops_CardsMesh_Group0_LOD1",
+          "file": "ivan/models/Beard_cards_1.fbx",
+          "type": "hair_cards",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "texture_layout": "<HairTextureLayout.LAYOUT2: 2>",
+          "atlas": [
+            "/Game/MetaHumans/Common/Optional/Grooms/GroomAssets/Beards/Beard_M_MuttonChops/Beard_M_MuttonChops_CardsAtlas_Tangent.Beard_M_MuttonChops_CardsAtlas_Tangent",
+            "/Game/MetaHumans/Common/Optional/Grooms/GroomAssets/Beards/Beard_M_MuttonChops/Beard_M_MuttonChops_CardsAtlas_Attribute.Beard_M_MuttonChops_CardsAtlas_Attribute",
+            null
+          ],
+          "groom_mesh": false,
+          "card_description": "<Struct 'HairGroupsCardsSourceDescription' (0x00000218A7856240) {}>",
+          "uvChannel": 0,
+          "hairMap": "ivan/Beard_cards_1_RGBA.png"
+        }
+      ],
+      "clips": [
+        {
+          "name": "poses",
+          "file": "ivan/animations/runtime_poses.fbx",
+          "frames": 21
+        },
+        {
+          "name": "afraid",
+          "file": "ivan/animations/runtime_afraid.fbx",
+          "frames": 406
+        },
+        {
+          "name": "crying",
+          "file": "ivan/animations/runtime_crying.fbx",
+          "frames": 588
+        },
+        {
+          "name": "angry",
+          "file": "ivan/animations/runtime_angry.fbx",
+          "frames": 670
+        }
+      ],
+      "poses": [
+        "neutral",
+        "JawOpen",
+        "MouthPucker",
+        "MouthWide",
+        "MouthPress",
+        "MouthSmile",
+        "MouthFrown",
+        "BrowWorry",
+        "BrowTense",
+        "BrowRaise",
+        "BlinkLeft",
+        "BlinkRight",
+        "EyeSquint",
+        "EyeLookLeft",
+        "EyeLookRight",
+        "EyeLookUp",
+        "EyeLookDown",
+        "BrowRaiseLeft",
+        "EyeWide",
+        "NoseWrinkle",
+        "UpperLipRaise"
+      ]
+    },
+    {
+      "id": "stefan",
+      "label": "Stefan",
+      "scenario": "Fire",
+      "voice": "person_01",
+      "meshes": [
+        {
+          "name": "Body",
+          "asset": "/Game/MetaHumans/Stefan/Body/SKM_Stefan_BodyMesh.SKM_Stefan_BodyMesh",
+          "file": "stefan/models/Body.fbx",
+          "type": "skeletal",
+          "materials": [
+            "/Game/MetaHumans/Stefan/Body/Materials/MI_Body_Baked.MI_Body_Baked"
+          ]
+        },
+        {
+          "name": "Face",
+          "asset": "/Game/MetaHumans/Stefan/Face/SKM_Stefan_FaceMesh.SKM_Stefan_FaceMesh",
+          "file": "stefan/models/Face.fbx",
+          "type": "skeletal",
+          "materials": [
+            "/Game/MetaHumans/Stefan/Face/Materials/MI_Teeth_Baked.MI_Teeth_Baked",
+            "/Game/MetaHumans/Common/Materials/M_Hide.M_Hide",
+            "/Game/MetaHumans/Stefan/Face/Materials/MI_EyeL_Baked.MI_EyeL_Baked",
+            "/Game/MetaHumans/Stefan/Face/Materials/MI_EyeR_Baked.MI_EyeR_Baked",
+            "/Game/MetaHumans/Stefan/Face/Materials/MI_Face_EyeShell.MI_Face_EyeShell",
+            "/Game/MetaHumans/Stefan/Face/Materials/MI_Face_Eyelashes.MI_Face_Eyelashes",
+            "/Game/MetaHumans/Stefan/Face/Materials/MI_Face_LacrimalFluid.MI_Face_LacrimalFluid",
+            "/Game/MetaHumans/Common/Materials/M_Hide.M_Hide",
+            "/Game/MetaHumans/Stefan/Face/Materials/MI_Face_Skin_Baked_LOD1.MI_Face_Skin_Baked_LOD1",
+            "/Game/MetaHumans/Stefan/Face/Materials/MI_Face_EyelashesHiLODs.MI_Face_EyelashesHiLODs",
+            "/Game/MetaHumans/Stefan/Face/Materials/MI_Face_Skin_Baked_LOD3.MI_Face_Skin_Baked_LOD3",
+            "/Game/MetaHumans/Stefan/Face/Materials/MI_Face_Skin_Baked_LOD5to7.MI_Face_Skin_Baked_LOD5to7"
+          ]
+        },
+        {
+          "name": "SkeletalMesh",
+          "asset": "/Game/MetaHumans/Stefan/Clothing/Stefan_Outfits.Stefan_Outfits",
+          "file": "stefan/models/SkeletalMesh.fbx",
+          "type": "skeletal",
+          "materials": [
+            "/Game/MetaHumans/Stefan/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeA_Short.MI_WI_DefaultGarment_M_DG_bodyShapeA_Short",
+            "/Game/MetaHumans/Stefan/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeA_Shirt.MI_WI_DefaultGarment_M_DG_bodyShapeA_Shirt",
+            "/Game/MetaHumans/Stefan/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeA_Short.MI_WI_DefaultGarment_M_DG_bodyShapeA_Short",
+            "/Game/MetaHumans/Stefan/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeA_Shirt.MI_WI_DefaultGarment_M_DG_bodyShapeA_Shirt",
+            "/Game/MetaHumans/Stefan/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeA_Short.MI_WI_DefaultGarment_M_DG_bodyShapeA_Short",
+            "/Game/MetaHumans/Stefan/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeA_Shirt.MI_WI_DefaultGarment_M_DG_bodyShapeA_Shirt",
+            "/Game/MetaHumans/Stefan/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeA_Short.MI_WI_DefaultGarment_M_DG_bodyShapeA_Short",
+            "/Game/MetaHumans/Stefan/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeA_Shirt.MI_WI_DefaultGarment_M_DG_bodyShapeA_Shirt"
+          ]
+        },
+        {
+          "name": "Hair_cards_0",
+          "asset": "/Game/MetaHumans/Stefan/Grooms/Hair_M_SideSweptFringe_CardsMesh_Group0_LOD1.Hair_M_SideSweptFringe_CardsMesh_Group0_LOD1",
+          "file": "stefan/models/Hair_cards_0.fbx",
+          "type": "hair_cards",
+          "materials": [
+            null
+          ],
+          "texture_layout": "<HairTextureLayout.LAYOUT2: 2>",
+          "atlas": [
+            "/Game/MetaHumans/Common/Optional/Grooms/GroomAssets/Hair/Hair_M_SideSweptFringe/Hair_M_SideSweptFringe_CardsAtlas_Tangent.Hair_M_SideSweptFringe_CardsAtlas_Tangent",
+            "/Game/MetaHumans/Stefan/Grooms/Textures/Hair_M_SideSweptFringe_CardsAtlas_Attribute.Hair_M_SideSweptFringe_CardsAtlas_Attribute",
+            null
+          ],
+          "groom_mesh": false,
+          "card_description": "<Struct 'HairGroupsCardsSourceDescription' (0x00000218A7BFD140) {}>",
+          "uvChannel": 1,
+          "hairMap": "stefan/Hair_cards_0_RGBA.png"
+        },
+        {
+          "name": "Eyebrows_cards_0",
+          "asset": "/Game/MetaHumans/Stefan/Grooms/Eyebrows_M_Wide_CardsMesh_Group0_LOD1.Eyebrows_M_Wide_CardsMesh_Group0_LOD1",
+          "file": "stefan/models/Eyebrows_cards_0.fbx",
+          "type": "hair_cards",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "texture_layout": "<HairTextureLayout.LAYOUT2: 2>",
+          "atlas": [
+            "/Game/MetaHumans/Common/Optional/Grooms/GroomAssets/Eyebrows/Eyebrows_M_Wide/Eyebrows_M_Wide_CardsAtlas_Tangent.Eyebrows_M_Wide_CardsAtlas_Tangent",
+            "/Game/MetaHumans/Common/Optional/Grooms/GroomAssets/Eyebrows/Eyebrows_M_Wide/Eyebrows_M_Wide_CardsAtlas_Attribute.Eyebrows_M_Wide_CardsAtlas_Attribute",
+            null
+          ],
+          "groom_mesh": false,
+          "card_description": "<Struct 'HairGroupsCardsSourceDescription' (0x00000218A7BFCF00) {}>",
+          "uvChannel": 0,
+          "hairMap": "stefan/Eyebrows_cards_0_RGBA.png"
+        }
+      ],
+      "clips": [
+        {
+          "name": "poses",
+          "file": "stefan/animations/runtime_poses.fbx",
+          "frames": 21
+        },
+        {
+          "name": "afraid",
+          "file": "stefan/animations/runtime_afraid.fbx",
+          "frames": 406
+        },
+        {
+          "name": "crying",
+          "file": "stefan/animations/runtime_crying.fbx",
+          "frames": 588
+        },
+        {
+          "name": "angry",
+          "file": "stefan/animations/runtime_angry.fbx",
+          "frames": 670
+        }
+      ],
+      "poses": [
+        "neutral",
+        "JawOpen",
+        "MouthPucker",
+        "MouthWide",
+        "MouthPress",
+        "MouthSmile",
+        "MouthFrown",
+        "BrowWorry",
+        "BrowTense",
+        "BrowRaise",
+        "BlinkLeft",
+        "BlinkRight",
+        "EyeSquint",
+        "EyeLookLeft",
+        "EyeLookRight",
+        "EyeLookUp",
+        "EyeLookDown",
+        "BrowRaiseLeft",
+        "EyeWide",
+        "NoseWrinkle",
+        "UpperLipRaise"
+      ]
+    },
+    {
+      "id": "nikola",
+      "label": "Nikola",
+      "scenario": "Bereavement",
+      "voice": "person_02",
+      "meshes": [
+        {
+          "name": "Body",
+          "asset": "/Game/MetaHumans/Nikola/Body/SKM_Nikola_BodyMesh.SKM_Nikola_BodyMesh",
+          "file": "nikola/models/Body.fbx",
+          "type": "skeletal",
+          "materials": [
+            "/Game/MetaHumans/Nikola/Body/Materials/MI_Body_Baked.MI_Body_Baked"
+          ]
+        },
+        {
+          "name": "Face",
+          "asset": "/Game/MetaHumans/Nikola/Face/SKM_Nikola_FaceMesh.SKM_Nikola_FaceMesh",
+          "file": "nikola/models/Face.fbx",
+          "type": "skeletal",
+          "materials": [
+            "/Game/MetaHumans/Nikola/Face/Materials/MI_Teeth_Baked.MI_Teeth_Baked",
+            "/Game/MetaHumans/Common/Materials/M_Hide.M_Hide",
+            "/Game/MetaHumans/Nikola/Face/Materials/MI_EyeL_Baked.MI_EyeL_Baked",
+            "/Game/MetaHumans/Nikola/Face/Materials/MI_EyeR_Baked.MI_EyeR_Baked",
+            "/Game/MetaHumans/Nikola/Face/Materials/MI_Face_EyeShell.MI_Face_EyeShell",
+            "/Game/MetaHumans/Nikola/Face/Materials/MI_Face_Eyelashes.MI_Face_Eyelashes",
+            "/Game/MetaHumans/Nikola/Face/Materials/MI_Face_LacrimalFluid.MI_Face_LacrimalFluid",
+            "/Game/MetaHumans/Common/Materials/M_Hide.M_Hide",
+            "/Game/MetaHumans/Nikola/Face/Materials/MI_Face_Skin_Baked_LOD1.MI_Face_Skin_Baked_LOD1",
+            "/Game/MetaHumans/Nikola/Face/Materials/MI_Face_EyelashesHiLODs.MI_Face_EyelashesHiLODs",
+            "/Game/MetaHumans/Nikola/Face/Materials/MI_Face_Skin_Baked_LOD3.MI_Face_Skin_Baked_LOD3",
+            "/Game/MetaHumans/Nikola/Face/Materials/MI_Face_Skin_Baked_LOD5to7.MI_Face_Skin_Baked_LOD5to7"
+          ]
+        },
+        {
+          "name": "SkeletalMesh",
+          "asset": "/Game/MetaHumans/Nikola/Clothing/Nikola_Outfits.Nikola_Outfits",
+          "file": "nikola/models/SkeletalMesh.fbx",
+          "type": "skeletal",
+          "materials": [
+            "/Game/MetaHumans/Nikola/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeA_Short.MI_WI_DefaultGarment_M_DG_bodyShapeA_Short",
+            "/Game/MetaHumans/Nikola/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeA_Shirt.MI_WI_DefaultGarment_M_DG_bodyShapeA_Shirt",
+            "/Game/MetaHumans/Nikola/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeA_Short.MI_WI_DefaultGarment_M_DG_bodyShapeA_Short",
+            "/Game/MetaHumans/Nikola/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeA_Shirt.MI_WI_DefaultGarment_M_DG_bodyShapeA_Shirt",
+            "/Game/MetaHumans/Nikola/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeA_Short.MI_WI_DefaultGarment_M_DG_bodyShapeA_Short",
+            "/Game/MetaHumans/Nikola/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeA_Shirt.MI_WI_DefaultGarment_M_DG_bodyShapeA_Shirt",
+            "/Game/MetaHumans/Nikola/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeA_Short.MI_WI_DefaultGarment_M_DG_bodyShapeA_Short",
+            "/Game/MetaHumans/Nikola/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeA_Shirt.MI_WI_DefaultGarment_M_DG_bodyShapeA_Shirt"
+          ]
+        },
+        {
+          "name": "Hair_cards_0",
+          "asset": "/Game/MetaHumans/Nikola/Grooms/Hair_S_BrushCut_CardsMesh_Group0_LOD1.Hair_S_BrushCut_CardsMesh_Group0_LOD1",
+          "file": "nikola/models/Hair_cards_0.fbx",
+          "type": "hair_cards",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "texture_layout": "<HairTextureLayout.LAYOUT2: 2>",
+          "atlas": [
+            "/Game/MetaHumans/Nikola/Grooms/Textures/Hair_S_BrushCut_CardsAtlas_Tangent.Hair_S_BrushCut_CardsAtlas_Tangent",
+            "/Game/MetaHumans/Nikola/Grooms/Textures/Hair_S_BrushCut_CardsAtlas_Attribute.Hair_S_BrushCut_CardsAtlas_Attribute",
+            null
+          ],
+          "groom_mesh": false,
+          "card_description": "<Struct 'HairGroupsCardsSourceDescription' (0x00000218A884C000) {}>",
+          "uvChannel": 0,
+          "hairMap": "nikola/Hair_cards_0_RGBA.png"
+        },
+        {
+          "name": "Eyebrows_cards_0",
+          "asset": "/Game/MetaHumans/Nikola/Grooms/Eyebrows_M_Dense_CardMesh_Group0_LOD1.Eyebrows_M_Dense_CardMesh_Group0_LOD1",
+          "file": "nikola/models/Eyebrows_cards_0.fbx",
+          "type": "hair_cards",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "texture_layout": "<HairTextureLayout.LAYOUT2: 2>",
+          "atlas": [
+            "/Game/MetaHumans/Common/Optional/Grooms/GroomAssets/Eyebrows/Eyebrows_M_Dense/Eyebrows_M_Dense_CardsAtlas_Tangent.Eyebrows_M_Dense_CardsAtlas_Tangent",
+            "/Game/MetaHumans/Common/Optional/Grooms/GroomAssets/Eyebrows/Eyebrows_M_Dense/Eyebrows_M_Dense_CardsAtlas_Attribute.Eyebrows_M_Dense_CardsAtlas_Attribute",
+            null
+          ],
+          "groom_mesh": false,
+          "card_description": "<Struct 'HairGroupsCardsSourceDescription' (0x00000218A884C6C0) {}>",
+          "uvChannel": 0,
+          "hairMap": "nikola/Eyebrows_cards_0_RGBA.png"
+        },
+        {
+          "name": "Mustache_cards_0",
+          "asset": "/Game/MetaHumans/Nikola/Grooms/Mustache_M_Curly_CardsMesh_Group0_LOD1.Mustache_M_Curly_CardsMesh_Group0_LOD1",
+          "file": "nikola/models/Mustache_cards_0.fbx",
+          "type": "hair_cards",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "texture_layout": "<HairTextureLayout.LAYOUT2: 2>",
+          "atlas": [
+            "/Game/MetaHumans/Common/Optional/Grooms/GroomAssets/Mustaches/Mustache_M_Curly/Mustache_M_Curly_CardsAtlas_Tangent.Mustache_M_Curly_CardsAtlas_Tangent",
+            "/Game/MetaHumans/Common/Optional/Grooms/GroomAssets/Mustaches/Mustache_M_Curly/Mustache_M_Curly_CardsAtlas_Attribute.Mustache_M_Curly_CardsAtlas_Attribute",
+            null
+          ],
+          "groom_mesh": false,
+          "card_description": "<Struct 'HairGroupsCardsSourceDescription' (0x00000218A884C240) {}>",
+          "uvChannel": 0,
+          "hairMap": "nikola/Mustache_cards_0_RGBA.png"
+        },
+        {
+          "name": "Beard_cards_0",
+          "asset": "/Game/MetaHumans/Nikola/Grooms/Goatee_M_Soulpatch_CardsMesh_Group0_LOD1.Goatee_M_Soulpatch_CardsMesh_Group0_LOD1",
+          "file": "nikola/models/Beard_cards_0.fbx",
+          "type": "hair_cards",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "texture_layout": "<HairTextureLayout.LAYOUT2: 2>",
+          "atlas": [
+            "/Game/MetaHumans/Nikola/Grooms/Textures/Goatee_M_Soulpatch_CardsAtlas_Tangent.Goatee_M_Soulpatch_CardsAtlas_Tangent",
+            "/Game/MetaHumans/Nikola/Grooms/Textures/Goatee_M_Soulpatch_CardsAtlas_Attribute.Goatee_M_Soulpatch_CardsAtlas_Attribute",
+            null
+          ],
+          "groom_mesh": false,
+          "card_description": "<Struct 'HairGroupsCardsSourceDescription' (0x00000218A884CF00) {}>",
+          "uvChannel": 0,
+          "hairMap": "nikola/Beard_cards_0_RGBA.png"
+        }
+      ],
+      "clips": [
+        {
+          "name": "poses",
+          "file": "nikola/animations/runtime_poses.fbx",
+          "frames": 21
+        },
+        {
+          "name": "afraid",
+          "file": "nikola/animations/runtime_afraid.fbx",
+          "frames": 406
+        },
+        {
+          "name": "crying",
+          "file": "nikola/animations/runtime_crying.fbx",
+          "frames": 588
+        },
+        {
+          "name": "angry",
+          "file": "nikola/animations/runtime_angry.fbx",
+          "frames": 670
+        }
+      ],
+      "poses": [
+        "neutral",
+        "JawOpen",
+        "MouthPucker",
+        "MouthWide",
+        "MouthPress",
+        "MouthSmile",
+        "MouthFrown",
+        "BrowWorry",
+        "BrowTense",
+        "BrowRaise",
+        "BlinkLeft",
+        "BlinkRight",
+        "EyeSquint",
+        "EyeLookLeft",
+        "EyeLookRight",
+        "EyeLookUp",
+        "EyeLookDown",
+        "BrowRaiseLeft",
+        "EyeWide",
+        "NoseWrinkle",
+        "UpperLipRaise"
+      ]
+    },
+    {
+      "id": "alex",
+      "label": "Alex",
+      "scenario": "Earthquake",
+      "voice": "person_03",
+      "meshes": [
+        {
+          "name": "Body",
+          "asset": "/Game/MetaHumans/AuditionMale/Body/SKM_AuditionMale_BodyMesh.SKM_AuditionMale_BodyMesh",
+          "file": "alex/models/Body.fbx",
+          "type": "skeletal",
+          "materials": [
+            "/Game/MetaHumans/AuditionMale/Body/Materials/MI_Body_Baked.MI_Body_Baked"
+          ]
+        },
+        {
+          "name": "Face",
+          "asset": "/Game/MetaHumans/AuditionMale/Face/SKM_AuditionMale_FaceMesh.SKM_AuditionMale_FaceMesh",
+          "file": "alex/models/Face.fbx",
+          "type": "skeletal",
+          "materials": [
+            "/Game/MetaHumans/AuditionMale/Face/Materials/MI_Teeth_Baked.MI_Teeth_Baked",
+            "/Game/MetaHumans/Common/Materials/M_Hide.M_Hide",
+            "/Game/MetaHumans/AuditionMale/Face/Materials/MI_EyeL_Baked.MI_EyeL_Baked",
+            "/Game/MetaHumans/AuditionMale/Face/Materials/MI_EyeR_Baked.MI_EyeR_Baked",
+            "/Game/MetaHumans/AuditionMale/Face/Materials/MI_Face_EyeShell.MI_Face_EyeShell",
+            "/Game/MetaHumans/AuditionMale/Face/Materials/MI_Face_Eyelashes.MI_Face_Eyelashes",
+            "/Game/MetaHumans/AuditionMale/Face/Materials/MI_Face_LacrimalFluid.MI_Face_LacrimalFluid",
+            "/Game/MetaHumans/Common/Materials/M_Hide.M_Hide",
+            "/Game/MetaHumans/AuditionMale/Face/Materials/MI_Face_Skin_Baked_LOD1.MI_Face_Skin_Baked_LOD1",
+            "/Game/MetaHumans/AuditionMale/Face/Materials/MI_Face_EyelashesHiLODs.MI_Face_EyelashesHiLODs",
+            "/Game/MetaHumans/AuditionMale/Face/Materials/MI_Face_Skin_Baked_LOD3.MI_Face_Skin_Baked_LOD3",
+            "/Game/MetaHumans/AuditionMale/Face/Materials/MI_Face_Skin_Baked_LOD5to7.MI_Face_Skin_Baked_LOD5to7"
+          ]
+        },
+        {
+          "name": "SkeletalMesh",
+          "asset": "/Game/MetaHumans/AuditionMale/Clothing/AuditionMale_Outfits.AuditionMale_Outfits",
+          "file": "alex/models/SkeletalMesh.fbx",
+          "type": "skeletal",
+          "materials": [
+            "/Game/MetaHumans/AuditionMale/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeD_Short.MI_WI_DefaultGarment_M_DG_bodyShapeD_Short",
+            "/Game/MetaHumans/AuditionMale/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeD_Shirt.MI_WI_DefaultGarment_M_DG_bodyShapeD_Shirt",
+            "/Game/MetaHumans/AuditionMale/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeD_Shirt.MI_WI_DefaultGarment_M_DG_bodyShapeD_Shirt",
+            "/Game/MetaHumans/AuditionMale/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeD_Short.MI_WI_DefaultGarment_M_DG_bodyShapeD_Short",
+            "/Game/MetaHumans/AuditionMale/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeD_Short.MI_WI_DefaultGarment_M_DG_bodyShapeD_Short",
+            "/Game/MetaHumans/AuditionMale/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeD_Shirt.MI_WI_DefaultGarment_M_DG_bodyShapeD_Shirt",
+            "/Game/MetaHumans/AuditionMale/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeD_Shirt.MI_WI_DefaultGarment_M_DG_bodyShapeD_Shirt",
+            "/Game/MetaHumans/AuditionMale/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeD_Short.MI_WI_DefaultGarment_M_DG_bodyShapeD_Short"
+          ]
+        },
+        {
+          "name": "Hair_cards_0",
+          "asset": "/Game/MetaHumans/AuditionMale/Grooms/Hair_S_PulledBack_CardsMesh_Group0_LOD1.Hair_S_PulledBack_CardsMesh_Group0_LOD1",
+          "file": "alex/models/Hair_cards_0.fbx",
+          "type": "hair_cards",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "texture_layout": "<HairTextureLayout.LAYOUT2: 2>",
+          "atlas": [
+            "/Game/MetaHumans/Common/Optional/Grooms/GroomAssets/Hair/Hair_S_PulledBack/Hair_S_PulledBack_CardsAtlas_Tangent.Hair_S_PulledBack_CardsAtlas_Tangent",
+            "/Game/MetaHumans/AuditionMale/Grooms/Textures/Hair_S_PulledBack_CardsAtlas_Attribute.Hair_S_PulledBack_CardsAtlas_Attribute",
+            null
+          ],
+          "groom_mesh": false,
+          "card_description": "<Struct 'HairGroupsCardsSourceDescription' (0x00000218AD9EA200) {}>",
+          "uvChannel": 0,
+          "hairMap": "alex/Hair_cards_0_RGBA.png"
+        },
+        {
+          "name": "Eyebrows_cards_0",
+          "asset": "/Game/MetaHumans/AuditionMale/Grooms/Eyebrows_M_FlatThick_CardsMesh_Group0_LOD1.Eyebrows_M_FlatThick_CardsMesh_Group0_LOD1",
+          "file": "alex/models/Eyebrows_cards_0.fbx",
+          "type": "hair_cards",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "texture_layout": "<HairTextureLayout.LAYOUT2: 2>",
+          "atlas": [
+            "/Game/MetaHumans/Common/Optional/Grooms/GroomAssets/Eyebrows/Eyebrows_M_FlatThick/Eyebrows_M_FlatThick_CardsAtlas_Tangent.Eyebrows_M_FlatThick_CardsAtlas_Tangent",
+            "/Game/MetaHumans/Common/Optional/Grooms/GroomAssets/Eyebrows/Eyebrows_M_FlatThick/Eyebrows_M_FlatThick_CardsAtlas_Attribute.Eyebrows_M_FlatThick_CardsAtlas_Attribute",
+            null
+          ],
+          "groom_mesh": false,
+          "card_description": "<Struct 'HairGroupsCardsSourceDescription' (0x00000218AD9E8640) {}>",
+          "uvChannel": 0,
+          "hairMap": "ivan/Eyebrows_cards_0_RGBA.png"
+        },
+        {
+          "name": "Mustache_cards_0",
+          "asset": "/Game/MetaHumans/AuditionMale/Grooms/Mustache_S_PencilThin_CardsMesh_Group0_LOD1.Mustache_S_PencilThin_CardsMesh_Group0_LOD1",
+          "file": "alex/models/Mustache_cards_0.fbx",
+          "type": "hair_cards",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "texture_layout": "<HairTextureLayout.LAYOUT2: 2>",
+          "atlas": [
+            "/Game/MetaHumans/Common/Optional/Grooms/GroomAssets/Mustaches/Mustache_S_PencilThin/Mustache_S_PencilThin_CardsAtlas_Tangent.Mustache_S_PencilThin_CardsAtlas_Tangent",
+            "/Game/MetaHumans/Common/Optional/Grooms/GroomAssets/Mustaches/Mustache_S_PencilThin/Mustache_S_PencilThin_CardsAtlas_Attribute.Mustache_S_PencilThin_CardsAtlas_Attribute",
+            null
+          ],
+          "groom_mesh": false,
+          "card_description": "<Struct 'HairGroupsCardsSourceDescription' (0x00000218AD9EA500) {}>",
+          "uvChannel": 0,
+          "hairMap": "alex/Mustache_cards_0_RGBA.png"
+        },
+        {
+          "name": "Beard_cards_0",
+          "asset": "/Game/MetaHumans/AuditionMale/Grooms/Beard_S_PencilThin_CardsMesh_Group0_LOD1.Beard_S_PencilThin_CardsMesh_Group0_LOD1",
+          "file": "alex/models/Beard_cards_0.fbx",
+          "type": "hair_cards",
+          "materials": [
+            "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial"
+          ],
+          "texture_layout": "<HairTextureLayout.LAYOUT2: 2>",
+          "atlas": [
+            "/Game/MetaHumans/Common/Optional/Grooms/GroomAssets/Beards/Beard_S_PencilThin/Beard_S_PencilThin_CardsAtlas_Tangent.Beard_S_PencilThin_CardsAtlas_Tangent",
+            "/Game/MetaHumans/Common/Optional/Grooms/GroomAssets/Beards/Beard_S_PencilThin/Beard_S_PencilThin_CardsAtlas_Attribute.Beard_S_PencilThin_CardsAtlas_Attribute",
+            null
+          ],
+          "groom_mesh": false,
+          "card_description": "<Struct 'HairGroupsCardsSourceDescription' (0x00000218AD9EA5C0) {}>",
+          "uvChannel": 0,
+          "hairMap": "alex/Beard_cards_0_RGBA.png"
+        }
+      ],
+      "clips": [
+        {
+          "name": "poses",
+          "file": "alex/animations/runtime_poses.fbx",
+          "frames": 21
+        },
+        {
+          "name": "afraid",
+          "file": "alex/animations/runtime_afraid.fbx",
+          "frames": 406
+        },
+        {
+          "name": "crying",
+          "file": "alex/animations/runtime_crying.fbx",
+          "frames": 588
+        },
+        {
+          "name": "angry",
+          "file": "alex/animations/runtime_angry.fbx",
+          "frames": 670
+        }
+      ],
+      "poses": [
+        "neutral",
+        "JawOpen",
+        "MouthPucker",
+        "MouthWide",
+        "MouthPress",
+        "MouthSmile",
+        "MouthFrown",
+        "BrowWorry",
+        "BrowTense",
+        "BrowRaise",
+        "BlinkLeft",
+        "BlinkRight",
+        "EyeSquint",
+        "EyeLookLeft",
+        "EyeLookRight",
+        "EyeLookUp",
+        "EyeLookDown",
+        "BrowRaiseLeft",
+        "EyeWide",
+        "NoseWrinkle",
+        "UpperLipRaise"
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "key": "/Game/MetaHumans/IvanBruce/Body/Materials/MI_Body_Baked.MI_Body_Baked",
+      "id": "85797cff9dd6",
+      "name": "MI_Body_Baked",
+      "colorMap": "textures/T_Body_BC_8a4986ee.png",
+      "normalMap": "textures/T_Body_N_e15079bf.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/IvanBruce/Face/Materials/MI_Teeth_Baked.MI_Teeth_Baked",
+      "id": "c30d5a5ce554",
+      "name": "MI_Teeth_Baked",
+      "colorMap": "textures/T_Teeth_BC_942f9bc7.png",
+      "normalMap": "textures/T_Teeth_N_f831b121.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/Common/Materials/M_Hide.M_Hide",
+      "id": "b6b3a1b521fd",
+      "name": "M_Hide",
+      "colorMap": "",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "hidden",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/IvanBruce/Face/Materials/MI_EyeL_Baked.MI_EyeL_Baked",
+      "id": "24e3fb971ad1",
+      "name": "MI_EyeL_Baked",
+      "colorMap": "textures/eye_24e3fb971ad1.png",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.85
+    },
+    {
+      "key": "/Game/MetaHumans/IvanBruce/Face/Materials/MI_EyeR_Baked.MI_EyeR_Baked",
+      "id": "59e00691efc4",
+      "name": "MI_EyeR_Baked",
+      "colorMap": "textures/eye_59e00691efc4.png",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.85
+    },
+    {
+      "key": "/Game/MetaHumans/IvanBruce/Face/Materials/MI_Face_EyeShell.MI_Face_EyeShell",
+      "id": "a92c283e61a1",
+      "name": "MI_Face_EyeShell",
+      "colorMap": "",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "hidden",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/IvanBruce/Face/Materials/MI_Face_Eyelashes.MI_Face_Eyelashes",
+      "id": "df9f165fe998",
+      "name": "MI_Face_Eyelashes",
+      "colorMap": "",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "hidden",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/IvanBruce/Face/Materials/MI_Face_LacrimalFluid.MI_Face_LacrimalFluid",
+      "id": "efb1392f2746",
+      "name": "MI_Face_LacrimalFluid",
+      "colorMap": "",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "hidden",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/IvanBruce/Face/Materials/MI_Face_Skin_Baked_LOD1.MI_Face_Skin_Baked_LOD1",
+      "id": "213c3bfafef3",
+      "name": "MI_Face_Skin_Baked_LOD1",
+      "colorMap": "textures/T_Head_LOD1_BC_061c2c74.png",
+      "normalMap": "textures/T_Head_LOD1_N_38f08797.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/IvanBruce/Face/Materials/MI_Face_EyelashesHiLODs.MI_Face_EyelashesHiLODs",
+      "id": "168139fa23ff",
+      "name": "MI_Face_EyelashesHiLODs",
+      "colorMap": "",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "hidden",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/IvanBruce/Face/Materials/MI_Face_Skin_Baked_LOD3.MI_Face_Skin_Baked_LOD3",
+      "id": "f7b21643c479",
+      "name": "MI_Face_Skin_Baked_LOD3",
+      "colorMap": "textures/T_Head_LOD1_BC_061c2c74.png",
+      "normalMap": "textures/T_Head_LOD1_N_38f08797.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/IvanBruce/Face/Materials/MI_Face_Skin_Baked_LOD5to7.MI_Face_Skin_Baked_LOD5to7",
+      "id": "eae12fb4ce8b",
+      "name": "MI_Face_Skin_Baked_LOD5to7",
+      "colorMap": "textures/T_Head_LOD5to7_BC_f0260a29.png",
+      "normalMap": "textures/T_Head_LOD5to7_N_7e995518.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/IvanBruce/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeD_Short.MI_WI_DefaultGarment_M_DG_bodyShapeD_Short",
+      "id": "1f457acb489f",
+      "name": "MI_WI_DefaultGarment_M_DG_bodyShapeD_Short",
+      "colorMap": "",
+      "normalMap": "textures/DG_bodyShapeDE_Short_Normal_fe6569b4.png",
+      "color": [
+        0.5906190276145935,
+        0.5906190276145935,
+        0.5906190276145935,
+        1.0
+      ],
+      "mode": "",
+      "smoothness": 0.18
+    },
+    {
+      "key": "/Game/MetaHumans/IvanBruce/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeD_Shirt.MI_WI_DefaultGarment_M_DG_bodyShapeD_Shirt",
+      "id": "e4f6df770f54",
+      "name": "MI_WI_DefaultGarment_M_DG_bodyShapeD_Shirt",
+      "colorMap": "",
+      "normalMap": "textures/DG_bodyShapeDE_Shirt_Normal_bdaf994b.png",
+      "color": [
+        0.5906190276145935,
+        0.5906190276145935,
+        0.5906190276145935,
+        1.0
+      ],
+      "mode": "",
+      "smoothness": 0.18
+    },
+    {
+      "key": "/Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial",
+      "id": "463803d7419c",
+      "name": "WorldGridMaterial",
+      "colorMap": "",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/Stefan/Body/Materials/MI_Body_Baked.MI_Body_Baked",
+      "id": "0faf1214661d",
+      "name": "MI_Body_Baked",
+      "colorMap": "textures/T_Body_BC_90f543a3.png",
+      "normalMap": "textures/T_Body_N_e60cf295.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/Stefan/Face/Materials/MI_Teeth_Baked.MI_Teeth_Baked",
+      "id": "294dba4e6edb",
+      "name": "MI_Teeth_Baked",
+      "colorMap": "textures/T_Teeth_BC_577d8562.png",
+      "normalMap": "textures/T_Teeth_N_f831b121.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/Stefan/Face/Materials/MI_EyeL_Baked.MI_EyeL_Baked",
+      "id": "56831f88fc33",
+      "name": "MI_EyeL_Baked",
+      "colorMap": "textures/eye_56831f88fc33.png",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.85
+    },
+    {
+      "key": "/Game/MetaHumans/Stefan/Face/Materials/MI_EyeR_Baked.MI_EyeR_Baked",
+      "id": "e2a792d79cec",
+      "name": "MI_EyeR_Baked",
+      "colorMap": "textures/eye_e2a792d79cec.png",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.85
+    },
+    {
+      "key": "/Game/MetaHumans/Stefan/Face/Materials/MI_Face_EyeShell.MI_Face_EyeShell",
+      "id": "16075fc21267",
+      "name": "MI_Face_EyeShell",
+      "colorMap": "",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "hidden",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/Stefan/Face/Materials/MI_Face_Eyelashes.MI_Face_Eyelashes",
+      "id": "75a321429dc2",
+      "name": "MI_Face_Eyelashes",
+      "colorMap": "",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "hidden",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/Stefan/Face/Materials/MI_Face_LacrimalFluid.MI_Face_LacrimalFluid",
+      "id": "f35d608555ae",
+      "name": "MI_Face_LacrimalFluid",
+      "colorMap": "",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "hidden",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/Stefan/Face/Materials/MI_Face_Skin_Baked_LOD1.MI_Face_Skin_Baked_LOD1",
+      "id": "5e86b0a853ad",
+      "name": "MI_Face_Skin_Baked_LOD1",
+      "colorMap": "textures/T_Head_LOD1_BC_759c7dbe.png",
+      "normalMap": "textures/T_Head_LOD1_N_260c3f3a.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/Stefan/Face/Materials/MI_Face_EyelashesHiLODs.MI_Face_EyelashesHiLODs",
+      "id": "26d5593a29f2",
+      "name": "MI_Face_EyelashesHiLODs",
+      "colorMap": "",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "hidden",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/Stefan/Face/Materials/MI_Face_Skin_Baked_LOD3.MI_Face_Skin_Baked_LOD3",
+      "id": "4f375648103a",
+      "name": "MI_Face_Skin_Baked_LOD3",
+      "colorMap": "textures/T_Head_LOD3_BC_b6f2ed48.png",
+      "normalMap": "textures/T_Head_LOD3_N_c2cc4c00.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/Stefan/Face/Materials/MI_Face_Skin_Baked_LOD5to7.MI_Face_Skin_Baked_LOD5to7",
+      "id": "74fd487906f8",
+      "name": "MI_Face_Skin_Baked_LOD5to7",
+      "colorMap": "textures/T_Head_LOD5to7_BC_6210f7aa.png",
+      "normalMap": "textures/T_Head_LOD5to7_N_ef094904.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/Stefan/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeA_Short.MI_WI_DefaultGarment_M_DG_bodyShapeA_Short",
+      "id": "5ead8a26e395",
+      "name": "MI_WI_DefaultGarment_M_DG_bodyShapeA_Short",
+      "colorMap": "",
+      "normalMap": "textures/DG_bodyShapeA_Short_Normal_9b8e3613.png",
+      "color": [
+        0.5906190276145935,
+        0.5906190276145935,
+        0.5906190276145935,
+        1.0
+      ],
+      "mode": "",
+      "smoothness": 0.18
+    },
+    {
+      "key": "/Game/MetaHumans/Stefan/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeA_Shirt.MI_WI_DefaultGarment_M_DG_bodyShapeA_Shirt",
+      "id": "8901230fc2e6",
+      "name": "MI_WI_DefaultGarment_M_DG_bodyShapeA_Shirt",
+      "colorMap": "",
+      "normalMap": "textures/DG_bodyShapeA_Shirt_Normal_e42dd7bb.png",
+      "color": [
+        0.5906190276145935,
+        0.5906190276145935,
+        0.5906190276145935,
+        1.0
+      ],
+      "mode": "",
+      "smoothness": 0.18
+    },
+    {
+      "key": "/Game/MetaHumans/Nikola/Body/Materials/MI_Body_Baked.MI_Body_Baked",
+      "id": "d4e8eb3539e0",
+      "name": "MI_Body_Baked",
+      "colorMap": "textures/T_Body_BC_f96192f4.png",
+      "normalMap": "textures/T_Body_N_c9bd6016.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/Nikola/Face/Materials/MI_Teeth_Baked.MI_Teeth_Baked",
+      "id": "1c727e52867f",
+      "name": "MI_Teeth_Baked",
+      "colorMap": "textures/T_Teeth_BC_47898c65.png",
+      "normalMap": "textures/T_Teeth_N_f831b121.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/Nikola/Face/Materials/MI_EyeL_Baked.MI_EyeL_Baked",
+      "id": "19055b22ca83",
+      "name": "MI_EyeL_Baked",
+      "colorMap": "textures/eye_19055b22ca83.png",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.85
+    },
+    {
+      "key": "/Game/MetaHumans/Nikola/Face/Materials/MI_EyeR_Baked.MI_EyeR_Baked",
+      "id": "8284ef4375dd",
+      "name": "MI_EyeR_Baked",
+      "colorMap": "textures/eye_8284ef4375dd.png",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.85
+    },
+    {
+      "key": "/Game/MetaHumans/Nikola/Face/Materials/MI_Face_EyeShell.MI_Face_EyeShell",
+      "id": "5499764acb87",
+      "name": "MI_Face_EyeShell",
+      "colorMap": "",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "hidden",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/Nikola/Face/Materials/MI_Face_Eyelashes.MI_Face_Eyelashes",
+      "id": "11e135453db4",
+      "name": "MI_Face_Eyelashes",
+      "colorMap": "",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "hidden",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/Nikola/Face/Materials/MI_Face_LacrimalFluid.MI_Face_LacrimalFluid",
+      "id": "aa7f26a34531",
+      "name": "MI_Face_LacrimalFluid",
+      "colorMap": "",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "hidden",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/Nikola/Face/Materials/MI_Face_Skin_Baked_LOD1.MI_Face_Skin_Baked_LOD1",
+      "id": "d2fd1aebc9fb",
+      "name": "MI_Face_Skin_Baked_LOD1",
+      "colorMap": "textures/T_Head_LOD1_BC_5736c55f.png",
+      "normalMap": "textures/T_Head_LOD1_N_7ff5b9d9.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/Nikola/Face/Materials/MI_Face_EyelashesHiLODs.MI_Face_EyelashesHiLODs",
+      "id": "803e8c3f0a57",
+      "name": "MI_Face_EyelashesHiLODs",
+      "colorMap": "",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "hidden",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/Nikola/Face/Materials/MI_Face_Skin_Baked_LOD3.MI_Face_Skin_Baked_LOD3",
+      "id": "e08fb6ef463e",
+      "name": "MI_Face_Skin_Baked_LOD3",
+      "colorMap": "textures/T_Head_LOD3_BC_cba554ad.png",
+      "normalMap": "textures/T_Head_LOD3_N_35425b37.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/Nikola/Face/Materials/MI_Face_Skin_Baked_LOD5to7.MI_Face_Skin_Baked_LOD5to7",
+      "id": "32f31eeae181",
+      "name": "MI_Face_Skin_Baked_LOD5to7",
+      "colorMap": "textures/T_Head_LOD5to7_BC_96de1424.png",
+      "normalMap": "textures/T_Head_LOD5to7_N_0864f9ce.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/Nikola/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeA_Short.MI_WI_DefaultGarment_M_DG_bodyShapeA_Short",
+      "id": "f9089bdbb895",
+      "name": "MI_WI_DefaultGarment_M_DG_bodyShapeA_Short",
+      "colorMap": "",
+      "normalMap": "textures/DG_bodyShapeA_Short_Normal_9b8e3613.png",
+      "color": [
+        0.5906190276145935,
+        0.5906190276145935,
+        0.5906190276145935,
+        1.0
+      ],
+      "mode": "",
+      "smoothness": 0.18
+    },
+    {
+      "key": "/Game/MetaHumans/Nikola/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeA_Shirt.MI_WI_DefaultGarment_M_DG_bodyShapeA_Shirt",
+      "id": "9a6039848944",
+      "name": "MI_WI_DefaultGarment_M_DG_bodyShapeA_Shirt",
+      "colorMap": "",
+      "normalMap": "textures/DG_bodyShapeA_Shirt_Normal_e42dd7bb.png",
+      "color": [
+        0.5906190276145935,
+        0.5906190276145935,
+        0.5906190276145935,
+        1.0
+      ],
+      "mode": "",
+      "smoothness": 0.18
+    },
+    {
+      "key": "/Game/MetaHumans/AuditionMale/Body/Materials/MI_Body_Baked.MI_Body_Baked",
+      "id": "28ba38b7f2f8",
+      "name": "MI_Body_Baked",
+      "colorMap": "textures/T_Body_BC_c8601a37.png",
+      "normalMap": "textures/T_Body_N_e0b57514.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/AuditionMale/Face/Materials/MI_Teeth_Baked.MI_Teeth_Baked",
+      "id": "74019e0c6b78",
+      "name": "MI_Teeth_Baked",
+      "colorMap": "textures/T_Teeth_BC_44fb6474.png",
+      "normalMap": "textures/T_Teeth_N_f831b121.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/AuditionMale/Face/Materials/MI_EyeL_Baked.MI_EyeL_Baked",
+      "id": "e7d3d57f8cfe",
+      "name": "MI_EyeL_Baked",
+      "colorMap": "textures/eye_e7d3d57f8cfe.png",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.85
+    },
+    {
+      "key": "/Game/MetaHumans/AuditionMale/Face/Materials/MI_EyeR_Baked.MI_EyeR_Baked",
+      "id": "97b56423297b",
+      "name": "MI_EyeR_Baked",
+      "colorMap": "textures/eye_97b56423297b.png",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.85
+    },
+    {
+      "key": "/Game/MetaHumans/AuditionMale/Face/Materials/MI_Face_EyeShell.MI_Face_EyeShell",
+      "id": "36357e706d9a",
+      "name": "MI_Face_EyeShell",
+      "colorMap": "",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "hidden",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/AuditionMale/Face/Materials/MI_Face_Eyelashes.MI_Face_Eyelashes",
+      "id": "2ab48c16b553",
+      "name": "MI_Face_Eyelashes",
+      "colorMap": "",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "hidden",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/AuditionMale/Face/Materials/MI_Face_LacrimalFluid.MI_Face_LacrimalFluid",
+      "id": "4b099958ecda",
+      "name": "MI_Face_LacrimalFluid",
+      "colorMap": "",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "hidden",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/AuditionMale/Face/Materials/MI_Face_Skin_Baked_LOD1.MI_Face_Skin_Baked_LOD1",
+      "id": "4a4969896da7",
+      "name": "MI_Face_Skin_Baked_LOD1",
+      "colorMap": "textures/T_Head_LOD1_BC_a69b14a4.png",
+      "normalMap": "textures/T_Head_LOD1_N_12501ee7.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/AuditionMale/Face/Materials/MI_Face_EyelashesHiLODs.MI_Face_EyelashesHiLODs",
+      "id": "c9b2b148e59b",
+      "name": "MI_Face_EyelashesHiLODs",
+      "colorMap": "",
+      "normalMap": "",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "hidden",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/AuditionMale/Face/Materials/MI_Face_Skin_Baked_LOD3.MI_Face_Skin_Baked_LOD3",
+      "id": "44bdcbabefe7",
+      "name": "MI_Face_Skin_Baked_LOD3",
+      "colorMap": "textures/T_Head_LOD3_BC_e3d71fe1.png",
+      "normalMap": "textures/T_Head_LOD3_N_d1aea35d.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/AuditionMale/Face/Materials/MI_Face_Skin_Baked_LOD5to7.MI_Face_Skin_Baked_LOD5to7",
+      "id": "2f5a490c9004",
+      "name": "MI_Face_Skin_Baked_LOD5to7",
+      "colorMap": "textures/T_Head_LOD5to7_BC_4fb9c121.png",
+      "normalMap": "textures/T_Head_LOD5to7_N_ab82ffcc.png",
+      "color": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "mode": "",
+      "smoothness": 0.3
+    },
+    {
+      "key": "/Game/MetaHumans/AuditionMale/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeD_Short.MI_WI_DefaultGarment_M_DG_bodyShapeD_Short",
+      "id": "404bee0e94fa",
+      "name": "MI_WI_DefaultGarment_M_DG_bodyShapeD_Short",
+      "colorMap": "",
+      "normalMap": "textures/DG_bodyShapeDE_Short_Normal_fe6569b4.png",
+      "color": [
+        0.5906190276145935,
+        0.5906190276145935,
+        0.5906190276145935,
+        1.0
+      ],
+      "mode": "",
+      "smoothness": 0.18
+    },
+    {
+      "key": "/Game/MetaHumans/AuditionMale/Clothing/MI_WI_DefaultGarment_M_DG_bodyShapeD_Shirt.MI_WI_DefaultGarment_M_DG_bodyShapeD_Shirt",
+      "id": "c914b467d3fc",
+      "name": "MI_WI_DefaultGarment_M_DG_bodyShapeD_Shirt",
+      "colorMap": "",
+      "normalMap": "textures/DG_bodyShapeDE_Shirt_Normal_bdaf994b.png",
+      "color": [
+        0.5906190276145935,
+        0.5906190276145935,
+        0.5906190276145935,
+        1.0
+      ],
+      "mode": "",
+      "smoothness": 0.18
+    }
+  ]
+}
