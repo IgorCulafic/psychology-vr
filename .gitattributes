@@ -32,3 +32,6 @@ voices/**/*.m4a filter=lfs diff=lfs merge=lfs -text
 man/** filter=lfs diff=lfs merge=lfs -text
 jumper_man/** filter=lfs diff=lfs merge=lfs -text
 Characters_with_expressions/** filter=lfs diff=lfs merge=lfs -text
+
+# Recorded seated idle from the animation branch.
+unity/Assets/PsychologyVR/Art/MetaHumans/ivan/animations/SeatedVideo5799.anim filter=lfs diff=lfs merge=lfs -text

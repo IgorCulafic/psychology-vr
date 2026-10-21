@@ -12,7 +12,7 @@ The project brings together character design, local AI, expressive speech and in
 
 - **Spoken conversations:** talk through a microphone and hear the character reply, with text input and subtitles also available.
 - **Four fictional patient profiles:** Alex, Nikola, Stefan and Ivan have distinct backstories and conversation guidance. Session memory helps retain earlier disclosures and corrections, and case descriptions can be hidden during practice.
-- **Four clothed MetaHumans:** Dominic (Alex), Bruce (Ivan), Mateo (Stefan) and Victor (Nikola), with baked facial reactions, neck movement, speech/emotion blending and tears. Torso and hand acting remain a resting pose for now.
+- **Four clothed MetaHumans:** Dominic (Alex), Bruce (Ivan), Mateo (Stefan) and Victor (Nikola), with baked facial reactions, neck movement, speech/emotion blending and tears. Ivan has a recorded seated idle, synchronized body/face movement and responsive clothing; other patients retain their existing body poses.
 - **Assigned voices:** Igor speaks as Ivan, Person 1 as Stefan, Person 2 as Nikola and Person 3 as Alex. The selected BF16 emotional presets and cleaned references are connected to live conversation.
 - **Reviewable sessions:** conversations are saved locally as readable transcripts and structured records for later review.
 - **Performance diagnostics:** automatic GPU load, dedicated VRAM and system RAM measurements, with an **Export Diagnostics.cmd** launcher for a local ZIP of resource data and reply timings. Dialogue and recordings are excluded from this export.
@@ -58,11 +58,14 @@ Fresh setup selects **Gemma 4 12B QAT Q4**, **BF16 Higgs speech** and **CPU Whis
 
 ## Voice and animation update
 
-The v0.5.0 complete package integrates the clothed MetaHuman cast, all four assigned voices,
-approved emotional delivery, fullscreen controls and automatic performance diagnostics.
+The v0.5.1 complete package merges Ivan's recorded seated animation, wardrobe and cushion
+rendering with the clothed MetaHuman cast, all four assigned voices, approved emotional
+delivery, fullscreen controls and automatic performance diagnostics.
 It contains the full application and previous tools; no older release or patch folders are needed.
 The Unreal game prototype remains excluded from the Windows package. See
-[release details](docs/RELEASE_0_5_0.md) for contents, upgrading and remaining limitations.
+[release details](docs/RELEASE_0_5_1.md) for contents, upgrading and remaining limitations.
+The [21 October integration report](docs/BRANCH_INTEGRATION_2026_10_21.md) distinguishes
+tested source changes from the proposed RTX 4090/Q8 performance work.
 
 ## Clone and open
 

@@ -113,7 +113,7 @@ namespace PsychologyVR
             TextAt(DescriptionsHidden?"Discover their story through conversation.":selected.summary,346,450,560,106,19,Ink);
             var look=session.Appearances.FirstOrDefault(a=>a.id==appearance);
             ButtonAt("Appearance: "+(look?.label??"Unavailable"),346,565,560,32,()=>{int n=Array.FindIndex(session.Appearances,a=>a.id==appearance);appearance=session.Appearances[(n+1)%session.Appearances.Length].id;Render(Page.Characters);},()=>session.Appearances.Length>1);
-            ButtonAt("Start new conversation",326,626,602,54,()=>session.StartScenario(pending,appearance),()=>session.CanSelect&&session.HasAppearance(appearance),active:true);
+            ButtonAt(session.CanSelect?"Start new conversation":"Preview character",326,626,602,54,()=>session.StartScenario(pending,appearance),()=>!session.IsSwitching&&session.HasAppearance(appearance),active:true);
             status=TextAt("",34,623,274,67,17,Muted);
         }
         void SettingsPage()

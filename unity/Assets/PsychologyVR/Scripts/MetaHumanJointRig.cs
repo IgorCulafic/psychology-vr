@@ -11,25 +11,42 @@ namespace PsychologyVR
         public GameObject faceObject,bodyObject,clothingObject;
         public SkinnedMeshRenderer skin;
         public bool seated=true;
+        public AnimationClip seatedIdle;
         public Transform Head {get;private set;}
         public int BindingCount=>bones==null?0:bones.Length;
+        internal void RestartSeatedIdle()
+        {
+            idleTime=0;
+            if(!seatedIdle)return;
+            seatedIdle.SampleAnimation(bodyObject,0);SyncBase();
+            foreach(string n in new[]{"neck_01","neck_02","head"})
+                if(bodyBones.TryGetValue(n,out var b)&&faceBones.TryGetValue(n,out var f))f.SetPositionAndRotation(b.position,b.rotation);
+            for(int i=0;i<clothTargets.Length;i++)clothTargets[i].SetPositionAndRotation(clothSources[i].position,clothSources[i].rotation);
+            if(trouserDeformation)trouserDeformation.ApplyPose(0);
+        }
         Transform[] bones;
         Dictionary<string,Transform> bodyBones,faceBones;
         readonly Dictionary<string,MetaHumanPoseLibrary.Pose> poses=new Dictionary<string,MetaHumanPoseLibrary.Pose>();
         Vector3[] neutralP,filteredP;Quaternion[] neutralQ,filteredQ;
         bool[] mouth;
-        Transform[] clothTargets,clothSources;
-        float clock;string previousEmotion="";
+        Transform[] clothTargets,clothSources,faceBaseTargets,faceBaseSources;
+        float clock,idleTime;string previousEmotion="";
         bool initialized;
+        SeatedTrouserDeformation trouserDeformation;
         public void Initialize()
         {
             if(initialized||!library)return;
             faceBones=faceObject.GetComponentsInChildren<Transform>().GroupBy(t=>t.name).ToDictionary(g=>g.Key,g=>g.First());
             bodyBones=bodyObject.GetComponentsInChildren<Transform>().GroupBy(t=>t.name).ToDictionary(g=>g.Key,g=>g.First());
+            trouserDeformation=GetComponent<SeatedTrouserDeformation>();
             clothTargets=clothingObject?clothingObject.GetComponentsInChildren<Transform>().Where(t=>bodyBones.ContainsKey(t.name)).ToArray():Array.Empty<Transform>();
             clothSources=clothTargets.Select(t=>bodyBones[t.name]).ToArray();
             Head=faceBones["head"];
             bones=library.bones.Select(n=>faceBones[n]).ToArray();
+            // Face.fbx also contains skinned shoulders. The body owns their pose;
+            // only the facial bank's neck/head and facial joints act independently.
+            faceBaseTargets=faceObject.GetComponentsInChildren<Transform>().Where(t=>bodyBones.ContainsKey(t.name)&&!library.bones.Contains(t.name)).ToArray();
+            faceBaseSources=faceBaseTargets.Select(t=>bodyBones[t.name]).ToArray();
             foreach(var p in library.poses)poses[p.name]=p;
             neutralP=poses["neutral"].positions;neutralQ=poses["neutral"].rotations;
             filteredP=(Vector3[])neutralP.Clone();filteredQ=(Quaternion[])neutralQ.Clone();
@@ -40,8 +57,13 @@ namespace PsychologyVR
                 var node=part.transform.name.Contains("_cards_")?part.transform:part.transform.parent;
                 if(node && node.name.Contains("_cards_"))node.SetParent(Head,true);
             }
-            if(seated)SeatBody();
+            if(seated)
+            {
+                if(seatedIdle)seatedIdle.SampleAnimation(bodyObject,0);
+                else SeatBody();
+            }
             SyncBase();
+            if(trouserDeformation)trouserDeformation.ApplyPose(0);
             initialized=true;
         }
         void Awake(){Initialize();}
@@ -76,13 +98,16 @@ namespace PsychologyVR
         }
         void SyncBase()
         {
-            // Facial exports have a duplicate trunk. Align it to the seated body's trunk.
-            foreach(string n in new[]{"root","pelvis","spine_01","spine_02","spine_03","spine_04","spine_05"})
-                if(faceBones.TryGetValue(n,out var f)&&bodyBones.TryGetValue(n,out var b)){f.position=b.position;f.rotation=b.rotation;}
+            for(int i=0;i<faceBaseTargets.Length;i++)faceBaseTargets[i].SetPositionAndRotation(faceBaseSources[i].position,faceBaseSources[i].rotation);
         }
         public void Apply(string emotion,float intensity,Dictionary<string,float> weights,bool speaking,string cue,bool paused,float transition)
         {
             Initialize();if(!initialized||paused)return;
+            if(seated&&seatedIdle)
+            {
+                idleTime=Mathf.Repeat(idleTime+Time.deltaTime,seatedIdle.length);
+                seatedIdle.SampleAnimation(bodyObject,idleTime);
+            }
             if(emotion!=previousEmotion){clock=0;previousEmotion=emotion;}else clock+=Time.deltaTime;
             RestoreNeutral();
             AnimationClip clip=emotion=="angry"?library.angry:emotion=="crying"?library.crying:(emotion=="afraid"||emotion=="panicked")?library.afraid:null;
@@ -121,8 +146,19 @@ namespace PsychologyVR
                 b.localPosition=filteredP[i];b.localRotation=filteredQ[i];
             }
             SyncBase();
-            foreach(string n in new[]{"neck_01","neck_02","head"})if(bodyBones.TryGetValue(n,out var b)&&faceBones.TryGetValue(n,out var f)){b.rotation=f.rotation;}
+            foreach(string n in new[]{"neck_01","neck_02","head"})if(bodyBones.TryGetValue(n,out var b)&&faceBones.TryGetValue(n,out var f))
+            {
+                // Captured facial neck/head acting is a delta over the recorded
+                // body, not a replacement for its idle motion.
+                if(seated&&seatedIdle)
+                {
+                    int i=Array.IndexOf(bones,f);
+                    f.rotation=b.rotation*(Quaternion.Inverse(neutralQ[i])*filteredQ[i]);
+                }
+                b.rotation=f.rotation;
+            }
             for(int i=0;i<clothTargets.Length;i++)clothTargets[i].SetPositionAndRotation(clothSources[i].position,clothSources[i].rotation);
+            if(trouserDeformation)trouserDeformation.ApplyPose(Time.deltaTime);
         }
     }
 }

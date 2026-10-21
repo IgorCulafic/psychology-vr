@@ -36,6 +36,7 @@ namespace PsychologyVR
         AudioClip microphoneClip;
         AudioSource voice;
         PerformanceDriver performance;
+        ChairCushions chairCushions;
         FacialPerformance face;
         SpeechSegment activeBeat;
         SeatedPlayerAvatar playerAvatar;
@@ -87,6 +88,7 @@ namespace PsychologyVR
                 var room=loadedRoom?loadedRoom:Instantiate(environmentPrefab);
                 if(loadedRoom){Bounce=room.AddComponent<BakedRoomLighting>();Bounce.Initialize();}
                 Room=room.AddComponent<RoomRendering>();Room.Initialize();
+                chairCushions=room.AddComponent<ChairCushions>();
             }
             else PrototypeRoom.Build(new GameObject("Consultation room").transform);
             var rig = new GameObject("Seated origin"); origin = rig.transform; origin.position = new Vector3(0, 0, -1.5f);
@@ -120,7 +122,7 @@ namespace PsychologyVR
             if (Microphone.devices.Length > 0) micDevice = Microphone.devices[0];
             string savedMic=PlayerPrefs.GetString("Microphone","");if(Array.IndexOf(Microphone.devices,savedMic)>=0)micDevice=savedMic;
             bool diagnostic=Array.Exists(Environment.GetCommandLineArgs(),a=>a=="--integration-preview"||a=="--record-alex"||a=="--alex-preview"||a=="--environment-preview"||a=="--smoke-test"||a=="--visuals-preview"||a=="--performance-replay"||a=="--streaming-check"||a=="--headset-free-stress");
-            bool metaCheck=Array.IndexOf(Environment.GetCommandLineArgs(),"--metahuman-check")>=0;
+            bool metaCheck=Array.IndexOf(Environment.GetCommandLineArgs(),"--metahuman-check")>=0||Array.IndexOf(Environment.GetCommandLineArgs(),"--seated-idle-check")>=0;
             SetMenuOpen(!diagnostic&&!metaCheck);
             if(Array.IndexOf(Environment.GetCommandLineArgs(),"--menu-preview")>=0)StartCoroutine(MenuPreview.Run(this,menu,view,Capture));
             if(Array.IndexOf(Environment.GetCommandLineArgs(),"--visuals-preview")>=0) StartCoroutine(VisualsPreview.Run(this,menu,view,Capture));
@@ -255,7 +257,7 @@ namespace PsychologyVR
             var prefab=appearance.prefab?appearance.prefab:Resources.Load<GameObject>(appearance.resourcePath);
             if(!prefab)throw new InvalidOperationException("Character model missing: "+id);
             if(actor){actor.SetActive(false);Destroy(actor);}
-            actor=Instantiate(prefab,new Vector3(0,0,1.15f),Quaternion.Euler(0,180,0));actor.name=CurrentScenario.character_name;
+            actor=Instantiate(prefab,new Vector3(0,id=="metahuman-ivan"?-.02f:0,id=="metahuman-ivan"?1.09f:1.15f),Quaternion.Euler(0,180,0));actor.name=CurrentScenario.character_name;
             actor.AddComponent<AvatarSkinRendering>().Initialize(NaturalSkin);Bounce?.RegisterAvatar(actor);
             foreach(var animator in actor.GetComponentsInChildren<Animator>())animator.enabled=false;
             Animation animation=null;
@@ -263,6 +265,7 @@ namespace PsychologyVR
             else if(!actor.GetComponent<MetaHumanJointRig>())CandidateSeatedPose.Apply(actor);
             performance=actor.AddComponent<PerformanceDriver>();performance.seatedAnimation=animation;performance.useStaticSeatedPose=!appearance.seatedClip;
             face=actor.AddComponent<FacialPerformance>();face.body=performance;face.conversationTarget=view.transform;
+            chairCushions?.SetPatient(actor);
             var emitter=new GameObject("Character voice");emitter.transform.SetParent(face.Head?face.Head:actor.transform,false);
             voice=emitter.AddComponent<AudioSource>();voice.spatialBlend=1;voice.minDistance=1;voice.maxDistance=8;voice.volume=SpeechVolume;
             ActiveAppearance=id;
@@ -276,6 +279,8 @@ namespace PsychologyVR
             string folder=args[at+1];Directory.CreateDirectory(folder);
             foreach(var scenario in Catalog.scenarios)
             {
+                bool idleCheck=Array.IndexOf(args,"--seated-idle-check")>=0;
+                if(idleCheck&&scenario.character_id!="ivan")continue;
                 CurrentScenario=scenario;SpawnCharacter("metahuman-"+scenario.character_id);
                 yield return new WaitForSeconds(1);
                 performance.Apply("neutral",0,"none",true);yield return new WaitForSeconds(.8f);
@@ -287,7 +292,9 @@ namespace PsychologyVR
                 performance.Apply("neutral",0,"none",true);face.jawOverride=.6f;yield return new WaitForSeconds(1);
                 if(face.JawWeight<.5f){Debug.LogError("METAHUMAN_CHECK_FAILED mouth "+scenario.id);Application.Quit(4);yield break;}
                 face.jawOverride=-1;
+                if(idleCheck)while(face.JawWeight>.01f)yield return null;
                 Debug.Log("METAHUMAN_CHECK_OK "+scenario.id+" head="+face.Head.position+" bindings="+face.ShapeBindingCount+" tears="+face.Tears.AnchorCount);
+                if(idleCheck)yield return MetaHumanIdlePreview.Run(this,performance,face,Capture,folder);
             }
             Application.Quit(0);
         }
@@ -327,7 +334,7 @@ namespace PsychologyVR
         }
         IEnumerator Connect()
         {
-            if(IsSwitching)yield break;IsSwitching=true;CancelLocal();int token=version;Status="Connecting…";
+            if(IsSwitching)yield break;IsSwitching=true;CancelLocal();int token=version;Status="Connectingâ€¦";
             using(var request=UnityWebRequest.Get(serviceUrl+"/health"))
             {
                 request.timeout=5;yield return request.SendWebRequest();
@@ -360,14 +367,22 @@ namespace PsychologyVR
         }
         public void StartScenario(string id,string appearanceId)
         {
-            if(!CanSelect)return;
+            if(IsSwitching)return;
             var entry=Catalog.Find(id);
             if(entry==null||!HasAppearance(appearanceId)){Status="This character's appearance is not installed.";return;}
+            if(string.IsNullOrEmpty(sessionId))
+            {
+                CancelLocal();CurrentScenario=entry;SpawnCharacter(appearanceId);
+                Relationship=null;HasConversation=false;input="";
+                performance.Apply("neutral",0,"none",true);SetMenuOpen(false);
+                Status="Character preview. Reconnect in Settings to start a conversation.";
+                return;
+            }
             StartCoroutine(SwitchScenario(entry,appearanceId));
         }
         IEnumerator SwitchScenario(ScenarioEntry entry,string appearanceId)
         {
-            IsSwitching=true;CancelLocal();int token=version;Status="Preparing "+entry.character_name+"…";
+            IsSwitching=true;CancelLocal();int token=version;Status="Preparing "+entry.character_name+"â€¦";
             if(!string.IsNullOrEmpty(streamTurnId))yield return FinishStream(true);
             Reply reply=null;yield return Post("/session",new RequestBody{scenario_id=entry.id,replace_session_id=sessionId},raw=>reply=JsonUtility.FromJson<Reply>(raw));
             if(token!=version){IsSwitching=false;yield break;}
@@ -401,7 +416,7 @@ namespace PsychologyVR
         IEnumerator Turn(string text, bool opening)
         {
             if(supportsStreaming){yield return StreamedTurn(text,opening);yield break;}
-            busy = true; int token = version; Status = CurrentScenario.character_name+" is preparing a reply…";
+            busy = true; int token = version; Status = CurrentScenario.character_name+" is preparing a replyâ€¦";
             Reply reply = null;
             yield return Post("/turn",new RequestBody{session_id=sessionId,text=text,opening=opening},raw=>reply=JsonUtility.FromJson<Reply>(raw));
             if(token != version) yield break;
@@ -435,7 +450,7 @@ namespace PsychologyVR
                 yield return PerformancePause(Mathf.Clamp(segment.pause_before_seconds,0,1.5f),token);
                 if(token!=version){if(clip)Destroy(clip);yield break;}
                 Subtitle=segment.text;
-                Status=CurrentScenario.character_name+" is speaking…";
+                Status=CurrentScenario.character_name+" is speakingâ€¦";
                 if(clip)
                 {
                     voice.clip=clip;face?.BeginSpeech(voice,segment.mouth_cues);voice.Play();
@@ -599,7 +614,7 @@ namespace PsychologyVR
             subtitleText.transform.rotation=Quaternion.LookRotation(subtitleText.transform.position-view.transform.position);
             if(inputStatusText)
             {
-                inputStatusText.text=MenuOpen||DesktopDisplayActive?"":Wrap(recording?"Listening · "+(microphonePeak>.001f?"signal detected":"no signal yet")+"\nRelease A when finished.":Status,64);
+                inputStatusText.text=MenuOpen||DesktopDisplayActive?"":Wrap(recording?"Listening Â· "+(microphonePeak>.001f?"signal detected":"no signal yet")+"\nRelease A when finished.":Status,64);
                 inputStatusText.color=recording?new Color(.65f,1,.7f):new Color(.82f,.9f,.86f);
                 inputStatusText.transform.rotation=Quaternion.LookRotation(inputStatusText.transform.position-view.transform.position);
             }
@@ -616,7 +631,7 @@ namespace PsychologyVR
         void OnGUI()
         {
             if(!menu||XRSettings.isDeviceActive||MenuOpen)return;
-            GUI.Label(new Rect(20,Screen.height-32,700,26),"Esc · Menu    Space · Hold to speak    Right mouse · Look");
+            GUI.Label(new Rect(20,Screen.height-32,700,26),"Esc Â· Menu    Space Â· Hold to speak    Right mouse Â· Look");
         }
         void OnDestroy()
         {

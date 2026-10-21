@@ -571,7 +571,7 @@
           "groom_mesh": false,
           "card_description": "<Struct 'HairGroupsCardsSourceDescription' (0x00000218AD9E8640) {}>",
           "uvChannel": 0,
-          "hairMap": "alex/Eyebrows_cards_0_RGBA.png"
+          "hairMap": "ivan/Eyebrows_cards_0_RGBA.png"
         },
         {
           "name": "Mustache_cards_0",
@@ -680,7 +680,7 @@
       "id": "c30d5a5ce554",
       "name": "MI_Teeth_Baked",
       "colorMap": "textures/T_Teeth_BC_942f9bc7.png",
-      "normalMap": "textures/T_Teeth_N_380fd10e.png",
+      "normalMap": "textures/T_Teeth_N_f831b121.png",
       "color": [
         1,
         1,
@@ -1100,7 +1100,7 @@
       "id": "1c727e52867f",
       "name": "MI_Teeth_Baked",
       "colorMap": "textures/T_Teeth_BC_47898c65.png",
-      "normalMap": "textures/T_Teeth_N_f28cf85b.png",
+      "normalMap": "textures/T_Teeth_N_f831b121.png",
       "color": [
         1,
         1,
@@ -1295,7 +1295,7 @@
       "id": "74019e0c6b78",
       "name": "MI_Teeth_Baked",
       "colorMap": "textures/T_Teeth_BC_44fb6474.png",
-      "normalMap": "textures/T_Teeth_N_9f5fcbec.png",
+      "normalMap": "textures/T_Teeth_N_f831b121.png",
       "color": [
         1,
         1,

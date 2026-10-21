@@ -28,9 +28,10 @@ def main():
         if path.name=='Preview Recorded Face.cmd' and not args.include_recorded_preview:continue
         if path.name=='Preview Voices.cmd' and not args.include_voice_packs:continue
         add(path)
-    for name in ['START HERE.md','ASSET_CREDITS.md','docs/GPU_PRESETS.md','docs/MODEL_SWITCHING.md','docs/GEMMA_VRAM.md','docs/QUEST_LINK_LIVE_TEST.md','docs/HEADSET_FREE_STRESS.md','docs/RELEASE_0_5_0.md','docs/LIVE_EXPRESSIVE_SPEECH.md','docs/GEMMA_VS_ORIGINAL.md']:add(ROOT/name)
+    for name in ['START HERE.md','ASSET_CREDITS.md','docs/GPU_PRESETS.md','docs/MODEL_SWITCHING.md','docs/GEMMA_VRAM.md','docs/QUEST_LINK_LIVE_TEST.md','docs/HEADSET_FREE_STRESS.md','docs/RELEASE_0_5_0.md','docs/RELEASE_0_5_1.md','docs/BRANCH_INTEGRATION_2026_10_21.md','docs/LIVE_EXPRESSIVE_SPEECH.md','docs/GEMMA_VS_ORIGINAL.md']:add(ROOT/name)
     for name in ['gemma-unity-vram.json','quest-link-live-vram.json','headset-free-stress-comparison.json',
-                 'headset-free-stress/report.json','headset-free-stress-2400/report.json','headset-free-stress-2000/report.json']:
+                 'headset-free-stress/report.json','headset-free-stress-2400/report.json','headset-free-stress-2000/report.json',
+                 'branch-integration-2026-10-21.json']:
         add(ROOT/'docs/generated'/name)
     for folder in ['services','characters']:
         for path in (ROOT/folder).rglob('*'):

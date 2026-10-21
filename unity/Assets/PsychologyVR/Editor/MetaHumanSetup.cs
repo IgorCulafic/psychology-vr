@@ -107,6 +107,7 @@ namespace PsychologyVR.Editor
                 if(maxJaw<.00001f&&maxRot<.1f)throw new Exception("Speech pose bank is static: "+c.id);
                 var rig=actor.AddComponent<MetaHumanJointRig>();rig.library=data;rig.faceObject=face;rig.bodyObject=actor.transform.Find("Body").gameObject;
                 rig.clothingObject=actor.transform.Find("SkeletalMesh").gameObject;rig.skin=face.GetComponentInChildren<SkinnedMeshRenderer>();
+                if(c.id=="ivan")rig.seatedIdle=AssetDatabase.LoadAssetAtPath<AnimationClip>(Root+"/ivan/animations/SeatedVideo5799.anim");
                 PrefabUtility.SaveAsPrefabAsset(actor,Root+"/"+c.id+"/Character.prefab");
                 demo.angryVoices[index]=AssetDatabase.LoadAssetAtPath<AudioClip>(Root+"/"+c.id+"/audio/anger.wav");
                 demo.angryCues[index]=AssetDatabase.LoadAssetAtPath<TextAsset>(Root+"/"+c.id+"/audio/anger.json");
@@ -240,10 +241,144 @@ namespace PsychologyVR.Editor
                     }
                     r.sharedMaterials=mats;
                     if(r is SkinnedMeshRenderer skin){skin.updateWhenOffscreen=true;skin.quality=SkinQuality.Bone4;}
-                    if(spec.name=="Body"&&r is SkinnedMeshRenderer bodySkin)HideCoveredLegs(bodySkin,c.id);
+                    if(spec.name=="Body"&&c.id!="ivan"&&r is SkinnedMeshRenderer bodySkin)HideCoveredLegs(bodySkin,c.id);
+                    if(spec.name=="Body"&&c.id=="ivan"&&r is SkinnedMeshRenderer ivanBody)
+                    {
+                        var restored=AssetDatabase.LoadAssetAtPath<Mesh>(Root+"/ivan/RestoredBody.asset");
+                        if(restored)ivanBody.sharedMesh=restored;
+                    }
+                    if(spec.name=="SkeletalMesh"&&c.id=="ivan"&&r is SkinnedMeshRenderer outfitSkin)RemoveTrouserSection(outfitSkin);
                 }
             }
             return actor;
+        }
+        public static void RemoveIvanTrousers()
+        {
+            const string folder=Root+"/ivan/";
+            var actor=PrefabUtility.LoadPrefabContents(folder+"Character.prefab");
+            try
+            {
+                var rig=actor.GetComponent<MetaHumanJointRig>();
+                var original=AssetDatabase.LoadAssetAtPath<GameObject>(folder+"models/Body.fbx").GetComponentsInChildren<SkinnedMeshRenderer>().ToDictionary(r=>r.name,r=>r.sharedMesh);
+                var restored=AssetDatabase.LoadAssetAtPath<Mesh>(folder+"RestoredBody.asset");
+                foreach(var skin in rig.bodyObject.GetComponentsInChildren<SkinnedMeshRenderer>())skin.sharedMesh=restored?restored:original[skin.name];
+                foreach(var skin in rig.clothingObject.GetComponentsInChildren<SkinnedMeshRenderer>())RemoveTrouserSection(skin);
+                PrefabUtility.SaveAsPrefabAsset(actor,folder+"Character.prefab");AssetDatabase.SaveAssets();
+                Debug.Log("METAHUMAN_IVAN_TROUSERS_REMOVED: original leg mesh restored; shirt and shoes retained.");
+            }
+            finally{PrefabUtility.UnloadPrefabContents(actor);}
+        }
+        public static void HideIvanFeetUnderShoes()
+        {
+            const string folder=Root+"/ivan/";
+            var actor=PrefabUtility.LoadPrefabContents(folder+"Character.prefab");
+            try
+            {
+                var rig=actor.GetComponent<MetaHumanJointRig>();
+                var skin=rig.bodyObject.GetComponentInChildren<SkinnedMeshRenderer>();
+                var original=AssetDatabase.LoadAssetAtPath<Mesh>(folder+"RestoredBody.asset");
+                if(skin.sharedMesh!=original)throw new InvalidOperationException("Ivan's restored body is not assigned.");
+                var mesh=UnityEngine.Object.Instantiate(original);var weights=mesh.boneWeights;
+                var feet=skin.bones.Where(b=>b.name=="foot_l"||b.name=="foot_r").ToArray();
+                var covered=skin.bones.Select(b=>feet.Any(foot=>b.IsChildOf(foot))).ToArray();
+                bool UnderShoe(int vertex)
+                {
+                    var w=weights[vertex];
+                    return (covered[w.boneIndex0]?w.weight0:0)+(covered[w.boneIndex1]?w.weight1:0)+(covered[w.boneIndex2]?w.weight2:0)+(covered[w.boneIndex3]?w.weight3:0)>.5f;
+                }
+                int removed=0;
+                for(int sub=0;sub<mesh.subMeshCount;sub++)
+                {
+                    var triangles=mesh.GetTriangles(sub);var kept=new List<int>();
+                    for(int i=0;i<triangles.Length;i+=3)
+                        if(UnderShoe(triangles[i])&&UnderShoe(triangles[i+1])&&UnderShoe(triangles[i+2]))removed++;
+                        else {kept.Add(triangles[i]);kept.Add(triangles[i+1]);kept.Add(triangles[i+2]);}
+                    mesh.SetTriangles(kept,sub);
+                }
+                EditorUtility.CopySerialized(mesh,original);UnityEngine.Object.DestroyImmediate(mesh);
+                AssetDatabase.SaveAssets();Debug.Log("METAHUMAN_SHOE_COVERAGE removedHiddenTriangles="+removed);
+            }
+            finally{PrefabUtility.UnloadPrefabContents(actor);}
+        }
+        public static void RestoreIvanBody()
+        {
+            var args=Environment.GetCommandLineArgs();int at=Array.IndexOf(args,"--body-source");
+            if(at<0||at+1>=args.Length)throw new ArgumentException("--body-source requires the complete body FBX.");
+            const string folder=Root+"/ivan/";
+            const string importPath=folder+"models/RestorationSource.fbx";
+            if(File.Exists(importPath))throw new InvalidOperationException("Temporary body import path is already occupied.");
+            GameObject actor=null,source=null;
+            try
+            {
+                File.Copy(Path.GetFullPath(args[at+1]),importPath);
+                AssetDatabase.ImportAsset(importPath,ImportAssetOptions.ForceSynchronousImport);
+                var importer=(ModelImporter)AssetImporter.GetAtPath(importPath);
+                importer.bakeAxisConversion=true;importer.SaveAndReimport();
+                source=UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(importPath));
+                actor=PrefabUtility.LoadPrefabContents(folder+"Character.prefab");
+                var rig=actor.GetComponent<MetaHumanJointRig>();
+                var target=rig.bodyObject.GetComponentInChildren<SkinnedMeshRenderer>();
+                var original=source.GetComponentInChildren<SkinnedMeshRenderer>();
+                var targetIndices=target.bones.Select((b,i)=>new{b.name,index=i}).ToDictionary(b=>b.name,b=>b.index);
+                var mapping=original.bones.Select(b=>targetIndices[b.name]).ToArray();
+                var alignment=Matrix4x4.Rotate(Quaternion.Euler(0,180,0));
+                float restError=original.bones.Select((b,i)=>Vector3.Distance(alignment.MultiplyPoint3x4(b.position),target.bones[mapping[i]].position)).Max();
+                if(restError>.0001f)throw new InvalidOperationException("Complete body skeleton does not match Ivan: "+restError+" m.");
+                var mesh=UnityEngine.Object.Instantiate(original.sharedMesh);mesh.name="Ivan complete body";
+                var matrix=target.transform.worldToLocalMatrix*alignment*original.transform.localToWorldMatrix;
+                mesh.vertices=mesh.vertices.Select(v=>matrix.MultiplyPoint3x4(v)).ToArray();
+                mesh.normals=mesh.normals.Select(n=>matrix.inverse.transpose.MultiplyVector(n).normalized).ToArray();
+                mesh.tangents=mesh.tangents.Select(t=>{var v=matrix.MultiplyVector(new Vector3(t.x,t.y,t.z)).normalized;return new Vector4(v.x,v.y,v.z,t.w);}).ToArray();
+                var weights=mesh.boneWeights;
+                for(int i=0;i<weights.Length;i++)
+                {
+                    var w=weights[i];w.boneIndex0=mapping[w.boneIndex0];w.boneIndex1=mapping[w.boneIndex1];
+                    w.boneIndex2=mapping[w.boneIndex2];w.boneIndex3=mapping[w.boneIndex3];weights[i]=w;
+                }
+                mesh.boneWeights=weights;mesh.bindposes=target.bones.Select(b=>b.worldToLocalMatrix*target.transform.localToWorldMatrix).ToArray();mesh.RecalculateBounds();
+                // The restored pelvis must remain visible, but the torso is covered
+                // by the retained shirt and would otherwise penetrate its surface.
+                var torso=target.bones.Select(b=>b.name.StartsWith("spine_")||b.name.StartsWith("neck_")||b.name.StartsWith("clavicle_")).ToArray();
+                bool UnderShirt(int vertex)
+                {
+                    var w=weights[vertex];
+                    return (torso[w.boneIndex0]?w.weight0:0)+(torso[w.boneIndex1]?w.weight1:0)+(torso[w.boneIndex2]?w.weight2:0)+(torso[w.boneIndex3]?w.weight3:0)>.5f;
+                }
+                for(int sub=0;sub<mesh.subMeshCount;sub++)
+                {
+                    var triangles=mesh.GetTriangles(sub);var kept=new List<int>();
+                    for(int i=0;i<triangles.Length;i+=3)
+                        if(!UnderShirt(triangles[i])||!UnderShirt(triangles[i+1])||!UnderShirt(triangles[i+2]))
+                        {kept.Add(triangles[i]);kept.Add(triangles[i+1]);kept.Add(triangles[i+2]);}
+                    mesh.SetTriangles(kept,sub);
+                }
+                string path=folder+"RestoredBody.asset";var existing=AssetDatabase.LoadAssetAtPath<Mesh>(path);
+                if(existing){EditorUtility.CopySerialized(mesh,existing);UnityEngine.Object.DestroyImmediate(mesh);mesh=existing;}
+                else AssetDatabase.CreateAsset(mesh,path);
+                target.sharedMesh=mesh;
+                PrefabUtility.SaveAsPrefabAsset(actor,folder+"Character.prefab");AssetDatabase.SaveAssets();
+                Debug.Log("METAHUMAN_BODY_RESTORED vertices="+mesh.vertexCount+" restError="+restError+" bones="+mapping.Length);
+            }
+            finally
+            {
+                if(actor)PrefabUtility.UnloadPrefabContents(actor);
+                if(source)UnityEngine.Object.DestroyImmediate(source);
+                AssetDatabase.DeleteAsset(importPath);
+            }
+        }
+        static void RemoveTrouserSection(SkinnedMeshRenderer skin)
+        {
+            var slots=skin.sharedMaterials.Select((m,i)=>new{material=m,index=i}).Where(s=>s.material.name=="Casual_trousers").Select(s=>s.index).ToArray();
+            if(slots.Length==0)return;
+            var mesh=UnityEngine.Object.Instantiate(skin.sharedMesh);
+            int removed=0;
+            foreach(int slot in slots){removed+=mesh.GetTriangles(slot).Length/3;mesh.SetTriangles(Array.Empty<int>(),slot);}
+            const string path=Root+"/ivan/OutfitWithoutTrousers.asset";
+            var existing=AssetDatabase.LoadAssetAtPath<Mesh>(path);
+            if(existing){EditorUtility.CopySerialized(mesh,existing);UnityEngine.Object.DestroyImmediate(mesh);mesh=existing;}
+            else AssetDatabase.CreateAsset(mesh,path);
+            skin.sharedMesh=mesh;
+            Debug.Log("METAHUMAN_TROUSER_SECTION removedTriangles="+removed+" remainingTriangles="+mesh.triangles.Length/3);
         }
         static Material WardrobeMaterial(string id,string part)
         {
@@ -291,4 +426,3 @@ namespace PsychologyVR.Editor
         }
     }
 }
-

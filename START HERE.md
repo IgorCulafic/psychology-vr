@@ -89,8 +89,11 @@ selected generated samples without starting AI services. The current project
 build assigns Igor to Ivan (burnout), Person 1 to Stefan (fire), Person 2 to
 Nikola (bereavement), and Person 3 to Alex (earthquake). Each scenario selects
 its clothed MetaHuman and approved emotion-specific voice settings automatically;
-Ivan uses the Bruce model. Facial reactions, neck movement, tears and live lip
-sync follow the conversation. Torso/hand acting remains a resting pose.
+Ivan uses the Bruce model with a recorded seated idle and responsive wardrobe.
+Facial reactions, neck movement, tears and live lip sync follow the conversation.
+Other patients retain their existing body poses. See `docs/RELEASE_0_5_1.md` for
+the merged animation update and `docs/BRANCH_INTEGRATION_2026_10_21.md` for the
+performance handoff and tests still required on the university RTX 4090.
 Source checkouts contain the contributed packs through Git LFS;
 for initial setup, supply `voices/reference.wav` and its matching JSON transcript
 or explicitly configure another prepared reference. See `voices/README.md`.
