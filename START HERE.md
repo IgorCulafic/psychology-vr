@@ -1,6 +1,6 @@
 # Run Psychology VR
 
-Download **psychology-vr-windows.zip** from this private repository's latest
+Download **psychology-vr-windows.zip** from this repository's latest
 [GitHub Release](https://github.com/IgorCulafic/psychology-vr/releases/latest).
 Extract the complete `PsychologyVR` folder to a writable location, such as
 `D:\PsychologyVR`. Do not run the game inside the ZIP or move only the EXE.
@@ -13,12 +13,24 @@ models and runtimes. Leave its setup window open. Internet and approximately
 45 GB free disk space are required for setup; later launches use local files.
 There is no Unity, Git, Python, API key or paid speech service setup to perform.
 
+In the current project build, desktop starts in borderless fullscreen. Press
+**F11** or use **Settings → Display & subtitles** to switch to windowed mode.
+The same menu changes desktop subtitle size; dialogue appears in a readable
+panel at the bottom of the screen. These preferences persist between launches.
+
 Requirements: Windows 10/11 x64, a current NVIDIA driver, an NVIDIA GPU with at
 least 24 GB VRAM, and preferably 64 GB system RAM. The university's RTX 4090 / 64 GB
-PCs are the target of the lighter preset. Development checks use an RTX 5090;
-the preset still needs a full Quest session on an actual university PC.
+PCs are the target hardware. Development checks use an RTX 5090;
+the current combination still needs a full Quest session on an actual university PC.
 
-**GPU setting:** Setup defaults to **Auto-detect GPU**. A 24 GB card selects
+**Default model:** Setup selects **Gemma 4 12B QAT Q4**, fully on the GPU, with
+**BF16 (16-bit) Higgs speech** and CPU speech recognition. Voice precision is
+unchanged. Gemma was preferred in conversational testing; Bonsai is faster but
+lost coherence in longer conversations. In-game **Settings → Dialogue model**
+switches between installed alternatives after the current reply has finished.
+
+**Legacy GPU setting:** Explicitly choosing **Auto-detect GPU** in PC Settings
+selects the older Qwen presets. A 24 GB card selects
 IQ3_M dialogue with 32 GPU layers; a 32 GB or larger card selects the original
 IQ4_XS dialogue with 48 GPU layers. The remaining dialogue layers use system RAM
 and the CPU. Speech stays BF16 in both presets; this setting never reduces voice
@@ -26,7 +38,8 @@ precision. Auto uses the capacity of CUDA device 0, not combined GPU memory.
 
 To change the setting, close the game and double-click **PC Settings.cmd**:
 choose **1 Auto**, **2 University / RTX 4090**, **3 Original quality**, or
-**4 Fast dialogue (9B Q6)**. Fast keeps the smaller dialogue model fully on the
+**4 Fast dialogue (9B Q6)**, **5 Bonsai**, or **6 Gemma**. Choose **6 Gemma** to
+install it or return to the current default. Fast keeps the smaller dialogue model fully on the
 GPU and preserves BF16 speech. It is opt-in: review language and character
 consistency before teaching. Auto continues selecting the existing 27B presets.
 This stops this installation's AI services, backs up configuration changes and
@@ -38,6 +51,9 @@ kept for switching back. More CPU offload can increase reply latency.
 Fast dialogue needs a one-time 7.4 GB download, or approximately 19.1 GB total
 models on a fresh installation. See `docs/GPU_PRESETS.md` for measured timing and
 known quality tradeoffs. Existing models remain available when switching back.
+Gemma requires a roughly 7 GB dialogue download, plus the shared speech models
+and runtimes. Only the selected dialogue model is downloaded during setup.
+See `docs/MODEL_SWITCHING.md` for model switching and current test limitations.
 
 For VR, install Meta Quest Link, connect the Quest 3 to this PC, and enter its
 PC Link environment before starting. This is a Windows PCVR game, not a Quest APK.
@@ -50,10 +66,42 @@ from students. The text tester opens in your browser at `http://127.0.0.1:8794/`
 Sessions save automatically as TXT and JSONL in `logs/sessions/`. Keep this folder
 when upgrading. Do not send student logs to GitHub.
 
-The private release includes the owner's approved reference voice and transcript
-in `voices/`. Keep that material within the intended testing group. Source-only
-checkouts omit it: supply `voices/reference.wav` and `voices/reference.json`
-containing `{"text":"The exact words in the recording."}` before setup.
+Resource logging is automatic while the updated conversation service is running.
+`logs/performance/` records GPU load, dedicated VRAM usage, temperature and system
+RAM approximately every two seconds, with UTC timestamps and selected model settings.
+Measurements cover all applications on the PC. They do not measure headset FPS,
+and brief spikes between samples can be missed. GPU load (%) and VRAM (MiB) are
+separate measurements; missing readings are reported as unavailable.
+
+After testing, double-click **Export Diagnostics.cmd**. Send the resulting ZIP from
+`diagnostics/` back for review. It includes the last seven days of resource samples,
+response preparation timings, playback progress and a readable `SUMMARY.txt`.
+Cached opening lines are summarized separately from normal conversation replies.
+First audio ready measures server preparation after accepted text, not the full
+delay from releasing the microphone. Conversation text, recordings, credentials
+and raw service logs are excluded from this export; nothing is uploaded automatically.
+The original conversation logs remain in `logs/sessions/` for separate dialogue review.
+No model downloads or Unity Editor are required to export after initial setup.
+
+The release includes the approved shared reference voice and transcript, plus
+three contributed speaker packs in `voices/`. **Preview Voices.cmd** opens their
+selected generated samples without starting AI services. The current project
+build assigns Igor to Ivan (burnout), Person 1 to Stefan (fire), Person 2 to
+Nikola (bereavement), and Person 3 to Alex (earthquake). Each scenario selects
+its clothed MetaHuman and approved emotion-specific voice settings automatically;
+Ivan uses the Bruce model with a recorded seated idle and responsive wardrobe.
+Facial reactions, neck movement, tears and live lip sync follow the conversation.
+Other patients retain their existing body poses. See `docs/RELEASE_0_5_1.md` for
+the merged animation update and `docs/BRANCH_INTEGRATION_2026_10_21.md` for the
+performance handoff and tests still required on the university RTX 4090.
+Source checkouts contain the contributed packs through Git LFS;
+for initial setup, supply `voices/reference.wav` and its matching JSON transcript
+or explicitly configure another prepared reference. See `voices/README.md`.
+
+**Preview Recorded Face.cmd** opens the separate facial/head-motion player with
+a prepared take folder dragged onto the launcher. Personal capture data is not
+bundled. See `docs/RECORDED_FACE_POC.md` for extraction, and
+`docs/RELEASE_0_4_0.md` for what is included and what remains unfinished.
 
 After closing the game/browser, double-click **Stop Services.cmd** to release GPU
 memory. Closing the browser alone does not stop the AI models.

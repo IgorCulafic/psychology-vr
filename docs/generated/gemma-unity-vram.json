@@ -1,0 +1,1086 @@
+{
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "mode": "Unity desktop 1600x1000; not Quest Link",
+  "dialogue_model": "gemma",
+  "speech": "higgs",
+  "speech_precision": "bf16",
+  "stt_device": "cpu",
+  "samples": [
+    {
+      "t": 1790622465.452125,
+      "phase": "services_idle",
+      "used_mib": 20581,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622466.0080729,
+      "phase": "services_idle",
+      "used_mib": 20584,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622466.5647306,
+      "phase": "services_idle",
+      "used_mib": 20584,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622467.11941,
+      "phase": "services_idle",
+      "used_mib": 20584,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622467.6779017,
+      "phase": "services_idle",
+      "used_mib": 20583,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622468.2356284,
+      "phase": "services_idle",
+      "used_mib": 20583,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622468.7950466,
+      "phase": "services_idle",
+      "used_mib": 20582,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622469.3527524,
+      "phase": "services_idle",
+      "used_mib": 20582,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622469.9110599,
+      "phase": "services_idle",
+      "used_mib": 20581,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622470.4696767,
+      "phase": "services_idle",
+      "used_mib": 20581,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622471.0266352,
+      "phase": "services_idle",
+      "used_mib": 20581,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622471.5835478,
+      "phase": "unity_loading",
+      "used_mib": 20581,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622472.1452813,
+      "phase": "unity_loading",
+      "used_mib": 20597,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622472.7038634,
+      "phase": "unity_loading",
+      "used_mib": 20828,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622473.2632165,
+      "phase": "unity_loading",
+      "used_mib": 20828,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622473.825409,
+      "phase": "unity_loading",
+      "used_mib": 20828,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622474.3851068,
+      "phase": "unity_loading",
+      "used_mib": 20828,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622474.9442832,
+      "phase": "unity_loading",
+      "used_mib": 20828,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622475.5050585,
+      "phase": "unity_loading",
+      "used_mib": 20867,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622476.06767,
+      "phase": "unity_loading",
+      "used_mib": 21078,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622476.6315184,
+      "phase": "unity_loading",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622477.1911247,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622477.7519076,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622478.312902,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622478.8744173,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622479.4363036,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622479.999722,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622480.5579276,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622481.120561,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622481.682364,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622482.244748,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622482.8051,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622483.3680935,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622483.9289033,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622484.4910872,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622485.0518625,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622485.613068,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622486.1752968,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622486.7384815,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622487.2989175,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622487.8609643,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622488.421125,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622488.9825788,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622489.5447516,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622490.106412,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622490.6681216,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622491.2306764,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622491.791827,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622492.3546221,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622492.917002,
+      "phase": "unity_loading",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622493.4797044,
+      "phase": "unity_idle",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622494.0389884,
+      "phase": "unity_idle",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622494.603537,
+      "phase": "unity_idle",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622495.1647518,
+      "phase": "unity_idle",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622495.7255118,
+      "phase": "unity_idle",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622496.3079,
+      "phase": "unity_idle",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622496.8657613,
+      "phase": "unity_idle",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622497.427809,
+      "phase": "unity_idle",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622497.990376,
+      "phase": "unity_idle",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622498.5509539,
+      "phase": "unity_idle",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622499.1154606,
+      "phase": "unity_idle",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622499.6775427,
+      "phase": "unity_idle",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622500.2400699,
+      "phase": "generating_reply",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622500.8199716,
+      "phase": "generating_reply",
+      "used_mib": 21071,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622501.380198,
+      "phase": "generating_reply",
+      "used_mib": 21071,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622501.9416623,
+      "phase": "generating_reply",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622502.5050206,
+      "phase": "generating_reply",
+      "used_mib": 21088,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622503.0670414,
+      "phase": "generating_reply",
+      "used_mib": 21088,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622503.6435642,
+      "phase": "generating_reply",
+      "used_mib": 21087,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622504.205818,
+      "phase": "generating_reply",
+      "used_mib": 21080,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622504.768319,
+      "phase": "generating_reply",
+      "used_mib": 21075,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622505.3321667,
+      "phase": "generating_reply",
+      "used_mib": 21075,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622505.896617,
+      "phase": "generating_reply",
+      "used_mib": 21075,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622506.4723914,
+      "phase": "generating_reply",
+      "used_mib": 21075,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622507.0344136,
+      "phase": "generating_reply",
+      "used_mib": 21075,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622507.593912,
+      "phase": "generating_reply",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622508.16069,
+      "phase": "generating_reply",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622508.7234328,
+      "phase": "generating_reply",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622509.2846048,
+      "phase": "generating_reply",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622509.8475087,
+      "phase": "generating_reply",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622510.4115622,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622510.9729683,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622511.5322096,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622512.0943272,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622512.6547039,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622513.214525,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622513.7744892,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622514.3372087,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622514.9007897,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622515.4802487,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622516.041033,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622516.6048076,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622517.1699927,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622517.74692,
+      "phase": "generating_reply",
+      "used_mib": 21071,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622518.3088074,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622518.8837419,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622519.4449487,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622520.0091724,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622520.572012,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622521.1535335,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622521.727964,
+      "phase": "generating_reply",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622522.2874436,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622522.8517487,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622523.4144917,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622523.9898746,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622524.552188,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622525.1145449,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622525.6786954,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622526.2365015,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622526.8009582,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622527.3742902,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622527.9492364,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622528.5104952,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622529.0701036,
+      "phase": "generating_reply",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622529.63296,
+      "phase": "generating_reply",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622530.1963875,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622530.7563834,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622531.3151958,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622531.8754392,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622532.438038,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622533.0006847,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622533.5629978,
+      "phase": "generating_reply",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622534.1271856,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622534.7042325,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622535.2645168,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622535.8267097,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622536.388891,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622536.9496818,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622537.5109248,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622538.070868,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622538.6296365,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622539.1925774,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622539.754943,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622540.3170886,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622540.8810716,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622541.440984,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622542.0004864,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622542.5621283,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622543.1239603,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622543.6847494,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622544.2453382,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622544.8053894,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622545.3687124,
+      "phase": "generating_reply",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622545.9428167,
+      "phase": "generating_reply",
+      "used_mib": 21074,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622546.5058808,
+      "phase": "generating_reply",
+      "used_mib": 21074,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622547.0656857,
+      "phase": "generating_reply",
+      "used_mib": 21074,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622547.6280546,
+      "phase": "generating_reply",
+      "used_mib": 21074,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622548.1899085,
+      "phase": "generating_reply",
+      "used_mib": 21074,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622548.754531,
+      "phase": "generating_reply",
+      "used_mib": 21074,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622549.315202,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622549.8753016,
+      "phase": "generating_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622550.4376411,
+      "phase": "unity_after_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622550.9995255,
+      "phase": "unity_after_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622551.561056,
+      "phase": "unity_after_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622552.1206942,
+      "phase": "unity_after_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622552.6847913,
+      "phase": "unity_after_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622553.2462103,
+      "phase": "unity_after_reply",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622553.8092704,
+      "phase": "unity_after_reply",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622554.3710182,
+      "phase": "unity_after_reply",
+      "used_mib": 21072,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622554.9330797,
+      "phase": "unity_after_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622555.49239,
+      "phase": "unity_after_reply",
+      "used_mib": 21073,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622556.0492373,
+      "phase": "services_after",
+      "used_mib": 20594,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622556.604093,
+      "phase": "services_after",
+      "used_mib": 20594,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622557.1602788,
+      "phase": "services_after",
+      "used_mib": 20594,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622557.7186966,
+      "phase": "services_after",
+      "used_mib": 20594,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622558.2742803,
+      "phase": "services_after",
+      "used_mib": 20594,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622558.833154,
+      "phase": "services_after",
+      "used_mib": 20594,
+      "total_mib": 32607
+    },
+    {
+      "t": 1790622559.388359,
+      "phase": "services_after",
+      "used_mib": 20594,
+      "total_mib": 32607
+    }
+  ],
+  "first_audio_seconds": 20.23,
+  "all_audio_seconds": 50.03,
+  "segments": 3,
+  "utterance": "Danas je bio težak i pomalian dan, uglavnom proveden u ovom privremenom smještaju. Najviše sam se fokusirao na to da odmorim leđa jer me prilično bole, ali je teško smiriti misli. Često sam samo sjedio i pokušavao da se opustim, mada je svaki zvuk vani izazvao mali trezor.",
+  "phases": {
+    "generating_reply": {
+      "samples": 89,
+      "min_mib": 21071,
+      "median_mib": 21073,
+      "max_mib": 21088
+    },
+    "services_after": {
+      "samples": 7,
+      "min_mib": 20594,
+      "median_mib": 20594,
+      "max_mib": 20594
+    },
+    "services_idle": {
+      "samples": 11,
+      "min_mib": 20581,
+      "median_mib": 20582,
+      "max_mib": 20584
+    },
+    "unity_after_reply": {
+      "samples": 10,
+      "min_mib": 21072,
+      "median_mib": 21073.0,
+      "max_mib": 21073
+    },
+    "unity_idle": {
+      "samples": 12,
+      "min_mib": 21072,
+      "median_mib": 21072.0,
+      "max_mib": 21072
+    },
+    "unity_loading": {
+      "samples": 39,
+      "min_mib": 20581,
+      "median_mib": 21072,
+      "max_mib": 21078
+    }
+  },
+  "process_snapshot": [
+    {
+      "InstanceName": "pid_39368_luid_0x00000000_0x00c11603_phys_0",
+      "MiB": 485.0
+    },
+    {
+      "InstanceName": "pid_61424_luid_0x00000000_0x00c11603_phys_0",
+      "MiB": 7653.7
+    },
+    {
+      "InstanceName": "pid_65344_luid_0x00000000_0x00c11603_phys_0",
+      "MiB": 10423.7
+    }
+  ],
+  "process_roles": {
+    "39368": "Unity AlexPrototype",
+    "61424": "Gemma llama.cpp",
+    "65344": "BF16 Higgs"
+  },
+  "method_notes": [
+    "Whole-device VRAM sampled with nvidia-smi approximately every 0.5 seconds.",
+    "Per-process dedicated GPU memory collected separately through host PowerShell GPU Process Memory counters; nested Windows PowerShell counter collection was unavailable.",
+    "Unity desktop room at 1600x1000; speech generated through the real bridge while the room remained loaded. Audio was not played by the game.",
+    "Warm speech service after prior conversations; not a cold-start or worst-case long-session test.",
+    "This RTX 5090 measurement does not include active Quest Link rendering and is not a direct RTX 4090 measurement."
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "status": "approved_by_user_for_use",
+  "recorded_date": "2026-10-04",
+  "person": "person_01",
+  "performance_emotion": "disgusted",
+  "audition_emotion": "disgusted",
+  "reference": "voices/person_01/prepared/11_disgusted.wav",
+  "reference_transcript": "voices/person_01/prepared/11_disgusted.json",
+  "reference_sha256": "a849bf90a2537ea77739ec7e7eea0865b0e11adfd59bd5fc11ef6f5e167906d9",
+  "higgs_quantization": "bf16",
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": null,
+  "prosody_tag": null,
+  "audition_display_label": "Disgusted · selected setting — approved mono reference with reverb removed",
+  "audition_audio": "voices/person_01/prepared/auditions/disgusted-A-dereverb.wav",
+  "audition_sha256": "c5a1ebbef9bbf292307b7e8fc6aebff7dc5755d77cf18cf871994803c6b303fd",
+  "approval_quote": "It's good enough, lets use the settings we previosly made for the generated voices.",
+  "source_review": "voices/igor_2026-10-03/person-1-mono-dereverb/validation.json",
+  "must_fix_before_runtime": false,
+  "active_in_game": false,
+  "ready_for_assignment": true,
+  "approved_candidates": [
+    {
+      "variant": "disgusted-A",
+      "tag": "",
+      "audio": "voices/person_01/prepared/auditions/disgusted-A-dereverb.wav",
+      "sha256": "c5a1ebbef9bbf292307b7e8fc6aebff7dc5755d77cf18cf871994803c6b303fd"
+    }
+  ],
+  "user_choice": "A",
+  "default_variant": "A",
+  "previous_review": {
+    "choice": "A",
+    "default_variant": "A",
+    "status": "preferred_by_user_in_listening_test",
+    "notes": "",
+    "preference_file": "voices/person_01/prepared/preferred_disgusted.json"
+  }
+}

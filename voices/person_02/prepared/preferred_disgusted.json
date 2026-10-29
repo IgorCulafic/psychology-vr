@@ -1,0 +1,38 @@
+{
+  "status": "preferred_by_user_in_listening_test",
+  "recorded_date": "2026-10-03",
+  "person": "person_02",
+  "performance_emotion": "disgusted",
+  "audition_emotion": "disgusted",
+  "user_choice": "A",
+  "default_variant": "A",
+  "default_reason": "explicit user selection",
+  "accepted_variants": [
+    "A"
+  ],
+  "reference": "voices/igor_2026-10-03/emotion-validation/person_02/references/11_disgusted.wav",
+  "reference_transcript": "voices/igor_2026-10-03/emotion-validation/person_02/references/11_disgusted.json",
+  "reference_sha256": "f221ae65152de2f7b2ebbe5f0010f017e5e034d74778ccda1d592512dfb4b855",
+  "reference_transcript_status": "automatic_draft_not_listening_verified",
+  "higgs_quantization": "bf16",
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": null,
+  "prosody_tag": null,
+  "audition_audio": "voices/igor_2026-10-03/emotion-validation/person_02/disgusted-A.wav",
+  "audition_sha256": "d6c365c5e6315b86957dd0af9fa1cef58a7a1ad8e7014a91ca37005f36a47bf8",
+  "user_notes": "A is ok, but B is not the correct voice.",
+  "must_fix_before_runtime": false,
+  "active_in_game": false,
+  "feedback_source": "voices/igor_2026-10-03/emotion-validation/feedback/person_02-emotion-feedback.json",
+  "approved_candidates": [
+    {
+      "variant": "A",
+      "tag": "",
+      "audio": "voices/igor_2026-10-03/emotion-validation/person_02/disgusted-A.wav",
+      "sha256": "d6c365c5e6315b86957dd0af9fa1cef58a7a1ad8e7014a91ca37005f36a47bf8"
+    }
+  ]
+}

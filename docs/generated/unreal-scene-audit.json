@@ -1,0 +1,169 @@
+[
+  {
+    "name": "consultation_architecture",
+    "location": "<Struct 'Vector' (0x0000025C2978EBD0) {x: 0.000000, y: 0.000000, z: 0.000000}>",
+    "rotation": "<Struct 'Rotator' (0x0000025C2978EBD0) {pitch: 0.000000, yaw: -90.000000, roll: 0.000000}>",
+    "bounds_origin": "<Struct 'Vector' (0x0000025C297C4C40) {x: 0.000000, y: 0.750000, z: 144.500006}>",
+    "bounds_extent": "<Struct 'Vector' (0x0000025C297C4B50) {x: 308.000000, y: 308.750000, z: 157.500055}>"
+  },
+  {
+    "name": "modern_arm_chair_01",
+    "location": "<Struct 'Vector' (0x0000025C297C4C40) {x: 132.000000, y: 0.000000, z: 0.000000}>",
+    "rotation": "<Struct 'Rotator' (0x0000025C297C4C40) {pitch: 0.000000, yaw: 90.000000, roll: -0.000000}>",
+    "bounds_origin": "<Struct 'Vector' (0x0000025C297C4790) {x: 132.000008, y: 0.000000, z: 51.142600}>",
+    "bounds_extent": "<Struct 'Vector' (0x0000025C2978D820) {x: 49.328091, y: 41.017220, z: 51.142594}>"
+  },
+  {
+    "name": "modern_arm_chair_01",
+    "location": "<Struct 'Vector' (0x0000025C2978D820) {x: -167.000000, y: 0.000000, z: 0.000000}>",
+    "rotation": "<Struct 'Rotator' (0x0000025C2978D820) {pitch: 0.000000, yaw: -90.000000, roll: 0.000000}>",
+    "bounds_origin": "<Struct 'Vector' (0x0000025C2978EBD0) {x: -167.000008, y: 0.000000, z: 51.142600}>",
+    "bounds_extent": "<Struct 'Vector' (0x0000025C2978D730) {x: 49.328091, y: 41.017220, z: 51.142594}>"
+  },
+  {
+    "name": "side_table_01",
+    "location": "<Struct 'Vector' (0x0000025C2978D730) {x: 115.000000, y: 95.000000, z: 0.000000}>",
+    "rotation": "<Struct 'Rotator' (0x0000025C2978D730) {pitch: 0.000000, yaw: -102.000000, roll: 0.000000}>",
+    "bounds_origin": "<Struct 'Vector' (0x0000025C297C4C40) {x: 114.999994, y: 95.000001, z: 27.533114}>",
+    "bounds_extent": "<Struct 'Vector' (0x0000025C2978D820) {x: 27.725897, y: 31.577077, z: 27.533117}>"
+  },
+  {
+    "name": "tissue_box",
+    "location": "<Struct 'Vector' (0x0000025C297C4C40) {x: 110.000000, y: 94.000000, z: 55.300000}>",
+    "rotation": "<Struct 'Rotator' (0x0000025C297C4C40) {pitch: 0.000000, yaw: -102.000000, roll: 0.000000}>",
+    "bounds_origin": "<Struct 'Vector' (0x0000025C2978D730) {x: 110.000000, y: 94.000000, z: 68.356929}>",
+    "bounds_extent": "<Struct 'Vector' (0x0000025C2978EBD0) {x: 9.268020, y: 13.504317, z: 13.056930}>"
+  },
+  {
+    "name": "small_wooden_table_01",
+    "location": "<Struct 'Vector' (0x0000025C2978D730) {x: -68.000000, y: 0.000000, z: 0.000000}>",
+    "rotation": "<Struct 'Rotator' (0x0000025C2978D730) {pitch: 0.000000, yaw: -90.000000, roll: 0.000000}>",
+    "bounds_origin": "<Struct 'Vector' (0x0000025C2978D820) {x: -68.000007, y: 0.000000, z: 37.049460}>",
+    "bounds_extent": "<Struct 'Vector' (0x0000025C2978F850) {x: 32.557241, y: 66.423617, z: 37.049464}>"
+  },
+  {
+    "name": "binder_notebook",
+    "location": "<Struct 'Vector' (0x0000025C2978F850) {x: -84.000000, y: 3.000000, z: 74.500000}>",
+    "rotation": "<Struct 'Rotator' (0x0000025C2978F850) {pitch: 0.000000, yaw: -99.000000, roll: 0.000000}>",
+    "bounds_origin": "<Struct 'Vector' (0x0000025C297C4C40) {x: -84.000000, y: 3.000000, z: 75.405268}>",
+    "bounds_extent": "<Struct 'Vector' (0x0000025C2978D730) {x: 10.395870, y: 21.885485, z: 0.905268}>"
+  },
+  {
+    "name": "pencil",
+    "location": "<Struct 'Vector' (0x0000025C297C4C40) {x: -70.000000, y: 15.000000, z: 75.000000}>",
+    "rotation": "<Struct 'Rotator' (0x0000025C297C4C40) {pitch: 0.000000, yaw: -100.000000, roll: 0.000000}>",
+    "bounds_origin": "<Struct 'Vector' (0x0000025C2978F850) {x: -70.000000, y: 15.000000, z: 75.600000}>",
+    "bounds_extent": "<Struct 'Vector' (0x0000025C2978D820) {x: 8.431019, y: 1.817157, z: 0.400001}>"
+  },
+  {
+    "name": "water_cup",
+    "location": "<Struct 'Vector' (0x0000025C2978D820) {x: -56.000000, y: 44.000000, z: 74.200000}>",
+    "rotation": "<Struct 'Rotator' (0x0000025C2978D820) {pitch: 0.000000, yaw: -90.000000, roll: 0.000000}>",
+    "bounds_origin": "<Struct 'Vector' (0x0000025C297C4C40) {x: -56.000000, y: 44.000000, z: 79.800000}>",
+    "bounds_extent": "<Struct 'Vector' (0x0000025C2978D730) {x: 3.700000, y: 3.700000, z: 4.800000}>"
+  },
+  {
+    "name": "modern_coffee_table_01",
+    "location": "<Struct 'Vector' (0x0000025C297C4C40) {x: 120.000000, y: -194.000000, z: 0.000000}>",
+    "rotation": "<Struct 'Rotator' (0x0000025C297C4C40) {pitch: 0.000000, yaw: 0.000000, roll: 0.000000}>",
+    "bounds_origin": "<Struct 'Vector' (0x0000025C2978F850) {x: 120.000000, y: -194.000000, z: 19.499999}>",
+    "bounds_extent": "<Struct 'Vector' (0x0000025C2978F8A0) {x: 30.000002, y: 60.091503, z: 19.500009}>"
+  },
+  {
+    "name": "potted_plant_02",
+    "location": "<Struct 'Vector' (0x0000025C2978F8A0) {x: 230.000000, y: 212.000000, z: 0.000000}>",
+    "rotation": "<Struct 'Rotator' (0x0000025C2978F8A0) {pitch: 0.000000, yaw: -120.000000, roll: 0.000000}>",
+    "bounds_origin": "<Struct 'Vector' (0x0000025C2978D820) {x: 229.999995, y: 212.000003, z: 65.224795}>",
+    "bounds_extent": "<Struct 'Vector' (0x0000025C297C4C40) {x: 71.209936, y: 72.471189, z: 65.224795}>"
+  },
+  {
+    "name": "potted_plant_02",
+    "location": "<Struct 'Vector' (0x0000025C297C4C40) {x: 140.000000, y: -205.000000, z: 39.000000}>",
+    "rotation": "<Struct 'Rotator' (0x0000025C297C4C40) {pitch: 0.000000, yaw: -90.000000, roll: 0.000000}>",
+    "bounds_origin": "<Struct 'Vector' (0x0000025C2978F8A0) {x: 139.999998, y: -205.000000, z: 64.248308}>",
+    "bounds_extent": "<Struct 'Vector' (0x0000025C2978F850) {x: 19.690853, y: 21.024715, z: 25.248308}>"
+  },
+  {
+    "name": "modern_ceiling_lamp_01",
+    "location": "<Struct 'Vector' (0x0000025C2978F8A0) {x: 45.000000, y: 0.000000, z: 199.000000}>",
+    "rotation": "<Struct 'Rotator' (0x0000025C2978F8A0) {pitch: 0.000000, yaw: -90.000000, roll: 0.000000}>",
+    "bounds_origin": "<Struct 'Vector' (0x0000025C2978D820) {x: 44.999994, y: 0.000000, z: 246.577574}>",
+    "bounds_extent": "<Struct 'Vector' (0x0000025C2979F800) {x: 21.583038, y: 21.582466, z: 47.577577}>"
+  },
+  {
+    "name": "Patient - animation tool integration point",
+    "location": "<Struct 'Vector' (0x0000025C2978D820) {x: 132.000000, y: 0.000000, z: 0.000000}>",
+    "rotation": "<Struct 'Rotator' (0x0000025C2978D820) {pitch: 0.000000, yaw: 90.000000, roll: -0.000000}>",
+    "bounds_origin": "<Struct 'Vector' (0x0000025C297C4C40) {x: 134.079131, y: -2.030277, z: 92.578398}>",
+    "bounds_extent": "<Struct 'Vector' (0x0000025C2978F8A0) {x: 20.058892, y: 81.060940, z: 92.473039}>",
+    "animation": "<Struct 'SingleAnimationPlayData' (0x0000025C0E7AD330) {anim_to_play: \"/Script/Engine.AnimSequence'/Game/Psychology/Generated/Character/SeatedIdle.SeatedIdle'\", saved_looping: True, saved_playing: True, saved_position: 0.000000, saved_play_rate: 1.000000}>",
+    "materials": [
+      "<Object '/Game/Psychology/Generated/Character/Materials/Boxers.Boxers' (0x0000025C2C7CB600) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/Std_Skin_Head.Std_Skin_Head' (0x0000025C2FFED200) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/Std_Skin_Body.Std_Skin_Body' (0x0000025C2FFEC400) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/Std_Skin_Arm.Std_Skin_Arm' (0x0000025C2FFEB600) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/Std_Skin_Leg.Std_Skin_Leg' (0x0000025C2FFEE000) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/Std_Nails.Std_Nails' (0x0000025C2FFEA800) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/Std_Eyelash.Std_Eyelash' (0x0000025C2FFE8C00) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/Std_Eye_R.Std_Eye_R' (0x0000025C2FFE7E00) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/Std_Cornea_R.Std_Cornea_R' (0x0000025C2FFE4600) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/Std_Eye_L.Std_Eye_L' (0x0000025C2FFE5400) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/Std_Cornea_L.Std_Cornea_L' (0x0000025C2FFE3800) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/Std_Eye_Occlusion_R.Std_Eye_Occlusion_R' (0x0000025C2FFE7000) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/Std_Eye_Occlusion_L.Std_Eye_Occlusion_L' (0x0000025C2FFE6200) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/Std_Tearline_R.Std_Tearline_R' (0x0000025C1C980000) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/Std_Tearline_L.Std_Tearline_L' (0x0000025C2FFEEE00) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/Std_Upper_Teeth.Std_Upper_Teeth' (0x0000025C1C981C00) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/Std_Lower_Teeth.Std_Lower_Teeth' (0x0000025C2FFE9A00) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/Std_Tongue.Std_Tongue' (0x0000025C1C980E00) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/mat_hair_medium_straight_Transparency.mat_hair_medium_straight_Transparency' (0x0000025C1A8DD200) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/FABRIC_2_FRONT_1289505.FABRIC_2_FRONT_1289505' (0x0000025C2C7CD200) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/FABRIC_4_FRONT_1289491.FABRIC_4_FRONT_1289491' (0x0000025C2C7CEE00) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/FABRIC_3_FRONT_1289510.FABRIC_3_FRONT_1289510' (0x0000025C2C7CE000) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/FABRIC_1_FRONT_1289500.FABRIC_1_FRONT_1289500' (0x0000025C2C7CC400) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/FABRIC_6_FRONT_1289515.FABRIC_6_FRONT_1289515' (0x0000025BD65CB600) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/Beard_Transparency_001.Beard_Transparency_001' (0x0000025C2C7CA800) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/Slacks.Slacks' (0x0000025C2FFE1C00) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/Beard_Transparency.Beard_Transparency' (0x0000025C2C7C9A00) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/ShoeBack.ShoeBack' (0x0000025C2FFE0000) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/ShoeFront.ShoeFront' (0x0000025C2FFE0E00) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/Sole.Sole' (0x0000025C2FFE2A00) Class 'Material'>",
+      "<Object '/Game/Psychology/Generated/Character/Materials/Laces.Laces' (0x0000025C1A8D6200) Class 'Material'>"
+    ]
+  },
+  {
+    "name": "PlayerStart",
+    "location": "<Struct 'Vector' (0x0000025C2978F8A0) {x: -150.000000, y: 0.000000, z: 0.000000}>",
+    "rotation": "<Struct 'Rotator' (0x0000025C2978F8A0) {pitch: 0.000000, yaw: 0.000000, roll: 0.000000}>",
+    "bounds_origin": "<Struct 'Vector' (0x0000025C2978D820) {x: -50.000000, y: 0.000000, z: 0.000000}>",
+    "bounds_extent": "<Struct 'Vector' (0x0000025C2979F210) {x: 140.000000, y: 80.000000, z: 92.000000}>"
+  },
+  {
+    "name": "Warm ceiling",
+    "location": "<Struct 'Vector' (0x0000025C2978D820) {x: 40.000000, y: 0.000000, z: 235.000000}>",
+    "rotation": "<Struct 'Rotator' (0x0000025C2978D820) {pitch: 0.000000, yaw: 0.000000, roll: 0.000000}>",
+    "bounds_origin": "<Struct 'Vector' (0x0000025C2978F8A0) {x: 40.000000, y: 0.000000, z: 235.000000}>",
+    "bounds_extent": "<Struct 'Vector' (0x0000025C297C4C40) {x: 0.000000, y: 0.000000, z: 0.000000}>"
+  },
+  {
+    "name": "Window fill",
+    "location": "<Struct 'Vector' (0x0000025C297C4C40) {x: 50.000000, y: 225.000000, z: 195.000000}>",
+    "rotation": "<Struct 'Rotator' (0x0000025C297C4C40) {pitch: 0.000000, yaw: 0.000000, roll: 0.000000}>",
+    "bounds_origin": "<Struct 'Vector' (0x0000025C2978D820) {x: 50.000000, y: 225.000000, z: 195.000000}>",
+    "bounds_extent": "<Struct 'Vector' (0x0000025C2979F210) {x: 0.000000, y: 0.000000, z: 0.000000}>"
+  },
+  {
+    "name": "Reflected light",
+    "location": "<Struct 'Vector' (0x0000025C2978D820) {x: -180.000000, y: 0.000000, z: 195.000000}>",
+    "rotation": "<Struct 'Rotator' (0x0000025C2978D820) {pitch: 0.000000, yaw: 0.000000, roll: 0.000000}>",
+    "bounds_origin": "<Struct 'Vector' (0x0000025C297C4C40) {x: -180.000000, y: 0.000000, z: 195.000000}>",
+    "bounds_extent": "<Struct 'Vector' (0x0000025C2978F8A0) {x: 0.000000, y: 0.000000, z: 0.000000}>"
+  },
+  {
+    "name": "Consultation exposure",
+    "location": "<Struct 'Vector' (0x0000025C297C4C40) {x: 0.000000, y: 0.000000, z: 0.000000}>",
+    "rotation": "<Struct 'Rotator' (0x0000025C297C4C40) {pitch: 0.000000, yaw: 0.000000, roll: 0.000000}>",
+    "bounds_origin": "<Struct 'Vector' (0x0000025C2979F210) {x: 0.000000, y: 0.000000, z: 0.000000}>",
+    "bounds_extent": "<Struct 'Vector' (0x0000025C2979F800) {x: 100.000000, y: 100.000000, z: 100.000000}>"
+  }
+]

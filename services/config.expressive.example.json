@@ -2,6 +2,7 @@
   "host": "127.0.0.1",
   "port": 8765,
   "dialogue_provider": "llama.cpp",
+  "dialogue_model": "gemma",
   "llm_url": "http://127.0.0.1:8087/v1/chat/completions",
   "llm_model": "alex-qwen",
   "llm_timeout_seconds": 90,

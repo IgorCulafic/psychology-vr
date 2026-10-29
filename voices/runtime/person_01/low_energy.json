@@ -1,0 +1,24 @@
+{
+  "source": "voices\\person_01\\10 - Povlacenje i manjak energije_01.wav",
+  "sha256": "a2c5e880bd93ead3d9c7fbe3e0ced8980ebda28605dfa6f77c9bb0d9656603ab",
+  "output": "voices\\person_01\\dereverb-mono-2026-10-04\\cleaned\\10_low_energy.wav",
+  "output_sha256": "45db939906928df963dcd03c6a192480368b5e8726e61e9bbfa2847cfca0957e",
+  "channels": 1,
+  "sample_rate": 48000,
+  "seconds": 32.518875,
+  "processing": "Reverb separation only. Model at native 44.1kHz; polyphase resampling back to 48kHz; mono output; constant speech-level matching gain. No extra denoising, EQ, gating or compression.",
+  "constant_gain": 0.9991696710637594,
+  "model": "dereverb_mel_band_roformer_anvuew_sdr_19.1729.ckpt",
+  "model_sha256": "9262877b87e9ebb0fb808a456b0a411fa677f5df31c8383c1254af531c078970",
+  "trim_seconds": [
+    0,
+    32.518875
+  ],
+  "source_preserved": true,
+  "text": "Ne znam. Danas mi je skoro sve jedno. Možemo ovdje da sjednemo, možemo i tamo. Nemam ništa posebno da dodam. Jutro sam ustao, završio ono što sam morao i došao ovam. Sad pokušavam da smislimo, dakle, da počnemo, ali mi je i to nekako napor. Možemo li malo spojiti? Jedno pitanje pojedno.",
+  "transcript_status": "automatic_draft_not_listening_verified",
+  "transcript_provenance": "Previous reference text; supplied WAV is newly cleaned/trimmed, checked separately with ASR.",
+  "approval_date": "2026-10-04",
+  "status": "approved_by_user_good_enough",
+  "reference_sha256": "45db939906928df963dcd03c6a192480368b5e8726e61e9bbfa2847cfca0957e"
+}

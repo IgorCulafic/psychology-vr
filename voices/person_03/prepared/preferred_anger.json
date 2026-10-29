@@ -1,0 +1,177 @@
+{
+  "status": "approved_by_user_for_use",
+  "recorded_date": "2026-10-01",
+  "person": "person_03",
+  "performance_emotion": "angry",
+  "reference": "voices/person_03/prepared/04_angry.wav",
+  "reference_transcript": "voices/person_03/prepared/04_angry.json",
+  "reference_sha256": "c19ffaeca87849b0ee532b81e6e0d7bf96847a712d543672fe64acafcdc50eec",
+  "higgs_quantization": "bf16",
+  "temperature": 0.55,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": "<|emotion:bitterness|>",
+  "audition_display_label": "B · Longer recorded anger reference",
+  "audition_audio": "voices/person_03/prepared/auditions/person_03-anger-B-1.wav",
+  "audition_sha256": "f2f076dfe843869bcd877f455402681e91fd6b404cd74dcc300a29319e8d1b01",
+  "user_feedback": "B is best",
+  "note": "Approved speaker-specific repair recipe. Patient voice routing remains pending.",
+  "original_selection_status": "preferred_by_user_in_listening_test",
+  "must_fix_before_runtime": false,
+  "review_history": [
+    {
+      "consistency_review": {
+        "date": "2026-10-03",
+        "choice": "Both sentences are good",
+        "notes": "",
+        "status": "passed_two_new_sentences",
+        "feedback_source": "voices/igor_2026-10-03/emotion-validation/feedback/person_03-emotion-feedback.json"
+      }
+    },
+    {
+      "transition_review": {
+        "date": "2026-10-03",
+        "choice": "Voice changes — needs work",
+        "notes": "Anger transition needs a bit of work, is higher pitched than expected",
+        "source": "User-updated visible review form; saved in emotion-validation feedback"
+      }
+    }
+  ],
+  "approval_date": "2026-10-04",
+  "approval_quote": "There, I think this is good enough now.",
+  "feedback_source": "voices/igor_2026-10-03/remaining-voice-repairs/feedback/afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd/remaining-voice-repairs-feedback.json",
+  "feedback_sha256": "afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd",
+  "feedback_saved_at": "2026-10-03T23:31:45.757Z",
+  "default_variant": "B",
+  "user_choice": "B is best",
+  "accepted_variants": [
+    "B"
+  ],
+  "default_reason": "explicit user selection after repair",
+  "reference_text": "Ne, to nije u redu. Nemate pravo da mi se obraćate na taj način. Mogu da prihvatim da se ne slažemo, ali neću da me vrijeđate. A onda da očekujete da nastavim kao da je sve ok. Prestanite da mi opadate u riječ. Ako se ovo nastavi, završit ćemo razgovor i ja ću otići.",
+  "prosody_tag": null,
+  "tts_script": "latin",
+  "synthesis_mode": "whole",
+  "sentence_gap_seconds": 0,
+  "generation_recipe": {
+    "tag": "<|emotion:bitterness|>",
+    "mode": "whole",
+    "max_new_tokens": 900,
+    "quality_check": "speech_audio.checked_synthesis",
+    "retry_seed": 43,
+    "retry_temperature": 0.45,
+    "recovery_gap_seconds": 0.25
+  },
+  "approved_candidates": [
+    {
+      "group": "person_03-anger",
+      "speaker": "person_03",
+      "variant": "B",
+      "title": "Longer recorded anger reference",
+      "index": 1,
+      "id": "person_03-anger-B-1",
+      "text": "Smeta mi kad odlučite šta osjećam prije nego što me saslušate. Pustite me da završim.",
+      "temperature": 0.55,
+      "tag": "<|emotion:bitterness|>",
+      "reference": "voices/person_03/prepared/04_angry.wav",
+      "reference_text": "Ne, to nije u redu. Nemate pravo da mi se obraćate na taj način. Mogu da prihvatim da se ne slažemo, ali neću da me vrijeđate. A onda da očekujete da nastavim kao da je sve ok. Prestanite da mi opadate u riječ. Ako se ovo nastavi, završit ćemo razgovor i ja ću otići.",
+      "reference_sha256": "c19ffaeca87849b0ee532b81e6e0d7bf96847a712d543672fe64acafcdc50eec",
+      "mode": "whole",
+      "script": "latin",
+      "file": "voices/person_03/prepared/auditions/person_03-anger-B-1.wav",
+      "duration_seconds": 6.32,
+      "generation_seconds": 8.493,
+      "quality": {
+        "ok": true,
+        "seconds": 6.32,
+        "leading_seconds": 0.12,
+        "trailing_seconds": 0.34,
+        "longest_gap_seconds": 0.5,
+        "issues": []
+      },
+      "recovery": [
+        {
+          "regenerated": false,
+          "quality": {
+            "ok": true,
+            "seconds": 6.32,
+            "leading_seconds": 0.12,
+            "trailing_seconds": 0.34,
+            "longest_gap_seconds": 0.5,
+            "issues": []
+          }
+        }
+      ],
+      "sha256": "f2f076dfe843869bcd877f455402681e91fd6b404cd74dcc300a29319e8d1b01",
+      "audio": "voices/person_03/prepared/auditions/person_03-anger-B-1.wav"
+    },
+    {
+      "group": "person_03-anger",
+      "speaker": "person_03",
+      "variant": "B",
+      "title": "Longer recorded anger reference",
+      "index": 2,
+      "id": "person_03-anger-B-2",
+      "text": "Ne, nisam to rekao. Molim vas, prestanite da mi pripisujete riječi koje nisam izgovorio.",
+      "temperature": 0.55,
+      "tag": "<|emotion:bitterness|>",
+      "reference": "voices/person_03/prepared/04_angry.wav",
+      "reference_text": "Ne, to nije u redu. Nemate pravo da mi se obraćate na taj način. Mogu da prihvatim da se ne slažemo, ali neću da me vrijeđate. A onda da očekujete da nastavim kao da je sve ok. Prestanite da mi opadate u riječ. Ako se ovo nastavi, završit ćemo razgovor i ja ću otići.",
+      "reference_sha256": "c19ffaeca87849b0ee532b81e6e0d7bf96847a712d543672fe64acafcdc50eec",
+      "mode": "whole",
+      "script": "latin",
+      "file": "voices/person_03/prepared/auditions/person_03-anger-B-2.wav",
+      "duration_seconds": 9.56,
+      "generation_seconds": 12.712,
+      "quality": {
+        "ok": true,
+        "seconds": 9.56,
+        "leading_seconds": 0.12,
+        "trailing_seconds": 0.32,
+        "longest_gap_seconds": 0.48,
+        "issues": []
+      },
+      "recovery": [
+        {
+          "regenerated": false,
+          "quality": {
+            "ok": true,
+            "seconds": 9.56,
+            "leading_seconds": 0.12,
+            "trailing_seconds": 0.32,
+            "longest_gap_seconds": 0.48,
+            "issues": []
+          }
+        }
+      ],
+      "sha256": "3b437d57fb62040132f8982dca178a506334d63b9a558586b89245e7a97ee85e",
+      "audio": "voices/person_03/prepared/auditions/person_03-anger-B-2.wav"
+    }
+  ],
+  "user_notes": "",
+  "active_in_game": false,
+  "repair_review": {
+    "status": "approved_by_user_for_use",
+    "approval_date": "2026-10-04",
+    "approval_quote": "There, I think this is good enough now.",
+    "feedback_source": "voices/igor_2026-10-03/remaining-voice-repairs/feedback/afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd/remaining-voice-repairs-feedback.json",
+    "feedback_sha256": "afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd",
+    "feedback_saved_at": "2026-10-03T23:31:45.757Z",
+    "choice": "B is best",
+    "notes": ""
+  },
+  "reference_transcript_status": "draft_used_in_approved_audition",
+  "transition_review": {
+    "status": "approved_by_user_for_use",
+    "approval_date": "2026-10-04",
+    "approval_quote": "There, I think this is good enough now.",
+    "feedback_source": "voices/igor_2026-10-03/remaining-voice-repairs/feedback/afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd/remaining-voice-repairs-feedback.json",
+    "feedback_sha256": "afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd",
+    "feedback_saved_at": "2026-10-03T23:31:45.757Z",
+    "choice": "B is best",
+    "notes": "",
+    "audio": "voices/person_03/prepared/auditions/person_03-transition-B.wav",
+    "sha256": "70da61c0d39284c7ab6dc7ab62fee08a52e55dafe6b0decbd8b6312d4bbf94fd"
+  }
+}

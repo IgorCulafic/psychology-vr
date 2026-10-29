@@ -1,0 +1,24 @@
+{
+  "source": "voices\\person_01\\06 - Na ivici placa_01.wav",
+  "sha256": "746b99e162c60b077f10b7a8facc9c8e9946966fc4f075da03168e33b95bc73d",
+  "output": "voices\\person_01\\dereverb-mono-2026-10-04\\cleaned\\06_near_tears.wav",
+  "output_sha256": "098284fa0f5f493fa0703484e227bb9b0384d66a2f9e66e0bff067670ae340a6",
+  "channels": 1,
+  "sample_rate": 48000,
+  "seconds": 28.767416666666666,
+  "processing": "Reverb separation only. Model at native 44.1kHz; polyphase resampling back to 48kHz; mono output; constant speech-level matching gain. No extra denoising, EQ, gating or compression.",
+  "constant_gain": 0.9994491446942926,
+  "model": "dereverb_mel_band_roformer_anvuew_sdr_19.1729.ckpt",
+  "model_sha256": "9262877b87e9ebb0fb808a456b0a411fa677f5df31c8383c1254af531c078970",
+  "trim_seconds": [
+    0,
+    28.767416666666666
+  ],
+  "source_preserved": true,
+  "text": "Izvinite, treba mi trenutak. Mislio sam da mogu o ovome da pričam sasvim normalno, ali sad mi je mnogo teže nego pri nekoliko minuta. Toliko toga želim da vam kažem, a nikako da pronađem prave riječi. Molim vas, nemojte još ništa da pitate, samo da malo dođem sebi, pa ću pokušati ponovno.",
+  "transcript_status": "automatic_draft_not_listening_verified",
+  "transcript_provenance": "Previous reference text; supplied WAV is newly cleaned/trimmed, checked separately with ASR.",
+  "approval_date": "2026-10-04",
+  "status": "approved_by_user_good_enough",
+  "reference_sha256": "098284fa0f5f493fa0703484e227bb9b0384d66a2f9e66e0bff067670ae340a6"
+}

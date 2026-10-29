@@ -1,0 +1,15 @@
+{
+  "status": "speaker_identity_preferred_by_user_but_anger_too_weak",
+  "recorded_date": "2026-10-01",
+  "reference": "voices/person_02/prepared/reference_angry.wav",
+  "reference_transcript": "voices/person_02/prepared/reference_angry.json",
+  "higgs_quantization": "bf16",
+  "temperature": 0.60,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": null,
+  "audition_display_label": "Person 2 A — Own angry reference — lower randomness",
+  "audition_audio": "voices/auditions/2026-10-01/identity-refinement/person_02-A.wav",
+  "note": "Use as identity baseline for stronger emotional delivery experiments. Not an approved final anger performance and not integrated into the game's voice routing."
+}

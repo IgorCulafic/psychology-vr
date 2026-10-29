@@ -1,0 +1,157 @@
+{
+  "status": "approved_by_user_for_use",
+  "recorded_date": "2026-10-03",
+  "person": "igor_2026-10-03",
+  "performance_emotion": "happy",
+  "reference": "voices/igor_2026-10-03/cleaned/08_happy.wav",
+  "reference_transcript": "voices/igor_2026-10-03/cleaned/08_happy.json",
+  "reference_sha256": "f2b4d943f9879653c965410bc97f695a4d7aa3d9171f44a9b46982608d846449",
+  "higgs_quantization": "bf16",
+  "temperature": 0.45,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": "<|emotion:enthusiasm|>",
+  "prosody_tag": null,
+  "audition_display_label": "A · Enthusiasm cue · lower temperature 0.45",
+  "audition_audio": "voices/igor_2026-10-03/cleaned/auditions/igor-happiness-A-1.wav",
+  "audition_sha256": "cde096d7fa975f43bc395ba7342da881718b508a5b831214176d8829414186ac",
+  "user_feedback": "A is best",
+  "active_in_game": false,
+  "note": "Approved speaker-specific repair recipe. Patient voice routing remains pending.",
+  "original_selection_status": "preferred_by_user_in_listening_test",
+  "must_fix_before_runtime": false,
+  "review_history": [
+    {
+      "consistency_review": {
+        "date": "2026-10-03",
+        "choice": "Both need work",
+        "notes": "Not the same as the earlier sepected one, deviates too much from the original voice",
+        "status": "needs_refinement",
+        "feedback_source": "voices/igor_2026-10-03/emotion-validation/feedback/igor_2026-10-03-emotion-feedback.json"
+      }
+    }
+  ],
+  "approval_date": "2026-10-04",
+  "approval_quote": "There, I think this is good enough now.",
+  "feedback_source": "voices/igor_2026-10-03/remaining-voice-repairs/feedback/afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd/remaining-voice-repairs-feedback.json",
+  "feedback_sha256": "afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd",
+  "feedback_saved_at": "2026-10-03T23:31:45.757Z",
+  "default_variant": "A",
+  "user_choice": "A is best",
+  "accepted_variants": [
+    "A"
+  ],
+  "default_reason": "explicit user selection after repair",
+  "reference_text": "E, ovo mi je baš uljepšalo dan. nijesam očekivao da će se svi pojavit, a na kraju je sto bio pun. I niko nije žurio kući. Pričali smo, šalili se i dogovarali da to ponovimo. Ali mi je osmijeh na licu kad se sjetim. Volio bih da imam više takvih običnih, lijepih dana.",
+  "tts_script": "latin",
+  "synthesis_mode": "whole",
+  "sentence_gap_seconds": 0,
+  "generation_recipe": {
+    "tag": "<|emotion:enthusiasm|>",
+    "mode": "whole",
+    "max_new_tokens": 900,
+    "quality_check": "speech_audio.checked_synthesis",
+    "retry_seed": 43,
+    "retry_temperature": 0.45,
+    "recovery_gap_seconds": 0.25
+  },
+  "approved_candidates": [
+    {
+      "group": "igor-happiness",
+      "speaker": "igor_2026-10-03",
+      "variant": "A",
+      "title": "Enthusiasm cue · lower temperature 0.45",
+      "index": 1,
+      "id": "igor-happiness-A-1",
+      "text": "Danas smo konačno završili ono što smo planirali. Baš sam zadovoljan i jedva čekam da to proslavimo.",
+      "temperature": 0.45,
+      "tag": "<|emotion:enthusiasm|>",
+      "reference": "voices/igor_2026-10-03/emotion-validation/igor_2026-10-03/references/preferred_happiness.wav",
+      "reference_text": "E, ovo mi je baš uljepšalo dan. nijesam očekivao da će se svi pojavit, a na kraju je sto bio pun. I niko nije žurio kući. Pričali smo, šalili se i dogovarali da to ponovimo. Ali mi je osmijeh na licu kad se sjetim. Volio bih da imam više takvih običnih, lijepih dana.",
+      "reference_sha256": "f2b4d943f9879653c965410bc97f695a4d7aa3d9171f44a9b46982608d846449",
+      "mode": "whole",
+      "script": "latin",
+      "file": "voices/igor_2026-10-03/cleaned/auditions/igor-happiness-A-1.wav",
+      "duration_seconds": 8.16,
+      "generation_seconds": 10.718,
+      "quality": {
+        "ok": true,
+        "seconds": 8.16,
+        "leading_seconds": 0.08,
+        "trailing_seconds": 0.4,
+        "longest_gap_seconds": 0.14,
+        "issues": []
+      },
+      "recovery": [
+        {
+          "regenerated": false,
+          "quality": {
+            "ok": true,
+            "seconds": 8.16,
+            "leading_seconds": 0.08,
+            "trailing_seconds": 0.4,
+            "longest_gap_seconds": 0.14,
+            "issues": []
+          }
+        }
+      ],
+      "sha256": "cde096d7fa975f43bc395ba7342da881718b508a5b831214176d8829414186ac",
+      "audio": "voices/igor_2026-10-03/cleaned/auditions/igor-happiness-A-1.wav"
+    },
+    {
+      "group": "igor-happiness",
+      "speaker": "igor_2026-10-03",
+      "variant": "A",
+      "title": "Enthusiasm cue · lower temperature 0.45",
+      "index": 2,
+      "id": "igor-happiness-A-2",
+      "text": "Nisam mogao da sakrijem osmijeh kad sam ih vidio. Bilo mi je lijepo da opet budemo svi zajedno.",
+      "temperature": 0.45,
+      "tag": "<|emotion:enthusiasm|>",
+      "reference": "voices/igor_2026-10-03/emotion-validation/igor_2026-10-03/references/preferred_happiness.wav",
+      "reference_text": "E, ovo mi je baš uljepšalo dan. nijesam očekivao da će se svi pojavit, a na kraju je sto bio pun. I niko nije žurio kući. Pričali smo, šalili se i dogovarali da to ponovimo. Ali mi je osmijeh na licu kad se sjetim. Volio bih da imam više takvih običnih, lijepih dana.",
+      "reference_sha256": "f2b4d943f9879653c965410bc97f695a4d7aa3d9171f44a9b46982608d846449",
+      "mode": "whole",
+      "script": "latin",
+      "file": "voices/igor_2026-10-03/cleaned/auditions/igor-happiness-A-2.wav",
+      "duration_seconds": 6.92,
+      "generation_seconds": 8.998,
+      "quality": {
+        "ok": true,
+        "seconds": 6.92,
+        "leading_seconds": 0.08,
+        "trailing_seconds": 0.34,
+        "longest_gap_seconds": 0.52,
+        "issues": []
+      },
+      "recovery": [
+        {
+          "regenerated": false,
+          "quality": {
+            "ok": true,
+            "seconds": 6.92,
+            "leading_seconds": 0.08,
+            "trailing_seconds": 0.34,
+            "longest_gap_seconds": 0.52,
+            "issues": []
+          }
+        }
+      ],
+      "sha256": "e51ee56a0db48c7bfeb5e4484a9618d97ce096bd77728acb23f4a8ca27ffd0fb",
+      "audio": "voices/igor_2026-10-03/cleaned/auditions/igor-happiness-A-2.wav"
+    }
+  ],
+  "user_notes": "",
+  "repair_review": {
+    "status": "approved_by_user_for_use",
+    "approval_date": "2026-10-04",
+    "approval_quote": "There, I think this is good enough now.",
+    "feedback_source": "voices/igor_2026-10-03/remaining-voice-repairs/feedback/afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd/remaining-voice-repairs-feedback.json",
+    "feedback_sha256": "afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd",
+    "feedback_saved_at": "2026-10-03T23:31:45.757Z",
+    "choice": "A is best",
+    "notes": ""
+  },
+  "reference_transcript_status": "confirmed_by_speaker"
+}

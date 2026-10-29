@@ -1,0 +1,63 @@
+{
+  "person": "person_03",
+  "model": "Higgs TTS 3",
+  "precision": "bf16",
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "text": "Baš mi je drago što ste došli! Jedva čekam da vam ispričam šta se dogodilo. Sve je ispalo bolje nego što sam očekivao!",
+  "samples": [
+    {
+      "id": "happy-A",
+      "title": "A: short happy reference + enthusiasm",
+      "reference_emotion": "happy",
+      "reference_sha256": "e4952b4a221d99c9e6d1c74c86ac53cc08707397dbe18c00b6785959ae45b0f1",
+      "reference_text": "Hoću, hoću da vam kažem nešto. Važno mi je da me saslušate do kraja, da, i poslije, poslije možemo da razgovaramo, što ćemo dalje.",
+      "cue": "<|emotion:enthusiasm|>",
+      "file": "happy-A.wav",
+      "duration_seconds": 7.96,
+      "generation_seconds": 30.429,
+      "output_gain": 1.0
+    },
+    {
+      "id": "happy-B",
+      "title": "B: longer happy performance, no cue",
+      "reference_emotion": "happy_long",
+      "reference_sha256": "39cb7b068b60b38981df05ccc47c504700029616d672b820af0d46e5e849d953",
+      "reference_text": "Aaaa, evo, ovo mi je baš uljepšalo dan. Nisam očekivao da će se svi pojaviti, a na kraju je sto bio pun i niko nije žurio kući. Stvarno, super. Pričali smo, šalili se i dogovarali. Da to ponovimo. A još mi je osmijeh na licu kad se sjetim. Stvarno je bilo lijepo.",
+      "cue": "",
+      "file": "happy-B.wav",
+      "duration_seconds": 7.76,
+      "generation_seconds": 28.166,
+      "output_gain": 1.0
+    },
+    {
+      "id": "happy-C",
+      "title": "C: longer happy performance + enthusiasm",
+      "reference_emotion": "happy_long",
+      "reference_sha256": "39cb7b068b60b38981df05ccc47c504700029616d672b820af0d46e5e849d953",
+      "reference_text": "Aaaa, evo, ovo mi je baš uljepšalo dan. Nisam očekivao da će se svi pojaviti, a na kraju je sto bio pun i niko nije žurio kući. Stvarno, super. Pričali smo, šalili se i dogovarali. Da to ponovimo. A još mi je osmijeh na licu kad se sjetim. Stvarno je bilo lijepo.",
+      "cue": "<|emotion:enthusiasm|>",
+      "file": "happy-C.wav",
+      "duration_seconds": 9.92,
+      "generation_seconds": 35.577,
+      "output_gain": 1.0
+    },
+    {
+      "id": "happy-D",
+      "title": "D: longer happy performance + elation and high expression",
+      "reference_emotion": "happy_long",
+      "reference_sha256": "39cb7b068b60b38981df05ccc47c504700029616d672b820af0d46e5e849d953",
+      "reference_text": "Aaaa, evo, ovo mi je baš uljepšalo dan. Nisam očekivao da će se svi pojaviti, a na kraju je sto bio pun i niko nije žurio kući. Stvarno, super. Pričali smo, šalili se i dogovarali. Da to ponovimo. A još mi je osmijeh na licu kad se sjetim. Stvarno je bilo lijepo.",
+      "cue": "<|emotion:elation|><|prosody:expressive_high|>",
+      "file": "happy-D.wav",
+      "duration_seconds": 9.8,
+      "generation_seconds": 34.311,
+      "output_gain": 1.0
+    }
+  ],
+  "listening_assessment": "Happy C (longer happy reference plus enthusiasm) preferred by user.",
+  "active_in_game": false,
+  "hypothesis": "Separate reference identity from emotion-token effects; not a confirmed diagnosis."
+}

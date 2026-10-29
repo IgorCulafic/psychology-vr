@@ -1,0 +1,33 @@
+{
+  "status": "approved_by_user_for_use",
+  "recorded_date": "2026-10-04",
+  "person": "person_01",
+  "performance_emotion": "neutral",
+  "audition_emotion": "neutral",
+  "reference": "voices/person_01/prepared/reference_cleaned.wav",
+  "reference_transcript": "voices/person_01/prepared/reference_cleaned.json",
+  "reference_sha256": "b560759ad8e171a1b7393322b8420218822a470f7a115d532367151767ad1183",
+  "higgs_quantization": "bf16",
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": null,
+  "prosody_tag": null,
+  "audition_display_label": "Neutral conversation — approved mono reference with reverb removed",
+  "audition_audio": "voices/person_01/prepared/auditions/transition-neutral-dereverb.wav",
+  "audition_sha256": "f8bfeacd62614706632588b227acf580bd84ada0c70dfb51f75b9c5b139be933",
+  "approval_quote": "It's good enough, lets use the settings we previosly made for the generated voices.",
+  "source_review": "voices/igor_2026-10-03/person-1-mono-dereverb/validation.json",
+  "must_fix_before_runtime": false,
+  "active_in_game": false,
+  "ready_for_assignment": true,
+  "approved_candidates": [
+    {
+      "variant": "transition-neutral",
+      "tag": "",
+      "audio": "voices/person_01/prepared/auditions/transition-neutral-dereverb.wav",
+      "sha256": "f8bfeacd62614706632588b227acf580bd84ada0c70dfb51f75b9c5b139be933"
+    }
+  ]
+}

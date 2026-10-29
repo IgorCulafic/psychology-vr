@@ -334,7 +334,7 @@ namespace PsychologyVR
         }
         IEnumerator Connect()
         {
-            if(IsSwitching)yield break;IsSwitching=true;CancelLocal();int token=version;Status="Connecting…";
+            if(IsSwitching)yield break;IsSwitching=true;CancelLocal();int token=version;Status="Connectingâ€¦";
             using(var request=UnityWebRequest.Get(serviceUrl+"/health"))
             {
                 request.timeout=5;yield return request.SendWebRequest();
@@ -382,7 +382,7 @@ namespace PsychologyVR
         }
         IEnumerator SwitchScenario(ScenarioEntry entry,string appearanceId)
         {
-            IsSwitching=true;CancelLocal();int token=version;Status="Preparing "+entry.character_name+"…";
+            IsSwitching=true;CancelLocal();int token=version;Status="Preparing "+entry.character_name+"â€¦";
             if(!string.IsNullOrEmpty(streamTurnId))yield return FinishStream(true);
             Reply reply=null;yield return Post("/session",new RequestBody{scenario_id=entry.id,replace_session_id=sessionId},raw=>reply=JsonUtility.FromJson<Reply>(raw));
             if(token!=version){IsSwitching=false;yield break;}
@@ -416,7 +416,7 @@ namespace PsychologyVR
         IEnumerator Turn(string text, bool opening)
         {
             if(supportsStreaming){yield return StreamedTurn(text,opening);yield break;}
-            busy = true; int token = version; Status = CurrentScenario.character_name+" is preparing a reply…";
+            busy = true; int token = version; Status = CurrentScenario.character_name+" is preparing a replyâ€¦";
             Reply reply = null;
             yield return Post("/turn",new RequestBody{session_id=sessionId,text=text,opening=opening},raw=>reply=JsonUtility.FromJson<Reply>(raw));
             if(token != version) yield break;
@@ -450,7 +450,7 @@ namespace PsychologyVR
                 yield return PerformancePause(Mathf.Clamp(segment.pause_before_seconds,0,1.5f),token);
                 if(token!=version){if(clip)Destroy(clip);yield break;}
                 Subtitle=segment.text;
-                Status=CurrentScenario.character_name+" is speaking…";
+                Status=CurrentScenario.character_name+" is speakingâ€¦";
                 if(clip)
                 {
                     voice.clip=clip;face?.BeginSpeech(voice,segment.mouth_cues);voice.Play();
@@ -614,7 +614,7 @@ namespace PsychologyVR
             subtitleText.transform.rotation=Quaternion.LookRotation(subtitleText.transform.position-view.transform.position);
             if(inputStatusText)
             {
-                inputStatusText.text=MenuOpen||DesktopDisplayActive?"":Wrap(recording?"Listening · "+(microphonePeak>.001f?"signal detected":"no signal yet")+"\nRelease A when finished.":Status,64);
+                inputStatusText.text=MenuOpen||DesktopDisplayActive?"":Wrap(recording?"Listening Â· "+(microphonePeak>.001f?"signal detected":"no signal yet")+"\nRelease A when finished.":Status,64);
                 inputStatusText.color=recording?new Color(.65f,1,.7f):new Color(.82f,.9f,.86f);
                 inputStatusText.transform.rotation=Quaternion.LookRotation(inputStatusText.transform.position-view.transform.position);
             }
@@ -631,7 +631,7 @@ namespace PsychologyVR
         void OnGUI()
         {
             if(!menu||XRSettings.isDeviceActive||MenuOpen)return;
-            GUI.Label(new Rect(20,Screen.height-32,700,26),"Esc · Menu    Space · Hold to speak    Right mouse · Look");
+            GUI.Label(new Rect(20,Screen.height-32,700,26),"Esc Â· Menu    Space Â· Hold to speak    Right mouse Â· Look");
         }
         void OnDestroy()
         {

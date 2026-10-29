@@ -1,0 +1,24 @@
+{
+  "source": "voices\\person_01\\07 - Zabrinutost i nesigurnost_01.wav",
+  "sha256": "4a7a60d8721cde6938b13685a84c39b3198187ac240c5e36cf12453a4f290931",
+  "output": "voices\\person_01\\dereverb-mono-2026-10-04\\cleaned\\07_anxious.wav",
+  "output_sha256": "3e2de46dafcf481437ed290fc26636a5ca416be267818611c8f47b5962be70b0",
+  "channels": 1,
+  "sample_rate": 48000,
+  "seconds": 25.616416666666666,
+  "processing": "Reverb separation only. Model at native 44.1kHz; polyphase resampling back to 48kHz; mono output; constant speech-level matching gain. No extra denoising, EQ, gating or compression.",
+  "constant_gain": 0.9995581638815059,
+  "model": "dereverb_mel_band_roformer_anvuew_sdr_19.1729.ckpt",
+  "model_sha256": "9262877b87e9ebb0fb808a456b0a411fa677f5df31c8383c1254af531c078970",
+  "trim_seconds": [
+    0,
+    25.616416666666666
+  ],
+  "source_preserved": true,
+  "text": "A šta ako se opet ogodi isto? Znam da sada nemamo razlog da to očekujemo, ali ta misla mi se stalno vraća. Proberim jednu stvar, pa se odmah svjetim druge. Ne znam da li pretjerujem ili nešto možda propušta. Možemo li samo još jednom proći kroz ono što slijedi. Lakše mi kada znam šta mogu da očekujem.",
+  "transcript_status": "automatic_draft_not_listening_verified",
+  "transcript_provenance": "Previous reference text; supplied WAV is newly cleaned/trimmed, checked separately with ASR.",
+  "approval_date": "2026-10-04",
+  "status": "approved_by_user_good_enough",
+  "reference_sha256": "3e2de46dafcf481437ed290fc26636a5ca416be267818611c8f47b5962be70b0"
+}

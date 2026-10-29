@@ -12,13 +12,22 @@ from performance_contract import FIELDS, higgs_text
 
 
 def beat(**changes):
-    value = dict(text='Nijesam očekivao da ćete to reći.', emotion='angry', intensity=.8,
+    value = dict(text='Nisam očekivao da ćete to reći.', emotion='angry', intensity=.8,
                  gesture='none', voice_style='tense')
     value.update(changes)
     return value
 
 
 class PerformanceTests(unittest.TestCase):
+    def test_preferred_wording_is_shared_by_dialogue_and_tts_without_changing_input(self):
+        source = beat(text='Nijesam čuo riječi koje nijesam očekivao. NIJESAM.')
+        result = validate_reply({'segments': [source]})[0]
+        self.assertEqual(result['text'], 'Nisam čuo riječi koje nisam očekivao. NISAM.')
+        self.assertEqual(source['text'], 'Nijesam čuo riječi koje nijesam očekivao. NIJESAM.')
+        self.assertEqual(higgs_text(source), '<|emotion:anger|>' + result['text'])
+        self.assertEqual(validate_reply({'segments': [beat(text='Нијесам чуо. NIJESAMOV izraz, reći i riječi.')]})[0]['text'],
+                         'Нисам чуо. NIJESAMOV izraz, reći i riječi.')
+
     def test_two_model_beats_keep_individual_controls_and_final_state(self):
         config = json.loads(Path(__file__).with_name('config.example.json').read_text())
         config.update(dialogue_provider='llama.cpp',tts_provider='none')
@@ -128,8 +137,12 @@ class SpeechHttpTests(unittest.TestCase):
         class FakeVoice:
             lock = threading.Lock()
             received = None
-            def synthesize(self, segment):
+            from voice_cast import VoiceCast
+            voice_cast = VoiceCast(Path(__file__).resolve().parents[1])
+            scenario = None
+            def synthesize(self, segment, scenario_id=None):
                 self.received=segment
+                self.scenario=scenario_id
                 return b'fake-wave'
         self.voice = FakeVoice()
         self.server = ThreadingHTTPServer(('127.0.0.1',0),make_handler(self.voice))
@@ -159,6 +172,17 @@ class SpeechHttpTests(unittest.TestCase):
             with self.assertRaises(urllib.error.HTTPError) as error:
                 self.post(body,origin)
             self.assertEqual(error.exception.code,status)
+        self.assertIsNone(self.voice.received)
+
+    def test_assigned_scenario_is_forwarded_and_unknown_values_rejected(self):
+        with self.post({'segment':beat(),'scenario_id':'ivan-work-exhaustion'}) as response:
+            self.assertEqual(response.read(),b'fake-wave')
+        self.assertEqual(self.voice.scenario,'ivan-work-exhaustion')
+        self.voice.received=None
+        for scenario in ('../../other.wav','unknown',None,{},42):
+            with self.assertRaises(urllib.error.HTTPError) as error:
+                self.post({'segment':beat(),'scenario_id':scenario})
+            self.assertEqual(error.exception.code,400)
         self.assertIsNone(self.voice.received)
 
 

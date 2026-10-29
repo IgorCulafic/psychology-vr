@@ -1,0 +1,24 @@
+{
+  "source": "voices\\person_01\\05 - Tuga, uz zadrzanu razgovijetnost_01.wav",
+  "sha256": "beec76c89ad4f53ca9f33a455f54ce1df30f127da90d23acc03bc3bbcd7a4e57",
+  "output": "voices\\person_01\\dereverb-mono-2026-10-04\\cleaned\\05_sad.wav",
+  "output_sha256": "002b714db8aeb7e738fa6c3e4b99861436a71d7cfc799b7269066fcc1199a3aa",
+  "channels": 1,
+  "sample_rate": 48000,
+  "seconds": 29.455395833333334,
+  "processing": "Reverb separation only. Model at native 44.1kHz; polyphase resampling back to 48kHz; mono output; constant speech-level matching gain. No extra denoising, EQ, gating or compression.",
+  "constant_gain": 0.9996054370102961,
+  "model": "dereverb_mel_band_roformer_anvuew_sdr_19.1729.ckpt",
+  "model_sha256": "9262877b87e9ebb0fb808a456b0a411fa677f5df31c8383c1254af531c078970",
+  "trim_seconds": [
+    0,
+    29.455395833333334
+  ],
+  "source_preserved": true,
+  "text": "Najdeži mi bude kad se vratim kući i sve utihne. Preko dana nekako skrenem misli, imam obaveze i ljude oko sebe. Onda dođe večer i primijetim koliko mi nedostaju neke sasvim obišne stvari. Razgor u skafu, neči korac u hodniku, pitanje kako mi je prošao dan, to mi nedostaje više nego što umijem da objasni.",
+  "transcript_status": "automatic_draft_not_listening_verified",
+  "transcript_provenance": "Previous reference text; supplied WAV is newly cleaned/trimmed, checked separately with ASR.",
+  "approval_date": "2026-10-04",
+  "status": "approved_by_user_good_enough",
+  "reference_sha256": "002b714db8aeb7e738fa6c3e4b99861436a71d7cfc799b7269066fcc1199a3aa"
+}

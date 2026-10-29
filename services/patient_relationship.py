@@ -52,7 +52,7 @@ False for a genuinely narrow yes/no/factual query, attacks, control commands or 
 Allowed categories: neutral, respectful, supportive, misunderstanding, dismissive, pressure,
 personal_attack, threat, repair. Never diagnose or assess the real user.
 Examples of MEANING in the conversation language (not lines to repeat):
-"Žao mi je što sam vas uvrijedio. Nijesam smio to da kažem." => repair.
+"Žao mi je što sam vas uvrijedio. Nisam smio to da kažem." => repair.
 "Izvinjavam se, bio sam nepravedan prema vašem ocu." => repair.
 "Niko nema pravo da vas naziva glupim." => supportive (defending, not insulting).
 "Samo nesposoban čovjek bi umro tako." => personal_attack (contempt about the death).
@@ -156,7 +156,7 @@ Do not promise unconditional cooperation. In active/boundary status refuse a top
 instead of announcing departure; terminal withdrawal is handled by the application.
 """
     if wants_fuller_reply(state):
-        prompt += '\nTHIS is an invitation to elaborate: aim for 3-5 connected sentences, roughly 40-80 words, within word_limit. Answer the question, give a concrete relevant detail and explain your own preference or experience. Do not substitute a generic symptom statement. Ordinary elaboration does not require more comfort. Sensitive refusal remains possible; never pad or invent major events.'
+        prompt += '\nThe question allows detail: answer it directly and offer a concrete relevant detail or your own perspective when useful. An explicit request to elaborate deserves a fuller explanation of your experience, not a generic symptom statement. There is no minimum word count. A simple question, uncertainty about a cause, or a sensitive refusal may need less. Ordinary elaboration does not require more comfort. Never pad, invent a cause or invent major events.'
     return prompt
 
 

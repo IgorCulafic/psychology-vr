@@ -12,9 +12,9 @@ Names, adult ages, occupations and timeline anchors below are **fictional author
 
 ## Openings
 
-- Nikola: “Skoro da nijesam došao. Ne znam odakle da počnem.”
-- Stefan: “Nijesam ni bio povrijeđen. Ne znam zašto još ne mogu da se smirim.”
-- Ivan: “Stalno sam umoran. Imao sam slobodan vikend, a kao da nijesam odmorio.”
+- Nikola: “Skoro da nisam došao. Ne znam odakle da počnem.”
+- Stefan: “Nisam ni bio povrijeđen. Ne znam zašto još ne mogu da se smirim.”
+- Ivan: “Stalno sam umoran. Imao sam slobodan vikend, a kao da nisam odmorio.”
 
 English openings and facts are also authored; the active configuration uses Montenegrin. The opening deliberately avoids a complete symptom list or personal history. A direct, relevant question can uncover an ordinary fact without a long trust-building sequence. More sensitive feelings emerge through relevant, respectful follow-up; pressure can make the character pull back. This is prompt-guided, not a deterministic disclosure state machine.
 

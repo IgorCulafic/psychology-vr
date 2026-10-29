@@ -1,0 +1,24 @@
+{
+  "source": "voices\\person_01\\01 - Neutralan, prirodan razgovor_01.wav",
+  "sha256": "f9c299c385047b21efa65787d7138e5d3ed137e03ca932e2a9ea442295fc8366",
+  "output": "voices\\person_01\\dereverb-mono-2026-10-04\\cleaned\\01_neutral_conversation.wav",
+  "output_sha256": "b560759ad8e171a1b7393322b8420218822a470f7a115d532367151767ad1183",
+  "channels": 1,
+  "sample_rate": 48000,
+  "seconds": 25.629020833333332,
+  "processing": "Reverb separation only. Model at native 44.1kHz; polyphase resampling back to 48kHz; mono output; constant speech-level matching gain. No extra denoising, EQ, gating or compression.",
+  "constant_gain": 0.9996055208680866,
+  "model": "dereverb_mel_band_roformer_anvuew_sdr_19.1729.ckpt",
+  "model_sha256": "9262877b87e9ebb0fb808a456b0a411fa677f5df31c8383c1254af531c078970",
+  "trim_seconds": [
+    0,
+    25.629020833333332
+  ],
+  "source_preserved": true,
+  "text": "Dobar dan. Možemo da sjednemo ovdje, pored prozora. Napolju je malo hladnije nego jutros, ali unutra je prijatno. Prije dolaska sam svratio do prodavnice i kupio hljeb, mlijeko i nekoliko jabuka. Poslije ovog razgovora idem kući da spremim ručak. Još nijesam odlučio šta ću da pravim, ali vjerovatno nešto jednostavno.",
+  "transcript_status": "supplied recording script, confirmed by user",
+  "transcript_provenance": "Previous reference text; supplied WAV is newly cleaned/trimmed, checked separately with ASR.",
+  "approval_date": "2026-10-04",
+  "status": "approved_by_user_good_enough",
+  "reference_sha256": "b560759ad8e171a1b7393322b8420218822a470f7a115d532367151767ad1183"
+}

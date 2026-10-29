@@ -1,0 +1,44 @@
+[
+  {
+    "file": "neutral.wav",
+    "seconds": 7.36,
+    "automatic_transcript": "Nije mi lako da govorimo o ovome. Molim vas, pustite me da završim, pa ću vam objasniti šta se dogodilo.",
+    "expected_text": "Nije mi lako da govorim o ovome. Molim vas, pustite me da završim, pa ću vam objasniti šta se dogodilo.",
+    "speaker_identity_and_emotion": "requires user listening review"
+  },
+  {
+    "file": "anger-A.wav",
+    "seconds": 8.84,
+    "automatic_transcript": "Nije mi lako da govorimo o ovome. Molim vas, pustite me da završim, pa ću vam objasniti šta se dogodilo.",
+    "expected_text": "Nije mi lako da govorim o ovome. Molim vas, pustite me da završim, pa ću vam objasniti šta se dogodilo.",
+    "speaker_identity_and_emotion": "requires user listening review"
+  },
+  {
+    "file": "anger-B.wav",
+    "seconds": 6.32,
+    "automatic_transcript": "Ne mi lako da govorimo o ovome. Molim vas, pustite me da završim, pa ću vam objasniti šta se dogodilo.",
+    "expected_text": "Nije mi lako da govorim o ovome. Molim vas, pustite me da završim, pa ću vam objasniti šta se dogodilo.",
+    "speaker_identity_and_emotion": "requires user listening review"
+  },
+  {
+    "file": "anger-C.wav",
+    "seconds": 7.76,
+    "automatic_transcript": "Nije mi lako da govorim o ovome. Molim vas, pustite me da završim, pa ću vam objasniti šta se dogodilo.",
+    "expected_text": "Nije mi lako da govorim o ovome. Molim vas, pustite me da završim, pa ću vam objasniti šta se dogodilo.",
+    "speaker_identity_and_emotion": "requires user listening review"
+  },
+  {
+    "file": "sad.wav",
+    "seconds": 7.4,
+    "automatic_transcript": "Nije mi lako da govorimo o ovome. Molim vas, pustite me da završim, pa ću vam objasniti šta se dogodilo.",
+    "expected_text": "Nije mi lako da govorim o ovome. Molim vas, pustite me da završim, pa ću vam objasniti šta se dogodilo.",
+    "speaker_identity_and_emotion": "requires user listening review"
+  },
+  {
+    "file": "happy.wav",
+    "seconds": 7.2,
+    "automatic_transcript": "Nije mi lako da govorimo o ovome. Molim vas, pustite me da završim, pa ću vam objasniti šta se dogodilo.",
+    "expected_text": "Nije mi lako da govorim o ovome. Molim vas, pustite me da završim, pa ću vam objasniti šta se dogodilo.",
+    "speaker_identity_and_emotion": "requires user listening review"
+  }
+]

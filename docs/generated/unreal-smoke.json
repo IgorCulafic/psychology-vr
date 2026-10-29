@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "completed_audio_segments": 2,
+  "history_committed": true,
+  "bridge": "isolated scripted fixture",
+  "audio": "PCM16 tones; not live AI or headset verification"
+}

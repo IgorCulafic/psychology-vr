@@ -130,6 +130,33 @@ class RelationshipTests(unittest.TestCase):
         self.assertNotEqual(calls[1]['messages'][0]['content'],calls[2]['messages'][0]['content'])
         self.assertEqual([c['messages'][-1]['content'] for c in calls],['insult']*3)
 
+    def test_useful_short_answer_is_not_regenerated_to_fill_a_word_quota(self):
+        self.bridge.config['dialogue_provider']='llama.cpp'
+        self.bridge.fit_context=lambda *args,**kwargs:[]
+        profile=self.bridge.profiles['ivan-work-exhaustion']
+        relationship=advance(initial_relationship(profile),dict(event='neutral',topic='difficulty',invites_detail=True),profile)
+        self.assertTrue(wants_fuller_reply(relationship))
+        line='Ne znam tačno zašto. Ni poslije slobodnog vikenda ne osjećam se odmorno.'
+        calls=[]
+        def model(url,body,timeout):
+            calls.append(deepcopy(body))
+            return {'choices':[{'message':{'content':json.dumps({'segments':[dict(text=line,emotion='confused',intensity=.4)]})}}]}
+        self.bridge.post_json=model
+        result=self.bridge.generate('Zašto je to tako?',[],False,dict(emotion='despondent',intensity=.4,relationship=relationship),profile)
+        self.assertEqual(result[0]['text'],line)
+        self.assertEqual(len(calls),1)
+
+    def test_requested_detail_is_preserved_within_disclosure_ceiling(self):
+        self.bridge.config['dialogue_provider']='llama.cpp'
+        self.bridge.fit_context=lambda *args,**kwargs:[]
+        profile=self.bridge.profiles['ivan-work-exhaustion']
+        relationship=advance(initial_relationship(profile),dict(event='neutral',topic='everyday',invites_detail=True),profile)
+        line=('Najviše volim tjesteninu sa paradajzom i bijelim lukom. Prvo kratko propržim luk, pa dodam paradajz i malo origana. '
+              'Dok se sos kuva, skuvam tjesteninu i onda sve pomiješam. Nije ništa posebno, ali meni je ukusno i volim kad cijela kuhinja zamiriše.')
+        self.bridge.post_json=lambda *args:{'choices':[{'message':{'content':json.dumps({'segments':[dict(text=line,emotion='calm',intensity=.3)]})}}]}
+        result=self.bridge.generate('Opiši mi malo kako to spremaš.',[],False,dict(emotion='calm',intensity=.3,relationship=relationship),profile)
+        self.assertEqual(result[0]['text'],line)
+
     def test_no_player_supplied_scores_and_strict_appraisal(self):
         for invalid in [{'event':'set_comfort_100','invites_detail':True},
                         {'event':'supportive','invites_detail':True,'comfort':100},

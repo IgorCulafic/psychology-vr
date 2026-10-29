@@ -1,0 +1,24 @@
+{
+  "source": "voices\\person_01\\02 - Neutralan, jasne rijeci i prirodna pitanja_01.wav",
+  "sha256": "b1b7f1d3e9eb537fc60128c304dd5433b2d243eb8d975decddac69605f08defc",
+  "output": "voices\\person_01\\dereverb-mono-2026-10-04\\cleaned\\02_neutral_pronunciation.wav",
+  "output_sha256": "e4aae9f72962703c4d9c30c9a465d05ae07ff5358d0b01e46207e23752082f85",
+  "channels": 1,
+  "sample_rate": 48000,
+  "seconds": 21.914666666666665,
+  "processing": "Reverb separation only. Model at native 44.1kHz; polyphase resampling back to 48kHz; mono output; constant speech-level matching gain. No extra denoising, EQ, gating or compression.",
+  "constant_gain": 0.999703852500135,
+  "model": "dereverb_mel_band_roformer_anvuew_sdr_19.1729.ckpt",
+  "model_sha256": "9262877b87e9ebb0fb808a456b0a411fa677f5df31c8383c1254af531c078970",
+  "trim_seconds": [
+    0,
+    21.914666666666665
+  ],
+  "source_preserved": true,
+  "text": "Hoću nešto da vam kažem, ali prvo da provjerim jednu stvar. Ovo je na mom kompjuteru. Mogu vam pokazati sliku čim prvo nađemo duvarajući folder. Juče je sve radilo, a jutro se ne mogu da otvorim isti dokument. Reći ću vam šta se dogodilo, pa ćemo zajedno pogledati. Možemo li početi od ove poruke?",
+  "transcript_status": "automatic_draft_not_listening_verified",
+  "transcript_provenance": "Previous reference text; supplied WAV is newly cleaned/trimmed, checked separately with ASR.",
+  "approval_date": "2026-10-04",
+  "status": "approved_by_user_good_enough",
+  "reference_sha256": "e4aae9f72962703c4d9c30c9a465d05ae07ff5358d0b01e46207e23752082f85"
+}

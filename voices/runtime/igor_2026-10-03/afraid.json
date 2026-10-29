@@ -1,0 +1,40 @@
+{
+  "file": "09_afraid.wav",
+  "section": 9,
+  "title": "Strah, bez gubitka jasnog govora",
+  "text": "Čekajte, nemojte još otvarati vrata. Ne znamo ko je napolju i taj zvuk mi se nimalo ne dopada. Možda nije ništa, ali sad ne mogu samo da se pravim da je sve tu u redu. Molim vas, ostanite ovdje sa mnom. Ajde prvo da pogledamo kroz prozor i provjerimo šta se dešava.",
+  "script_text": "Čekajte, nemojte još otvarati vrata. Ne znam ko je napolju i taj zvuk mi se nimalo ne dopada. Možda nije ništa, ali sada ne mogu samo da se pravim da je sve u redu. Molim vas, ostanite ovdje sa mnom. Hajde prvo da pogledamo kroz prozor i provjerimo šta se dešava.",
+  "transcript_status": "confirmed_by_speaker",
+  "transcript_provenance": "transcripts_confirmed_by_igor.json",
+  "source_start_seconds": 201.2,
+  "source_end_seconds": 219.6,
+  "duration_seconds": 18.4,
+  "sample_rate": 48000,
+  "ready_for_tts": true,
+  "source_sha256": "17b3e44b961fdae5e6fe66029a2c3d6ccd65c13fcb94eaa269eb02c1ca344094",
+  "audio_processing": {
+    "lead_in_silenced_until_seconds": 1.015,
+    "lead_in_fade_complete_seconds": 1.05,
+    "fade_ms": 35,
+    "speech_internal_edits": false
+  },
+  "metrics": {
+    "file": "09_afraid.wav",
+    "duration_seconds": 18.4,
+    "source_peak_dbfs": -2.0776843338422153,
+    "cleaned_peak_dbfs": -2.0776843338422153,
+    "cleaned_true_peak_4x_dbtp": -2.072156958811146,
+    "source_rms_dbfs": -22.434312522353032,
+    "cleaned_rms_dbfs": -22.43432770485359,
+    "near_full_scale_samples_before": 0,
+    "near_full_scale_samples_after": 0,
+    "processing": {
+      "lead_in_silenced_until_seconds": 1.015,
+      "lead_in_fade_complete_seconds": 1.05,
+      "fade_ms": 35,
+      "speech_internal_edits": false
+    }
+  },
+  "source_prepared_file": "voices/igor_2026-10-03/cleaned/09_afraid.wav",
+  "source_prepared_sha256": "ca5feb078933a9db5e109d8cde2030aad64a8b488655b1f39dc6f3deeaf81188"
+}

@@ -1,0 +1,40 @@
+{
+  "file": "03_frustrated.wav",
+  "section": 3,
+  "title": "Frustracija, još uvijek pod kontrolom",
+  "text": "Čekajte, mislim da se opet nismo razumjeli. Već treći put pokušavam da vam objasnim istu stvar, a razgovor se stalno vraća na nešto drugo. Nije mi problem da ponovim, ali mi smeta kad imam osjećaj da pričam uzalud. Možete li me puštit da završim? Pa onda mi kažete šta mislite.",
+  "script_text": "Čekajte, mislim da se opet nijesmo razumjeli. Već treći put pokušavam da objasnim istu stvar, a razgovor se stalno vraća na nešto drugo. Nije mi problem da ponovim, ali mi smeta kad imam osjećaj da pričam uzalud. Možete li me pustiti da završim, pa onda da mi kažete šta mislite?",
+  "transcript_status": "confirmed_by_speaker",
+  "transcript_provenance": "transcripts_confirmed_by_igor.json",
+  "source_start_seconds": 50.1,
+  "source_end_seconds": 71.0,
+  "duration_seconds": 20.9,
+  "sample_rate": 48000,
+  "ready_for_tts": true,
+  "source_sha256": "17b3e44b961fdae5e6fe66029a2c3d6ccd65c13fcb94eaa269eb02c1ca344094",
+  "audio_processing": {
+    "lead_in_silenced_until_seconds": 0.815,
+    "lead_in_fade_complete_seconds": 0.85,
+    "fade_ms": 35,
+    "speech_internal_edits": false
+  },
+  "metrics": {
+    "file": "03_frustrated.wav",
+    "duration_seconds": 20.9,
+    "source_peak_dbfs": 0.0,
+    "cleaned_peak_dbfs": 0.0,
+    "cleaned_true_peak_4x_dbtp": 0.02600835961576301,
+    "source_rms_dbfs": -19.497004408119775,
+    "cleaned_rms_dbfs": -19.497108604126975,
+    "near_full_scale_samples_before": 6,
+    "near_full_scale_samples_after": 6,
+    "processing": {
+      "lead_in_silenced_until_seconds": 0.815,
+      "lead_in_fade_complete_seconds": 0.85,
+      "fade_ms": 35,
+      "speech_internal_edits": false
+    }
+  },
+  "source_prepared_file": "voices/igor_2026-10-03/cleaned/03_frustrated.wav",
+  "source_prepared_sha256": "b95b065b523d1adc75e17644a7cfe8b2f72860386cb19afeeecb568540152b23"
+}

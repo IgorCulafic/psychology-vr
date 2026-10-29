@@ -1,0 +1,38 @@
+{
+  "status": "preferred_by_user_in_listening_test",
+  "recorded_date": "2026-10-03",
+  "person": "person_03",
+  "performance_emotion": "anxious",
+  "audition_emotion": "anxious",
+  "user_choice": "A",
+  "default_variant": "A",
+  "default_reason": "explicit user selection",
+  "accepted_variants": [
+    "A"
+  ],
+  "reference": "voices/igor_2026-10-03/emotion-validation/person_03/references/07_anxious.wav",
+  "reference_transcript": "voices/igor_2026-10-03/emotion-validation/person_03/references/07_anxious.json",
+  "reference_sha256": "fb7f40c065f8111fba70b45378e03f7a0c4ce765ea58e9a4b1c03fb28c4ab63a",
+  "reference_transcript_status": "automatic_draft_not_listening_verified",
+  "higgs_quantization": "bf16",
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": null,
+  "prosody_tag": null,
+  "audition_audio": "voices/igor_2026-10-03/emotion-validation/person_03/anxious-A.wav",
+  "audition_sha256": "59cfbe235e50b17ac11e4951998d2b9af1f93f19204554b609ddaf5e01b1c938",
+  "user_notes": "More emotion in A than B, sounds more natural",
+  "must_fix_before_runtime": false,
+  "active_in_game": false,
+  "feedback_source": "voices/igor_2026-10-03/emotion-validation/feedback/person_03-emotion-feedback.json",
+  "approved_candidates": [
+    {
+      "variant": "A",
+      "tag": "",
+      "audio": "voices/igor_2026-10-03/emotion-validation/person_03/anxious-A.wav",
+      "sha256": "59cfbe235e50b17ac11e4951998d2b9af1f93f19204554b609ddaf5e01b1c938"
+    }
+  ]
+}

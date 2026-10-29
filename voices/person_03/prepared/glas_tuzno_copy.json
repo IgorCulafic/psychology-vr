@@ -1,0 +1,182 @@
+{
+  "original": "Glas tuzno copy.m4a",
+  "original_sha256": "066dba1fc4d4cabcf95407152793b9f8b5b2d568cc0a3fecd7d5881079b8c15c",
+  "wav": "glas_tuzno_copy.wav",
+  "duration_seconds": 16.035,
+  "sample_rate": 48000,
+  "peak_dbfs": -17.28,
+  "rms_dbfs": -33.04,
+  "near_full_scale_percent": 0.0,
+  "script_number": null,
+  "detected_script": 3,
+  "match_score": 0.216,
+  "transcript_status": "automatic_draft_not_listening_verified",
+  "text": "Ovaj, hoću da vam kažem nešto, ali prlo mi je važno da me saslužate do kraja. Poslije, poslije možemo da razgovaramo šta ćemo dalje.",
+  "segments": [
+    {
+      "start": 1.2,
+      "end": 10.06,
+      "text": "Ovaj, hoću da vam kažem nešto, ali prlo mi je važno da me saslužate do kraja.",
+      "words": [
+        {
+          "start": 1.2,
+          "end": 2.28,
+          "word": " Ovaj,",
+          "probability": 0.6251220703125
+        },
+        {
+          "start": 2.54,
+          "end": 3.5,
+          "word": " hoću",
+          "probability": 0.7336832682291666
+        },
+        {
+          "start": 3.5,
+          "end": 4.02,
+          "word": " da",
+          "probability": 0.8974609375
+        },
+        {
+          "start": 4.02,
+          "end": 4.2,
+          "word": " vam",
+          "probability": 0.9912109375
+        },
+        {
+          "start": 4.2,
+          "end": 4.82,
+          "word": " kažem",
+          "probability": 0.9959309895833334
+        },
+        {
+          "start": 4.82,
+          "end": 5.62,
+          "word": " nešto,",
+          "probability": 0.9840494791666666
+        },
+        {
+          "start": 5.8,
+          "end": 6.04,
+          "word": " ali",
+          "probability": 0.99560546875
+        },
+        {
+          "start": 6.04,
+          "end": 7.12,
+          "word": " prlo",
+          "probability": 0.5753173828125
+        },
+        {
+          "start": 7.12,
+          "end": 7.22,
+          "word": " mi",
+          "probability": 0.998046875
+        },
+        {
+          "start": 7.22,
+          "end": 7.4,
+          "word": " je",
+          "probability": 0.99462890625
+        },
+        {
+          "start": 7.4,
+          "end": 8.78,
+          "word": " važno",
+          "probability": 0.8824869791666666
+        },
+        {
+          "start": 8.78,
+          "end": 8.88,
+          "word": " da",
+          "probability": 0.98828125
+        },
+        {
+          "start": 8.88,
+          "end": 8.98,
+          "word": " me",
+          "probability": 0.96630859375
+        },
+        {
+          "start": 8.98,
+          "end": 9.54,
+          "word": " saslužate",
+          "probability": 0.83427734375
+        },
+        {
+          "start": 9.54,
+          "end": 9.7,
+          "word": " do",
+          "probability": 0.984375
+        },
+        {
+          "start": 9.7,
+          "end": 10.06,
+          "word": " kraja.",
+          "probability": 0.99658203125
+        }
+      ]
+    },
+    {
+      "start": 12.16,
+      "end": 15.8,
+      "text": "Poslije, poslije možemo da razgovaramo šta ćemo dalje.",
+      "words": [
+        {
+          "start": 12.16,
+          "end": 12.76,
+          "word": " Poslije,",
+          "probability": 0.9290364583333334
+        },
+        {
+          "start": 12.86,
+          "end": 13.5,
+          "word": " poslije",
+          "probability": 0.9886067708333334
+        },
+        {
+          "start": 13.5,
+          "end": 13.8,
+          "word": " možemo",
+          "probability": 0.9899088541666666
+        },
+        {
+          "start": 13.8,
+          "end": 13.94,
+          "word": " da",
+          "probability": 0.9970703125
+        },
+        {
+          "start": 13.94,
+          "end": 14.54,
+          "word": " razgovaramo",
+          "probability": 0.9874267578125
+        },
+        {
+          "start": 14.54,
+          "end": 15.2,
+          "word": " šta",
+          "probability": 0.739013671875
+        },
+        {
+          "start": 15.2,
+          "end": 15.46,
+          "word": " ćemo",
+          "probability": 0.99560546875
+        },
+        {
+          "start": 15.46,
+          "end": 15.8,
+          "word": " dalje.",
+          "probability": 0.990478515625
+        }
+      ]
+    }
+  ],
+  "decode_errors": [],
+  "container_duration_seconds": 16.042666666666666,
+  "preparation": {
+    "format": "mono PCM16 WAV",
+    "gain_db": 14.282,
+    "processing": "constant gain only; no denoising, pitch or timing changes"
+  }
+}

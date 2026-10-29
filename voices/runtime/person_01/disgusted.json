@@ -1,0 +1,24 @@
+{
+  "source": "voices\\person_01\\11 - Gadjenje i odbojnost_01.wav",
+  "sha256": "9ce48363f5cf562097398e0ca3456d400fce593dec12f94ed9c897b33ed31db4",
+  "output": "voices\\person_01\\dereverb-mono-2026-10-04\\cleaned\\11_disgusted.wav",
+  "output_sha256": "a849bf90a2537ea77739ec7e7eea0865b0e11adfd59bd5fc11ef6f5e167906d9",
+  "channels": 1,
+  "sample_rate": 48000,
+  "seconds": 24.816,
+  "processing": "Reverb separation only. Model at native 44.1kHz; polyphase resampling back to 48kHz; mono output; constant speech-level matching gain. No extra denoising, EQ, gating or compression.",
+  "constant_gain": 0.9993746919252791,
+  "model": "dereverb_mel_band_roformer_anvuew_sdr_19.1729.ckpt",
+  "model_sha256": "9262877b87e9ebb0fb808a456b0a411fa677f5df31c8383c1254af531c078970",
+  "trim_seconds": [
+    0,
+    24.816
+  ],
+  "source_preserved": true,
+  "text": "Uh, molim vas, stvonite to sa stola. Taj miris mi baš smeta. Ne mogu da nastavim da jedem dok je to ovdje i iskreno ne želim ni da gledam. Možemo li otvoriti prozor i preći na drugo mjesto? Znam da vama možda nije toliko neprijatno, ali meni je stvara previše.",
+  "transcript_status": "automatic_draft_not_listening_verified",
+  "transcript_provenance": "Previous reference text; supplied WAV is newly cleaned/trimmed, checked separately with ASR.",
+  "approval_date": "2026-10-04",
+  "status": "approved_by_user_good_enough",
+  "reference_sha256": "a849bf90a2537ea77739ec7e7eea0865b0e11adfd59bd5fc11ef6f5e167906d9"
+}

@@ -1,0 +1,324 @@
+{
+  "original": "03.m4a",
+  "original_sha256": "c011238d87b1e646320ed9758e25a3b2889e971ee2b325ba52b301a60ec1d9ab",
+  "wav": "03_frustrated.wav",
+  "duration_seconds": 25.899,
+  "sample_rate": 48000,
+  "peak_dbfs": -22.3799991607666,
+  "near_full_scale_percent": 0.0,
+  "transcript_status": "automatic_draft_not_listening_verified",
+  "text": "Čakajte, mislim da se opet nismo razumijeli. Već treći put pokušavam da objasnim istu stvar. Razgovor se stalno vraća na nešto drugo. Nije mi problem da ponovim, ali mi smete kad imam osjećaj da pričam uzalud. Možete li mi pustiti da završim? Pa onda da mi kažete šta mislite.",
+  "matched_script": 3,
+  "match_score": 0.889,
+  "runner_up": 7,
+  "runner_up_score": 0.17,
+  "segments": [
+    {
+      "start": 1.58,
+      "end": 24.3,
+      "text": "Čakajte, mislim da se opet nismo razumijeli. Već treći put pokušavam da objasnim istu stvar. Razgovor se stalno vraća na nešto drugo. Nije mi problem da ponovim, ali mi smete kad imam osjećaj da pričam uzalud. Možete li mi pustiti da završim? Pa onda da mi kažete šta mislite.",
+      "words": [
+        {
+          "start": 1.58,
+          "end": 2.82,
+          "word": " Čakajte,",
+          "probability": 0.895703125
+        },
+        {
+          "start": 2.96,
+          "end": 3.26,
+          "word": " mislim",
+          "probability": 0.997802734375
+        },
+        {
+          "start": 3.26,
+          "end": 3.4,
+          "word": " da",
+          "probability": 0.99755859375
+        },
+        {
+          "start": 3.4,
+          "end": 3.88,
+          "word": " se",
+          "probability": 0.98876953125
+        },
+        {
+          "start": 3.88,
+          "end": 4.18,
+          "word": " opet",
+          "probability": 0.99658203125
+        },
+        {
+          "start": 4.18,
+          "end": 4.5,
+          "word": " nismo",
+          "probability": 0.6533203125
+        },
+        {
+          "start": 4.5,
+          "end": 5.2,
+          "word": " razumijeli.",
+          "probability": 0.91064453125
+        },
+        {
+          "start": 5.38,
+          "end": 5.92,
+          "word": " Već",
+          "probability": 0.994140625
+        },
+        {
+          "start": 5.92,
+          "end": 6.32,
+          "word": " treći",
+          "probability": 0.9993489583333334
+        },
+        {
+          "start": 6.32,
+          "end": 6.46,
+          "word": " put",
+          "probability": 0.998046875
+        },
+        {
+          "start": 6.46,
+          "end": 7.04,
+          "word": " pokušavam",
+          "probability": 0.9971923828125
+        },
+        {
+          "start": 7.04,
+          "end": 7.16,
+          "word": " da",
+          "probability": 0.99951171875
+        },
+        {
+          "start": 7.16,
+          "end": 7.7,
+          "word": " objasnim",
+          "probability": 0.99560546875
+        },
+        {
+          "start": 7.7,
+          "end": 8.26,
+          "word": " istu",
+          "probability": 0.99169921875
+        },
+        {
+          "start": 8.26,
+          "end": 8.68,
+          "word": " stvar.",
+          "probability": 0.99951171875
+        },
+        {
+          "start": 9.08,
+          "end": 9.84,
+          "word": " Razgovor",
+          "probability": 0.8194986979166666
+        },
+        {
+          "start": 9.84,
+          "end": 9.98,
+          "word": " se",
+          "probability": 0.99169921875
+        },
+        {
+          "start": 9.98,
+          "end": 10.4,
+          "word": " stalno",
+          "probability": 0.977783203125
+        },
+        {
+          "start": 10.4,
+          "end": 10.84,
+          "word": " vraća",
+          "probability": 0.9459635416666666
+        },
+        {
+          "start": 10.84,
+          "end": 10.98,
+          "word": " na",
+          "probability": 0.9990234375
+        },
+        {
+          "start": 10.98,
+          "end": 11.48,
+          "word": " nešto",
+          "probability": 0.9998372395833334
+        },
+        {
+          "start": 11.48,
+          "end": 11.98,
+          "word": " drugo.",
+          "probability": 0.99951171875
+        },
+        {
+          "start": 12.56,
+          "end": 12.88,
+          "word": " Nije",
+          "probability": 0.99658203125
+        },
+        {
+          "start": 12.88,
+          "end": 12.98,
+          "word": " mi",
+          "probability": 0.99951171875
+        },
+        {
+          "start": 12.98,
+          "end": 13.36,
+          "word": " problem",
+          "probability": 0.99609375
+        },
+        {
+          "start": 13.36,
+          "end": 13.56,
+          "word": " da",
+          "probability": 1.0
+        },
+        {
+          "start": 13.56,
+          "end": 14.18,
+          "word": " ponovim,",
+          "probability": 0.9973958333333334
+        },
+        {
+          "start": 14.4,
+          "end": 14.78,
+          "word": " ali",
+          "probability": 0.99951171875
+        },
+        {
+          "start": 14.78,
+          "end": 15.04,
+          "word": " mi",
+          "probability": 0.998046875
+        },
+        {
+          "start": 15.04,
+          "end": 15.58,
+          "word": " smete",
+          "probability": 0.835205078125
+        },
+        {
+          "start": 15.58,
+          "end": 15.82,
+          "word": " kad",
+          "probability": 0.91259765625
+        },
+        {
+          "start": 15.82,
+          "end": 16.14,
+          "word": " imam",
+          "probability": 0.998779296875
+        },
+        {
+          "start": 16.14,
+          "end": 16.54,
+          "word": " osjećaj",
+          "probability": 0.939697265625
+        },
+        {
+          "start": 16.54,
+          "end": 16.68,
+          "word": " da",
+          "probability": 0.99951171875
+        },
+        {
+          "start": 16.68,
+          "end": 17.16,
+          "word": " pričam",
+          "probability": 0.99560546875
+        },
+        {
+          "start": 17.16,
+          "end": 17.72,
+          "word": " uzalud.",
+          "probability": 0.916015625
+        },
+        {
+          "start": 17.98,
+          "end": 18.74,
+          "word": " Možete",
+          "probability": 0.9986979166666666
+        },
+        {
+          "start": 18.74,
+          "end": 18.88,
+          "word": " li",
+          "probability": 0.99169921875
+        },
+        {
+          "start": 18.88,
+          "end": 19.08,
+          "word": " mi",
+          "probability": 0.99951171875
+        },
+        {
+          "start": 19.08,
+          "end": 20.28,
+          "word": " pustiti",
+          "probability": 0.9930013020833334
+        },
+        {
+          "start": 20.28,
+          "end": 20.5,
+          "word": " da",
+          "probability": 0.9990234375
+        },
+        {
+          "start": 20.5,
+          "end": 21.18,
+          "word": " završim?",
+          "probability": 0.9986328125
+        },
+        {
+          "start": 21.68,
+          "end": 21.76,
+          "word": " Pa",
+          "probability": 0.98828125
+        },
+        {
+          "start": 21.76,
+          "end": 22.44,
+          "word": " onda",
+          "probability": 0.97412109375
+        },
+        {
+          "start": 22.44,
+          "end": 22.6,
+          "word": " da",
+          "probability": 0.9970703125
+        },
+        {
+          "start": 22.6,
+          "end": 22.74,
+          "word": " mi",
+          "probability": 1.0
+        },
+        {
+          "start": 22.74,
+          "end": 23.32,
+          "word": " kažete",
+          "probability": 0.9996744791666666
+        },
+        {
+          "start": 23.32,
+          "end": 23.7,
+          "word": " šta",
+          "probability": 0.984130859375
+        },
+        {
+          "start": 23.7,
+          "end": 24.3,
+          "word": " mislite.",
+          "probability": 0.9986979166666666
+        }
+      ]
+    }
+  ],
+  "preparation": {
+    "format": "mono PCM16 WAV",
+    "gain_db": 19.38,
+    "target_peak_dbfs": -3,
+    "processing": "constant gain only; no denoising, compression, trimming, pitch or timing change"
+  }
+}

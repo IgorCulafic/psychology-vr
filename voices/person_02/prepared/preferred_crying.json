@@ -1,0 +1,38 @@
+{
+  "status": "preferred_by_user_in_listening_test",
+  "recorded_date": "2026-10-03",
+  "person": "person_02",
+  "performance_emotion": "crying",
+  "audition_emotion": "crying",
+  "user_choice": "B",
+  "default_variant": "B",
+  "default_reason": "explicit user selection",
+  "accepted_variants": [
+    "B"
+  ],
+  "reference": "voices/igor_2026-10-03/emotion-validation/person_02/references/06_near_tears.wav",
+  "reference_transcript": "voices/igor_2026-10-03/emotion-validation/person_02/references/06_near_tears.json",
+  "reference_sha256": "5b642b8c6d264e39b686996eeeb8d2810d6daea813f0aa5954142c7c0350e34e",
+  "reference_transcript_status": "automatic_draft_not_listening_verified",
+  "higgs_quantization": "bf16",
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": "<|emotion:sadness|>",
+  "prosody_tag": null,
+  "audition_audio": "voices/igor_2026-10-03/emotion-validation/person_02/crying-B.wav",
+  "audition_sha256": "462b10361d18e27224d39b35eb633bc35f12a33424f6db117be9c51a7025521b",
+  "user_notes": "",
+  "must_fix_before_runtime": false,
+  "active_in_game": false,
+  "feedback_source": "voices/igor_2026-10-03/emotion-validation/feedback/person_02-emotion-feedback.json",
+  "approved_candidates": [
+    {
+      "variant": "B",
+      "tag": "<|emotion:sadness|>",
+      "audio": "voices/igor_2026-10-03/emotion-validation/person_02/crying-B.wav",
+      "sha256": "462b10361d18e27224d39b35eb633bc35f12a33424f6db117be9c51a7025521b"
+    }
+  ]
+}

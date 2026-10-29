@@ -1,0 +1,13 @@
+{
+  "FileVersion": 3,
+  "EngineAssociation": "5.8",
+  "Category": "Animation",
+  "Description": "Isolated MetaHuman facial capture audition for Psychology VR",
+  "Plugins": [
+    {"Name":"MetaHumanCharacter","Enabled":true},
+    {"Name":"MetaHuman","Enabled":true},
+    {"Name":"PythonScriptPlugin","Enabled":true},
+    {"Name":"EditorScriptingUtilities","Enabled":true},
+    {"Name":"MovieRenderPipeline","Enabled":true}
+  ]
+}

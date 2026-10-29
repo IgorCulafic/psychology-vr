@@ -1,0 +1,86 @@
+{
+  "person": "person_03",
+  "model": "Higgs TTS 3",
+  "precision": "bf16",
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "text": "Nije mi lako da govorim o ovome. Molim vas, pustite me da završim, pa ću vam objasniti šta se dogodilo.",
+  "samples": [
+    {
+      "id": "neutral",
+      "title": "Neutral",
+      "reference_emotion": "neutral",
+      "reference_sha256": "15ce492add56798043b8189d444969e9b7ca96105b6a412b13bafd49887066bb",
+      "reference_text": "Hoću nešto da vam kažem, važno mi je da me saslušate do kraja, poslije možemo da razgovaramo o tome šta ćemo dalje.",
+      "emotion_tag": "",
+      "file": "neutral.wav",
+      "duration_seconds": 7.36,
+      "generation_seconds": 22.712,
+      "output_gain": 1.0
+    },
+    {
+      "id": "anger-A",
+      "title": "Anger A: acted reference, no tag",
+      "reference_emotion": "angry",
+      "reference_sha256": "9e8b92b7993accafd2c53283be9734a11b97af75c2752f4a5d15e44bb3d30fdd",
+      "reference_text": "Hoću nešto da vam kažem, važno mi je da me saslušate do kraja. Poslije možemo da razgovaramo o tome što ćemo dalje.",
+      "emotion_tag": "",
+      "file": "anger-A.wav",
+      "duration_seconds": 8.84,
+      "generation_seconds": 24.681,
+      "output_gain": 1.0
+    },
+    {
+      "id": "anger-B",
+      "title": "Anger B: anger cue",
+      "reference_emotion": "angry",
+      "reference_sha256": "9e8b92b7993accafd2c53283be9734a11b97af75c2752f4a5d15e44bb3d30fdd",
+      "reference_text": "Hoću nešto da vam kažem, važno mi je da me saslušate do kraja. Poslije možemo da razgovaramo o tome što ćemo dalje.",
+      "emotion_tag": "<|emotion:anger|>",
+      "file": "anger-B.wav",
+      "duration_seconds": 6.32,
+      "generation_seconds": 17.645,
+      "output_gain": 1.0
+    },
+    {
+      "id": "anger-C",
+      "title": "Anger C: bitterness cue",
+      "reference_emotion": "angry",
+      "reference_sha256": "9e8b92b7993accafd2c53283be9734a11b97af75c2752f4a5d15e44bb3d30fdd",
+      "reference_text": "Hoću nešto da vam kažem, važno mi je da me saslušate do kraja. Poslije možemo da razgovaramo o tome što ćemo dalje.",
+      "emotion_tag": "<|emotion:bitterness|>",
+      "file": "anger-C.wav",
+      "duration_seconds": 7.76,
+      "generation_seconds": 21.179,
+      "output_gain": 1.0
+    },
+    {
+      "id": "sad",
+      "title": "Sadness",
+      "reference_emotion": "sad",
+      "reference_sha256": "e9073007982e1528ed47293d62ab54d8e8558e64a1163306618e541f088ff414",
+      "reference_text": "Ovaj, hoću da vam kažem nešto, ali vrlo mi je važno da me saslušate do kraja. Poslije, poslije možemo da razgovaramo šta ćemo dalje.",
+      "emotion_tag": "<|emotion:sadness|>",
+      "file": "sad.wav",
+      "duration_seconds": 7.4,
+      "generation_seconds": 19.992,
+      "output_gain": 1.0
+    },
+    {
+      "id": "happy",
+      "title": "Happiness",
+      "reference_emotion": "happy",
+      "reference_sha256": "e4952b4a221d99c9e6d1c74c86ac53cc08707397dbe18c00b6785959ae45b0f1",
+      "reference_text": "Hoću, hoću da vam kažem nešto. Važno mi je da me saslušate do kraja, da, i poslije, poslije možemo da razgovaramo, što ćemo dalje.",
+      "emotion_tag": "<|emotion:elation|>",
+      "file": "happy.wav",
+      "duration_seconds": 7.2,
+      "generation_seconds": 19.372,
+      "output_gain": 1.0
+    }
+  ],
+  "listening_assessment": "Anger C preferred; sadness rejected for voice identity; happiness needs refinement.",
+  "active_in_game": false
+}

@@ -1,0 +1,179 @@
+{
+  "status": "approved_by_user_for_use",
+  "recorded_date": "2026-10-03",
+  "person": "igor_2026-10-03",
+  "performance_emotion": "sad",
+  "reference": "voices/igor_2026-10-03/cleaned/05_sad.wav",
+  "reference_transcript": "voices/igor_2026-10-03/cleaned/05_sad.json",
+  "reference_sha256": "741e58db53ed89b14fc9f1b58a123b88acfb80d6aab3fd69010207c00aa3c367",
+  "higgs_quantization": "bf16",
+  "temperature": 0.5,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": null,
+  "prosody_tag": "<|prosody:expressive_low|>",
+  "audition_display_label": "B · Separate sentences with a natural pause",
+  "audition_audio": "voices/igor_2026-10-03/cleaned/auditions/igor-sadness-B-1.wav",
+  "audition_sha256": "85fcfb0eb384bb1f4bed7b911f7913b99b3efd34f05cf6f1ca5c9c3d83de0907",
+  "user_feedback": "B is best",
+  "active_in_game": false,
+  "note": "Approved speaker-specific repair recipe. Patient voice routing remains pending.",
+  "original_selection_status": "preferred_by_user_in_listening_test",
+  "must_fix_before_runtime": false,
+  "review_history": [
+    {
+      "consistency_review": {
+        "date": "2026-10-03",
+        "choice": "Both need work",
+        "notes": "the words go too fast and don't have natural spacing betwen them.",
+        "status": "needs_refinement",
+        "feedback_source": "voices/igor_2026-10-03/emotion-validation/feedback/igor_2026-10-03-emotion-feedback.json"
+      }
+    }
+  ],
+  "approval_date": "2026-10-04",
+  "approval_quote": "There, I think this is good enough now.",
+  "feedback_source": "voices/igor_2026-10-03/remaining-voice-repairs/feedback/afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd/remaining-voice-repairs-feedback.json",
+  "feedback_sha256": "afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd",
+  "feedback_saved_at": "2026-10-03T23:31:45.757Z",
+  "default_variant": "B",
+  "user_choice": "B is best",
+  "accepted_variants": [
+    "B"
+  ],
+  "default_reason": "explicit user selection after repair",
+  "reference_text": "Najteže mi bude kad se vratim kući i sve utihne. Preko dana nekako skrenem misli, imam obaveze i ljude oko sebe. Onda dođe veče i primijetim koliko mi nedostaju neke sasvim obične stvari. Razgovor uz kafu, nečiji koraci u hodniku. Pitanje kako mi je prošao dan. To mi nedostaje više nego što umijem da vam objasnim.",
+  "tts_script": "latin",
+  "synthesis_mode": "sentences",
+  "sentence_gap_seconds": 0.38,
+  "generation_recipe": {
+    "tag": "<|prosody:expressive_low|>",
+    "mode": "sentences",
+    "max_new_tokens": 900,
+    "quality_check": "speech_audio.checked_synthesis",
+    "retry_seed": 43,
+    "retry_temperature": 0.45,
+    "recovery_gap_seconds": 0.25
+  },
+  "approved_candidates": [
+    {
+      "group": "igor-sadness",
+      "speaker": "igor_2026-10-03",
+      "variant": "B",
+      "title": "Separate sentences with a natural pause",
+      "index": 1,
+      "id": "igor-sadness-B-1",
+      "text": "Juče sam našao jednu staru fotografiju. Dugo sam je držao u rukama i nisam znao kome da se javim.",
+      "temperature": 0.5,
+      "tag": "<|prosody:expressive_low|>",
+      "reference": "voices/igor_2026-10-03/emotion-validation/igor_2026-10-03/references/preferred_sadness.wav",
+      "reference_text": "Najteže mi bude kad se vratim kući i sve utihne. Preko dana nekako skrenem misli, imam obaveze i ljude oko sebe. Onda dođe veče i primijetim koliko mi nedostaju neke sasvim obične stvari. Razgovor uz kafu, nečiji koraci u hodniku. Pitanje kako mi je prošao dan. To mi nedostaje više nego što umijem da vam objasnim.",
+      "reference_sha256": "741e58db53ed89b14fc9f1b58a123b88acfb80d6aab3fd69010207c00aa3c367",
+      "mode": "sentences",
+      "script": "latin",
+      "file": "voices/igor_2026-10-03/cleaned/auditions/igor-sadness-B-1.wav",
+      "duration_seconds": 6.7,
+      "generation_seconds": 9.496,
+      "quality": {
+        "ok": true,
+        "seconds": 6.7,
+        "leading_seconds": 0.18,
+        "trailing_seconds": 0.28,
+        "longest_gap_seconds": 1.14,
+        "issues": []
+      },
+      "recovery": [
+        {
+          "regenerated": false,
+          "quality": {
+            "ok": true,
+            "seconds": 2.84,
+            "leading_seconds": 0.18,
+            "trailing_seconds": 0.48,
+            "longest_gap_seconds": 0.1,
+            "issues": []
+          }
+        },
+        {
+          "regenerated": false,
+          "quality": {
+            "ok": true,
+            "seconds": 3.48,
+            "leading_seconds": 0.28,
+            "trailing_seconds": 0.28,
+            "longest_gap_seconds": 0.08,
+            "issues": []
+          }
+        }
+      ],
+      "sha256": "85fcfb0eb384bb1f4bed7b911f7913b99b3efd34f05cf6f1ca5c9c3d83de0907",
+      "audio": "voices/igor_2026-10-03/cleaned/auditions/igor-sadness-B-1.wav"
+    },
+    {
+      "group": "igor-sadness",
+      "speaker": "igor_2026-10-03",
+      "variant": "B",
+      "title": "Separate sentences with a natural pause",
+      "index": 2,
+      "id": "igor-sadness-B-2",
+      "text": "Nekad mi nedostaje samo da neko pita kako sam. Ne tražim rješenje, samo da me malo sasluša.",
+      "temperature": 0.5,
+      "tag": "<|prosody:expressive_low|>",
+      "reference": "voices/igor_2026-10-03/emotion-validation/igor_2026-10-03/references/preferred_sadness.wav",
+      "reference_text": "Najteže mi bude kad se vratim kući i sve utihne. Preko dana nekako skrenem misli, imam obaveze i ljude oko sebe. Onda dođe veče i primijetim koliko mi nedostaju neke sasvim obične stvari. Razgovor uz kafu, nečiji koraci u hodniku. Pitanje kako mi je prošao dan. To mi nedostaje više nego što umijem da vam objasnim.",
+      "reference_sha256": "741e58db53ed89b14fc9f1b58a123b88acfb80d6aab3fd69010207c00aa3c367",
+      "mode": "sentences",
+      "script": "latin",
+      "file": "voices/igor_2026-10-03/cleaned/auditions/igor-sadness-B-2.wav",
+      "duration_seconds": 6.62,
+      "generation_seconds": 8.334,
+      "quality": {
+        "ok": true,
+        "seconds": 6.62,
+        "leading_seconds": 0.14,
+        "trailing_seconds": 0.44,
+        "longest_gap_seconds": 0.84,
+        "issues": []
+      },
+      "recovery": [
+        {
+          "regenerated": false,
+          "quality": {
+            "ok": true,
+            "seconds": 2.96,
+            "leading_seconds": 0.14,
+            "trailing_seconds": 0.32,
+            "longest_gap_seconds": 0.08,
+            "issues": []
+          }
+        },
+        {
+          "regenerated": false,
+          "quality": {
+            "ok": true,
+            "seconds": 3.28,
+            "leading_seconds": 0.14,
+            "trailing_seconds": 0.44,
+            "longest_gap_seconds": 0.32,
+            "issues": []
+          }
+        }
+      ],
+      "sha256": "c2b301a5a8bbb4887e6ddee0ae663935cc2432fd7ffa264c386668da26c2dedc",
+      "audio": "voices/igor_2026-10-03/cleaned/auditions/igor-sadness-B-2.wav"
+    }
+  ],
+  "user_notes": "",
+  "repair_review": {
+    "status": "approved_by_user_for_use",
+    "approval_date": "2026-10-04",
+    "approval_quote": "There, I think this is good enough now.",
+    "feedback_source": "voices/igor_2026-10-03/remaining-voice-repairs/feedback/afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd/remaining-voice-repairs-feedback.json",
+    "feedback_sha256": "afb441098188612fb194eb0601696fdb2c799c2fdbf207d96515d0a984ed9dcd",
+    "feedback_saved_at": "2026-10-03T23:31:45.757Z",
+    "choice": "B is best",
+    "notes": ""
+  },
+  "reference_transcript_status": "confirmed_by_speaker"
+}

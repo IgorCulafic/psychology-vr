@@ -1,0 +1,40 @@
+{
+  "file": "11_disgusted.wav",
+  "section": 11,
+  "title": "Gađenje i odbojnost",
+  "text": "Molim vas, sklonite to sa stola. Taj miris mi baš smeta. Ne mogu da nastavim dok jedem, dok je to ođe. Iskreno, ne želim ni da gledam. Možemo li otvoriti prozor i preći na drugo mjesto? Znam da vam možda nije toliko neprijatno, ali meni je stvarno previše.",
+  "script_text": "Uh, molim vas, sklonite to sa stola. Taj miris mi baš smeta. Ne mogu da nastavim da jedem dok je to ovdje, i iskreno, ne želim ni da gledam. Možemo li otvoriti prozor i preći na drugo mjesto? Znam da vama možda nije toliko neprijatno, ali meni je stvarno previše.",
+  "transcript_status": "confirmed_by_speaker",
+  "transcript_provenance": "transcripts_confirmed_by_igor.json",
+  "source_start_seconds": 246.0,
+  "source_end_seconds": 269.9,
+  "duration_seconds": 23.9,
+  "sample_rate": 48000,
+  "ready_for_tts": true,
+  "source_sha256": "17b3e44b961fdae5e6fe66029a2c3d6ccd65c13fcb94eaa269eb02c1ca344094",
+  "audio_processing": {
+    "lead_in_silenced_until_seconds": 0.935,
+    "lead_in_fade_complete_seconds": 0.97,
+    "fade_ms": 35,
+    "speech_internal_edits": false
+  },
+  "metrics": {
+    "file": "11_disgusted.wav",
+    "duration_seconds": 23.9,
+    "source_peak_dbfs": -3.1706533745002154,
+    "cleaned_peak_dbfs": -3.1706533745002154,
+    "cleaned_true_peak_4x_dbtp": -3.1651259994691463,
+    "source_rms_dbfs": -23.101672670854928,
+    "cleaned_rms_dbfs": -23.101680196940116,
+    "near_full_scale_samples_before": 0,
+    "near_full_scale_samples_after": 0,
+    "processing": {
+      "lead_in_silenced_until_seconds": 0.935,
+      "lead_in_fade_complete_seconds": 0.97,
+      "fade_ms": 35,
+      "speech_internal_edits": false
+    }
+  },
+  "source_prepared_file": "voices/igor_2026-10-03/cleaned/11_disgusted.wav",
+  "source_prepared_sha256": "9c2ce345b08c997e727867f5508d9574e5935053b2b12027379af8b6be9879bf"
+}

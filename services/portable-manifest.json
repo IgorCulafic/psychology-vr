@@ -220,6 +220,54 @@
           "sha256": "4821173448a4f39664285e81e638395a45033b93000794ea22f5f9988852301a"
         }
       ]
+    },
+    {
+      "repo": "prism-ml/Ternary-Bonsai-2-27B-gguf",
+      "revision": "6ed5e12bf84b7a63069882c91dd9e9218647d17b",
+      "destination": ".cache/models/bonsai2-pq2",
+      "files": [
+        {
+          "name": "Ternary-Bonsai-2-27B-PQ2_0.gguf",
+          "bytes": 7206168928,
+          "sha256": "3907dc1658db1f78a9826bf8d5bcb8dc65db0d466388937af57f2294fae62ec1"
+        }
+      ]
+    },
+    {
+      "repo": "google/gemma-4-12B-it-qat-q4_0-gguf",
+      "revision": "29d097773436b69ff9feafd636ab4cf873786537",
+      "destination": ".cache/models/gemma4-12b-qat",
+      "files": [
+        {
+          "name": "gemma-4-12b-it-qat-q4_0.gguf",
+          "bytes": 6975879296,
+          "sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b"
+        }
+      ]
+    }
+  ],
+  "bonsai_runtimes": [
+    {
+      "name": "cudart-llama-bin-win-cuda-13.3-x64.zip",
+      "sha256": "1462a050eb4c684921ba51dcc4cc488a036674c3e73e9945ee705b854808d03e",
+      "url": "https://github.com/PrismML-Eng/llama.cpp/releases/download/prism-b10709-9a9394a/cudart-llama-bin-win-cuda-13.3-x64.zip",
+      "destination": ".tools/bonsai-llama",
+      "executable": ".tools/bonsai-llama/cudart64_13.dll",
+      "required": [
+        ".tools/bonsai-llama/cublas64_13.dll",
+        ".tools/bonsai-llama/cublasLt64_13.dll"
+      ]
+    },
+    {
+      "name": "llama-prism-b10709-9a9394a-bin-win-cuda-13.3-x64.zip",
+      "sha256": "d656f217172c489706df40951e46bef647eb1a81eb8eeb1398c8f38bd7fa9725",
+      "url": "https://github.com/PrismML-Eng/llama.cpp/releases/download/prism-b10709-9a9394a/llama-prism-b10709-9a9394a-bin-win-cuda-13.3-x64.zip",
+      "destination": ".tools/bonsai-llama",
+      "executable": ".tools/bonsai-llama/llama-server.exe",
+      "required": [
+        ".tools/bonsai-llama/ggml-cuda.dll",
+        ".tools/bonsai-llama/llama-server-impl.dll"
+      ]
     }
   ]
 }

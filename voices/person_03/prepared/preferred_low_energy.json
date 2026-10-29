@@ -1,0 +1,38 @@
+{
+  "status": "preferred_by_user_in_listening_test",
+  "recorded_date": "2026-10-03",
+  "person": "person_03",
+  "performance_emotion": "despondent",
+  "audition_emotion": "low_energy",
+  "user_choice": "B",
+  "default_variant": "B",
+  "default_reason": "explicit user selection",
+  "accepted_variants": [
+    "B"
+  ],
+  "reference": "voices/igor_2026-10-03/emotion-validation/person_03/references/10_low_energy.wav",
+  "reference_transcript": "voices/igor_2026-10-03/emotion-validation/person_03/references/10_low_energy.json",
+  "reference_sha256": "707342413f96289088cd65ca66aa073c95e42f85b944b83e20fa3b0a61b8002e",
+  "reference_transcript_status": "automatic_draft_not_listening_verified",
+  "higgs_quantization": "bf16",
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "top_k": 50,
+  "seed": 42,
+  "emotion_tag": null,
+  "prosody_tag": "<|prosody:expressive_low|>",
+  "audition_audio": "voices/igor_2026-10-03/emotion-validation/person_03/low_energy-B.wav",
+  "audition_sha256": "c8553c4bce86f830da8bdd7abeaf5c23db1aae986de207dc2dab9f9fe3ccac64",
+  "user_notes": "",
+  "must_fix_before_runtime": false,
+  "active_in_game": false,
+  "feedback_source": "voices/igor_2026-10-03/emotion-validation/feedback/person_03-emotion-feedback.json",
+  "approved_candidates": [
+    {
+      "variant": "B",
+      "tag": "<|prosody:expressive_low|>",
+      "audio": "voices/igor_2026-10-03/emotion-validation/person_03/low_energy-B.wav",
+      "sha256": "c8553c4bce86f830da8bdd7abeaf5c23db1aae986de207dc2dab9f9fe3ccac64"
+    }
+  ]
+}

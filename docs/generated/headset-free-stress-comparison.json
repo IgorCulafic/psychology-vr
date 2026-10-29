@@ -1,0 +1,32 @@
+{
+  "gpu": "RTX 5090",
+  "speech": "BF16",
+  "model": "Gemma 4 12B QAT Q4",
+  "synthetic_not_quest_link": true,
+  "results": [
+    {
+      "eye_size": 3000,
+      "peak_gib": 24.32,
+      "margin_below_24_gib": -0.32,
+      "turns": 6,
+      "checks_passed": true,
+      "report": "docs\\generated\\headset-free-stress\\report.json"
+    },
+    {
+      "eye_size": 2400,
+      "peak_gib": 22.93,
+      "margin_below_24_gib": 1.07,
+      "turns": 2,
+      "checks_passed": true,
+      "report": "docs\\generated\\headset-free-stress-2400\\report.json"
+    },
+    {
+      "eye_size": 2000,
+      "peak_gib": 22.22,
+      "margin_below_24_gib": 1.78,
+      "turns": 1,
+      "checks_passed": true,
+      "report": "docs\\generated\\headset-free-stress-2000\\report.json"
+    }
+  ]
+}

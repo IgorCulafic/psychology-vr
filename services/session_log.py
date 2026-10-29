@@ -35,9 +35,9 @@ def readable(record):
         return '\n'.join(lines)+'\n'
     if record['event']=='segment_ready':
         segment=record['segment']
-        return header+f"\nSentence {record['index']+1} prepared at {record['ready_ms']} ms (not yet confirmed played).\n{segment['text']}\n"
+        return header+f"\nSpeech segment {record['index']+1} prepared at {record['ready_ms']} ms (not yet confirmed played).\n{segment['text']}\n"
     if record['event']=='playback_finished':
-        return header+f"\nPlayback: {record['reason']}; {record['completed_count']} complete sentences.\nConfirmed played: {record['confirmed_text']}\nUnfinished sentence playback: {record['partial_seconds']:.2f}s; its exact words are not inferred.\n"
+        return header+f"\nPlayback: {record['reason']}; {record['completed_count']} complete speech segments.\nConfirmed played: {record['confirmed_text']}\nUnfinished segment playback: {record['partial_seconds']:.2f}s; its exact words are not inferred.\n"
     return header+'\n'+json.dumps({k:v for k,v in record.items() if k not in ('schema_version','timestamp','archive_id','session_id','event')},ensure_ascii=False)+'\n'
 
 
@@ -55,6 +55,8 @@ class SessionLog:
                     source=config.get('session_source','vr_bridge'),
                     dialogue_provider=config.get('dialogue_provider'),
                     model=config.get('llm_model'), tts_provider=config.get('tts_provider'),
+                    dialogue_model=config.get('dialogue_model'),
+                    performance_run_id=config.get('_performance_run_id'),
                     playback_tracking='Generated replies are recorded; actual playback/hearing is not confirmed.')
 
     def append(self, event, **fields):

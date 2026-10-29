@@ -9,6 +9,13 @@ $taskSettings = Get-Content -LiteralPath $taskConfig -Raw | ConvertFrom-Json
 $taskPython = Join-Path $taskRoot $(if($taskSettings.bridge_python){$taskSettings.bridge_python}else{'.venv/Scripts/python.exe'})
 if (-not (Test-Path -LiteralPath $taskPython)) { throw 'Project Python is missing. Run Setup.cmd or follow README.md setup instructions.' }
 $taskGpuLayers = if ($null -ne $taskSettings.llm_gpu_layers) { [string]$taskSettings.llm_gpu_layers } else { '99' }
+$taskSelectedModel = $null
+if ($taskSettings.dialogue_model) {
+    $taskCatalog = Get-Content (Join-Path $taskRoot 'services/dialogue-models.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    $taskSelectedModel = $taskCatalog.models | Where-Object id -eq $taskSettings.dialogue_model
+    if (!$taskSelectedModel) { throw 'Unknown dialogue model setting.' }
+    $taskGpuLayers = [string]$taskSelectedModel.gpu_layers
+}
 function Get-Health([string]$Url) {
     try { return Invoke-RestMethod -Uri $Url -TimeoutSec 2 } catch { return $null }
 }
@@ -22,21 +29,21 @@ function Wait-Health([string]$Url, [int]$Seconds) {
     throw "Service did not become ready: $Url. Check services/.runtime logs."
 }
 if (-not $Scripted) {
-    $taskModel = Join-Path $taskRoot $(if($taskSettings.llm_model_path){$taskSettings.llm_model_path}else{'.cache/models/qwen/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-IQ4_XS.gguf'})
+    $taskModel = Join-Path $taskRoot $(if($taskSelectedModel){$taskSelectedModel.model_path}elseif($taskSettings.llm_model_path){$taskSettings.llm_model_path}else{'.cache/models/qwen/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-IQ4_XS.gguf'})
     $taskModelRecord=Join-Path $taskRuntime 'model-process.json'
-    if((Get-Health 'http://127.0.0.1:8087/health') -and !(Test-Path -LiteralPath $taskModelRecord) -and $taskSettings.hardware_preset) {
+    if((Get-Health 'http://127.0.0.1:8087/health') -and !(Test-Path -LiteralPath $taskModelRecord)) {
         throw 'Another installation is already using the dialogue service port. Stop its services before starting this GPU preset.'
     }
     if((Get-Health 'http://127.0.0.1:8087/health') -and (Test-Path -LiteralPath $taskModelRecord)) {
         $taskRunning=Get-Content -LiteralPath $taskModelRecord -Raw | ConvertFrom-Json
         if(($taskRunning.ModelPath -and $taskRunning.ModelPath -ne $taskModel) -or
            ($null -ne $taskRunning.GpuLayers -and [string]$taskRunning.GpuLayers -ne $taskGpuLayers) -or
-           (!$taskRunning.ModelPath -and $taskSettings.hardware_preset)) {
+           (!$taskRunning.ModelPath)) {
             throw 'The running dialogue service uses older/different GPU settings. Close the game and run Stop Services.cmd, then start again.'
         }
     }
     if (-not (Get-Health 'http://127.0.0.1:8087/health')) {
-        $taskServer = Join-Path $taskRoot '.tools/llama/llama-server.exe'
+        $taskServer = Join-Path $taskRoot $(if($taskSelectedModel){$taskSelectedModel.server_path}else{'.tools/llama/llama-server.exe'})
         if (-not (Test-Path -LiteralPath $taskServer) -or -not (Test-Path -LiteralPath $taskModel)) { throw 'Model/runtime missing. See README.md.' }
         $taskArguments = @('--model', ('"'+$taskModel+'"'), '--alias','alex-qwen','--host','127.0.0.1','--port','8087',
             '--ctx-size','4096','--parallel','1','--n-gpu-layers',$taskGpuLayers,'--batch-size','256','--ubatch-size','128',
@@ -44,7 +51,7 @@ if (-not $Scripted) {
         $taskProcess = Start-Process -FilePath $taskServer -ArgumentList $taskArguments -WorkingDirectory $taskRoot -WindowStyle Hidden -PassThru `
             -RedirectStandardOutput (Join-Path $taskRuntime 'model.out.log') -RedirectStandardError (Join-Path $taskRuntime 'model.err.log')
         @{Id=$taskProcess.Id; Path=$taskServer; StartTicks=$taskProcess.StartTime.ToUniversalTime().Ticks; ModelPath=$taskModel; GpuLayers=$taskGpuLayers} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $taskRuntime 'model-process.json')
-        Write-Host 'Loading Qwen...'
+        Write-Host "Loading dialogue model: $(if($taskSelectedModel){$taskSelectedModel.label}else{[IO.Path]::GetFileName($taskModel)})..."
         Wait-Health 'http://127.0.0.1:8087/health' 120 | Out-Null
     }
 }

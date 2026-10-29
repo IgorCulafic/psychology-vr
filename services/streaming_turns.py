@@ -1,7 +1,8 @@
-"""Sentence audio delivery with explicit, monotonic playback acknowledgements.
+"""Speech-segment delivery with explicit, monotonic playback acknowledgements.
 
 Generation is validated before publishing speech. Only client-confirmed complete
-sentences enter patient history; partial audio is recorded without guessing words.
+segments enter patient history; partial audio is recorded without guessing words.
+An approved whole-performance preset may contain several sentences in one segment.
 """
 from copy import deepcopy
 import json
@@ -44,6 +45,8 @@ class StreamingTurns:
         if not isinstance(text,str) or len(text)>2000 or (not opening and not text.strip()):
             raise ValueError('Enter 1–2000 characters')
         with self.lock:
+            if getattr(self, 'models', None) and self.models.switching:
+                raise ValueError('The dialogue model is loading. Please wait.')
             session=self.sessions[key]
             if expected_generation is not None and (isinstance(expected_generation,bool) or not isinstance(expected_generation,int) or expected_generation!=session.generation):
                 raise ValueError('Playback generation expired; start a fresh turn')

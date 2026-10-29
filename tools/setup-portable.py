@@ -37,6 +37,12 @@ def gpu_properties():
 def selected_manifest(manifest,config):
     selected=copy.deepcopy(manifest)
     model_path=config.get('llm_model_path',HARDWARE_PRESETS['quality']['llm_model_path'])
+    if config.get('dialogue_model'):
+        catalog=json.loads((ROOT/'services/dialogue-models.json').read_text(encoding='utf-8'))['models']
+        choice=next((m for m in catalog if m['id']==config['dialogue_model']),None)
+        if choice is None:raise RuntimeError('Unknown dialogue_model in configuration.')
+        model_path=choice['model_path']
+        if choice['id']=='bonsai':selected['runtimes']+=copy.deepcopy(selected['bonsai_runtimes'])
     model=selected['models'][0]
     for variant in [model,*selected.get('dialogue_variants',[])]:
         if any(model_path==variant['destination']+'/'+f['name'] for f in variant['files']):
@@ -88,7 +94,7 @@ def validate_files(manifest,full=False):
             if not contained(ROOT,file).is_file():raise RuntimeError('Missing runtime: '+file)
 
 
-def configure(preset=None):
+def configure(preset=None,model=None):
     config_path=ROOT/'services/config.local.json'
     defaults=json.loads((ROOT/'services/config.expressive.example.json').read_text(encoding='utf-8-sig'))
     portable_paths=dict(bridge_python='.tools/portable-env/Scripts/python.exe',
@@ -113,13 +119,22 @@ def configure(preset=None):
         raise RuntimeError('Voice reference missing. Place reference.wav and reference.json in voices/ (see START HERE.md).')
     transcript=json.loads(reference.with_suffix('.json').read_text(encoding='utf-8-sig')).get('text')
     if not isinstance(transcript,str) or not transcript.strip():raise RuntimeError('Voice transcript is empty.')
-    if preset is not None:config['hardware_preset']=preset
+    if preset is not None:
+        config['hardware_preset']=preset
+        config['dialogue_model']='' # Explicit legacy hardware preset selects its own quant.
+    if model is not None:config['dialogue_model']=model
     if config.get('hardware_preset'):
         gpu_name,total_bytes=gpu_properties()
         resolved=resolve_preset(config['hardware_preset'],total_bytes)
         config.update(HARDWARE_PRESETS[resolved])
         config['hardware_preset_resolved']=resolved
         print(f"GPU: {gpu_name} ({total_bytes/1024**3:.1f} GiB); preset: {config['hardware_preset']} -> {resolved}; dialogue GPU layers: {config['llm_gpu_layers']}",flush=True)
+    if config.get('dialogue_model'):
+        catalog=json.loads((ROOT/'services/dialogue-models.json').read_text(encoding='utf-8'))['models']
+        choice=next((m for m in catalog if m['id']==config['dialogue_model']),None)
+        if choice is None:raise RuntimeError('Unknown dialogue_model in configuration.')
+        config.update(llm_model_path=choice['model_path'],llm_gpu_layers=choice['gpu_layers'])
+        print(f"Dialogue selection: {choice['label']} ({choice['gpu_layers']} GPU layers); speech quality unchanged.",flush=True)
     if original is None or config!=existing:
         if original is not None:
             backup=ROOT/'services/.runtime/config-backups'/f'config-{time.time_ns()}.json'
@@ -155,10 +170,11 @@ def doctor(check_runtime=True):
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--check',action='store_true')
     parser.add_argument('--preset',choices=['auto',*HARDWARE_PRESETS])
+    parser.add_argument('--model',choices=['bonsai','gemma','qwen'],help='Install/select an in-game dialogue model; keeps speech quality unchanged')
     parser.add_argument('--configure-only',action='store_true',help='Resolve GPU settings without downloading or starting services')
     parser.add_argument('--verify-files',action='store_true',help='Check model hashes without loading libraries')
     args=parser.parse_args();manifest=json.loads((ROOT/'services/portable-manifest.json').read_text(encoding='utf-8'))
-    config=configure(args.preset)
+    config=configure(args.preset,args.model)
     manifest=selected_manifest(manifest,config)
     if args.configure_only:return
     if args.verify_files:validate_files(manifest,True);print('MODEL_CHECKSUMS_OK');return

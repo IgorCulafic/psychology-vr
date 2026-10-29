@@ -1,0 +1,38 @@
+{
+  "file": "08_happy.wav",
+  "section": 8,
+  "title": "Radost i toplina",
+  "text": "E, ovo mi je baš uljepšalo dan. nijesam očekivao da će se svi pojavit, a na kraju je sto bio pun. I niko nije žurio kući. Pričali smo, šalili se i dogovarali da to ponovimo. Ali mi je osmijeh na licu kad se sjetim. Volio bih da imam više takvih običnih, lijepih dana.",
+  "script_text": "E, ovo mi je baš uljepšalo dan. Nijesam očekivao da će se svi pojaviti, a na kraju je sto bio pun i niko nije žurio kući. Pričali smo, šalili se i dogovarali da to ponovimo. Još mi je osmijeh na licu kad se sjetim. Volio bih da imamo više takvih običnih, lijepih dana.",
+  "transcript_status": "confirmed_by_speaker",
+  "transcript_provenance": "transcripts_confirmed_by_igor.json",
+  "source_start_seconds": 173.5,
+  "source_end_seconds": 201.2,
+  "duration_seconds": 27.7,
+  "sample_rate": 48000,
+  "ready_for_tts": true,
+  "source_sha256": "17b3e44b961fdae5e6fe66029a2c3d6ccd65c13fcb94eaa269eb02c1ca344094",
+  "audio_processing": {
+    "lead_in_silenced_until_seconds": 1.515,
+    "lead_in_fade_complete_seconds": 1.55,
+    "fade_ms": 35,
+    "speech_internal_edits": false
+  },
+  "metrics": {
+    "file": "08_happy.wav",
+    "duration_seconds": 27.7,
+    "source_peak_dbfs": -2.1155380755488737,
+    "cleaned_peak_dbfs": -2.1155380755488737,
+    "cleaned_true_peak_4x_dbtp": -2.0492906753087676,
+    "source_rms_dbfs": -22.25189946625766,
+    "cleaned_rms_dbfs": -22.251933630253625,
+    "near_full_scale_samples_before": 0,
+    "near_full_scale_samples_after": 0,
+    "processing": {
+      "lead_in_silenced_until_seconds": 1.515,
+      "lead_in_fade_complete_seconds": 1.55,
+      "fade_ms": 35,
+      "speech_internal_edits": false
+    }
+  }
+}

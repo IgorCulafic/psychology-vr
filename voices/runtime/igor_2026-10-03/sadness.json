@@ -1,0 +1,38 @@
+{
+  "file": "05_sad.wav",
+  "section": 5,
+  "title": "Tuga, uz zadržanu razgovijetnost",
+  "text": "Najteže mi bude kad se vratim kući i sve utihne. Preko dana nekako skrenem misli, imam obaveze i ljude oko sebe. Onda dođe veče i primijetim koliko mi nedostaju neke sasvim obične stvari. Razgovor uz kafu, nečiji koraci u hodniku. Pitanje kako mi je prošao dan. To mi nedostaje više nego što umijem da vam objasnim.",
+  "script_text": "Najteže mi bude kad se vratim kući i sve utihne. Preko dana nekako skrenem misli, imam obaveze i ljude oko sebe. Onda dođe veče i primijetim koliko mi nedostaju neke sasvim obične stvari. Razgovor uz kafu, nečiji koraci u hodniku, pitanje kako mi je prošao dan. To mi nedostaje više nego što umijem da objasnim.",
+  "transcript_status": "confirmed_by_speaker",
+  "transcript_provenance": "transcripts_confirmed_by_igor.json",
+  "source_start_seconds": 89.1,
+  "source_end_seconds": 117.7,
+  "duration_seconds": 28.6,
+  "sample_rate": 48000,
+  "ready_for_tts": true,
+  "source_sha256": "17b3e44b961fdae5e6fe66029a2c3d6ccd65c13fcb94eaa269eb02c1ca344094",
+  "audio_processing": {
+    "lead_in_silenced_until_seconds": 1.165,
+    "lead_in_fade_complete_seconds": 1.2,
+    "fade_ms": 35,
+    "speech_internal_edits": false
+  },
+  "metrics": {
+    "file": "05_sad.wav",
+    "duration_seconds": 28.6,
+    "source_peak_dbfs": -5.360510765325599,
+    "cleaned_peak_dbfs": -5.360510765325599,
+    "cleaned_true_peak_4x_dbtp": -5.346074379956516,
+    "source_rms_dbfs": -28.309969870325244,
+    "cleaned_rms_dbfs": -28.310037086467318,
+    "near_full_scale_samples_before": 0,
+    "near_full_scale_samples_after": 0,
+    "processing": {
+      "lead_in_silenced_until_seconds": 1.165,
+      "lead_in_fade_complete_seconds": 1.2,
+      "fade_ms": 35,
+      "speech_internal_edits": false
+    }
+  }
+}

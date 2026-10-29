@@ -1,0 +1,18 @@
+{
+  "text": "Hoću nešto da vam kažem, važno mi je da me saslušate do kraja. Poslije možemo da razgovaramo o tome što ćemo dalje.",
+  "transcript_status": "provisionally_corrected_automatic_draft_not_listening_verified",
+  "automatic_transcript": "Hoću nešto da vam kažem, važno mi je da me se slušate do kraja. Poslije možemo da razgovaramo o tome što ćemo dalje.",
+  "provisional_corrections": [
+    [
+      "me se slušate",
+      "me saslušate"
+    ]
+  ],
+  "source": "glas_ljutito_copy.wav",
+  "original": "Glas ljutito copy.m4a",
+  "original_sha256": "74a9d379fff8992b92c9f907640583a54ff76b693c0027de19922b981f083cbd",
+  "trim_start": 2.73,
+  "trim_end": 13.9,
+  "denoised": false,
+  "active_in_game": false
+}

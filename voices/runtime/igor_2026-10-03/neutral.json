@@ -1,0 +1,38 @@
+{
+  "file": "01_neutral_conversation.wav",
+  "section": 1,
+  "title": "Neutralan, prirodan razgovor",
+  "text": "Dobar dan. Možemo da sjednemo ovdje, pored prozora. Napolje je malo hladnije nego jutros, ali unutra je prijatno. Prije dolaska sam svratio do prodavnice i kupio hljeb, mlijeko i nekoliko jabuka. Poslije ovog razgovora idem kući da spremim ručak. Još nisam odlučio šta ću da pravim, ali vjerovatno nešto jednostavno.",
+  "script_text": "Dobar dan. Možemo da sjednemo ovdje, pored prozora. Napolju je malo hladnije nego jutros, ali unutra je prijatno. Prije dolaska sam svratio do prodavnice i kupio hljeb, mlijeko i nekoliko jabuka. Poslije ovog razgovora idem kući da spremim ručak. Još nijesam odlučio šta ću da pravim, ali vjerovatno nešto jednostavno.",
+  "transcript_status": "confirmed_by_speaker",
+  "transcript_provenance": "transcripts_confirmed_by_igor.json",
+  "source_start_seconds": 0.0,
+  "source_end_seconds": 23.9,
+  "duration_seconds": 23.9,
+  "sample_rate": 48000,
+  "ready_for_tts": true,
+  "source_sha256": "17b3e44b961fdae5e6fe66029a2c3d6ccd65c13fcb94eaa269eb02c1ca344094",
+  "audio_processing": {
+    "lead_in_silenced_until_seconds": 0.715,
+    "lead_in_fade_complete_seconds": 0.75,
+    "fade_ms": 35,
+    "speech_internal_edits": false
+  },
+  "metrics": {
+    "file": "01_neutral_conversation.wav",
+    "duration_seconds": 23.9,
+    "source_peak_dbfs": -4.436829686973687,
+    "cleaned_peak_dbfs": -4.436829686973687,
+    "cleaned_true_peak_4x_dbtp": -4.424868212104035,
+    "source_rms_dbfs": -23.806403257133226,
+    "cleaned_rms_dbfs": -23.806501890523094,
+    "near_full_scale_samples_before": 0,
+    "near_full_scale_samples_after": 0,
+    "processing": {
+      "lead_in_silenced_until_seconds": 0.715,
+      "lead_in_fade_complete_seconds": 0.75,
+      "fade_ms": 35,
+      "speech_internal_edits": false
+    }
+  }
+}
