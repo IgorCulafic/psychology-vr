@@ -20,13 +20,15 @@
 
 Include this credit file when sharing the prototype. Preserve the individual dependency license notices with redistributed software/models.
 
+## Fitted cast wardrobe
+
+Alex, Nikola and Stefan's fitted wardrobe is adapted from MRT / MargaretToigo's MakeHuman Community CC0 assets: `toigo_fisherman_sweater` ([shirts pack](https://static.makehumancommunity.org/assets/assetpacks/shirts01.html)), `toigo_wool_pants` ([pants pack](https://static.makehumancommunity.org/assets/assetpacks/pants01.html)), and `toigo_ankle_boots_male` ([shoes pack](https://static.makehumancommunity.org/assets/assetpacks/shoes01.html)). Changes: body-specific fitting, native MetaHuman weights, garment thickness, color and tangent-normal baking, and Unity material setup. Fitting uses the CC0 MakeHuman base mesh and default rig/weights; no MakeHuman runtime is required.
+
 ## User-supplied candidate audition
 
 - **Integrated MetaHuman cast (2026-10-04):** Epic's installed UE 5.8 MetaHuman presets Dominic (Alex), Bruce (Ivan), Mateo (Stefan) and Victor (Nikola), assembled locally and exported to Unity with baked facial poses and neck movement. Clothing and tear integration are project additions. Exported game assets are in `unity/Assets/PsychologyVR/Art/MetaHumans/`; the local Unreal authoring project and source capture footage are not part of the Windows release. Mikel was an earlier audition and is not the selected Ivan model. Epic's asset terms remain applicable; this project does not relicense their content.
 - **MetaHuman tear-film effect:** original project shader and animation setup, using procedural masks and head-following decal projection; no third-party tear texture pack. See `experiments/metahuman/TEARS.md`.
 - **Seated animation and wardrobe integration (2026-10-21):** retained from the project's `feature/animation-optimization` branch. Ivan uses `SeatedVideo5799.anim`, synchronized body/face joints, generated wardrobe meshes and project cloth/cushion shaders. The recorded source video is not bundled. See `docs/BRANCH_INTEGRATION_2026_10_21.md` for the merged revisions and validation.
-
-- **Microsoft Rocketbox candidate set (2026-10-04):** four adult male characters, `Male_Adult_01` through `Male_Adult_04`, from [Microsoft's official library](https://github.com/microsoft/Microsoft-Rocketbox), revision `0943055db6ec570bcef9f2c8b41c9e5467c808f9`. MIT, Copyright (c) 2020 Microsoft. Original license, models, textures, source URLs and checksums are in `Assets/CharacterCandidates/Microsoft-Rocketbox/`. Downloaded for comparison; not integrated into the production Unity cast. Preserve LICENSE.md when redistributing these assets.
 
 Repository packaging: original download folders (`man/`, `jumper_man/`, `Characters_with_expressions/`) and their converted Unity assets are preserved in the private project through Git LFS. Asset-specific rights still apply; this repository does not relicense third-party work.
 
