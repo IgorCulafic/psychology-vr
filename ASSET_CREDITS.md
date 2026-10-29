@@ -26,8 +26,6 @@ Include this credit file when sharing the prototype. Preserve the individual dep
 - **MetaHuman tear-film effect:** original project shader and animation setup, using procedural masks and head-following decal projection; no third-party tear texture pack. See `experiments/metahuman/TEARS.md`.
 - **Seated animation and wardrobe integration (2026-10-21):** retained from the project's `feature/animation-optimization` branch. Ivan uses `SeatedVideo5799.anim`, synchronized body/face joints, generated wardrobe meshes and project cloth/cushion shaders. The recorded source video is not bundled. See `docs/BRANCH_INTEGRATION_2026_10_21.md` for the merged revisions and validation.
 
-- **Microsoft Rocketbox candidate set (2026-10-04):** four adult male characters, `Male_Adult_01` through `Male_Adult_04`, from [Microsoft's official library](https://github.com/microsoft/Microsoft-Rocketbox), revision `0943055db6ec570bcef9f2c8b41c9e5467c808f9`. MIT, Copyright (c) 2020 Microsoft. Original license, models, textures, source URLs and checksums are in `Assets/CharacterCandidates/Microsoft-Rocketbox/`. Downloaded for comparison; not integrated into the production Unity cast. Preserve LICENSE.md when redistributing these assets.
-
 Repository packaging: original download folders (`man/`, `jumper_man/`, `Characters_with_expressions/`) and their converted Unity assets are preserved in the private project through Git LFS. Asset-specific rights still apply; this repository does not relicense third-party work.
 
 - `jumper_man/source/Ex wife's new husband.fbx` and `Characters_with_expressions/FBX/`: supplied by the user, who identified Sketchfab as their source. Exact author/source/license records were not included; this entry does not assert redistribution permission.
