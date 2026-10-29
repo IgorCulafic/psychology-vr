@@ -20,6 +20,10 @@
 
 Include this credit file when sharing the prototype. Preserve the individual dependency license notices with redistributed software/models.
 
+## Fitted cast wardrobe
+
+Alex, Nikola and Stefan's fitted wardrobe is adapted from MRT / MargaretToigo's MakeHuman Community CC0 assets: `toigo_fisherman_sweater` ([shirts pack](https://static.makehumancommunity.org/assets/assetpacks/shirts01.html)), `toigo_wool_pants` ([pants pack](https://static.makehumancommunity.org/assets/assetpacks/pants01.html)), and `toigo_ankle_boots_male` ([shoes pack](https://static.makehumancommunity.org/assets/assetpacks/shoes01.html)). Changes: body-specific fitting, native MetaHuman weights, garment thickness, color and tangent-normal baking, and Unity material setup. Fitting uses the CC0 MakeHuman base mesh and default rig/weights; no MakeHuman runtime is required.
+
 ## User-supplied candidate audition
 
 - **Integrated MetaHuman cast (2026-10-04):** Epic's installed UE 5.8 MetaHuman presets Dominic (Alex), Bruce (Ivan), Mateo (Stefan) and Victor (Nikola), assembled locally and exported to Unity with baked facial poses and neck movement. Clothing and tear integration are project additions. Exported game assets are in `unity/Assets/PsychologyVR/Art/MetaHumans/`; the local Unreal authoring project and source capture footage are not part of the Windows release. Mikel was an earlier audition and is not the selected Ivan model. Epic's asset terms remain applicable; this project does not relicense their content.

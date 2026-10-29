@@ -12,13 +12,22 @@ namespace PsychologyVR
         public SkinnedMeshRenderer skin;
         public bool seated=true;
         public AnimationClip seatedIdle;
+        public MetaHumanGestureLibrary gestureLibrary;
+        [SerializeField,HideInInspector] Vector2 seatedFootOffset;
+        MetaHumanSeatedGestures gestures;
+        internal string ActiveGesture=>gestures?.Active??"";
+        internal float GestureTime=>gestures?.Time??0;
+        internal float IdleTime=>idleTime;
+        internal bool AutomaticGestures {set{if(gestures!=null)gestures.Automatic=value;}}
+        internal bool PlayGesture(string id)=>gestures!=null&&gestures.Play(id);
+        internal void StopGesture(bool interrupt)=>gestures?.Stop(interrupt);
         public Transform Head {get;private set;}
         public int BindingCount=>bones==null?0:bones.Length;
         internal void RestartSeatedIdle()
         {
             idleTime=0;
             if(!seatedIdle)return;
-            seatedIdle.SampleAnimation(bodyObject,0);SyncBase();
+            seatedIdle.SampleAnimation(bodyObject,0);CorrectSeatedFeet();SyncBase();
             foreach(string n in new[]{"neck_01","neck_02","head"})
                 if(bodyBones.TryGetValue(n,out var b)&&faceBones.TryGetValue(n,out var f))f.SetPositionAndRotation(b.position,b.rotation);
             for(int i=0;i<clothTargets.Length;i++)clothTargets[i].SetPositionAndRotation(clothSources[i].position,clothSources[i].rotation);
@@ -59,11 +68,12 @@ namespace PsychologyVR
             }
             if(seated)
             {
-                if(seatedIdle)seatedIdle.SampleAnimation(bodyObject,0);
+                if(seatedIdle){seatedIdle.SampleAnimation(bodyObject,0);CorrectSeatedFeet();}
                 else SeatBody();
             }
             SyncBase();
             if(trouserDeformation)trouserDeformation.ApplyPose(0);
+            if(seated&&seatedIdle&&gestureLibrary)gestures=new MetaHumanSeatedGestures(bodyObject,gestureLibrary,bodyBones);
             initialized=true;
         }
         void Awake(){Initialize();}
@@ -100,6 +110,24 @@ namespace PsychologyVR
         {
             for(int i=0;i<faceBaseTargets.Length;i++)faceBaseTargets[i].SetPositionAndRotation(faceBaseSources[i].position,faceBaseSources[i].rotation);
         }
+        void CorrectSeatedFeet()
+        {
+            // Keep the animation's movement and rotation; compensate for each body's leg length.
+            if(Mathf.Abs(seatedFootOffset.x)>=.0001f)CorrectSeatedFoot(bodyBones["thigh_l"],bodyBones["calf_l"],bodyBones["foot_l"],seatedFootOffset.x);
+            if(Mathf.Abs(seatedFootOffset.y)>=.0001f)CorrectSeatedFoot(bodyBones["thigh_r"],bodyBones["calf_r"],bodyBones["foot_r"],seatedFootOffset.y);
+        }
+        void CorrectSeatedFoot(Transform thigh,Transform calf,Transform foot,float offset)
+        {
+            var hip=thigh.position;var knee=calf.position;var ankle=foot.position;var rotation=foot.rotation;
+            var target=ankle+transform.up*offset;float upper=Vector3.Distance(hip,knee),lower=Vector3.Distance(knee,ankle);
+            var direction=(target-hip).normalized;float distance=Mathf.Clamp(Vector3.Distance(target,hip),Mathf.Abs(upper-lower)+.0001f,upper+lower-.0001f);
+            float along=(upper*upper-lower*lower+distance*distance)/(2*distance);
+            var pole=Vector3.ProjectOnPlane(knee-hip,direction).normalized;
+            var desiredKnee=hip+direction*along+pole*Mathf.Sqrt(Mathf.Max(0,upper*upper-along*along));
+            thigh.rotation=Quaternion.FromToRotation(knee-hip,desiredKnee-hip)*thigh.rotation;
+            calf.rotation=Quaternion.FromToRotation(foot.position-calf.position,target-calf.position)*calf.rotation;
+            foot.rotation=rotation;
+        }
         public void Apply(string emotion,float intensity,Dictionary<string,float> weights,bool speaking,string cue,bool paused,float transition)
         {
             Initialize();if(!initialized||paused)return;
@@ -107,7 +135,9 @@ namespace PsychologyVR
             {
                 idleTime=Mathf.Repeat(idleTime+Time.deltaTime,seatedIdle.length);
                 seatedIdle.SampleAnimation(bodyObject,idleTime);
+                CorrectSeatedFeet();
             }
+            gestures?.Apply(emotion,intensity,speaking,Time.deltaTime);
             if(emotion!=previousEmotion){clock=0;previousEmotion=emotion;}else clock+=Time.deltaTime;
             RestoreNeutral();
             AnimationClip clip=emotion=="angry"?library.angry:emotion=="crying"?library.crying:(emotion=="afraid"||emotion=="panicked")?library.afraid:null;
@@ -153,7 +183,8 @@ namespace PsychologyVR
                 if(seated&&seatedIdle)
                 {
                     int i=Array.IndexOf(bones,f);
-                    f.rotation=b.rotation*(Quaternion.Inverse(neutralQ[i])*filteredQ[i]);
+                    float headActing=1-(gestures?.HeadContactWeight??0);
+                    f.rotation=b.rotation*Quaternion.Slerp(Quaternion.identity,Quaternion.Inverse(neutralQ[i])*filteredQ[i],headActing);
                 }
                 b.rotation=f.rotation;
             }

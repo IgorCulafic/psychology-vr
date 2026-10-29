@@ -122,7 +122,7 @@ namespace PsychologyVR
             if (Microphone.devices.Length > 0) micDevice = Microphone.devices[0];
             string savedMic=PlayerPrefs.GetString("Microphone","");if(Array.IndexOf(Microphone.devices,savedMic)>=0)micDevice=savedMic;
             bool diagnostic=Array.Exists(Environment.GetCommandLineArgs(),a=>a=="--integration-preview"||a=="--record-alex"||a=="--alex-preview"||a=="--environment-preview"||a=="--smoke-test"||a=="--visuals-preview"||a=="--performance-replay"||a=="--streaming-check"||a=="--headset-free-stress");
-            bool metaCheck=Array.IndexOf(Environment.GetCommandLineArgs(),"--metahuman-check")>=0||Array.IndexOf(Environment.GetCommandLineArgs(),"--seated-idle-check")>=0;
+            bool metaCheck=Array.IndexOf(Environment.GetCommandLineArgs(),"--metahuman-check")>=0||Array.IndexOf(Environment.GetCommandLineArgs(),"--seated-idle-check")>=0||Array.IndexOf(Environment.GetCommandLineArgs(),"--seated-gesture-check")>=0;
             SetMenuOpen(!diagnostic&&!metaCheck);
             if(Array.IndexOf(Environment.GetCommandLineArgs(),"--menu-preview")>=0)StartCoroutine(MenuPreview.Run(this,menu,view,Capture));
             if(Array.IndexOf(Environment.GetCommandLineArgs(),"--visuals-preview")>=0) StartCoroutine(VisualsPreview.Run(this,menu,view,Capture));
@@ -277,10 +277,15 @@ namespace PsychologyVR
             var args=Environment.GetCommandLineArgs();int at=Array.IndexOf(args,"--capture-path");
             if(at<0||at+1>=args.Length){Application.Quit(2);yield break;}
             string folder=args[at+1];Directory.CreateDirectory(folder);
+            bool idleCheck=Array.IndexOf(args,"--seated-idle-check")>=0;
+            bool gestureCheck=Array.IndexOf(args,"--seated-gesture-check")>=0;
+            int characterAt=Array.IndexOf(args,"--character-id");
+            string idleCharacter=characterAt<0?"ivan":characterAt+1<args.Length?args[characterAt+1]:"";
+            if((idleCheck||gestureCheck)&&!Array.Exists(Catalog.scenarios,s=>s.character_id==idleCharacter))
+                throw new ArgumentException("--character-id must name an available seated character: "+idleCharacter);
             foreach(var scenario in Catalog.scenarios)
             {
-                bool idleCheck=Array.IndexOf(args,"--seated-idle-check")>=0;
-                if(idleCheck&&scenario.character_id!="ivan")continue;
+                if((idleCheck||gestureCheck)&&scenario.character_id!=idleCharacter)continue;
                 CurrentScenario=scenario;SpawnCharacter("metahuman-"+scenario.character_id);
                 yield return new WaitForSeconds(1);
                 performance.Apply("neutral",0,"none",true);yield return new WaitForSeconds(.8f);
@@ -295,6 +300,7 @@ namespace PsychologyVR
                 if(idleCheck)while(face.JawWeight>.01f)yield return null;
                 Debug.Log("METAHUMAN_CHECK_OK "+scenario.id+" head="+face.Head.position+" bindings="+face.ShapeBindingCount+" tears="+face.Tears.AnchorCount);
                 if(idleCheck)yield return MetaHumanIdlePreview.Run(this,performance,face,Capture,folder);
+                if(gestureCheck)yield return MetaHumanGesturePreview.Run(this,performance,face,voice,Capture,folder);
             }
             Application.Quit(0);
         }

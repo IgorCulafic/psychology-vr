@@ -42,7 +42,7 @@ namespace PsychologyVR
         Transform head,spine,chest; Arm left,right;
         float targetIntensity=.3f,started;
         Vector3 headAngles,torsoAngles,leftTarget,rightTarget;
-        bool initialized;Vector3 headUp,headForward;FacialPerformance facePerformance;float speechWeight;
+        bool initialized;Vector3 headUp,headForward;FacialPerformance facePerformance;float speechWeight;MetaHumanJointRig metaRig;
         Transform Bone(string name)
         {
             var bones=GetComponentsInChildren<Transform>();
@@ -62,7 +62,7 @@ namespace PsychologyVR
             foreach(var b in bones)if(b.name=="CC_Base_"+mapped)return b;return null;
         }
         Arm FindArm(string s)=>new Arm{shoulder=Bone(s+"Shoulder"),upper=Bone(s+"Arm"),lower=Bone(s+"ForeArm"),hand=Bone(s+"Hand"),middle=Bone(s+"HandMiddle1")};
-        void Awake(){head=Bone("Head");spine=Bone("Spine");chest=Bone("Spine2");left=FindArm("Left");right=FindArm("Right");}
+        void Awake(){metaRig=GetComponent<MetaHumanJointRig>();head=Bone("Head");spine=Bone("Spine");chest=Bone("Spine2");left=FindArm("Left");right=FindArm("Right");}
         public void Apply(string emotion,float intensity,string gesture,bool immediate=false)
         {
             string next=EmotionLibrary.Find(emotion).name;
@@ -84,10 +84,11 @@ namespace PsychologyVR
             float gap=Time.time-lastDirectedGestureAt;
             if(gap<3 || (gesture==lastDirectedGesture && gap<10))return;
             if((Emotion=="crying"||Emotion=="panicked"||Emotion=="numb") && Intensity>.65f)return;
+            if(metaRig&&metaRig.seated&&metaRig.gestureLibrary&&gesture=="hand_fidget")return;
             Gesture=gesture;lastDirectedGesture=gesture;lastDirectedGestureAt=gestureStarted=Time.time;
             gestureDuration=Mathf.Clamp(duration>0?duration:2.5f,.3f,4);
         }
-        public void StopGesture(bool interrupt=false){Gesture="none";if(interrupt){TransientsSuppressed=true;directedGaze="automatic";}}
+        public void StopGesture(bool interrupt=false){Gesture="none";if(metaRig)metaRig.StopGesture(interrupt);if(interrupt){TransientsSuppressed=true;directedGaze="automatic";}}
         void Restore(){foreach(var p in poses){p.bone.localRotation=p.rotation;p.bone.localPosition=p.position;}}
         void Update(){if(initialized && !performancePaused)Restore();}
         Vector3 Local(Vector3 p)=>transform.InverseTransformPoint(p);
