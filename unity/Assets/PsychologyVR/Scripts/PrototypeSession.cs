@@ -13,8 +13,8 @@ namespace PsychologyVR
 {
     [Serializable] public class SpeechSegment { public string text, emotion, gesture, voice_style, gaze, audio_url, segment_id,lip_sync_source; public float intensity,transition_seconds,pause_before_seconds,hold_after_seconds,gesture_at,gesture_duration_seconds;public MouthCue[] mouth_cues; }
     [Serializable] public class RelationshipState { public string status,openness; public int comfort,trust,distress,word_limit; }
-    [Serializable] public class Reply { public string session_id, turn_id, dialogue_provider, tts_provider, scenario_id, character_name, initial_emotion,error; public float initial_intensity; public SpeechSegment[] segments; public int total_ms,first_audio_ms,generation; public bool done,closed; public RelationshipState relationship; }
-    [Serializable] public class RequestBody { public string session_id, text, wav_base64, scenario_id, replace_session_id,turn_id,model_id; public bool opening,interrupted; public int completed_count,expected_generation;public float partial_seconds; }
+    [Serializable] public class Reply { public string session_id, turn_id, dialogue_provider, tts_provider, scenario_id, character_name, student_name, initial_emotion,error,filename,directory; public float initial_intensity; public SpeechSegment[] segments; public int total_ms,first_audio_ms,generation; public bool done,closed; public RelationshipState relationship; }
+    [Serializable] public class RequestBody { public string session_id, text, wav_base64, scenario_id, student_name, replace_session_id,turn_id,model_id; public bool opening,interrupted; public int completed_count,expected_generation;public float partial_seconds; }
     [Serializable] public class Health { public string dialogue_provider, tts_provider, stt_provider; public bool sentence_streaming; }
     [Serializable] public class Transcript { public string text; }
 
@@ -61,7 +61,7 @@ namespace PsychologyVR
         public bool IsBusy=>busy;
         public bool IsRecording=>recording;
         public bool CanSelect=>!IsSwitching&&!string.IsNullOrEmpty(sessionId);
-        public bool CanSubmit=>CanSelect&&!busy&&!recording&&!SessionEnded;
+        public bool CanSubmit=>CanSelect&&!busy&&!recording&&!SessionEnded&&!NamePromptOpen;
         public bool IsSpeechAudition=>Providers.Contains("higgs-recorded");
         public string Draft {get=>input;set=>input=value;}
         public string MicrophoneName=>string.IsNullOrEmpty(micDevice)?"No microphone detected":micDevice;
@@ -80,6 +80,7 @@ namespace PsychologyVR
 
         void InitializeSession(GameObject loadedRoom)
         {
+            if(!ConfigureServiceOverride())return;
             ConfigureHeadsetFreeStress();
             Application.runInBackground = true;
             NaturalSkin=PlayerPrefs.GetInt("NaturalSkin",1)==1;
@@ -121,7 +122,7 @@ namespace PsychologyVR
             controllerRay.sharedMaterial.SetColor("_EmissionColor",new Color(.3f,.9f,.8f));
             if (Microphone.devices.Length > 0) micDevice = Microphone.devices[0];
             string savedMic=PlayerPrefs.GetString("Microphone","");if(Array.IndexOf(Microphone.devices,savedMic)>=0)micDevice=savedMic;
-            bool diagnostic=Array.Exists(Environment.GetCommandLineArgs(),a=>a=="--integration-preview"||a=="--record-alex"||a=="--alex-preview"||a=="--environment-preview"||a=="--smoke-test"||a=="--visuals-preview"||a=="--performance-replay"||a=="--streaming-check"||a=="--headset-free-stress");
+            bool diagnostic=Array.Exists(Environment.GetCommandLineArgs(),a=>a=="--integration-preview"||a=="--record-alex"||a=="--alex-preview"||a=="--environment-preview"||a=="--smoke-test"||a=="--visuals-preview"||a=="--performance-replay"||a=="--streaming-check"||a=="--headset-free-stress"||a=="--student-name-check");
             bool metaCheck=Array.IndexOf(Environment.GetCommandLineArgs(),"--metahuman-check")>=0||Array.IndexOf(Environment.GetCommandLineArgs(),"--seated-idle-check")>=0;
             SetMenuOpen(!diagnostic&&!metaCheck);
             if(Array.IndexOf(Environment.GetCommandLineArgs(),"--menu-preview")>=0)StartCoroutine(MenuPreview.Run(this,menu,view,Capture));
@@ -136,6 +137,7 @@ namespace PsychologyVR
             if(Array.IndexOf(Environment.GetCommandLineArgs(),"--performance-replay")>=0) StartCoroutine(CheckPerformancePlayback());
             if(Array.IndexOf(Environment.GetCommandLineArgs(),"--streaming-check")>=0) StartCoroutine(CheckStreamingPlayback());
             if(Array.IndexOf(Environment.GetCommandLineArgs(),"--headset-free-stress")>=0) StartCoroutine(HeadsetFreeStress());
+            if(Array.IndexOf(Environment.GetCommandLineArgs(),"--student-name-check")>=0) StartCoroutine(CheckStudentNamePrompt());
         }
 
         IEnumerator Start()
@@ -301,6 +303,7 @@ namespace PsychologyVR
         IEnumerator ReleasePreviousAppearance(){yield return null;yield return Resources.UnloadUnusedAssets();}
         public void SetMenuOpen(bool open)
         {
+            if(!open&&NamePromptOpen){menu.CancelStudentName();return;}
             if(open && recording){Microphone.End(micDevice);recording=false;if(microphoneClip)Destroy(microphoneClip);Status="Recording discarded. Return to the room to speak.";}
             MenuOpen=open;paused=open;face?.PauseSpeech(open);performance?.PausePerformance(open);if(voice){if(open)voice.Pause();else voice.UnPause();}
             if(open)InputDevices.GetDeviceAtXRNode(XRNode.RightHand).TryGetFeatureValue(CommonUsages.triggerButton,out lastTrigger);
@@ -334,7 +337,7 @@ namespace PsychologyVR
         }
         IEnumerator Connect()
         {
-            if(IsSwitching)yield break;IsSwitching=true;CancelLocal();int token=version;Status="Connectingâ€¦";
+            if(IsSwitching)yield break;IsSwitching=true;CancelLocal();int token=version;Status="Connecting…";
             using(var request=UnityWebRequest.Get(serviceUrl+"/health"))
             {
                 request.timeout=5;yield return request.SendWebRequest();
@@ -352,22 +355,25 @@ namespace PsychologyVR
             }
             var selected=Catalog.Find(CurrentScenario.id)??Catalog.Find(Catalog.default_scenario_id);
             if(!string.IsNullOrEmpty(streamTurnId))yield return FinishStream(true);
-            Reply reply=null;yield return Post("/session",new RequestBody{scenario_id=selected.id},raw=>reply=JsonUtility.FromJson<Reply>(raw));
+            string connectionName=ConversationDiagnosticName??(string.IsNullOrEmpty(StudentName)?null:StudentName);
+            Reply reply=null;yield return Post("/session",new RequestBody{scenario_id=selected.id,student_name=connectionName},raw=>reply=JsonUtility.FromJson<Reply>(raw));
             if(token!=version){IsSwitching=false;yield break;}
             if(reply!=null)
             {
+                ClearSessionExportStatus();
                 sessionId=reply.session_id;sessionGeneration=reply.generation;bool sameCharacter=CurrentScenario.character_id==selected.character_id;CurrentScenario=selected;
-                Relationship=reply.relationship;
+                Relationship=reply.relationship;StudentName=reply.student_name??connectionName??"";
                 if(!sameCharacter&&HasAppearance(selected.avatar_id))SpawnCharacter(selected.avatar_id);
                 initialEmotion=reply.initial_emotion;initialIntensity=reply.initial_intensity;HasConversation=false;
                 performance?.Apply(initialEmotion,initialIntensity,"none");Status="Ready. Choose a character or return to the room to begin.";
             }
             else sessionId=null;
             IsSwitching=false;if(MenuOpen)menu.Render(menu.CurrentPage);
+            if(reply!=null)PromptForLaunchStudentName();
         }
         public void StartScenario(string id,string appearanceId)
         {
-            if(IsSwitching)return;
+            if(IsSwitching||NamePromptOpen)return;
             var entry=Catalog.Find(id);
             if(entry==null||!HasAppearance(appearanceId)){Status="This character's appearance is not installed.";return;}
             if(string.IsNullOrEmpty(sessionId))
@@ -378,19 +384,20 @@ namespace PsychologyVR
                 Status="Character preview. Reconnect in Settings to start a conversation.";
                 return;
             }
-            StartCoroutine(SwitchScenario(entry,appearanceId));
+            PromptForStudentName(entry,appearanceId,"",true);
         }
-        IEnumerator SwitchScenario(ScenarioEntry entry,string appearanceId)
+        IEnumerator SwitchScenario(ScenarioEntry entry,string appearanceId,string studentName,string firstText,bool opening)
         {
-            IsSwitching=true;CancelLocal();int token=version;Status="Preparing "+entry.character_name+"â€¦";
+            IsSwitching=true;CancelLocal();int token=version;Status="Preparing "+entry.character_name+"…";
             if(!string.IsNullOrEmpty(streamTurnId))yield return FinishStream(true);
-            Reply reply=null;yield return Post("/session",new RequestBody{scenario_id=entry.id,replace_session_id=sessionId},raw=>reply=JsonUtility.FromJson<Reply>(raw));
+            Reply reply=null;yield return Post("/session",new RequestBody{scenario_id=entry.id,replace_session_id=sessionId,student_name=studentName},raw=>reply=JsonUtility.FromJson<Reply>(raw));
             if(token!=version){IsSwitching=false;yield break;}
             if(reply==null){IsSwitching=false;yield break;}
+            ClearSessionExportStatus();
             sessionId=reply.session_id;sessionGeneration=reply.generation;CurrentScenario=entry;SpawnCharacter(appearanceId);performance.Apply(reply.initial_emotion,reply.initial_intensity,"none",true);
-            Relationship=reply.relationship;
+            Relationship=reply.relationship;StudentName=reply.student_name??studentName;
             initialEmotion=reply.initial_emotion;initialIntensity=reply.initial_intensity;HasConversation=false;
-            input="";IsSwitching=false;SetMenuOpen(false);Status="Ready.";Submit("",true);
+            input="";IsSwitching=false;SetMenuOpen(false);Status="Ready.";Submit(firstText,opening);
         }
 
         IEnumerator Post(string path, RequestBody body, Action<string> onSuccess, bool track=true,bool reportErrors=true)
@@ -409,6 +416,8 @@ namespace PsychologyVR
         public void Submit(string text, bool opening=false)
         {
             if(busy || paused || IsSwitching || SessionEnded || string.IsNullOrEmpty(sessionId)) return;
+            if(string.IsNullOrEmpty(StudentName)){PromptForStudentName(CurrentScenario,ActiveAppearance,text,opening);return;}
+            SessionExportStatus="";
             HasConversation=true;
             StartCoroutine(Turn(text,opening));
         }
@@ -416,7 +425,7 @@ namespace PsychologyVR
         IEnumerator Turn(string text, bool opening)
         {
             if(supportsStreaming){yield return StreamedTurn(text,opening);yield break;}
-            busy = true; int token = version; Status = CurrentScenario.character_name+" is preparing a replyâ€¦";
+            busy = true; int token = version; Status = CurrentScenario.character_name+" is preparing a reply…";
             Reply reply = null;
             yield return Post("/turn",new RequestBody{session_id=sessionId,text=text,opening=opening},raw=>reply=JsonUtility.FromJson<Reply>(raw));
             if(token != version) yield break;
@@ -497,7 +506,7 @@ namespace PsychologyVR
             yield return Post(reset?"/reset":"/interrupt",PlaybackRequest(),raw=>{success=true;var result=JsonUtility.FromJson<Reply>(raw);Relationship=result.relationship;sessionGeneration=result.generation;},false);
             if(token!=version) yield break;
             busy=false;
-            if(success) { streamTurnId=null;streamCompleted=0;streamPartialSeconds=0;Status=reset?"Session reset. Begin when ready.":SessionEnded?"The patient ended the session. Start a new conversation from the menu.":"Stopped."; if(reset){Relationship=null;performance?.Apply(initialEmotion,initialIntensity,"none");HasConversation=false;} }
+            if(success) { streamTurnId=null;streamCompleted=0;streamPartialSeconds=0;Status=reset?"Session reset. Begin when ready.":SessionEnded?"The patient ended the session. Start a new conversation from the menu.":"Stopped."; if(reset){ClearSessionExportStatus();Relationship=null;performance?.Apply(initialEmotion,initialIntensity,"none");HasConversation=false;} }
         }
 
         void StartRecording()
@@ -510,6 +519,7 @@ namespace PsychologyVR
                 Debug.Log("MIC_BLOCKED busy="+busy+" paused="+paused+" menu="+MenuOpen+" switching="+IsSwitching+" session="+!string.IsNullOrEmpty(sessionId));
                 return;
             }
+            if(string.IsNullOrEmpty(StudentName)){PromptForStudentName(CurrentScenario,ActiveAppearance,"",true);return;}
             if(string.IsNullOrEmpty(micDevice)) { Status="No microphone found."; return; }
             try { microphoneClip=Microphone.Start(micDevice,false,40,16000); }
             catch(Exception error) { Status="Microphone could not start. Check the input in Settings.";Debug.LogWarning("MIC_START_FAILED "+error.GetType().Name+" device="+micDevice);return; }
@@ -581,7 +591,7 @@ namespace PsychologyVR
             var keyboard=Keyboard.current;
             if(keyboard!=null)
             {
-                if(keyboard.spaceKey.wasPressedThisFrame && GUI.GetNameOfFocusedControl()!="ConversationInput") StartRecording();
+                if(!NamePromptOpen&&keyboard.spaceKey.wasPressedThisFrame && GUI.GetNameOfFocusedControl()!="ConversationInput") StartRecording();
                 if(keyboard.spaceKey.wasReleasedThisFrame) EndRecording();
                 if(keyboard.escapeKey.wasPressedThisFrame) SetMenuOpen(!MenuOpen);
             }
@@ -614,7 +624,7 @@ namespace PsychologyVR
             subtitleText.transform.rotation=Quaternion.LookRotation(subtitleText.transform.position-view.transform.position);
             if(inputStatusText)
             {
-                inputStatusText.text=MenuOpen||DesktopDisplayActive?"":Wrap(recording?"Listening Â· "+(microphonePeak>.001f?"signal detected":"no signal yet")+"\nRelease A when finished.":Status,64);
+                inputStatusText.text=MenuOpen||DesktopDisplayActive?"":Wrap(recording?"Listening · "+(microphonePeak>.001f?"signal detected":"no signal yet")+"\nRelease A when finished.":Status,64);
                 inputStatusText.color=recording?new Color(.65f,1,.7f):new Color(.82f,.9f,.86f);
                 inputStatusText.transform.rotation=Quaternion.LookRotation(inputStatusText.transform.position-view.transform.position);
             }
@@ -631,7 +641,7 @@ namespace PsychologyVR
         void OnGUI()
         {
             if(!menu||XRSettings.isDeviceActive||MenuOpen)return;
-            GUI.Label(new Rect(20,Screen.height-32,700,26),"Esc Â· Menu    Space Â· Hold to speak    Right mouse Â· Look");
+            GUI.Label(new Rect(20,Screen.height-32,700,26),"Esc · Menu    Space · Hold to speak    Right mouse · Look");
         }
         void OnDestroy()
         {

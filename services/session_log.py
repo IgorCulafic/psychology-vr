@@ -8,6 +8,7 @@ import json
 import os
 from pathlib import Path
 import threading
+import unicodedata
 import uuid
 
 
@@ -15,11 +16,33 @@ class SessionLogError(ValueError):
     pass
 
 
+def normalize_student_name(value):
+    """Keep identity metadata separate from character prompts and filesystem paths."""
+    if not isinstance(value, str):
+        raise ValueError('Student name must be text')
+    if any(unicodedata.category(char) in ('Cc', 'Cf', 'Cs') or char in '\u2028\u2029' for char in value):
+        raise ValueError('Student name must be a single line without control characters')
+    name = unicodedata.normalize('NFC', value.strip())
+    if len(name) > 80:
+        raise ValueError('Student name must be at most 80 characters')
+    return name
+
+
+def student_filename(name):
+    """Use a bounded, Windows-safe fragment while retaining Unicode in the journal."""
+    fragment = ''.join(char if char.isalnum() or char in '-_' else '-' for char in name)
+    # Windows limits filenames/paths in UTF-16 units, so supplementary Unicode
+    # letters count twice. Truncating only codepoints can still exceed the limit.
+    fragment = fragment.encode('utf-16-le')[:96].decode('utf-16-le',errors='ignore')
+    return fragment.strip('-_') or 'student'
+
+
 def readable(record):
     header=f"\n[{record['timestamp']}] {record['event']}"
     if record.get('request_id'):header+=' · '+record['request_id'][:8]
     if record['event']=='session_started':
-        return header+f"\n{record['character']} · {record['language']} · {record['source']}\n{record['playback_tracking']}\n"
+        student = '\nStudent name: '+record['student_name'] if record.get('student_name') else ''
+        return header+f"\n{record['character']} · {record['language']} · {record['source']}{student}\n{record['playback_tracking']}\n"
     if record['event']=='turn_started':
         return header+('\nOpening requested\n' if record['opening'] else '\nStudent: '+record['text']+'\n')
     if record['event']=='turn_completed':
@@ -42,15 +65,17 @@ def readable(record):
 
 
 class SessionLog:
-    def __init__(self, root, config, session_id, scenario_id, character):
+    def __init__(self, root, config, session_id, scenario_id, character, student_name=''):
+        student_name = normalize_student_name(student_name)
         now=datetime.now(timezone.utc)
         directory=Path(config.get('session_log_dir', 'logs/sessions'))
         if not directory.is_absolute(): directory=Path(root)/directory
         self.archive_id=uuid.uuid4().hex
         self.session_id=session_id
         self.lock=threading.Lock()
-        self.path=directory/now.strftime('%Y-%m-%d')/f'{now:%H%M%S}-{scenario_id}-{self.archive_id}.jsonl'
-        self.append('session_started', scenario_id=scenario_id, character=character,
+        name_fragment = '-'+student_filename(student_name) if student_name else ''
+        self.path=directory/now.strftime('%Y-%m-%d')/f'{now:%H%M%S}-{scenario_id}{name_fragment}-{self.archive_id}.jsonl'
+        self.append('session_started', scenario_id=scenario_id, character=character, student_name=student_name,
                     language=config.get('conversation_language','en'),
                     source=config.get('session_source','vr_bridge'),
                     dialogue_provider=config.get('dialogue_provider'),

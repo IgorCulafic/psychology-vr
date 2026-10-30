@@ -36,6 +36,11 @@ def gpu_properties():
 
 def selected_manifest(manifest,config):
     selected=copy.deepcopy(manifest)
+    runtime_profile=config.get('llm_runtime_profile')
+    if runtime_profile:
+        runtime=selected.get('runtime_profiles',{}).get(runtime_profile)
+        if not isinstance(runtime,list):raise RuntimeError('Unknown dialogue runtime profile in configuration.')
+        selected['runtimes']=[r for r in selected['runtimes'] if r['destination']!='.tools/llama']+copy.deepcopy(runtime)
     model_path=config.get('llm_model_path',HARDWARE_PRESETS['quality']['llm_model_path'])
     if config.get('dialogue_model'):
         catalog=json.loads((ROOT/'services/dialogue-models.json').read_text(encoding='utf-8'))['models']
@@ -47,6 +52,26 @@ def selected_manifest(manifest,config):
     for variant in [model,*selected.get('dialogue_variants',[])]:
         if any(model_path==variant['destination']+'/'+f['name'] for f in variant['files']):
             selected['models'][0]=copy.deepcopy(variant)
+            if config.get('llm_mtp') is False:
+                selected['models'][0]['files']=[f for f in selected['models'][0]['files'] if not f['name'].startswith('mtp-')]
+            # Install only the speech and transcription engines used by this profile.
+            speech=config.get('tts_provider','higgs')
+            if speech!='higgs':
+                selected['models']=[m for m in selected['models'] if not m['destination'].startswith('.cache/higgs')]
+            if speech=='kokoro':
+                voice=next((m for m in selected.get('auxiliary_models',[]) if m['destination']=='.cache/kokoro'),None)
+                if voice is None:raise RuntimeError('Kokoro downloads are missing from the setup manifest.')
+                selected['models'].append(copy.deepcopy(voice))
+            transcription=config.get('stt_provider','faster-whisper')
+            stt_path=config.get('stt_model','.cache/whisper/large-v3-turbo')
+            selected['models']=[m for m in selected['models'] if not m['destination'].startswith('.cache/whisper/') or
+                                (transcription=='faster-whisper' and m['destination']==stt_path)]
+            if transcription=='faster-whisper' and not any(m['destination']==stt_path for m in selected['models']):
+                transcriber=next((m for m in selected.get('auxiliary_models',[]) if m['destination']==stt_path),None)
+                if transcriber is None:raise RuntimeError('Configured transcription model is not in the download manifest.')
+                selected['models'].append(copy.deepcopy(transcriber))
+            if config.get('lip_sync_provider','rhubarb')!='rhubarb':
+                selected['runtimes']=[r for r in selected['runtimes'] if 'Rhubarb' not in r['name']]
             return selected
     raise RuntimeError('Configured dialogue model is not in the download manifest. Select a supported preset in PC Settings.cmd.')
 
@@ -96,11 +121,6 @@ def validate_files(manifest,full=False):
 
 def configure(preset=None,model=None):
     config_path=ROOT/'services/config.local.json'
-    defaults=json.loads((ROOT/'services/config.expressive.example.json').read_text(encoding='utf-8-sig'))
-    portable_paths=dict(bridge_python='.tools/portable-env/Scripts/python.exe',
-                        higgs_python='.tools/portable-env/Scripts/python.exe',
-                        higgs_reference='voices/reference.wav')
-    defaults.update(portable_paths)
     original=config_path.read_bytes() if config_path.exists() else None
     try:
         existing=json.loads(original.decode('utf-8-sig')) if original is not None else {}
@@ -108,17 +128,28 @@ def configure(preset=None,model=None):
         raise RuntimeError('services/config.local.json is not valid JSON. Correct it or rename it to keep a backup, then rerun Setup.cmd.') from error
     if not isinstance(existing,dict):
         raise RuntimeError('services/config.local.json must contain a JSON object. Rename it to keep a backup, then rerun Setup.cmd.')
+    profile=existing.get('hardware_profile','rtx3080')
+    if profile not in ('rtx3080','rtx4090'):profile='rtx3080'
+    defaults_path=ROOT/f'services/config.{profile}.json'
+    if not defaults_path.exists():defaults_path=ROOT/'services/config.rtx4090.example.json'
+    if not defaults_path.exists():defaults_path=ROOT/'services/config.expressive.example.json'
+    defaults=json.loads(defaults_path.read_text(encoding='utf-8-sig'))
+    portable_paths=dict(bridge_python='.tools/portable-env/Scripts/python.exe')
+    if existing.get('tts_provider',defaults.get('tts_provider','higgs'))=='higgs':
+        portable_paths.update(higgs_python='.tools/portable-env/Scripts/python.exe',higgs_reference='voices/reference.wav')
+    defaults.update(portable_paths)
     # Older/source configurations may lack speech or portable-runtime settings.
     # Fill missing fields while retaining explicit provider/voice/user choices.
     config={**defaults,**existing}
     for key,value in portable_paths.items():
         if config[key] is None or (isinstance(config[key],str) and not config[key].strip()):config[key]=value
         if not isinstance(config[key],str):raise RuntimeError(f'{key} in services/config.local.json must be a file path.')
-    reference=ROOT/config['higgs_reference']
-    if not reference.is_file() or not reference.with_suffix('.json').is_file():
-        raise RuntimeError('Voice reference missing. Place reference.wav and reference.json in voices/ (see START HERE.md).')
-    transcript=json.loads(reference.with_suffix('.json').read_text(encoding='utf-8-sig')).get('text')
-    if not isinstance(transcript,str) or not transcript.strip():raise RuntimeError('Voice transcript is empty.')
+    if config.get('tts_provider','higgs')=='higgs':
+        reference=ROOT/config['higgs_reference']
+        if not reference.is_file() or not reference.with_suffix('.json').is_file():
+            raise RuntimeError('Voice reference missing. Place reference.wav and reference.json in voices/ (see START HERE.md).')
+        transcript=json.loads(reference.with_suffix('.json').read_text(encoding='utf-8-sig')).get('text')
+        if not isinstance(transcript,str) or not transcript.strip():raise RuntimeError('Voice transcript is empty.')
     if preset is not None:
         config['hardware_preset']=preset
         config['dialogue_model']='' # Explicit legacy hardware preset selects its own quant.
@@ -133,8 +164,10 @@ def configure(preset=None,model=None):
         catalog=json.loads((ROOT/'services/dialogue-models.json').read_text(encoding='utf-8'))['models']
         choice=next((m for m in catalog if m['id']==config['dialogue_model']),None)
         if choice is None:raise RuntimeError('Unknown dialogue_model in configuration.')
-        config.update(llm_model_path=choice['model_path'],llm_gpu_layers=choice['gpu_layers'])
-        print(f"Dialogue selection: {choice['label']} ({choice['gpu_layers']} GPU layers); speech quality unchanged.",flush=True)
+        config['llm_model_path']=choice['model_path']
+        if model is not None or 'llm_gpu_layers' not in config:
+            config['llm_gpu_layers']=choice['gpu_layers']
+        print(f"Dialogue selection: {choice['label']} ({config['llm_gpu_layers']} GPU layers); speech precision unchanged.",flush=True)
     if original is None or config!=existing:
         if original is not None:
             backup=ROOT/'services/.runtime/config-backups'/f'config-{time.time_ns()}.json'
@@ -149,28 +182,43 @@ def configure(preset=None,model=None):
 
 def doctor(check_runtime=True):
     import torch
-    import torchaudio
-    import transformers
-    import soundfile
-    import faster_whisper
     config=json.loads((ROOT/'services/config.local.json').read_text(encoding='utf-8-sig'))
-    if soundfile.info(ROOT/config['higgs_reference']).duration<3:raise RuntimeError('Voice reference is too short.')
-    if not torch.cuda.is_available():raise RuntimeError('An NVIDIA GPU and current NVIDIA driver are required for this BF16 release.')
-    if not torch.cuda.is_bf16_supported():raise RuntimeError('This GPU does not support the selected BF16 voice.')
+    speech=config.get('tts_provider','higgs')
+    if config.get('stt_provider')=='faster-whisper':
+        import faster_whisper
+    if not torch.cuda.is_available():raise RuntimeError('An NVIDIA GPU and current NVIDIA driver are required.')
     properties=torch.cuda.get_device_properties(0)
-    print(f'GPU: {properties.name}, {properties.total_memory/1024**3:.1f} GB; speech: BF16',flush=True)
-    if properties.total_memory<23*1024**3:raise RuntimeError('This full local-model preset requires an NVIDIA GPU with at least 24 GB VRAM.')
+    if speech=='higgs':
+        import torchaudio
+        import transformers
+        import soundfile
+        if soundfile.info(ROOT/config['higgs_reference']).duration<3:raise RuntimeError('Voice reference is too short.')
+        precision=config.get('higgs_quantization','bf16')
+        if precision=='bf16' and not torch.cuda.is_bf16_supported():raise RuntimeError('This GPU does not support the selected BF16 voice.')
+        if precision in ('int8','nf4'):
+            import bitsandbytes
+        if properties.total_memory<23*1024**3:raise RuntimeError('The cloned-voice profile requires an NVIDIA GPU with at least 24 GB VRAM. Choose the RTX 3080 profile in Hardware Profiles.cmd on this PC.')
+        speech+=' '+precision
+    elif speech=='kokoro':
+        import kokoro_onnx
+        if properties.total_memory<9*1024**3:raise RuntimeError('The RTX 3080 profile requires an NVIDIA GPU with at least 10 GB VRAM.')
+        for name in ('kokoro-v1.0.onnx','voices-v1.0.bin'):
+            if not (ROOT/'.cache/kokoro'/name).is_file():raise RuntimeError('Kokoro voice files are missing; run Setup.cmd.')
+    print(f'GPU: {properties.name}, {properties.total_memory/1024**3:.1f} GB; speech: {speech}',flush=True)
     if not (ROOT/'unity/Builds/Windows/AlexPrototype.exe').is_file():
         raise RuntimeError('Built game missing. Download the Windows release ZIP, not GitHub Source code.zip.')
     if check_runtime:
-        subprocess.run([str(ROOT/'.tools/llama/llama-server.exe'),'--version'],check=True,timeout=30,
+        catalog=json.loads((ROOT/'services/dialogue-models.json').read_text(encoding='utf-8'))['models']
+        selected=next((m for m in catalog if m['id']==config.get('dialogue_model')),None)
+        server=selected['server_path'] if selected else '.tools/llama/llama-server.exe'
+        subprocess.run([str(ROOT/server),'--version'],check=True,timeout=30,
                        stdout=subprocess.DEVNULL,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
 
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--check',action='store_true')
     parser.add_argument('--preset',choices=['auto',*HARDWARE_PRESETS])
-    parser.add_argument('--model',choices=['bonsai','gemma','qwen'],help='Install/select an in-game dialogue model; keeps speech quality unchanged')
+    parser.add_argument('--model',choices=['bonsai','gemma','gemma-q8','qwen','qwen7b','qwen9b'],help='Install/select an in-game dialogue model; keeps speech precision unchanged')
     parser.add_argument('--configure-only',action='store_true',help='Resolve GPU settings without downloading or starting services')
     parser.add_argument('--verify-files',action='store_true',help='Check model hashes without loading libraries')
     args=parser.parse_args();manifest=json.loads((ROOT/'services/portable-manifest.json').read_text(encoding='utf-8'))
@@ -180,8 +228,10 @@ def main():
     if args.verify_files:validate_files(manifest,True);print('MODEL_CHECKSUMS_OK');return
     if not args.check:
         doctor(False)
-        if shutil.disk_usage(ROOT).free<45*1024**3 and not all(contained(ROOT,m['destination']+'/'+m['files'][0]['name']).exists() for m in manifest['models']):
-            raise RuntimeError('Allow at least 45 GB free disk space for the local AI setup.')
+        missing_bytes=sum(entry['bytes'] for model in manifest['models'] for entry in model['files']
+                          if not contained(ROOT,model['destination']+'/'+entry['name']).is_file())
+        if shutil.disk_usage(ROOT).free<missing_bytes+2*1024**3:
+            raise RuntimeError('Not enough free disk space for the selected profile downloads; allow the missing models plus 2 GB.')
         hf=Path(sys.executable).with_name('hf.exe')
         for model in manifest['models']:
             print('Preparing '+model['repo'],flush=True)
@@ -191,6 +241,16 @@ def main():
                 path=contained(ROOT,model['destination']+'/'+entry['name'])
                 if not path.exists():missing.append(entry['name'])
                 elif path.stat().st_size!=entry['bytes'] or digest(path)!=entry['sha256']:damaged.append(entry['name'])
+            direct=[entry for entry in model['files'] if entry.get('url') and entry['name'] in missing+damaged]
+            for entry in direct:
+                path=contained(ROOT,model['destination']+'/'+entry['name']);path.parent.mkdir(parents=True,exist_ok=True)
+                temporary=path.with_suffix('.download');urllib.request.urlretrieve(entry['url'],temporary)
+                if temporary.stat().st_size!=entry['bytes'] or digest(temporary)!=entry['sha256']:
+                    raise RuntimeError('Model checksum mismatch: '+entry['name'])
+                temporary.replace(path)
+            direct_names={entry['name'] for entry in direct}
+            missing=[name for name in missing if name not in direct_names]
+            damaged=[name for name in damaged if name not in direct_names]
             for names,force in [(missing,False),(damaged,True)]:
                 if names:
                     subprocess.run([str(hf),'download',model['repo'],*names,'--revision',model['revision'],

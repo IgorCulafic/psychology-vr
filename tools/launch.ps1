@@ -1,4 +1,4 @@
-param([switch]$Desktop, [switch]$Scripted, [switch]$NoGame, [switch]$ModelOnly, [string]$Config='services/config.local.json')
+param([switch]$Desktop, [switch]$Scripted, [switch]$NoGame, [switch]$ModelOnly, [string]$Config='services/config.local.json', [string]$GamePath)
 $ErrorActionPreference = 'Stop'
 $taskRoot = Split-Path $PSScriptRoot -Parent
 Set-Location -LiteralPath $taskRoot
@@ -14,7 +14,7 @@ if ($taskSettings.dialogue_model) {
     $taskCatalog = Get-Content (Join-Path $taskRoot 'services/dialogue-models.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     $taskSelectedModel = $taskCatalog.models | Where-Object id -eq $taskSettings.dialogue_model
     if (!$taskSelectedModel) { throw 'Unknown dialogue model setting.' }
-    $taskGpuLayers = [string]$taskSelectedModel.gpu_layers
+    if ($null -eq $taskSettings.llm_gpu_layers) { $taskGpuLayers = [string]$taskSelectedModel.gpu_layers }
 }
 function Get-Health([string]$Url) {
     try { return Invoke-RestMethod -Uri $Url -TimeoutSec 2 } catch { return $null }
@@ -29,6 +29,9 @@ function Wait-Health([string]$Url, [int]$Seconds) {
     throw "Service did not become ready: $Url. Check services/.runtime logs."
 }
 if (-not $Scripted) {
+    $taskLaunch = & $taskPython (Join-Path $taskRoot 'services/inference_runtime.py') $taskConfig | ConvertFrom-Json
+    if ($LASTEXITCODE -ne 0) { throw 'Invalid dialogue launch settings.' }
+    $taskArgumentKey = ($taskLaunch.arguments | ConvertTo-Json -Compress)
     $taskModel = Join-Path $taskRoot $(if($taskSelectedModel){$taskSelectedModel.model_path}elseif($taskSettings.llm_model_path){$taskSettings.llm_model_path}else{'.cache/models/qwen/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-IQ4_XS.gguf'})
     $taskModelRecord=Join-Path $taskRuntime 'model-process.json'
     if((Get-Health 'http://127.0.0.1:8087/health') -and !(Test-Path -LiteralPath $taskModelRecord)) {
@@ -38,25 +41,27 @@ if (-not $Scripted) {
         $taskRunning=Get-Content -LiteralPath $taskModelRecord -Raw | ConvertFrom-Json
         if(($taskRunning.ModelPath -and $taskRunning.ModelPath -ne $taskModel) -or
            ($null -ne $taskRunning.GpuLayers -and [string]$taskRunning.GpuLayers -ne $taskGpuLayers) -or
-           (!$taskRunning.ModelPath)) {
+           (!$taskRunning.ModelPath) -or $taskRunning.Arguments -ne $taskArgumentKey) {
             throw 'The running dialogue service uses older/different GPU settings. Close the game and run Stop Services.cmd, then start again.'
         }
     }
     if (-not (Get-Health 'http://127.0.0.1:8087/health')) {
         $taskServer = Join-Path $taskRoot $(if($taskSelectedModel){$taskSelectedModel.server_path}else{'.tools/llama/llama-server.exe'})
         if (-not (Test-Path -LiteralPath $taskServer) -or -not (Test-Path -LiteralPath $taskModel)) { throw 'Model/runtime missing. See README.md.' }
-        $taskArguments = @('--model', ('"'+$taskModel+'"'), '--alias','alex-qwen','--host','127.0.0.1','--port','8087',
-            '--ctx-size','4096','--parallel','1','--n-gpu-layers',$taskGpuLayers,'--batch-size','256','--ubatch-size','128',
-            '--jinja','--reasoning','off','--spec-type','none')
+        $taskArguments = @($taskLaunch.arguments | ForEach-Object { if ($_ -match '\s') { '"'+$_+'"' } else { $_ } })
         $taskProcess = Start-Process -FilePath $taskServer -ArgumentList $taskArguments -WorkingDirectory $taskRoot -WindowStyle Hidden -PassThru `
             -RedirectStandardOutput (Join-Path $taskRuntime 'model.out.log') -RedirectStandardError (Join-Path $taskRuntime 'model.err.log')
-        @{Id=$taskProcess.Id; Path=$taskServer; StartTicks=$taskProcess.StartTime.ToUniversalTime().Ticks; ModelPath=$taskModel; GpuLayers=$taskGpuLayers} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $taskRuntime 'model-process.json')
+        @{Id=$taskProcess.Id; Path=$taskServer; StartTicks=$taskProcess.StartTime.ToUniversalTime().Ticks; ModelPath=$taskModel; GpuLayers=$taskGpuLayers; Arguments=$taskArgumentKey} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $taskRuntime 'model-process.json')
         Write-Host "Loading dialogue model: $(if($taskSelectedModel){$taskSelectedModel.label}else{[IO.Path]::GetFileName($taskModel)})..."
         Wait-Health 'http://127.0.0.1:8087/health' 120 | Out-Null
     }
 }
 if ($ModelOnly) { Write-Host 'Local dialogue model is ready.'; return }
-if ($taskSettings.tts_provider -eq 'higgs' -and -not (Get-Health 'http://127.0.0.1:8766/health')) {
+$taskSpeechHealth = Get-Health 'http://127.0.0.1:8766/health'
+if ($taskSettings.tts_provider -eq 'higgs' -and $taskSpeechHealth -and $taskSpeechHealth.config_signature -ne $taskLaunch.config_signature) {
+    throw 'A speech worker with different settings is running. Close the game and run Stop Services.cmd.'
+}
+if ($taskSettings.tts_provider -eq 'higgs' -and -not $taskSpeechHealth) {
     $taskSpeechPython = Join-Path $taskRoot $(if($taskSettings.higgs_python){$taskSettings.higgs_python}else{'.tools/alternative-tts-venv/Scripts/python.exe'})
     if (-not (Test-Path -LiteralPath $taskSpeechPython)) { throw 'Higgs environment missing. See docs/LIVE_EXPRESSIVE_SPEECH.md.' }
     $taskProcess = Start-Process -FilePath $taskSpeechPython -ArgumentList 'services/higgs_service.py','--config',('"'+$taskConfig+'"') `
@@ -64,11 +69,12 @@ if ($taskSettings.tts_provider -eq 'higgs' -and -not (Get-Health 'http://127.0.0
         -RedirectStandardOutput (Join-Path $taskRuntime 'higgs.out.log') -RedirectStandardError (Join-Path $taskRuntime 'higgs.err.log')
     @{Id=$taskProcess.Id; Path=$taskSpeechPython; StartTicks=$taskProcess.StartTime.ToUniversalTime().Ticks} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $taskRuntime 'speech-process.json')
     Write-Host 'Loading expressive voice...'
-    Wait-Health 'http://127.0.0.1:8766/health' 180 | Out-Null
+    Wait-Health 'http://127.0.0.1:8766/health' 600 | Out-Null
 }
 $expectedProvider = if ($Scripted) {'scripted'} else {'llama.cpp'}
 $taskBridgeHealth = Get-Health 'http://127.0.0.1:8765/health'
 if ($taskBridgeHealth -and ($taskBridgeHealth.dialogue_provider -ne $expectedProvider -or
+    (-not $Scripted -and $taskBridgeHealth.config_signature -ne $taskLaunch.config_signature) -or
     $taskBridgeHealth.tts_provider -ne $taskSettings.tts_provider -or
     $taskBridgeHealth.stt_provider -ne $taskSettings.stt_provider -or
     $taskBridgeHealth.stt_model -ne $taskSettings.stt_model -or
@@ -82,14 +88,16 @@ if (-not $taskBridgeHealth) {
         -WorkingDirectory $taskRoot -WindowStyle Hidden -PassThru `
         -RedirectStandardOutput (Join-Path $taskRuntime 'bridge.out.log') -RedirectStandardError (Join-Path $taskRuntime 'bridge.err.log')
     @{Id=$taskProcess.Id; Path=$taskPython; StartTicks=$taskProcess.StartTime.ToUniversalTime().Ticks} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $taskRuntime 'bridge-process.json')
-    Wait-Health 'http://127.0.0.1:8765/health' 20 | Out-Null
+    Wait-Health 'http://127.0.0.1:8765/health' 120 | Out-Null
 }
 if (-not $NoGame) {
-    $taskGame = Join-Path $taskRoot 'unity/Builds/Windows/AlexPrototype.exe'
+    $taskGame = if ($GamePath) { [IO.Path]::GetFullPath($GamePath) } else { Join-Path $taskRoot 'unity/Builds/Windows/AlexPrototype.exe' }
     if (-not (Test-Path -LiteralPath $taskGame)) { throw 'Build the Windows prototype from the Psychology VR menu in Unity first.' }
     $taskGameArguments = @('-logFile', ('"'+(Join-Path $taskRuntime 'player.log')+'"'))
     if ($Desktop) { $taskGameArguments += '--desktop' }
     # The game is the interactive application the user is explicitly launching.
-    Start-Process -FilePath $taskGame -ArgumentList $taskGameArguments -WorkingDirectory $taskRoot
+    $taskExistingGame = @(Get-Process -Name ([IO.Path]::GetFileNameWithoutExtension($taskGame)) -ErrorAction SilentlyContinue | Where-Object { $_.Path -eq $taskGame })
+    if ($taskExistingGame.Count) { Write-Host 'The game application is already running.' }
+    else { Start-Process -FilePath $taskGame -ArgumentList $taskGameArguments -WorkingDirectory $taskRoot }
 }
 Write-Host 'Alex prototype services are ready. Use tools/stop-services.ps1 after playing to free GPU memory.'

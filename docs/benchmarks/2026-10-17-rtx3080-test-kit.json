@@ -1,0 +1,410 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-17",
+  "synthetic_test_data": true,
+  "tested_hardware": {
+    "cpu": "i9-14900K",
+    "ram_gib": 31.77,
+    "gpu": "RTX 3080 10 GB",
+    "vram_mib": 10240,
+    "driver": "617.14"
+  },
+  "audible_14s_verified": false,
+  "rtx3080_12gb_measured": false,
+  "automated_tests": {
+    "count": 204,
+    "result": "passed"
+  },
+  "quick_test_status": "completed",
+  "dialogue": {
+    "count": 4,
+    "median_seconds": 3.777,
+    "p90_seconds": 3.975,
+    "max_seconds": 4.019,
+    "cold_seconds": 3.873,
+    "warm": {
+      "count": 3,
+      "median_seconds": 3.681,
+      "p90_seconds": 3.951,
+      "max_seconds": 4.019
+    },
+    "includes_speech": false,
+    "includes_stt": false,
+    "includes_playback": false
+  },
+  "voice": {
+    "count": 8,
+    "median_seconds": 4.543,
+    "p90_seconds": 7.679,
+    "max_seconds": 8.288,
+    "warm": {
+      "count": 4,
+      "median_seconds": 4.233,
+      "p90_seconds": 4.559,
+      "max_seconds": 4.583
+    },
+    "load_seconds": 14.009,
+    "precision": "bf16",
+    "sentence_streaming": true,
+    "fast_decode": true,
+    "includes_llm": false,
+    "includes_playback": false,
+    "samples": [
+      {
+        "scenario": "alex-earthquake",
+        "emotion": "anxious",
+        "text": "Još osjećam strah. Teško mi je da govorim o tome.",
+        "repeat": 0,
+        "first_reference_use": true,
+        "seconds": 8.288,
+        "audio_seconds": 3.72,
+        "real_time_factor": 2.228,
+        "sha256": "88c790bb5acd0cad5c89730292a14d90c4de32099f3677f2bc21c4bd8077467b",
+        "peak_allocated_mib": 9466,
+        "peak_reserved_mib": 9708
+      },
+      {
+        "scenario": "ivan-work-exhaustion",
+        "emotion": "angry",
+        "text": "Stalno traže više od mene. Umoran sam od svega.",
+        "repeat": 0,
+        "first_reference_use": true,
+        "seconds": 3.387,
+        "audio_seconds": 3.36,
+        "real_time_factor": 1.008,
+        "sha256": "669eb9e94fca9d8bde9faa8fe305929b19afa54b86c5d7111eb0416ab096c4f8",
+        "peak_allocated_mib": 9086,
+        "peak_reserved_mib": 9206
+      },
+      {
+        "scenario": "stefan-fire-witness",
+        "emotion": "sad",
+        "text": "Ne znam kako da objasnim taj osjećaj. Sve mi se vraća.",
+        "repeat": 0,
+        "first_reference_use": true,
+        "seconds": 6.913,
+        "audio_seconds": 4.48,
+        "real_time_factor": 1.543,
+        "sha256": "a1894654850397ff47accb6e2d450d0d5abf1a7b99084f6c4d854ce9b79f438a",
+        "peak_allocated_mib": 9305,
+        "peak_reserved_mib": 9550
+      },
+      {
+        "scenario": "nikola-bereavement",
+        "emotion": "sad",
+        "text": "Nedostaje mi svaki dan. Ponekad samo želim da budem sam.",
+        "repeat": 0,
+        "first_reference_use": true,
+        "seconds": 7.418,
+        "audio_seconds": 4.56,
+        "real_time_factor": 1.627,
+        "sha256": "30af7374a283af05c8d276a2b0cea79c183827d727c6439986ece6b7815cb31f",
+        "peak_allocated_mib": 9324,
+        "peak_reserved_mib": 9564
+      },
+      {
+        "scenario": "alex-earthquake",
+        "emotion": "anxious",
+        "text": "Još osjećam strah. Teško mi je da govorim o tome.",
+        "repeat": 1,
+        "first_reference_use": false,
+        "seconds": 3.963,
+        "audio_seconds": 3.72,
+        "real_time_factor": 1.065,
+        "sha256": "88c790bb5acd0cad5c89730292a14d90c4de32099f3677f2bc21c4bd8077467b",
+        "peak_allocated_mib": 9008,
+        "peak_reserved_mib": 9064
+      },
+      {
+        "scenario": "ivan-work-exhaustion",
+        "emotion": "angry",
+        "text": "Stalno traže više od mene. Umoran sam od svega.",
+        "repeat": 1,
+        "first_reference_use": false,
+        "seconds": 3.469,
+        "audio_seconds": 3.36,
+        "real_time_factor": 1.032,
+        "sha256": "669eb9e94fca9d8bde9faa8fe305929b19afa54b86c5d7111eb0416ab096c4f8",
+        "peak_allocated_mib": 8809,
+        "peak_reserved_mib": 8842
+      },
+      {
+        "scenario": "stefan-fire-witness",
+        "emotion": "sad",
+        "text": "Ne znam kako da objasnim taj osjećaj. Sve mi se vraća.",
+        "repeat": 1,
+        "first_reference_use": false,
+        "seconds": 4.503,
+        "audio_seconds": 4.48,
+        "real_time_factor": 1.005,
+        "sha256": "a1894654850397ff47accb6e2d450d0d5abf1a7b99084f6c4d854ce9b79f438a",
+        "peak_allocated_mib": 8932,
+        "peak_reserved_mib": 9012
+      },
+      {
+        "scenario": "nikola-bereavement",
+        "emotion": "sad",
+        "text": "Nedostaje mi svaki dan. Ponekad samo želim da budem sam.",
+        "repeat": 1,
+        "first_reference_use": false,
+        "seconds": 4.583,
+        "audio_seconds": 4.56,
+        "real_time_factor": 1.005,
+        "sha256": "30af7374a283af05c8d276a2b0cea79c183827d727c6439986ece6b7815cb31f",
+        "peak_allocated_mib": 8941,
+        "peak_reserved_mib": 9020
+      }
+    ]
+  },
+  "stt": {
+    "model": ".cache/whisper/large-v3-turbo",
+    "device": "cpu",
+    "compute_type": "int8",
+    "expected": "Smeta mi kad odlučite šta osjećam prije nego što me saslušate. Pustite me da završim.",
+    "samples": [
+      {
+        "repeat": 0,
+        "beam": 5,
+        "transcript": "Smeta mi kad odlučite šta osjećam prije nego što me saslušate. Pustite me da završim.",
+        "seconds": 3.332
+      },
+      {
+        "repeat": 0,
+        "beam": 1,
+        "transcript": "Smeta mi kad odlučite šta osjećam prije nego što me saslušate. Pustite me da završim.",
+        "seconds": 3.031
+      },
+      {
+        "repeat": 1,
+        "beam": 1,
+        "transcript": "Smeta mi kad odlučite šta osjećam prije nego što me saslušate. Pustite me da završim.",
+        "seconds": 3.052
+      },
+      {
+        "repeat": 1,
+        "beam": 5,
+        "transcript": "Smeta mi kad odlučite šta osjećam prije nego što me saslušate. Pustite me da završim.",
+        "seconds": 3.27
+      }
+    ],
+    "by_beam": {
+      "1": {
+        "count": 2,
+        "median_seconds": 3.042,
+        "p90_seconds": 3.05,
+        "max_seconds": 3.052
+      },
+      "5": {
+        "count": 2,
+        "median_seconds": 3.301,
+        "p90_seconds": 3.326,
+        "max_seconds": 3.332
+      }
+    },
+    "fixture_only": true,
+    "includes_microphone": false
+  },
+  "dialogue_tuning": [
+    {
+      "name": "qat-baseline",
+      "status": "completed",
+      "count": 4,
+      "median_seconds": 3.637,
+      "p90_seconds": 3.875,
+      "max_seconds": 3.933,
+      "cold_seconds": 3.741,
+      "warm": {
+        "count": 3,
+        "median_seconds": 3.533,
+        "p90_seconds": 3.853,
+        "max_seconds": 3.933
+      }
+    },
+    {
+      "name": "batch-128",
+      "status": "completed",
+      "count": 4,
+      "median_seconds": 3.938,
+      "p90_seconds": 4.612,
+      "max_seconds": 4.873,
+      "cold_seconds": 4.873,
+      "warm": {
+        "count": 3,
+        "median_seconds": 3.871,
+        "p90_seconds": 3.977,
+        "max_seconds": 4.004
+      }
+    },
+    {
+      "name": "threads-4",
+      "status": "completed",
+      "count": 4,
+      "median_seconds": 3.621,
+      "p90_seconds": 3.8,
+      "max_seconds": 3.805,
+      "cold_seconds": 3.787,
+      "warm": {
+        "count": 3,
+        "median_seconds": 3.455,
+        "p90_seconds": 3.735,
+        "max_seconds": 3.805
+      }
+    }
+  ],
+  "configuration_unchanged": true,
+  "ports_after_tests": {
+    "quick": [],
+    "tuning": [],
+    "combined-nf4": []
+  },
+  "limitations": [
+    "Isolated stage times are not additive predictions of combined performance.",
+    "Four dialogue requests and short voice fixtures are screening tests, not stability certification.",
+    "Combined default WAV is a patient statement; use a therapist question for conversational quality testing.",
+    "Neither actual speaker playback nor microphone endpointing was measured.",
+    "NF4 voice precision is experimental and requires fresh native/speaker approval."
+  ],
+  "combined_nf4": {
+    "status": "failed",
+    "reason": "RuntimeError: Test worker exited 1; inspect worker.log and any partial report",
+    "settings": {
+      "dialogue_model": "gemma",
+      "llm_gpu_layers": 16,
+      "conversation_language": "cnr",
+      "higgs_quantization": "nf4",
+      "higgs_fast_decode": true,
+      "higgs_sentence_streaming": true,
+      "higgs_release_unused_vram": true,
+      "speech_cache_enabled": false,
+      "recorded_speech_enabled": false,
+      "lip_sync_provider": "rhubarb",
+      "stt_device": "cpu",
+      "stt_model": ".cache/whisper/large-v3-turbo",
+      "stt_beam_size": 1,
+      "llm_ordinary_word_limit": 18
+    },
+    "completed": false,
+    "samples": [
+      {
+        "scenario": "alex-earthquake",
+        "sample_index": 0,
+        "cold_sample": true,
+        "first_prepared_seconds": 31.955,
+        "complete_preparation_seconds": 36.372,
+        "stt_seconds": 3.036,
+        "inference": [
+          {
+            "stage": "appraisal",
+            "seconds": 6.1985,
+            "started_unix": 1792246283.442,
+            "usage": {
+              "completion_tokens": 28,
+              "prompt_tokens": 995,
+              "total_tokens": 1023,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              }
+            },
+            "timings": {
+              "cache_n": 0,
+              "prompt_n": 995,
+              "prompt_ms": 3865.355,
+              "prompt_per_token_ms": 3.884778894472362,
+              "prompt_per_second": 257.4149075570032,
+              "predicted_n": 28,
+              "predicted_ms": 2328.986,
+              "predicted_per_token_ms": 86.25874074074073,
+              "predicted_per_second": 11.59302803881174
+            }
+          },
+          {
+            "stage": "dialogue",
+            "seconds": 18.025,
+            "started_unix": 1792246289.674,
+            "usage": {
+              "completion_tokens": 102,
+              "prompt_tokens": 2594,
+              "total_tokens": 2696,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              }
+            },
+            "timings": {
+              "cache_n": 0,
+              "prompt_n": 2594,
+              "prompt_ms": 8550.188,
+              "prompt_per_token_ms": 3.29614032382421,
+              "prompt_per_second": 303.3851419407386,
+              "predicted_n": 102,
+              "predicted_ms": 9343.855,
+              "predicted_per_token_ms": 92.51341584158415,
+              "predicted_per_second": 10.809243080077763
+            }
+          }
+        ],
+        "segment_schedule": [
+          {
+            "index": 0,
+            "ready_seconds": 28.915,
+            "predicted_start_seconds": 28.915,
+            "duration_seconds": 2.88,
+            "extra_preparation_wait_seconds": 0.0,
+            "speech_preparation_ms": 4033,
+            "alignment_preparation_ms": 583,
+            "speech_source": "generated"
+          },
+          {
+            "index": 1,
+            "ready_seconds": 33.325,
+            "predicted_start_seconds": 33.325,
+            "duration_seconds": 3.88,
+            "extra_preparation_wait_seconds": 1.53,
+            "speech_preparation_ms": 3850,
+            "alignment_preparation_ms": 556,
+            "speech_source": "generated"
+          }
+        ],
+        "spoken_words": 11
+      },
+      {
+        "scenario": "nikola-bereavement",
+        "sample_index": 1,
+        "cold_sample": false,
+        "error_type": "RuntimeError",
+        "error": "Reply preparation stopped (HTTPError).",
+        "elapsed_seconds": 88.881
+      }
+    ],
+    "median_seconds": 31.955,
+    "p90_seconds": 31.955,
+    "max_seconds": 31.955,
+    "max_predicted_extra_gap_seconds": 1.53,
+    "preparation_target_met": false,
+    "includes_stt": true,
+    "includes_playback": false,
+    "voice_quality_approved": false,
+    "decode_limit_events": [
+      {
+        "event": "speech_decode",
+        "frames": 900,
+        "stopped": false,
+        "prefill_seconds": 0.2651,
+        "decode_seconds": 29.4914,
+        "codec_seconds": 0.0749
+      },
+      {
+        "event": "speech_decode",
+        "frames": 900,
+        "stopped": false,
+        "prefill_seconds": 0.2566,
+        "decode_seconds": 30.2568,
+        "codec_seconds": 0.0715
+      }
+    ]
+  },
+  "sampled_peak_total_gpu_memory_mib": {
+    "quick": 9922.0,
+    "tuning": 7802.0,
+    "combined_nf4": 8455.0
+  }
+}

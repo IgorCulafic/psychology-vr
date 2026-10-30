@@ -1,7 +1,7 @@
 'use strict';
 const $ = id => document.getElementById(id);
 let catalog, scenario, session, language = 'cnr', busy = false, switching = false, revision = 0;
-let transcript = [], sessions = {}, controller;
+let transcript = [], sessions = {}, controller, studentName = '';
 let relationship=null;
 function showRelationship(value) {
   relationship=value || null;
@@ -29,6 +29,36 @@ function controls() {
   $('export').disabled = !transcript.length;
   document.querySelectorAll('nav button').forEach(button => button.disabled = switching);
 }
+function cleanStudentName(value) {
+  if (/[\p{Cc}\p{Cf}\p{Cs}\p{Zl}\p{Zp}]/u.test(value)) throw new Error('Use a name without control characters or line breaks.');
+  const name=value.normalize('NFC').trim();
+  if (!name) throw new Error('Enter your student name.');
+  if ([...name].length>80) throw new Error('Use 80 characters or fewer.');
+  return name;
+}
+function requestStudentName(id) {
+  const dialog=$('student-dialog'), field=$('student-name');
+  const patient=catalog.scenarios.find(item=>item.id===id);
+  $('student-title').textContent=`Start a conversation${patient ? ' with '+patient.character_name : ''}`;
+  field.value=studentName; field.setCustomValidity('');
+  field.oninput=()=>field.setCustomValidity('');
+  return new Promise(resolve=>{
+    let submitted=null;
+    $('student-form').onsubmit=event=>{
+      event.preventDefault();
+      try {submitted=cleanStudentName(field.value);}
+      catch(error) {field.setCustomValidity(error.message);field.reportValidity();return;}
+      dialog.close();
+    };
+    $('student-cancel').onclick=()=>dialog.close();
+    dialog.addEventListener('close',()=>resolve(submitted),{once:true});
+    dialog.showModal(); field.focus(); field.select();
+  });
+}
+function filenamePart(value, fallback) {
+  const clean=value.normalize('NFC').toLowerCase().replace(/[^\p{L}\p{N}_-]+/gu,'-').replace(/^-+|-+$/g,'');
+  return [...clean].slice(0,80).join('') || fallback;
+}
 function renderCharacters() {
   $('characters').replaceChildren();
   for (const item of catalog.scenarios) {
@@ -46,7 +76,7 @@ function message(role, segments, response) {
   const entry={role,segments, ...(response ? {generation_ms:response.generation_ms, relationship:response.relationship, memory:response.memory} : {})};
   transcript.push(entry);
   const bubble=document.createElement('article'); bubble.className=`message ${role}`;
-  const speaker=document.createElement('div'); speaker.className='speaker'; speaker.textContent=role==='user'?'You':$('patient').textContent; bubble.append(speaker);
+  const speaker=document.createElement('div'); speaker.className='speaker'; speaker.textContent=role==='user'?(studentName || 'You'):$('patient').textContent; bubble.append(speaker);
   for(const segment of segments) {
     const text=document.createElement('p'); text.textContent=segment.text; bubble.append(text);
     if(segment.emotion) {const cue=document.createElement('div'); cue.className='cue'; cue.textContent=`${segment.emotion} · intensity ${Math.round(segment.intensity*100)}% · ${segment.gesture.replaceAll('_',' ')} · ${segment.voice_style} voice · ${segment.gaze} gaze`; bubble.append(cue);}
@@ -71,16 +101,23 @@ async function start(id, nextLanguage) {
   if(switching) return;
   switching=true; controls();
   try {
+    const nextName=await requestStudentName(id);
+    if(nextName===null) {
+      if(!session) {$('patient').textContent='Choose a patient';status('Choose a patient or New conversation to begin.');}
+      return;
+    }
     await cancel(); ++revision;
-    const result=await api('/session',{language:nextLanguage,scenario_id:id,session_id:sessions[nextLanguage]});
+    const result=await api('/session',{language:nextLanguage,scenario_id:id,session_id:sessions[nextLanguage],student_name:nextName});
     language=nextLanguage; scenario=id; session=result.session_id; sessions[language]=session;
+    studentName=result.student_name;
+    $('student-label').textContent=`Student: ${studentName}`; $('student-label').hidden=false;
     showRelationship(result.relationship);
     transcript=[]; $('messages').replaceChildren(); $('message').value=''; $('patient').textContent=result.character_name;
     $('language').value=language; renderCharacters(); status('Opening the conversation…');
     const opening=await api('/turn',{language,session_id:session,opening:true});
     showRelationship(opening.relationship); message('assistant',opening.segments,opening); status('Ready · speak naturally, one question at a time.');
   } catch(error) {status(error.message,true);}
-  finally {switching=false; controls(); $('message').focus();}
+  finally {$('language').value=language;switching=false; controls(); (session ? $('message') : $('restart')).focus();}
 }
 $('composer').onsubmit=async event=>{
   event.preventDefault(); const text=$('message').value.trim(); if(!text || busy || switching || !session || relationship?.status==='ended') return;
@@ -101,8 +138,8 @@ $('language').onchange=()=>start(scenario,$('language').value);
 $('descriptions').onchange=renderCharacters;
 $('emotions').onchange=()=>document.body.classList.toggle('show-emotions',$('emotions').checked);
 $('export').onclick=()=>{
-  const value={character:$('patient').textContent,language,exported_at:new Date().toISOString(),messages:transcript};
+  const value={student_name:studentName,character:$('patient').textContent,language,exported_at:new Date().toISOString(),messages:transcript};
   const url=URL.createObjectURL(new Blob([JSON.stringify(value,null,2)],{type:'application/json'}));
-  const link=document.createElement('a'); link.href=url; link.download=`conversation-${$('patient').textContent.toLowerCase()}-${Date.now()}.json`; link.click(); setTimeout(()=>URL.revokeObjectURL(url),1000);
+  const link=document.createElement('a'); link.href=url; link.download=`conversation-${filenamePart(studentName,'student')}-${filenamePart($('patient').textContent,'patient')}-${Date.now()}.json`; link.click(); setTimeout(()=>URL.revokeObjectURL(url),1000);
 };
-(async()=>{try{const response=await fetch('/catalog'); if(!response.ok)throw new Error('Local chat service unavailable');catalog=await response.json();scenario=catalog.default_scenario_id;renderCharacters();await start(scenario,language);}catch(error){status(error.message,true);}})();
+(async()=>{try{const response=await fetch('/catalog'); if(!response.ok)throw new Error('Local chat service unavailable');catalog=await response.json();scenario=catalog.default_scenario_id;language=catalog.default_language || 'cnr';$('language').value=language;renderCharacters();await start(scenario,language);}catch(error){status(error.message,true);}})();

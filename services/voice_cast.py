@@ -8,7 +8,10 @@ EMOTION_RECIPES = {'angry': 'anger', 'sad': 'sadness', 'happy': 'happiness',
                   'panicked': 'afraid', 'calm': 'neutral'}
 
 class VoiceCast:
-    def __init__(self, root):
+    def __init__(self, root, sentence_streaming=False):
+        if not isinstance(sentence_streaming, bool):
+            raise ValueError('higgs_sentence_streaming must be true or false')
+        self.sentence_streaming = sentence_streaming
         self.root = Path(root).resolve()
         path = self.root / 'voices/cast.json'
         self.scenarios = {}
@@ -45,7 +48,10 @@ class VoiceCast:
         # Unreviewed emotions keep this speaker's neutral identity. Never fall
         # through to another person's recording or add unapproved global tags.
         recipe = recipes.get(emotion, recipes['neutral'])
-        return dict(recipe, speaker=speaker)
+        resolved = dict(recipe, speaker=speaker)
+        if self.sentence_streaming:
+            resolved['mode'] = 'sentences'
+        return resolved
 
     def apply_stream_pauses(self, scenario, segments):
         for index, segment in enumerate(segments):

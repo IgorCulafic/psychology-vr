@@ -1,4 +1,4 @@
-param([Parameter(Mandatory=$true)][ValidateSet('bonsai','gemma','qwen')][string]$Model,
+param([Parameter(Mandatory=$true)][ValidateSet('bonsai','gemma','gemma-q8','qwen','qwen7b','qwen9b')][string]$Model,
       [string]$Config='services/config.local.json')
 $ErrorActionPreference='Stop'
 $root=Split-Path $PSScriptRoot -Parent

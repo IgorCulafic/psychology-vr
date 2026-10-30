@@ -34,7 +34,9 @@ class HiggsVoice:
         torch.set_num_threads(config.get('higgs_cpu_threads', 1))
         self.lock = threading.Lock()
         self.config = config
-        self.voice_cast = VoiceCast(ROOT)
+        self.voice_cast = VoiceCast(ROOT, config.get('higgs_sentence_streaming', False))
+        from speech_reuse import SpeechReuse
+        self.speech_reuse = SpeechReuse(ROOT, config, self.voice_cast)
         self.reference_cache = {}
         self.prepared_openings = {}
         self.torch = torch
@@ -65,11 +67,19 @@ class HiggsVoice:
             raise RuntimeError('Higgs audio head is not tied to its reference embedding')
         self.model.eval()
         self.model.get_audio_codec()
+        self.decoder = None
+        if config.get('higgs_fast_decode', False):
+            from higgs_decode import HiggsDecoder
+            self.decoder = HiggsDecoder(self.model)
         audio, rate = sf.read(ref, dtype='float32', always_2d=True)
         with torch.inference_mode():
             self.reference_codes = self.model._encode_reference(torch.from_numpy(audio.mean(axis=1)), rate)
         self.rate = self.model.config.sample_rate
+        if config.get('higgs_release_unused_vram', False):
+            torch.cuda.empty_cache()
         print(json.dumps({'event':'loaded','quantization':config.get('higgs_quantization','bf16'),
+                          'fast_decode':bool(self.decoder),
+                          'attention':getattr(self.model.model.config,'_attn_implementation',None),
                           'allocated_mib':round(torch.cuda.memory_allocated()/1024**2)}), flush=True)
 
     def synthesize(self, segment, scenario_id=None):
@@ -91,8 +101,8 @@ class HiggsVoice:
             recipe = self.voice_cast.resolve(scenario_id, segment) if scenario_id is not None else None
             codes, transcript = self.reference_codes, self.reference_text
             if recipe:
-                if self.config.get('higgs_quantization', 'bf16') != 'bf16':
-                    raise ValueError('Assigned voice packs require approved BF16 speech')
+                if self.config.get('higgs_quantization', 'bf16') != 'bf16' and not self.config.get('higgs_allow_quantized_cast', False):
+                    raise ValueError('Assigned voice packs require approved BF16 speech; explicitly enable higgs_allow_quantized_cast for a precision comparison')
                 cache_key = recipe['reference_sha256']
                 if cache_key not in self.reference_cache:
                     reference, rate = sf.read(ROOT / recipe['reference'], dtype='float32', always_2d=True)
@@ -110,11 +120,16 @@ class HiggsVoice:
                     temperature = recipe['retry_temperature'] if recipe else min(temperature,.5)
                 text = recipe['tag'] + speech_text(latin_script(part['text']), self.config.get('higgs_pronunciation')) if recipe else higgs_text(part,self.config.get('higgs_pronunciation'))
                 with torch.inference_mode():
-                    return self.model.generate_speech(text, self.tokenizer,
+                    decoder = getattr(self, 'decoder', None)
+                    generate = decoder.generate if decoder else self.model.generate_speech
+                    result = generate(text, self.tokenizer,
                         reference_codes=codes, reference_text=transcript,
                         temperature=temperature, top_p=recipe['top_p'] if recipe else .95,
                         top_k=recipe['top_k'] if recipe else 50,
                         max_new_tokens=recipe['max_new_tokens'] if recipe else 900).numpy()
+                    if decoder:
+                        print(json.dumps({'event':'speech_decode', **decoder.last_metrics}),flush=True)
+                    return result
             if recipe and recipe['mode']=='sentences':
                 from streaming_turns import sentence_segments
                 clips=[];reports=[]
@@ -141,7 +156,13 @@ class HiggsVoice:
                 'generation_seconds':elapsed}), flush=True)
             return output.getvalue()
         finally:
-            self.lock.release()
+            try:
+                if self.config.get('higgs_release_unused_vram', False):
+                    # Return unused prefill/codec allocator blocks to the driver
+                    # so dialogue/rendering can use them. Weights stay resident.
+                    self.torch.cuda.empty_cache()
+            finally:
+                self.lock.release()
 
     def prepare_openings(self):
         """Warm kernels/references before play; only cache fixed character lines.
@@ -157,7 +178,19 @@ class HiggsVoice:
             segment=validate_reply({'segments':[dict(text=text,**profile.get('initial_state',{'emotion':'neutral','intensity':.5}))]})[0]
             for part in self.voice_cast.delivery_segments(scenario['id'],[segment]):
                 try:
-                    audio=self.synthesize(part,scenario['id'])
+                    reuse=getattr(self,'speech_reuse',None)
+                    cache_key=None
+                    cached=None
+                    if reuse and reuse.cache_enabled:
+                        cache_key,cached=reuse.lookup(dict(part,scenario_id=scenario['id']))
+                    if cached:
+                        audio=cached['audio']
+                        print(json.dumps({'event':'opening_cache_hit','scenario_id':scenario['id']}),flush=True)
+                    else:
+                        audio=self.synthesize(part,scenario['id'])
+                        if cache_key:
+                            # Bridge calculates/validates mouth cues on first playback.
+                            reuse.put(cache_key,audio,[],'pending',None)
                     self.prepared_openings[(scenario['id'],part['emotion'],part['text'])]=audio
                 except ValueError as exc:
                     # A rejected warm-up clip must not prevent other characters
@@ -183,8 +216,13 @@ def make_handler(voice):
 
         def do_GET(self):
             if self.path == '/health':
+                from inference_runtime import config_signature
                 self.respond(200, {'ok':True, 'provider':'higgs', 'busy':voice.lock.locked(),
-                    'quantization':getattr(voice,'config',{}).get('higgs_quantization','bf16')})
+                    'config_signature':config_signature(voice.config),
+                    'quantization':getattr(voice,'config',{}).get('higgs_quantization','bf16'),
+                    'fast_decode':getattr(voice,'config',{}).get('higgs_fast_decode',False),
+                    'cast_precision_comparison':getattr(voice,'config',{}).get('higgs_allow_quantized_cast',False),
+                    'prepared_openings':len(getattr(voice,'prepared_openings',{}))})
             else:
                 self.respond(404, {'error':'Not found'})
 

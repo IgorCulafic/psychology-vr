@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace PsychologyVR
 {
-    public class ConsultationMenu:MonoBehaviour
+    public partial class ConsultationMenu:MonoBehaviour
     {
         public enum Page {Session,Characters,Settings,Preview,Visuals,Rendering,Models,Display}
         public Page CurrentPage {get;private set;}
@@ -46,11 +46,12 @@ namespace PsychologyVR
         }
         public void Render(Page page)
         {
+            if(WaitingForStudentName){RenderStudentName();return;}
             CurrentPage=page;Hover(null);conditions.Clear();status=transcript=volumeLabel=micLabel=null;message=null;
             if(content){content.gameObject.SetActive(false);Destroy(content.gameObject);}
             content=Rect("Menu content",canvas.transform,0,0,960,760);content.gameObject.AddComponent<Image>().color=Panel;
             TextAt("CONSULTATION",32,24,580,36,28,Ink,FontStyle.Bold);
-            TextAt("A space for listening",34,67,580,25,18,Muted);
+            var student=TextAt(string.IsNullOrEmpty(session.StudentName)?"A space for listening":"Student: "+session.StudentName,34,67,740,25,18,Muted);student.supportRichText=false;
             ButtonAt("Close  ×",800,28,128,48,()=>session.SetMenuOpen(false));
             string[] names={"Session","Characters & situations","Settings"};
             for(int i=0;i<3;i++){int index=i;ButtonAt(names[i],32+i*300,112,288,48,()=>Render((Page)index),active:(int)page==i);}
@@ -63,7 +64,8 @@ namespace PsychologyVR
         {
             var current=session.CurrentScenario;
             TextAt(current.character_name+"  /  "+SituationTitle(current),34,188,890,38,27,Ink,FontStyle.Bold);
-            status=TextAt("",34,238,890,48,20,Accent);
+            status=TextAt("",34,238,690,48,18,Accent);status.supportRichText=false;
+            var export=ButtonAt("Export session log",740,238,188,48,session.ExportSessionLog,()=>session.CanExportSession);export.GetComponentInChildren<Text>().fontSize=16;
             Box(32,300,896,145,Card);TextAt("CONVERSATION",50,312,800,24,15,Muted);
             transcript=TextAt("",50,342,860,92,22,Ink);
             if(session.IsSpeechAudition)
@@ -190,7 +192,7 @@ namespace PsychologyVR
             ButtonAt("Lighting and skin",490,590,438,44,()=>Render(Page.Rendering));
             ButtonAt("Back to settings",32,650,896,38,()=>Render(Page.Settings));
         }
-        void Update(){if(Visible)Refresh();}
+        void Update(){if(!Visible)return;if(WaitingForStudentName)UpdateStudentName();else Refresh();}
         void RenderingPage()
         {
             TextAt("Lighting and skin",34,188,880,36,27,Ink,FontStyle.Bold);
@@ -214,7 +216,7 @@ namespace PsychologyVR
         }
         void Refresh()
         {
-            if(status)status.text=CurrentPage==Page.Session&&session.IsBusy&&!session.IsSwitching?"Conversation paused. Return to the room to continue.":session.Status;
+            if(status)status.text=CurrentPage==Page.Session&&!string.IsNullOrEmpty(session.SessionExportStatus)?session.SessionExportStatus:CurrentPage==Page.Session&&session.IsBusy&&!session.IsSwitching?"Conversation paused. Return to the room to continue.":session.Status;
             if(transcript)transcript.text=string.IsNullOrWhiteSpace(session.Subtitle)?"Take a moment. Begin when you are ready.":session.Subtitle;
             if(volumeLabel)volumeLabel.text="Speech volume  ·  "+Mathf.RoundToInt(session.SpeechVolume*100)+"%";
             if(micLabel)micLabel.text=session.MicrophoneName;

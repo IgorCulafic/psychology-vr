@@ -1,0 +1,1506 @@
+{
+  "upstream": "IgorCulafic/psychology-vr",
+  "revision": "e170024ab3ec8750818f547e2372207c350c8f86",
+  "assets": [
+    {
+      "path": "docs/generated/furnished-room.png",
+      "bytes": 1928516,
+      "sha256": "4b14431a460492edd02d8373d7fe1ecc49c7aea14ccec907986fb807f098e5c4"
+    },
+    {
+      "path": "docs/images/consultation-speaking.png",
+      "bytes": 1705472,
+      "sha256": "c5eceb0b41992783c51269a49feeb0cfe0e3e82e072e2e9a9e9bdb0c29badfe2"
+    },
+    {
+      "path": "docs/images/patient-selection.png",
+      "bytes": 1190080,
+      "sha256": "e413c1de35ceae06106d9b2d4bf4a80c4388720d6f843345b6ce3eb0723f8793"
+    },
+    {
+      "path": "docs/images/student-view.png",
+      "bytes": 1149520,
+      "sha256": "39f778ed5f1f52f06c4fff0473ca93e3afe1ce2fc51a222654e4e17db59a122b"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Alex/Alex.fbx",
+      "bytes": 10109948,
+      "sha256": "8868ab2b07c29cbe9f4278b58de718f49cb5a20a9c276ee0aaface3af2a7ccdf"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Alex/Image_0.png",
+      "bytes": 14612,
+      "sha256": "d6c26b627a39f4bfd40939902705bf0583b6646c3ceb2d48a741518a4ac981c8"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Alex/Image_1.png",
+      "bytes": 111476,
+      "sha256": "e11c3b5382bb669fe6cd646cc17eb27149b6da1c00a4c9f3ff4ffdd56f2d1ea3"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Alex/Image_11.png",
+      "bytes": 31193,
+      "sha256": "40f8757e07635cfffa919ce8b01506a5c8f2390e444dfb84bdea87a86678a36a"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Alex/Image_14.png",
+      "bytes": 1503,
+      "sha256": "24928f46872127b410e823fe58ba98adb76f77d53e0af10f670f448445adadc7"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Alex/Image_16.png",
+      "bytes": 260,
+      "sha256": "5c742d96cb05c75fd7a22fc84934b3929c53d4c6eab66fed92463b4feed58af0"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Alex/Image_2.png",
+      "bytes": 10151,
+      "sha256": "8ff24ad823f734ffcc8592779294692611187c031ab92e7ccb6218ebb7c7e9bd"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Alex/Image_4.png",
+      "bytes": 1502,
+      "sha256": "6e6bb9d33b6d3cec3d37684b3f3585fa89a35f9319acf56fe6eecf6e784c7b74"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Alex/Image_5.png",
+      "bytes": 15361,
+      "sha256": "2225c915105da62ba40de10b235e112ed16469791b0e12305f559b21886529c0"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Alex/Image_7.png",
+      "bytes": 288978,
+      "sha256": "f3526c93b418f4710537b254919429cc4f789d4c4bb8561d222e0ea6fbaa70c1"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Alex/Image_8.png",
+      "bytes": 16612,
+      "sha256": "9afcacd78afa619e703334ea928c8c199fa61fb240886037575b6c778803c1a5"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/Jumper.fbx",
+      "bytes": 135301936,
+      "sha256": "7a5b4776823576e7d8652d5d2a8875f72eed4c2dad473379b98b09543076aa91"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Beard_Transparency_Diffuse.png",
+      "bytes": 436643,
+      "sha256": "1f849a51657238718dac694fcff4a3fdf15cffa86c47a75db6e42ee8f9e9a024"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Beard_Transparency_Diffuse_0001.png",
+      "bytes": 341794,
+      "sha256": "70a9fcbd55054c4f8e9b8f6ca722aefd4b978ac11ec2043956c508d72bfa2dd7"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Beard_Transparency_Opacity.jpeg",
+      "bytes": 403950,
+      "sha256": "b994d82a98c6337bfef6be1fae1935a76584ebf427b345025b75ca0c6c3ae5d9"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Beard_Transparency_Opacity_0001.jpeg",
+      "bytes": 403950,
+      "sha256": "b994d82a98c6337bfef6be1fae1935a76584ebf427b345025b75ca0c6c3ae5d9"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Beard_Transparency_RGBA.png",
+      "bytes": 806693,
+      "sha256": "ed82b31fae261cd734d13c9714846f0563c26ea123e1cf4c88719a3c73b86d8f"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Beard_Transparency_RGBA_0001.png",
+      "bytes": 730423,
+      "sha256": "747e1c29c1dfb4944769e29bf7e5a347e7f9bd0588a5acbc4e074fffb25bb545"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Beard_Transparency_Specular.png",
+      "bytes": 2766,
+      "sha256": "9c015d32b2a702efd28bc96101610c960bb0d7dabd4a714244b5d087cb47a643"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Boxers_Diffuse.png",
+      "bytes": 1648140,
+      "sha256": "64a9873ab3d58eb08cb5c0bfe0d86ac1417b7a2dce115c9a310b524c8b433fb0"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Boxers_Normal.png",
+      "bytes": 1917080,
+      "sha256": "c5f9667bca944a3b34981634b2c51611de7349c7592d3f333cf5d964d0303bdc"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Boxers_Opacity.png",
+      "bytes": 660,
+      "sha256": "4405f615959b7eed99cebae90c3c8bc18ba87504d19460dcb511a72dd796e0f3"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Boxers_RGBA.png",
+      "bytes": 1643273,
+      "sha256": "29fba5e4aaceba12038af1e32695e335599744d810212301fceb22abd55f90d7"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Boxers_Specular.png",
+      "bytes": 332689,
+      "sha256": "cc3bc3e6daae593413e007cc260ced575644c4ef9e5e76deb3487f876fabcbe5"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/FABRIC_1_FRONT_1289500_Diffuse.png",
+      "bytes": 2449538,
+      "sha256": "547f2289921f78d3c921136eeb0d3d42a5e7a607719f605667e754b9775161f8"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/FABRIC_1_FRONT_1289500_Normal.png",
+      "bytes": 2812020,
+      "sha256": "287575bb57522383e7a5ee64111c1765a27397e24174726d31637e711cc5ae01"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/FABRIC_2_FRONT_1289505_Diffuse.png",
+      "bytes": 1481626,
+      "sha256": "4e12f990d2189ce85f202bedcec09845b818a1218e6edd8fd80dc03c11ee6523"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/FABRIC_2_FRONT_1289505_Normal.png",
+      "bytes": 1664681,
+      "sha256": "2f9d62b03bdae47e00a3a6e47609a4b39718c5de868f461ffaaa74f32a24e958"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/FABRIC_3_FRONT_1289510_Diffuse.png",
+      "bytes": 107139,
+      "sha256": "b589212140e6bc21583dff904f844faad038e4eb79624d7241b3715ea8c2d097"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/FABRIC_3_FRONT_1289510_Normal.png",
+      "bytes": 116770,
+      "sha256": "2e68690f6a3577a02cddbffaa83ed792b76b616bab9c9cf00ef01ab397886cfa"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/FABRIC_4_FRONT_1289491_Diffuse.png",
+      "bytes": 179523,
+      "sha256": "311e1ff6c11ed2764d6621e97194e53453af3730a695b44cdd288d2fc85abddd"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/FABRIC_4_FRONT_1289491_Normal.png",
+      "bytes": 209895,
+      "sha256": "1919fba94382802cd604a87e934579eb6f1478d5f7e0a1f7b272b88c0f918002"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/FABRIC_6_FRONT_1289515_Diffuse.png",
+      "bytes": 133878,
+      "sha256": "be345426dafea67431fadfbc5972127fa5f13d47734e09ebab55fc19024fd6ba"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/FABRIC_6_FRONT_1289515_Normal.png",
+      "bytes": 138753,
+      "sha256": "df4d21d5d3af558affc247fd783cb80ed2d768a506d25149bbfbb977b1125004"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Laces_Diffuse.jpeg",
+      "bytes": 1579366,
+      "sha256": "db41bedd8bc6a5b265a56649864157c3a8cbb0485831bc385a38c9e5388fecee"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/ShoeBack_Diffuse.jpeg",
+      "bytes": 1579366,
+      "sha256": "db41bedd8bc6a5b265a56649864157c3a8cbb0485831bc385a38c9e5388fecee"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/ShoeFront_Diffuse.jpeg",
+      "bytes": 1579366,
+      "sha256": "db41bedd8bc6a5b265a56649864157c3a8cbb0485831bc385a38c9e5388fecee"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Slacks_Diffuse.jpeg",
+      "bytes": 791225,
+      "sha256": "1895e1040177aa2d1e38cc4aedb9aaf909a1e7382e9448ab13824683bb741f2e"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Slacks_Normal.jpeg",
+      "bytes": 839062,
+      "sha256": "fdaecd70d567aece7b2d5acdec8a827cc280689eec83191891e5b1fbfe0769c8"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Slacks_Opacity.jpeg",
+      "bytes": 17011,
+      "sha256": "507f4f47a3795b1bceb55bdba74379709bb7a5c48192024ba26501bc9943e182"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Slacks_RGBA.png",
+      "bytes": 1022118,
+      "sha256": "cb3c35aac27059daca46d430e2f27f28d83453d176adfb292f3fd8ccae1bd8bd"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Slacks_Specular.jpeg",
+      "bytes": 460912,
+      "sha256": "cca8e530930de0bdeeae51d3ed6104aa8d69688f15792bddf02fd2b7466687c7"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Sole_Diffuse.jpeg",
+      "bytes": 1579366,
+      "sha256": "db41bedd8bc6a5b265a56649864157c3a8cbb0485831bc385a38c9e5388fecee"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Cornea_L_Diffuse.png",
+      "bytes": 2490150,
+      "sha256": "a4722b675ea65aaebeda7df5b3ecff2e7b9488f22e5b42a518adff8fc10de2a4"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Cornea_L_Opacity.png",
+      "bytes": 660,
+      "sha256": "4405f615959b7eed99cebae90c3c8bc18ba87504d19460dcb511a72dd796e0f3"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Cornea_L_RGBA.png",
+      "bytes": 3060500,
+      "sha256": "927bba8f54833f80c641cb2947e7cba9145df494fbfffc9f72de0cb141898d8f"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Cornea_R_Diffuse.png",
+      "bytes": 2490150,
+      "sha256": "a4722b675ea65aaebeda7df5b3ecff2e7b9488f22e5b42a518adff8fc10de2a4"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Cornea_R_Opacity.png",
+      "bytes": 660,
+      "sha256": "4405f615959b7eed99cebae90c3c8bc18ba87504d19460dcb511a72dd796e0f3"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Cornea_R_RGBA.png",
+      "bytes": 3060500,
+      "sha256": "927bba8f54833f80c641cb2947e7cba9145df494fbfffc9f72de0cb141898d8f"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Eye_L_Diffuse.png",
+      "bytes": 2490150,
+      "sha256": "a4722b675ea65aaebeda7df5b3ecff2e7b9488f22e5b42a518adff8fc10de2a4"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Eye_L_Normal.png",
+      "bytes": 87238,
+      "sha256": "fd3acd8806d9f66bc21fa74a545ca2aae2ea3a913efd3c7d8f405d8b53803531"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Eye_Occlusion_L_Diffuse.jpeg",
+      "bytes": 691,
+      "sha256": "4ecb84a96945bd55a253d08c1953455c7b2f68ed254dfbec2dd32a38dab14f77"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Eye_Occlusion_L_Opacity.jpeg",
+      "bytes": 693,
+      "sha256": "ae720d682a3ccb743421a33aaca9e4ed940de729cbceeac8b462fd40a1d637a5"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Eye_Occlusion_L_RGBA.png",
+      "bytes": 181,
+      "sha256": "a00dde2d0574b06ffb2a99af69ec0f342b8b775a2ba5fe9008704f1f1e6178d2"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Eye_Occlusion_R_Diffuse.jpeg",
+      "bytes": 691,
+      "sha256": "4ecb84a96945bd55a253d08c1953455c7b2f68ed254dfbec2dd32a38dab14f77"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Eye_Occlusion_R_Opacity.jpeg",
+      "bytes": 693,
+      "sha256": "ae720d682a3ccb743421a33aaca9e4ed940de729cbceeac8b462fd40a1d637a5"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Eye_Occlusion_R_RGBA.png",
+      "bytes": 181,
+      "sha256": "a00dde2d0574b06ffb2a99af69ec0f342b8b775a2ba5fe9008704f1f1e6178d2"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Eye_R_Diffuse.png",
+      "bytes": 2490150,
+      "sha256": "a4722b675ea65aaebeda7df5b3ecff2e7b9488f22e5b42a518adff8fc10de2a4"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Eye_R_Normal.png",
+      "bytes": 88575,
+      "sha256": "c8bd12ac75653a36ad4401d9cbc0a808f300e4927354b97d323ba3b7b61916e6"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Eyelash_Diffuse.jpeg",
+      "bytes": 1078,
+      "sha256": "4ce1b17d89574e547f08ba008dc605bdffa4565126769579f85b2e7c65a55fbb"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Eyelash_Normal.png",
+      "bytes": 1924,
+      "sha256": "b6a43c07eb8c0e34a55d2114392be4f595b369b4f1e9710b56d7b223c408c06f"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Eyelash_Opacity.jpeg",
+      "bytes": 259485,
+      "sha256": "edd50b544fe9757cceaa3c4e6335e6c500d9a48e974f74330eabb34b4410b5a4"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Eyelash_RGBA.png",
+      "bytes": 7130,
+      "sha256": "ee65610f07bc529d9b29c18736d1249a68d73a0d6601e0fec421979a1409c17a"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Lower_Teeth_Diffuse.png",
+      "bytes": 505298,
+      "sha256": "78510ee423858cbb86aa89ebfd13319c68bbdbaf097e3676cae628246d4bc2c1"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Lower_Teeth_Normal.png",
+      "bytes": 557639,
+      "sha256": "89a2e68408b38e34799062945784e818a942a8ce1a0e15f937453b4a81cadbef"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Nails_Diffuse.png",
+      "bytes": 2845135,
+      "sha256": "041722c966908413590be85b5b7662e552cc1423a2919a045b4d339a766d6feb"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Nails_Normal.png",
+      "bytes": 302225,
+      "sha256": "fc9388eeec200fd12f2d9342901da8deb3fc5d14b4d1d6e4be0ad72267a54785"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Skin_Arm_Diffuse.jpeg",
+      "bytes": 1565058,
+      "sha256": "60a825df14cab98e37b5cc4ca2bef321c026cfc6df9c27fe0c1f2d827bfd4ceb"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Skin_Arm_Normal.png",
+      "bytes": 3613796,
+      "sha256": "7a6a2894b20da855ac76852698066a6998b9d9a3aaa41887fe07194970ea206b"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Skin_Body_Diffuse.jpeg",
+      "bytes": 1335221,
+      "sha256": "0f1cc93c06dda97d3a8d3e90df21426d521c09eb0df9687d28507a3ed96242e4"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Skin_Body_Normal.png",
+      "bytes": 2667256,
+      "sha256": "91fe3b9cec478491bc7be46e8cd0b7f7e4649746f3afadb7ebc7e6b32c72a02f"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Skin_Head_Diffuse.png",
+      "bytes": 4525111,
+      "sha256": "4bf4c992fcb9fa12f7cce3a63dc4cbfe47b2eb3867b434a0adcb4755925e82a8"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Skin_Head_Normal.png",
+      "bytes": 5168202,
+      "sha256": "fc5f0c5c7d8a228be3495e46ada889c38f3d4e1c72d2bbb8496890d996542e00"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Skin_Leg_Diffuse.jpeg",
+      "bytes": 1574710,
+      "sha256": "d7c9bafc2d6f614a99c92e16bd06ea1a6627abe8c3777891d5a33b8acb2be93d"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Skin_Leg_Normal.png",
+      "bytes": 3772247,
+      "sha256": "b89841fc622f113c1d0e3b4098f2cc6a8ae0896332cdd4227f9002c7b242c70e"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Tearline_L_Diffuse.jpeg",
+      "bytes": 691,
+      "sha256": "4ecb84a96945bd55a253d08c1953455c7b2f68ed254dfbec2dd32a38dab14f77"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Tearline_R_Diffuse.jpeg",
+      "bytes": 691,
+      "sha256": "4ecb84a96945bd55a253d08c1953455c7b2f68ed254dfbec2dd32a38dab14f77"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Tearline_R_Opacity.jpeg",
+      "bytes": 691,
+      "sha256": "785f686759cc8a00cecb1b35caae87351b83dc986d1ee943b3bf2abdad64a698"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Tearline_R_RGBA.png",
+      "bytes": 182,
+      "sha256": "43c3fd9702a9a8282794eb9e437d369098452459a88773c8e80f5f271197ac08"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Tongue_Diffuse.png",
+      "bytes": 933124,
+      "sha256": "64a18d2aacf2eea4304c6f58ba01d1c5794772bfc36310d4146bcbdc873de357"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Tongue_Normal.png",
+      "bytes": 707248,
+      "sha256": "b287187ff94728636083cae9f68e254a53f4fbb2e8d8bd5b969631ff14fa93d9"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Upper_Teeth_Diffuse.png",
+      "bytes": 616256,
+      "sha256": "eba1ddb6858a4b833e3c71dc6c3ba534d3746412bfae33dc15904c846ce3327b"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/Std_Upper_Teeth_Normal.png",
+      "bytes": 583417,
+      "sha256": "dffb22a0c94cfaac3429a54853a1c9e6e39ac6eb7b10aaeb03b95cb10b40af28"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/mat_hair_medium_straight_Transparency_Diffuse.png",
+      "bytes": 4021098,
+      "sha256": "5a274cfe0f4adfd05f53900e8641ed201a3569f1389649b6c0485f432f85ce92"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/mat_hair_medium_straight_Transparency_Normal.png",
+      "bytes": 5349865,
+      "sha256": "0ff247cd5b3ba1392e4850be9df0c475b84a658eed3bef709449d89670d7ec21"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/mat_hair_medium_straight_Transparency_Opacity.png",
+      "bytes": 1089098,
+      "sha256": "a858875f9c5b8e444d5c4d045246ce76d382e357b08d4bcb9d6a9c04353e4d52"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/mat_hair_medium_straight_Transparency_RGBA.png",
+      "bytes": 5225409,
+      "sha256": "6a0399cc5e847021b6cc97c6b63baba7d9cc810acac0d0ded6f438a353c4764e"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/Candidates/Jumper/textures/mat_hair_medium_straight_Transparency_Specular.png",
+      "bytes": 3149,
+      "sha256": "881654e6ecfc2a1586e9403b40b727a9899ecca5b3ad4b7b16e693d0e2fdb89f"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/SkinDetail/Std_Skin_Arm_spec_smooth.png",
+      "bytes": 228221,
+      "sha256": "06e338c5e7b5d86c6e6e99370e73831e4b0c2a4cbb799a403bd7532df6098ea9"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/SkinDetail/Std_Skin_Body_spec_smooth.png",
+      "bytes": 183000,
+      "sha256": "7dac55073db61b1ccd57a0d1dda9424e77a80f0cc670b50a8207e6ab5e95b05f"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/SkinDetail/Std_Skin_Head_spec_smooth.png",
+      "bytes": 154801,
+      "sha256": "cff420dff710c6d24556f4a4029ce20e8639bd958718b083da61d7993514d949"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Characters/SkinDetail/Std_Skin_Leg_spec_smooth.png",
+      "bytes": 208749,
+      "sha256": "c8de346e822052a216cc47469ba3645fef5fc0d45189ee4b99464fe5dd20774c"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Models/binder_notebook.fbx",
+      "bytes": 301420,
+      "sha256": "29171bb11062de4681e36cfc45daa2736b9b3bf729cd7c2ed93b7eb450bf6bf4"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Models/consultation_architecture.fbx",
+      "bytes": 486508,
+      "sha256": "8cd0a913db1407d14bbdf181c40d4c09adda160a7d06d0ced228348ac1823ce9"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Models/modern_arm_chair_01.fbx",
+      "bytes": 329660,
+      "sha256": "bb2b88af6b1bb25a3d22d59dec217067a378ae917ce6c2148fa99a449b41258b"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Models/modern_ceiling_lamp_01.fbx",
+      "bytes": 207852,
+      "sha256": "b554a655430ee7e47c9b9b58edd4c9beb90e1b19c24542f1226b6aa3783ed2e6"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Models/modern_coffee_table_01.fbx",
+      "bytes": 175420,
+      "sha256": "f1950b74fff6846162bde0fccc4a1255ec66771c84416770701a12ac72f2a0f1"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Models/pencil.fbx",
+      "bytes": 15404,
+      "sha256": "b74dfbe4b15e5cb4ffa27c785b86fd405ab802a73fb5f603dba9866ac66c7dc6"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Models/potted_plant_01.fbx",
+      "bytes": 888028,
+      "sha256": "6c77b2ecbe834afee6f4bf5de577a28dd90d868f4329b33d34d33523b6508089"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Models/potted_plant_02.fbx",
+      "bytes": 752972,
+      "sha256": "4eadc9d2678e8a5fea747db66c1904d2ec838854862e3ec93aaca453ac6df889"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Models/side_table_01.fbx",
+      "bytes": 102668,
+      "sha256": "b1c49ec167feaad49377c1e1c8219b680a51ec987e5f10dfdd6e1d40674d580e"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Models/small_wooden_table_01.fbx",
+      "bytes": 125036,
+      "sha256": "1e63f30a26d83db0779bdcf0f71cc7e8d1f3a1bd3150d7da4fabde6aae1b910f"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Models/tissue_box.fbx",
+      "bytes": 76892,
+      "sha256": "8c7597cd8cde00d5f6e26a056a5359efe35aa4dab202bc1db717e609f2fdd7d5"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Models/water_cup.fbx",
+      "bytes": 39180,
+      "sha256": "c46c50288f8b7dd85cac2492b37eb29e47f279bc8e3af6fc458051e59895f93e"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/SurfaceDetail/Room_Oak_metal_smooth.png",
+      "bytes": 767820,
+      "sha256": "5c988a5668d4dea21da7bb27848c38ef1383674c49df710a2739af2b97ba30a3"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/SurfaceDetail/Room_Plaster_metal_smooth.png",
+      "bytes": 810705,
+      "sha256": "42e154c257bf92f4aa16b659256f2e1b47b3bc179ee3fe8d640adc38b0ccca55"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/SurfaceDetail/Room_Sage_metal_smooth.png",
+      "bytes": 810705,
+      "sha256": "42e154c257bf92f4aa16b659256f2e1b47b3bc179ee3fe8d640adc38b0ccca55"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/SurfaceDetail/binder_notebook_mat_0_metal_smooth.png",
+      "bytes": 1185222,
+      "sha256": "03932ec8d93f69d5a6cb07b6b36e70fc53653db9c6a457bde4e834181ecc224e"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/SurfaceDetail/modern_arm_chair_01_mat_0_metal_smooth.png",
+      "bytes": 1283544,
+      "sha256": "65375417c4b23aab7405342d5dd300c34d59ddb9f148cbb9e60550749093909d"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/SurfaceDetail/modern_arm_chair_01_mat_1_metal_smooth.png",
+      "bytes": 708462,
+      "sha256": "c514832a1183b633ed9dd236b5dfa24929562286941c3a7b14ba840c5d2cd4e2"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/SurfaceDetail/modern_ceiling_lamp_01_mat_0_metal_smooth.png",
+      "bytes": 1063179,
+      "sha256": "81f2c243aef5cda27d2ac26edb81299b98371a5ce59b9e5c6926e37ae93ec04c"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/SurfaceDetail/modern_ceiling_lamp_01_mat_1_metal_smooth.png",
+      "bytes": 1063179,
+      "sha256": "81f2c243aef5cda27d2ac26edb81299b98371a5ce59b9e5c6926e37ae93ec04c"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/SurfaceDetail/modern_ceiling_lamp_01_mat_2_metal_smooth.png",
+      "bytes": 1063179,
+      "sha256": "81f2c243aef5cda27d2ac26edb81299b98371a5ce59b9e5c6926e37ae93ec04c"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/SurfaceDetail/modern_coffee_table_01_mat_0_metal_smooth.png",
+      "bytes": 589088,
+      "sha256": "ac37bba4687eccc9536bea5e9eac309b49b26f8c87d8a130dfbd59753a223c7a"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/SurfaceDetail/potted_plant_01_mat_0_metal_smooth.png",
+      "bytes": 757655,
+      "sha256": "c4d643c25506c4efa192a9263012004fb10d48b14eb92347c0872e2310a82ce0"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/SurfaceDetail/potted_plant_01_mat_1_metal_smooth.png",
+      "bytes": 470616,
+      "sha256": "5ea01ca6164f60728b5605219265911dc6bbcd026efc5c364d854f86ab30fc6c"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/SurfaceDetail/potted_plant_02_mat_0_metal_smooth.png",
+      "bytes": 533524,
+      "sha256": "92054a6bf04928c0de5eefa7f0fa72f59d880c4309254470d21d6e30e2b59a50"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/SurfaceDetail/potted_plant_02_mat_1_metal_smooth.png",
+      "bytes": 559082,
+      "sha256": "c5a74953703ffc2f2ed1c0be446c9f541b60d7793e64fa217f369d438ea2a7cf"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/SurfaceDetail/side_table_01_mat_0_metal_smooth.png",
+      "bytes": 1182411,
+      "sha256": "23159b84718968205dfc5bc1e98bc99485d0a3df365f6dd8bdf291443fbf8a22"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/SurfaceDetail/small_wooden_table_01_mat_0_metal_smooth.png",
+      "bytes": 1328632,
+      "sha256": "1cacc950553f2b5487288b2461269541e94d6e0ef7907cc6c66875238aadbdca"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/binder_notebook_diff_1k.jpg",
+      "bytes": 533256,
+      "sha256": "8591cce815138bd737c252dc12a4d9bf41bceb499ace7dbfef0725e64dadda2d"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/binder_notebook_mat_0_metal_smooth.png",
+      "bytes": 1076240,
+      "sha256": "2ea9915d72b2eabd62e86940c7e0edaf39ad64311cf0910426950cd3a1569081"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/binder_notebook_nor_gl_1k.jpg",
+      "bytes": 319694,
+      "sha256": "24b18d9792c3816337d7d09b30aed400a887747ea6beb04b23612b6e1210a29e"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/modern_arm_chair_01_legs_diff_1k.jpg",
+      "bytes": 460937,
+      "sha256": "6291421a8db6cd9bbbc8c141aa087465d698427249f813d24c6e5ccdbf0bf536"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/modern_arm_chair_01_legs_nor_gl_1k.jpg",
+      "bytes": 560864,
+      "sha256": "af328e8530884907cf0d38a675338bb4e2b03c56ed2d21eb5abf505bb67c11de"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/modern_arm_chair_01_mat_0_metal_smooth.png",
+      "bytes": 1133292,
+      "sha256": "802ef0e5af533d8d29597b85b8c8401abb476054dea6dee20ad441266f367ac8"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/modern_arm_chair_01_mat_1_metal_smooth.png",
+      "bytes": 705962,
+      "sha256": "0baa8bb94d0f70d9fba9d004a8075a15a5f154a9a67e3d3fdfc4957ed16f5bf6"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/modern_arm_chair_01_pillow_diff_1k.jpg",
+      "bytes": 228851,
+      "sha256": "f1935436b460ad5c03ac7ff9d1e1b4aaedcdc9a503d79c257beb8cdac2e9e1f7"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/modern_arm_chair_01_pillow_nor_gl_1k.jpg",
+      "bytes": 302377,
+      "sha256": "2717b9d22e1d3533e3c7436a0230b00b1d25bf396246679825c8db08edaba0a8"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/modern_ceiling_lamp_01_diff_1k.jpg",
+      "bytes": 79705,
+      "sha256": "c08bfbf7576a86a4a09d386ae9f0a92965fc652bf82f3a8dba1c796b1aa9e535"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/modern_ceiling_lamp_01_mat_0_metal_smooth.png",
+      "bytes": 1090083,
+      "sha256": "f4b048797cadfb9da8513746169c3518e3b7d38e73b309b972782620b6d5f91e"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/modern_ceiling_lamp_01_mat_1_metal_smooth.png",
+      "bytes": 1090083,
+      "sha256": "f4b048797cadfb9da8513746169c3518e3b7d38e73b309b972782620b6d5f91e"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/modern_ceiling_lamp_01_mat_2_metal_smooth.png",
+      "bytes": 1090083,
+      "sha256": "f4b048797cadfb9da8513746169c3518e3b7d38e73b309b972782620b6d5f91e"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/modern_ceiling_lamp_01_nor_gl_1k.jpg",
+      "bytes": 79333,
+      "sha256": "dd75bd21a901581325f5c363bd89b45430b8531cb27dead314cd087196a33c27"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/modern_coffee_table_01_diff_1k.jpg",
+      "bytes": 410569,
+      "sha256": "069b89dd3ef03ddcbb7b2e6a124b1903aa7848394509121aa19f87bd0ef0218c"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/modern_coffee_table_01_mat_0_metal_smooth.png",
+      "bytes": 757051,
+      "sha256": "928b3bf19a3ea9efb05bfc38d1a7807a69ecff045e174b3aba0c25215107dd64"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/modern_coffee_table_01_nor_gl_1k.jpg",
+      "bytes": 359134,
+      "sha256": "43e0d317d0f8418b130c0058c645225ee83b808b1dc0e5e7236bead3bdd77139"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/potted_plant_01_leaves_diff_1k.jpg",
+      "bytes": 124730,
+      "sha256": "b73891a0a606e139d0fcdd9e6fe503cd1210be3fc9c55fbd033941288231ccaa"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/potted_plant_01_leaves_nor_gl_1k.jpg",
+      "bytes": 177105,
+      "sha256": "2faa756e0ee2b8341c752b283b93599157bf56f4083a9f61b825cdfa0c7138ff"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/potted_plant_01_mat_0_metal_smooth.png",
+      "bytes": 963647,
+      "sha256": "5c0d34ef34c614f2eb31e8981e0434b52042db5b2bca657a311c1ba45c06f134"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/potted_plant_01_mat_1_metal_smooth.png",
+      "bytes": 634030,
+      "sha256": "d316d15ba84c7490aa3c521c25e4714babf8318f291edf57287047378d516bb0"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/potted_plant_01_pot_diff_1k.jpg",
+      "bytes": 204900,
+      "sha256": "51c9d80e8abe585bd3dbcebe7cba1d3ed1a22b137c7cb66baf0e462c08dca312"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/potted_plant_01_pot_nor_gl_1k.jpg",
+      "bytes": 200349,
+      "sha256": "ec02e51751e0822d229d48bea1373b06e2675c3725ff04fd1f87ac516719e620"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/potted_plant_02_leaves_diff_1k.jpg",
+      "bytes": 167700,
+      "sha256": "3643dce6e6c0a9f40129bd837ec1a11802e8f43ea43cb29e58219d82e0ac632b"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/potted_plant_02_leaves_nor_gl_1k.jpg",
+      "bytes": 127232,
+      "sha256": "e0fe090ff7a511729c9bbe59df7288b400430fdab178529443dec75e0f06007d"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/potted_plant_02_mat_0_metal_smooth.png",
+      "bytes": 687894,
+      "sha256": "6453aa91e96c0be3ccbdb2cf752d851931ee6ba6a818c7de27098a1b592d0519"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/potted_plant_02_mat_1_metal_smooth.png",
+      "bytes": 731222,
+      "sha256": "b8d5904a93da8d342ca6af3be4abef1c5599c2800c5cd3102a800191c3c764ad"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/potted_plant_02_pot_diff_1k.jpg",
+      "bytes": 155244,
+      "sha256": "684949bf24821d7e951d46915366b5a388d2e4ccaaa9d5284e718c83604705e9"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/potted_plant_02_pot_nor_gl_1k.jpg",
+      "bytes": 108343,
+      "sha256": "981a68721c8b7b9ac26b96d0210334599d5e8f529362f505082c071a0a58e86c"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/side_table_01_diff_1k.jpg",
+      "bytes": 183315,
+      "sha256": "e0d9f2f91bede592868f9b89d141f5e8542524b8356f1b68f0f5c6bb6447731d"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/side_table_01_mat_0_metal_smooth.png",
+      "bytes": 1201837,
+      "sha256": "1c29261dad39851398c4417bbe8e7289e699b734cdfc5956af2cdf9e98344dbb"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/side_table_01_nor_gl_1k.jpg",
+      "bytes": 71744,
+      "sha256": "14850c49ae1e06cf8701eac4fed2163c2ad075978d2878fcaa079dffe1fd1195"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/small_wooden_table_01_diff_1k.jpg",
+      "bytes": 138301,
+      "sha256": "ef587bffaf9f65ec81e0777fa6f25d835ed354cef055669c8a783086fd45b9dd"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/small_wooden_table_01_mat_0_metal_smooth.png",
+      "bytes": 1220701,
+      "sha256": "455cced2047c671a6189a29fd804068ddf21be76a265f8f902136c47bb4cce09"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/small_wooden_table_01_nor_gl_1k.jpg",
+      "bytes": 26935,
+      "sha256": "7f675805966ce02cd7678687c4fc86c0dfe4b20106486bb0c772143ea8ca3b4b"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/white_plaster_02_diff.jpg",
+      "bytes": 527219,
+      "sha256": "a1ebbe091bd1ae93d2abd5de8d69f9003a8d0ee6532bcf9a87c2492c97051f23"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/white_plaster_02_nor_gl.jpg",
+      "bytes": 652310,
+      "sha256": "eb572ca3630d5bfde72e2601b1f02412da23ca005cd19384dced8690be4cb783"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/white_plaster_02_rough.jpg",
+      "bytes": 295900,
+      "sha256": "4ff1fe957cd161b07f721fe6c28a9459c8c2e8ec65627a26c16e483a07c80d85"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/wood_floor_diff.jpg",
+      "bytes": 734493,
+      "sha256": "2a1c07687b6dbb214c4b9213739c6d92d425f1f0fc8ab3ac157f105d78240789"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/wood_floor_nor_gl.jpg",
+      "bytes": 423303,
+      "sha256": "452247f0d0d1b7fc7f8324ff3b6ed60bcc6de1405f4284eeb8d9bce90d4939c2"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/Environment/Textures/wood_floor_rough.jpg",
+      "bytes": 527754,
+      "sha256": "061f1e1293251b2d28c76e3fac1ea9452b0e8648bb8f9b3728e09db386166e5c"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/Materials/FabricWeave.png",
+      "bytes": 12358,
+      "sha256": "626095d7c54e7c05beaa6c70739cb4b6eae790d675157a2ea621ff045b69f9ea"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/alex/Beard_cards_0_RGBA.png",
+      "bytes": 39297,
+      "sha256": "be9420165a95967fe01b03e2cc4f4bbc7250279b57a9d449092561698232cd58"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/alex/Eyebrows_cards_0_RGBA.png",
+      "bytes": 251622,
+      "sha256": "d8a42f8806c246a67865412db8784b6bfe2d7e5350fb1887497baa6efa05d7cd"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/alex/Hair_cards_0_RGBA.png",
+      "bytes": 977699,
+      "sha256": "328a4d4d63e11696a5f6531e312542ef8531aa215a04140b5feed1ead05de243"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/alex/Mustache_cards_0_RGBA.png",
+      "bytes": 36581,
+      "sha256": "a6dcb2897d24fd5014dcac9924e6ff15c5f1f0abb7234164d41df6a838093350"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/alex/animations/runtime_afraid.fbx",
+      "bytes": 34208832,
+      "sha256": "baf1e663394af4c216befa7c225ce2e1b50e0265988d595cf139336d4948c758"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/alex/animations/runtime_angry.fbx",
+      "bytes": 51540816,
+      "sha256": "afcec2d8bc978e4deec37459ea50615f16be50167907f084705885987d3ea504"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/alex/animations/runtime_crying.fbx",
+      "bytes": 46084816,
+      "sha256": "5965e944a76b088a8cf775bc7c1c2f9973d9bec3c9bcb67749e79cdc8d2b14f8"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/alex/animations/runtime_poses.fbx",
+      "bytes": 9294400,
+      "sha256": "311b0eced9522dea7a7f42b899c339d9a03e04cce2757516f53aa38e1b4e4e10"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/alex/models/Beard_cards_0.fbx",
+      "bytes": 1175616,
+      "sha256": "4d32fc1e8401339243a0fa5b958a04738e06932f1d12a2a0fb537ea684b4e1fd"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/alex/models/Body.fbx",
+      "bytes": 2308304,
+      "sha256": "9863bacab47cb3806ecb789a2eb0b823b92c1cf0dec3763b875dc4a0204a0b3d"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/alex/models/Eyebrows_cards_0.fbx",
+      "bytes": 427936,
+      "sha256": "46e819f32def4ba26f34f2ef6d398a3a31581ed47712a93944ab2d19282add05"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/alex/models/Face.fbx",
+      "bytes": 3016736,
+      "sha256": "2e8221b835c7c667e38fff1ba51d007845a02e3a0798a100283386ada0d87b57"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/alex/models/Hair_cards_0.fbx",
+      "bytes": 898848,
+      "sha256": "b6d821e676681666c289ef8c71c3d67e7aba0de06df2afe44d0aa86a7cde5089"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/alex/models/Mustache_cards_0.fbx",
+      "bytes": 417568,
+      "sha256": "108a8c27341d33bbf5b5a07b9454e112f5c80731e467184bac001014fe249de5"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/alex/models/Outfit.fbx",
+      "bytes": 5073612,
+      "sha256": "fd1721c9666d2570083ffe92eda448a61b95ef4fb6771feb470826e2d916de81"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/alex/models/SkeletalMesh.fbx",
+      "bytes": 1551168,
+      "sha256": "c5145a7683bdf2d581db48894dad38d636048d8c8f23416a6afd9fb3bf4dbf16"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/ivan/Beard_cards_1_RGBA.png",
+      "bytes": 617666,
+      "sha256": "5e14a526bf937e44da70ce4e4cc8d980d8d6d95d35b0c7e99ba69bd4ffac78e0"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/ivan/Eyebrows_cards_0_RGBA.png",
+      "bytes": 251622,
+      "sha256": "d8a42f8806c246a67865412db8784b6bfe2d7e5350fb1887497baa6efa05d7cd"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/ivan/Hair_cards_0_RGBA.png",
+      "bytes": 1092215,
+      "sha256": "e08592cb00f78e53fcaa617c47e0206d6c3f4267a8aaed1b09f71697cedb5d8c"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/ivan/Mustache_cards_0_RGBA.png",
+      "bytes": 378180,
+      "sha256": "a674d2148840be122275dbca11f69fa876d0d76918d6b4c13bd04d1709602132"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/ivan/animations/runtime_afraid.fbx",
+      "bytes": 34210304,
+      "sha256": "5efd948ea19fb0ae078afa92d49e53c1e8297fa8d05bed37fcb98433e0c4437c"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/ivan/animations/runtime_angry.fbx",
+      "bytes": 51534160,
+      "sha256": "410a1f8db876b6b75d81beabcf9375432ed200f467bdc833e5ebf91ba4c5c8b5"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/ivan/animations/runtime_crying.fbx",
+      "bytes": 46092816,
+      "sha256": "f801e55b049f155c56253d7202c1e671106160f0ecf1ff204a4648e259fa1853"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/ivan/animations/runtime_poses.fbx",
+      "bytes": 9294400,
+      "sha256": "d1f7e26bc0746bcab00f824f0d0daa790645767bc4ba12bfc53a6d29584b9d96"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/ivan/models/Beard_cards_1.fbx",
+      "bytes": 1034768,
+      "sha256": "7df5e5e4a98c883f7068a161725204fcb13930af5c660156e8af9365ce7efa83"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/ivan/models/Body.fbx",
+      "bytes": 2336384,
+      "sha256": "2ad2dc68e8b2f2436e277cb67c38ae0998c25da1061a3afa6a92fa7a4b717406"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/ivan/models/Eyebrows_cards_0.fbx",
+      "bytes": 427088,
+      "sha256": "217f1d457921524393b73ae3a2447433da1393ed6d0e4f90c1091ad0f2d4fdf9"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/ivan/models/Face.fbx",
+      "bytes": 3016768,
+      "sha256": "8db0a484ca1ac5147fe32dd00aa3bd3c374e5b9ce1a3dce1416ce48e31fa007c"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/ivan/models/Hair_cards_0.fbx",
+      "bytes": 2038528,
+      "sha256": "7761665c8f3d4dfdbb257cf23bb2e74f97e303896120bc636d7d345c92255e7d"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/ivan/models/Mustache_cards_0.fbx",
+      "bytes": 725520,
+      "sha256": "9ce31f8f6278ae82dc144391eebfbe660fadd31967af92710b3062b7e582b264"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/ivan/models/Outfit.fbx",
+      "bytes": 5090588,
+      "sha256": "25d0710cb546ba5975387e33d72eb43195cc921de8f9788a00ad72d3bf12807f"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/ivan/models/SkeletalMesh.fbx",
+      "bytes": 1565360,
+      "sha256": "b3681c3d1173853eeb2480961fc504918927019969222094f52962b81d5a9f75"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/nikola/Beard_cards_0_RGBA.png",
+      "bytes": 1187618,
+      "sha256": "619343fd58b729f96f36782ac40334663689eb151cb813af9f948405c1982089"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/nikola/Eyebrows_cards_0_RGBA.png",
+      "bytes": 171135,
+      "sha256": "73e2bc7125a3d9a98b1479a8a0223e5272ba057f213b484e284c7749b1f02e30"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/nikola/Hair_cards_0_RGBA.png",
+      "bytes": 2051725,
+      "sha256": "a6a084332d98b617ab6eceaf6aff1352834476c15a42f55e7e6b2b23fdd54d85"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/nikola/Mustache_cards_0_RGBA.png",
+      "bytes": 967027,
+      "sha256": "e11db1bafd7fa309b1ce17b438c4527c4683b1aac3e4737b9a836336b756a4ad"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/nikola/animations/runtime_afraid.fbx",
+      "bytes": 34207424,
+      "sha256": "56f4255de5c96c1e041d7062770b417d7fcd1ca4438c9b9829e7c1b5441130a8"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/nikola/animations/runtime_angry.fbx",
+      "bytes": 51534816,
+      "sha256": "46eecaf55f58894fa43b35fee90957e9731a0dbca4b4146e09b99d0ad07fa21b"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/nikola/animations/runtime_crying.fbx",
+      "bytes": 46092480,
+      "sha256": "9a004ffcedbc24ea59f2db46f1d584fef74cb7d9a7fef062cefc517c3e8760a0"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/nikola/animations/runtime_poses.fbx",
+      "bytes": 9294400,
+      "sha256": "921c324cb8dc6d57a412eed8ac48634ed9e48759897723d9fbf7966b375cdd19"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/nikola/models/Beard_cards_0.fbx",
+      "bytes": 1104592,
+      "sha256": "0450b43bf7236fa96a4a3dda8c0de3e655599b3bd997d9e141b1c967326a2833"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/nikola/models/Body.fbx",
+      "bytes": 2272288,
+      "sha256": "bc3cd94acaf49f984120a44d0764b474674a80a0ebd6ebc81a49b9e475195aec"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/nikola/models/Eyebrows_cards_0.fbx",
+      "bytes": 282336,
+      "sha256": "520a9330feaf360366b479437c0dc12d84d89f0e081761fd4c782c334d5ad89e"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/nikola/models/Face.fbx",
+      "bytes": 3016768,
+      "sha256": "3fd9249eae875ae0e7d92e45f21fd9d157a4f6b493cd1618e61e0d09aa0c57a4"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/nikola/models/Hair_cards_0.fbx",
+      "bytes": 2777248,
+      "sha256": "2ef7d080b5c561a11e61d3fff96140ca9f32f953a745cdbbeeae83a6f8c79822"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/nikola/models/Mustache_cards_0.fbx",
+      "bytes": 471424,
+      "sha256": "5e654b7a55ec7b3747c8038e8aaf661f917b7d1acbc303b9ceff7ac53480c485"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/nikola/models/Outfit.fbx",
+      "bytes": 5269980,
+      "sha256": "af499a8e36df9d7cefd0e5d1c6f9eb82f7b2ffa45ce415274391c3556bd8ee22"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/nikola/models/SkeletalMesh.fbx",
+      "bytes": 1734176,
+      "sha256": "15fe870698de15ad82bce70f4c64c13f3ba10b91ba9177fbef8fed1626fa7ae1"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/stefan/Eyebrows_cards_0_RGBA.png",
+      "bytes": 1082171,
+      "sha256": "8f33e95ba4ab84ae023d16cdd1afb0e1ec51d28803f2c2b05551d2feb238781d"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/stefan/Hair_cards_0_RGBA.png",
+      "bytes": 1393842,
+      "sha256": "a2a725431c66f7e344816f9358c268d7af811d3e919aa107b42e60bc1ceedbd3"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/stefan/animations/runtime_afraid.fbx",
+      "bytes": 34201776,
+      "sha256": "215466b9cd15d32787eec852817c4d21304029bc91700137912257d2f40185fe"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/stefan/animations/runtime_angry.fbx",
+      "bytes": 51536080,
+      "sha256": "d57ad4452880eef6f686de342f70e06f9215ee0b0df4ad9d17166793c0e2cb57"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/stefan/animations/runtime_crying.fbx",
+      "bytes": 46086336,
+      "sha256": "4c6159d16b0277adb8cef3eaa7fb5a2f3f334f8dcd0644998aaa5648c2fe6c36"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/stefan/animations/runtime_poses.fbx",
+      "bytes": 9294400,
+      "sha256": "9cb1e34a050435418bee7960d28d1a8d3c1c8069c888fb58c1a137a8bba5cde4"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/stefan/models/Body.fbx",
+      "bytes": 2315120,
+      "sha256": "9cb063ebdaa59dfd2a67419fd7f63c1aca2502287b7eb3a3ba17000b545797c8"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/stefan/models/Eyebrows_cards_0.fbx",
+      "bytes": 242528,
+      "sha256": "5698a6c5a9510cbf4acc2a6524ae63c436e97933f07ad7ab11a5226492423090"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/stefan/models/Face.fbx",
+      "bytes": 3015856,
+      "sha256": "044f6d02bb865f1a00aeec4526e486074413dcdfc1967cda6fe0989b686664a9"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/stefan/models/Hair_cards_0.fbx",
+      "bytes": 1606032,
+      "sha256": "30169eaf8b9ad7431c9624ce80ed5a32314f52283684308fa7870d0ae833dc31"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/stefan/models/Outfit.fbx",
+      "bytes": 5281676,
+      "sha256": "216f3c0c57f651c05d7534c71fbef3fa0f1d7f424655fbcd1adaf92e27a146aa"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/stefan/models/SkeletalMesh.fbx",
+      "bytes": 1750304,
+      "sha256": "542b625fb1a569cd88dd0435739d8c089908826a52727ab9a6ceed62a86e1075"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/DG_bodyShapeA_Shirt_AO_001febbf.png",
+      "bytes": 3951643,
+      "sha256": "2c52e949e3bc9dc0e0a700a82e9e16bc451b27c6f89f64bf44b54b65a3488363"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/DG_bodyShapeA_Shirt_Normal_e42dd7bb.png",
+      "bytes": 8020025,
+      "sha256": "373e9f7ef71eb721c009b9d2096b072bfab63e30fffa30982d4abdb572aa5b7f"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/DG_bodyShapeA_Short_AO_0f3454dd.png",
+      "bytes": 4761921,
+      "sha256": "61d72e5828c4821e6d45552b64209adf01c8d75d1e018c931431a644e34dc69f"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/DG_bodyShapeA_Short_Normal_9b8e3613.png",
+      "bytes": 6632790,
+      "sha256": "b74c65243d71650dac381dbe287c17ec9bed1e063c73aa75e0063e0089480714"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/DG_bodyShapeDE_Shirt_AO_888aa6d5.png",
+      "bytes": 15789370,
+      "sha256": "816b0ad8877f669eb4da6b9715d18f2b50cdb6a1470b93a0767dd4fb25a7cc42"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/DG_bodyShapeDE_Shirt_Normal_bdaf994b.png",
+      "bytes": 46434389,
+      "sha256": "832701149f25ada1259d4823ddc76dfcee6d3e7f191852abf8c61c56f343fd63"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/DG_bodyShapeDE_Short_AO_959761d8.png",
+      "bytes": 13287494,
+      "sha256": "d823477a87452100c594dad158da4337339d02fe7a6be51b970997c9d73a73c8"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/DG_bodyShapeDE_Short_Normal_fe6569b4.png",
+      "bytes": 36882758,
+      "sha256": "cc69f2f00fc12a36738cc88bc2d7431b599dd7f27bf1e99f369bac5da01983a3"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Body_BC_7fb4cf90.png",
+      "bytes": 7338708,
+      "sha256": "7953f78cbc2a4d9fab15a566da2f51479322dca9a02b0b9d456b7dfb54bb6901"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Body_BC_8a4986ee.png",
+      "bytes": 9528709,
+      "sha256": "65fca73b73a1e0d6a3ef9cdb23209dfc9c09d084055470b8e8d6a59d02c1ffa7"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Body_BC_90f543a3.png",
+      "bytes": 6831119,
+      "sha256": "4ee92c34e01431180f6d8e8f109710f5460867b0515c1274735f608b2bc7f236"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Body_BC_c8601a37.png",
+      "bytes": 6720947,
+      "sha256": "6e9769e2aba8268233795883fc6cc2dc2736b8f398d5abf0b9eadb963e48a886"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Body_BC_f96192f4.png",
+      "bytes": 9798709,
+      "sha256": "1817ecd7605259479bcaf99a8274a849c1360c5b237d42f73de6ef021c134581"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Body_N_a2baec60.png",
+      "bytes": 56087392,
+      "sha256": "82093a81b6b76926552cbf51dd3418886cbfda3846841c0c9b2a1cf6197c1c57"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Body_N_c9bd6016.png",
+      "bytes": 58107772,
+      "sha256": "fa2b5790b977c6f41ee20eafaf87e4cebe7451d6472411933a404b17d7ce98be"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Body_N_e0b57514.png",
+      "bytes": 60050346,
+      "sha256": "0f011d20dd9f32681889d40888cbe0eda060b809d1b48a1cf7eb259af776209c"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Body_N_e15079bf.png",
+      "bytes": 57086196,
+      "sha256": "09f1629c0b2997406eb756a334ac3503c26971fa6423db458f1115c761494bbe"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Body_N_e60cf295.png",
+      "bytes": 56087392,
+      "sha256": "82093a81b6b76926552cbf51dd3418886cbfda3846841c0c9b2a1cf6197c1c57"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD1_BC_061c2c74.png",
+      "bytes": 5251837,
+      "sha256": "b5d76bc10832b5cce7c6673d0779086312814e991d352d1f22aa0d5270cb6237"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD1_BC_5736c55f.png",
+      "bytes": 4347435,
+      "sha256": "08a22e319ea6ee0db383efd0475f3ce1fe306c708fd7d3d7ac14c1c5a02a5d2e"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD1_BC_759c7dbe.png",
+      "bytes": 4388650,
+      "sha256": "c850de8b2bcbf040fff045e4337aaa0301153f2ab8764945445a928169eff35e"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD1_BC_9a0572c6.png",
+      "bytes": 4749865,
+      "sha256": "6dab5cab24eb752ffdfd6dd2ad0ef064bf2a382d985d2ac4cd98d24b0a03c9e4"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD1_BC_a69b14a4.png",
+      "bytes": 4507717,
+      "sha256": "ad2ebcc68e3f54de287291060994e91aae2ec7c6a9f079b16f08cd27cada1f5c"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD1_N_0b25e163.png",
+      "bytes": 17834641,
+      "sha256": "28def0e5fd575a2ad30b9a09aaff5708e36bc2173fe0674f9a674a9caa52f4c3"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD1_N_12501ee7.png",
+      "bytes": 20806555,
+      "sha256": "633170ad0877e38e02573cf40a5b92ae1bdd6702ad18d5822cdc276bfbf2540d"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD1_N_260c3f3a.png",
+      "bytes": 18564090,
+      "sha256": "6b6f44f606a2345a25202f3375287d031cfdc24fe445654b4fb144908770425c"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD1_N_38f08797.png",
+      "bytes": 19652538,
+      "sha256": "9d2a27b670f18654d58d2d0b59cc28a309747f022ea9b80f1a73e031eec27c3a"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD1_N_7ff5b9d9.png",
+      "bytes": 17915358,
+      "sha256": "743736a79787dbef28237bdc96beb438a3a150cf82c26566bd85d7c59171c1c4"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD3_BC_3b764bd7.png",
+      "bytes": 5094217,
+      "sha256": "345a251985f4495f08af1bfbe1512c3039625349e195bc6bad07be893719db19"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD3_BC_b6f2ed48.png",
+      "bytes": 4432923,
+      "sha256": "62fd51c62a0aea6971ee0ba6b01df402c74bd05b3ef2fa4a8ad4cc21b6c82f0e"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD3_BC_cba554ad.png",
+      "bytes": 4576688,
+      "sha256": "d2888feef6fd20dc4ff45494461621517cab6809e478ec046ed1224259a15aa5"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD3_BC_e3d71fe1.png",
+      "bytes": 5010172,
+      "sha256": "b634c4645e72d56fc94d6116ee3557f9300cc5b27ef9cf5f55aa219972802ae7"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD3_N_2fd3b971.png",
+      "bytes": 6885064,
+      "sha256": "c9742d697540d54967a5048ae6c25260a48b1046a12201e139cb2ff1c522b84c"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD3_N_35425b37.png",
+      "bytes": 6448097,
+      "sha256": "dd06666acfc72f8d1041d4e16763bf811c92e84ff5fce48faf0b2b35e30f0e75"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD3_N_c2cc4c00.png",
+      "bytes": 6610458,
+      "sha256": "cebddc3507376040a490a6599970c6817972accde3b9b10aa7b711147ead424e"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD3_N_d1aea35d.png",
+      "bytes": 7539759,
+      "sha256": "e8aa1956f332cd11448a08057cf2bce2d1f2db438f7498d2ca62661d5df2f756"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD5to7_BC_4fb9c121.png",
+      "bytes": 1655346,
+      "sha256": "61ccf1e04a4976ff5eba6a8eb465bb86263f6960274da0ed00ecc9795283cf04"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD5to7_BC_6210f7aa.png",
+      "bytes": 1405587,
+      "sha256": "4a01165e480f4b8dc8fd6177de845f0983e11b8531ea63749392d4387c5bf9fe"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD5to7_BC_96de1424.png",
+      "bytes": 1632439,
+      "sha256": "57aac070776f013617b916fc62e03fc70758d7f7f876b073d08af7aae07f7b13"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD5to7_BC_e08ec458.png",
+      "bytes": 1582261,
+      "sha256": "b317e21ec5f83782f032292959c80ad5f29ee2da752423e0efa817bd47ad2ea0"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD5to7_BC_f0260a29.png",
+      "bytes": 1678877,
+      "sha256": "f472dfb7e03a823020d10bcfc523a5777d16fdae170927279d2d00d9647ded80"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD5to7_N_0864f9ce.png",
+      "bytes": 2031415,
+      "sha256": "aa0ed3d552b4a8bb6e7c9d8cf3299bd7dca7cf7dcf5aff40e7bcb09bc816cd22"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD5to7_N_7e995518.png",
+      "bytes": 1956354,
+      "sha256": "104f8cfa66ac291e7353b9a0bd3e784e6bd9140f35760f9aff9dee0da1fd13a6"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD5to7_N_a85cfac8.png",
+      "bytes": 1974074,
+      "sha256": "3bdf20003eaab68446d485515f66b38c56fd9471cdf419878dfbe5dcd9a24725"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD5to7_N_ab82ffcc.png",
+      "bytes": 2086711,
+      "sha256": "b7c1a999b13f20194eacc3b5bf6d8da39f2e345c8e68ede9f9fac11499e11d60"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Head_LOD5to7_N_ef094904.png",
+      "bytes": 1779004,
+      "sha256": "e778e8a79e447de1de75723b62ea46224d3226610aeaf50ac138daa880854732"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Teeth_BC_283bd4ab.png",
+      "bytes": 1079324,
+      "sha256": "d67ab60a05b71fd905b59526f9b4e38d76a0e6a2d9cd00bbbd7179c79b167540"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Teeth_BC_44fb6474.png",
+      "bytes": 1088592,
+      "sha256": "31cd186b4cf24a607364c2d217721c3a026db8457d709123c605b51b57cfa533"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Teeth_BC_47898c65.png",
+      "bytes": 1080944,
+      "sha256": "25885a2e3b74402c49fe2cbc06468be1e143d83f46cdc4dd3181352891ce8f86"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Teeth_BC_577d8562.png",
+      "bytes": 1070678,
+      "sha256": "c1dcf6e4e87afc331231c3d5db11542dc1d165e2b0885d70fcb2e88ffff8a5a7"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Teeth_BC_942f9bc7.png",
+      "bytes": 1080251,
+      "sha256": "a9739a7eac1dbb7e454163e94e2b097295db112c723e985fb7c4aebecb29d323"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Teeth_N_05de2654.png",
+      "bytes": 6638057,
+      "sha256": "e40c773def70d127c3fa12ef296ca4a8365c14dac1d4ebc24eb7c4cc2675d37c"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Teeth_N_380fd10e.png",
+      "bytes": 6638057,
+      "sha256": "e40c773def70d127c3fa12ef296ca4a8365c14dac1d4ebc24eb7c4cc2675d37c"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Teeth_N_9f5fcbec.png",
+      "bytes": 6638057,
+      "sha256": "e40c773def70d127c3fa12ef296ca4a8365c14dac1d4ebc24eb7c4cc2675d37c"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Teeth_N_f28cf85b.png",
+      "bytes": 6638057,
+      "sha256": "e40c773def70d127c3fa12ef296ca4a8365c14dac1d4ebc24eb7c4cc2675d37c"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/T_Teeth_N_f831b121.png",
+      "bytes": 6638057,
+      "sha256": "e40c773def70d127c3fa12ef296ca4a8365c14dac1d4ebc24eb7c4cc2675d37c"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/eye_19055b22ca83.png",
+      "bytes": 885423,
+      "sha256": "79b32278429d7f0f048070faf79474afc62bb60f349121ce373b19e675c3ba5e"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/eye_24e3fb971ad1.png",
+      "bytes": 887708,
+      "sha256": "fcc2550633c334c340cf5ae4801ab875483fad75d950f3ad2a113b1087e4d3c7"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/eye_3eabba02fd91.png",
+      "bytes": 656797,
+      "sha256": "f77d7e9185a293c3ce3744f01f9f953800861fe5eb2e4bb15548c987c46e4900"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/eye_4d53ac55a390.png",
+      "bytes": 656413,
+      "sha256": "97b8cd7c8c9dbabc9382a94ef8e1fd9fab6d4b0af8a323019d12c596f848f0cd"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/eye_56831f88fc33.png",
+      "bytes": 641139,
+      "sha256": "2943c3a9c9811384179a26761f7a8faf90cdcba7ea84558f44d268d292078288"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/eye_59e00691efc4.png",
+      "bytes": 850400,
+      "sha256": "5e227e71ef5bbe2e56de55b6198f97e2a87db5f88617fdd75e8dbf1c56ddb36c"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/eye_8284ef4375dd.png",
+      "bytes": 885090,
+      "sha256": "281e5c1acf41aa8859714aa2a4ff63f14e313593e9881151e4e6f5ef8d001a66"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/eye_97b56423297b.png",
+      "bytes": 645127,
+      "sha256": "95c003969f8302f3335d3a9911744994b532d4fd576a479cb4af5773f7dbc97d"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/eye_e2a792d79cec.png",
+      "bytes": 642478,
+      "sha256": "fd245192227193264f93630e836552a85e784dd0f3d846c62d83ec4c33b7a187"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Art/MetaHumans/textures/eye_e7d3d57f8cfe.png",
+      "bytes": 645173,
+      "sha256": "3d9b55fde72e12b6b97faae75ea51403477b62ad9add72a14832dec356d69fb2"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Resources/Menu/alex.png",
+      "bytes": 1980103,
+      "sha256": "ee6a9f3e6f76ccd27c3c2f209bf5fdbdb7291efa5c00e84419c8b7e29904a94c"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Resources/Menu/metahuman-alex.png",
+      "bytes": 586120,
+      "sha256": "34245391305d0ee3e8fac2a6cb3c0ed7d2c4f029c23bdb35e2379b03d85b6714"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Resources/Menu/metahuman-ivan.png",
+      "bytes": 818999,
+      "sha256": "ead80301d1308270a0553b72d15029d9ff8e686fac4d40514cd671ac004c8a3b"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Resources/Menu/metahuman-nikola.png",
+      "bytes": 542744,
+      "sha256": "3afb530f53de3337c1d90b867e6380275f2ff6ea440f2da804cb34f384a11f9e"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Resources/Menu/metahuman-stefan.png",
+      "bytes": 599650,
+      "sha256": "32922529abae52ff125dac6f6471d2ea3db948ffad6d69eb87990aa70271486b"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Resources/Menu/original-alex.png",
+      "bytes": 1700901,
+      "sha256": "bcb80516e2b7eb8a42ca5ec72ad50ec1cdf61c56543b001a69e05cd6de94793c"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Scenes/ConsultationLighting/Lightmap-0_comp_dir.png",
+      "bytes": 49279,
+      "sha256": "1c994c09837f143e4f1cf2136212e1754c458b8b8ec4660c197272a23465fb82"
+    },
+    {
+      "path": "unity/Assets/PsychologyVR/Scenes/ConsultationLighting/Lightmap-0_comp_light.exr",
+      "bytes": 385185,
+      "sha256": "df3b80204def651a0e982312e980782f1e930dcbe07a8472e4df59f4af7a1155"
+    }
+  ]
+}

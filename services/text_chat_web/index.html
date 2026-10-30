@@ -13,10 +13,21 @@
   <div class="aside-bottom">Sessions are saved automatically on this PC.<br>Same model and character prompts as VR.<br>Text only · no microphone or voice generation.</div>
 </aside>
 <main>
-  <header><div><div class="eyebrow">CONSULTATION</div><h2 id="patient">Connecting…</h2></div><div class="actions"><button id="export" disabled>Export transcript</button><button id="restart" disabled>New conversation</button></div></header>
+  <header><div><div class="eyebrow">CONSULTATION</div><h2 id="patient">Connecting…</h2><p id="student-label" hidden></p></div><div class="actions"><button id="export" disabled>Export transcript</button><button id="restart" disabled>New conversation</button></div></header>
   <div class="toolbar"><label class="toggle"><input id="emotions" type="checkbox"> Show emotional cues</label><span id="status" role="status">Connecting to the local service…</span></div>
   <section id="rapport" hidden aria-label="Simulated relationship"><div><strong>Comfort with you</strong> <span id="comfort-value"></span><span id="openness"></span></div><progress id="comfort" max="100" value="0" aria-label="Simulated comfort"></progress><div id="rapport-detail"></div><small>Comfort affects sensitive disclosure, not everyday conversation. Simulation only, not a clinical score.</small></section>
   <div id="messages" role="log" aria-live="polite" aria-label="Conversation"></div>
   <form id="composer"><label for="message">Your message</label><textarea id="message" maxlength="2000" rows="3" placeholder="Ask a question or respond as you would in a session…" disabled></textarea><div class="compose-footer"><span>Enter to send · Shift + Enter for a new line</span><div><button type="button" id="stop" disabled>Stop reply</button><button id="send" class="primary" disabled>Send message <span aria-hidden="true">↗</span></button></div></div></form>
 </main>
+<dialog id="student-dialog" aria-labelledby="student-title" aria-describedby="student-help">
+  <form id="student-form">
+    <div class="eyebrow">NEW CONVERSATION</div>
+    <h2 id="student-title">Start a conversation</h2>
+    <p id="student-help">Enter your student name. It will appear in saved session logs and downloaded transcripts.</p>
+    <label for="student-name">Student name</label>
+    <input id="student-name" name="student_name" type="text" autocomplete="name" maxlength="160" required aria-describedby="student-limit" autofocus>
+    <p id="student-limit" class="small">80 characters maximum.</p>
+    <div class="dialog-actions"><button id="student-cancel" type="button">Cancel</button><button class="primary" type="submit">Start conversation</button></div>
+  </form>
+</dialog>
 </body></html>

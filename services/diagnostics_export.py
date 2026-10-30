@@ -28,6 +28,8 @@ def timing_record(record):
         selected.update(fields(response, ('turn_id', 'generation_ms', 'speech_ms', 'alignment_ms', 'total_ms')))
     elif event == 'segment_ready':
         selected.update(fields(record, ('index', 'ready_ms')))
+        selected.update(fields(record.get('segment', {}), ('audio_duration_seconds','speech_source',
+            'speech_preparation_ms','alignment_preparation_ms','pause_before_seconds','hold_after_seconds')))
     elif event in ('turn_failed', 'turn_cancelled'):
         selected.update(fields(record, ('error_type',)))
     elif event in ('playback_progress', 'playback_finished'):

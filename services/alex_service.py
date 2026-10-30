@@ -23,13 +23,15 @@ from pathlib import Path
 from performance_contract import GAZES, TIMING_DEFAULTS, TIMING_LIMITS, FIELDS, directions, PERFORMANCE_PROMPT, PATIENT_PERFORMANCE_PROMPT
 from conversation_prompt import character_prompt, conversation_guidance
 from conversation_memory import remember, select as select_memories, memory_prompt, MAX_TURNS
-from session_log import SessionLog, SessionLogError
+from session_log import SessionLog, SessionLogError, normalize_student_name
+from session_export import export_session
 from streaming_turns import StreamingTurns, sentence_segments
 from performance_contract import refine_delivery
 from voice_cast import VoiceCast
+from speech_reuse import SpeechReuse, wav_duration
 from speech_language import whisper_language, latin_script, obvious_english_leak, preferred_dialogue_wording
 from patient_relationship import (initial_relationship, validate_appraisal, advance,
-    relationship_prompt, enforce_boundary_cues, ending_segments, APPRAISAL_PROMPT, APPRAISAL_SCHEMA)
+    relationship_prompt, enforce_boundary_cues, ending_segments, APPRAISAL_PROMPT, APPRAISAL_SCHEMA, wants_fuller_reply)
 
 ROOT = Path(__file__).resolve().parents[1]
 EMOTION_CATALOG = json.loads((ROOT/'unity/Assets/PsychologyVR/Resources/EmotionCatalog.json').read_text(encoding='utf-8'))
@@ -53,6 +55,21 @@ SEGMENT_SCHEMA = {
             **{name: {'type': 'number', 'minimum': low, 'maximum': high}
                for name, (low, high) in TIMING_LIMITS.items()},
         }}}},
+}
+
+COMPACT_FIELDS = ('text', 'emotion', 'intensity', 'gesture', 'voice_style', 'gaze')
+
+COMPACT_SEGMENT_SCHEMA = {
+    **SEGMENT_SCHEMA,
+    'properties': {'segments': {
+        **SEGMENT_SCHEMA['properties']['segments'],
+        'items': {
+            **SEGMENT_SCHEMA['properties']['segments']['items'],
+            'required': list(COMPACT_FIELDS),
+            'properties': {name: SEGMENT_SCHEMA['properties']['segments']['items']['properties'][name]
+                           for name in COMPACT_FIELDS},
+        },
+    }},
 }
 
 class ContractError(ValueError):
@@ -125,6 +142,7 @@ def validate_reply(content: str | dict) -> list[dict]:
 @dataclass
 class Session:
     scenario_id: str = 'alex-earthquake'
+    student_name: str = ''
     profile: dict = field(default_factory=dict)
     generation: int = 0
     history: list[dict] = field(default_factory=list)
@@ -157,9 +175,12 @@ class Bridge(StreamingTurns):
         self.inference_lock = threading.Lock()
         self.stt_lock = threading.Lock()
         self.stt = None
-        self.voice_cast = VoiceCast(ROOT)
+        self.voice_cast = VoiceCast(ROOT, config.get('higgs_sentence_streaming', False))
+        self.speech_reuse = SpeechReuse(ROOT, config, self.voice_cast)
         self.kokoro = None
+        self.loaded_tts_voice = None
         self.context_limit = None
+        self.last_inference_metrics = []
         self.runtime = ROOT / 'services/.runtime'
         self.runtime.mkdir(parents=True, exist_ok=True)
         from model_selection import ModelSelection
@@ -169,10 +190,14 @@ class Bridge(StreamingTurns):
         return {'default_scenario_id': self.catalog['default_scenario_id'], 'scenarios': [
             {k: v for k, v in entry.items() if k != 'profile'} for entry in self.catalog['scenarios']]}
 
-    def new_session(self, scenario_id=None, replace_session_id=None):
+    def new_session(self, scenario_id=None, replace_session_id=None, student_name=''):
         scenario_id = scenario_id or self.catalog['default_scenario_id']
         if not isinstance(scenario_id, str) or scenario_id not in self.profiles:
             raise ContractError('Unknown scenario')
+        try:
+            student_name = normalize_student_name(student_name)
+        except ValueError as exc:
+            raise ContractError(str(exc)) from exc
         profile = self.profiles[scenario_id]
         initial = profile.get('initial_state', {'emotion': 'neutral', 'intensity': .5})
         with self.lock:
@@ -180,7 +205,7 @@ class Bridge(StreamingTurns):
             if old is None and len(self.sessions) >= 32:
                 raise ContractError('Session limit reached; restart the local bridge')
             key = uuid.uuid4().hex
-            journal = SessionLog(ROOT,self.config,key,scenario_id,profile['name'])
+            journal = SessionLog(ROOT,self.config,key,scenario_id,profile['name'],student_name)
             if replace_session_id:
                 if old.stream and not old.stream['closed']:
                     self.finish_stream(replace_session_id,old.stream['turn_id'],old.stream['completed_count'],old.stream['partial_seconds'],'replaced')
@@ -190,10 +215,10 @@ class Bridge(StreamingTurns):
                 # arriving after this switch cannot act on the new conversation.
                 old.generation += 1
                 del self.sessions[replace_session_id]
-            self.sessions[key] = Session(scenario_id=scenario_id, profile=profile,
+            self.sessions[key] = Session(scenario_id=scenario_id, student_name=student_name, profile=profile,
                 emotion=initial['emotion'], intensity=initial['intensity'], relationship=initial_relationship(profile),journal=journal)
         return {'session_id': key, 'scenario_id': scenario_id, 'character_name': profile['name'],
-                'generation':0,
+                'generation':0, 'student_name':student_name,
                 'initial_emotion': initial['emotion'], 'initial_intensity': initial['intensity'],
                 'relationship': initial_relationship(profile)}
 
@@ -203,7 +228,7 @@ class Bridge(StreamingTurns):
             if session.stream and not session.stream['closed']:
                 self.finish_stream(key,session.stream['turn_id'],session.stream['completed_count'],session.stream['partial_seconds'],'reset' if reset else 'interrupted')
             if reset:
-                new_journal=SessionLog(ROOT,self.config,key,session.scenario_id,session.profile['name'])
+                new_journal=SessionLog(ROOT,self.config,key,session.scenario_id,session.profile['name'],session.student_name)
                 session.journal.append('session_ended',reason='reset',generation=session.generation,
                                        next_archive_id=new_journal.archive_id)
                 session.journal=new_journal
@@ -240,31 +265,64 @@ class Bridge(StreamingTurns):
                 'max_tokens': 100, 'chat_template_kwargs': {'enable_thinking': False},
                 'messages': [{'role': 'system', 'content': APPRAISAL_PROMPT +
                     '\nPatient context: ' + profile['setting'] + '\n' + profile['facts'][0] +
-                    '\nPrevious interaction state: ' + json.dumps(relationship)}] +
+                    ('' if self.config.get('llm_stable_prefix') else '\nPrevious interaction state: ' + json.dumps(relationship))}] +
                     recent + [{'role': 'user', 'content': text}],
                 'response_format': {'type': 'json_schema', 'json_schema': {
                     'name': 'interaction_appraisal', 'strict': True, 'schema': APPRAISAL_SCHEMA}}}
-        self.fit_context(body, recalled=recalled)
-        data = self.post_json(self.config['llm_url'], body, self.config['llm_timeout_seconds'])
+        if self.config.get('llm_stable_prefix'):
+            body['messages'][-1]['content'] = '\nPrevious interaction state: ' + json.dumps(relationship) + '\nLatest student remark: ' + text
+        if self.config.get('appraisal_llm_url'):
+            self.fit_context(body, recalled=recalled, endpoint=self.config['appraisal_llm_url'])
+        else:
+            self.fit_context(body, recalled=recalled)
+        data = self.infer(body, 'appraisal')
         return validate_appraisal(data['choices'][0]['message'].get('content', ''))
 
-    def fit_context(self, body, recalled=None):
+    def infer(self, body, purpose):
+        """Preserve separate prompt slots and record timings without conversation text."""
+        if self.config.get('llm_cache_slots'):
+            body.update(id_slot=0 if purpose == 'appraisal' else 1, cache_prompt=True)
+        started = time.perf_counter()
+        started_unix = time.time()
+        endpoint = self.config.get('appraisal_llm_url', self.config['llm_url']) if purpose == 'appraisal' else self.config['llm_url']
+        if purpose == 'appraisal' and self.config.get('appraisal_llm_model'):
+            body['model'] = self.config['appraisal_llm_model']
+        data = self.post_json(endpoint, body, self.config['llm_timeout_seconds'])
+        record = dict(stage=purpose, seconds=round(time.perf_counter()-started, 4),
+                      started_unix=round(started_unix, 3),
+                      usage=data.get('usage', {}), timings=data.get('timings', {}))
+        self.last_inference_metrics.append(record)
+        self.last_inference_metrics = self.last_inference_metrics[-16:]
+        if self.config.get('llm_record_metrics'):
+            with (self.runtime/'inference-metrics.jsonl').open('a', encoding='utf-8') as log:
+                log.write(json.dumps(record)+'\n')
+        return data
+
+    def fit_context(self, body, recalled=None, endpoint=None):
         """Reserve output tokens before generation, rather than accepting truncated JSON."""
-        url = urllib.parse.urlsplit(self.config['llm_url'])
+        url = urllib.parse.urlsplit(endpoint or self.config['llm_url'])
         base = urllib.parse.urlunsplit((url.scheme, url.netloc, '', '', ''))
-        if self.context_limit is None:
+        limit = getattr(self, 'appraisal_context_limit', None) if endpoint else self.context_limit
+        if limit is None:
             with urllib.request.urlopen(base + '/props', timeout=5) as response:
-                self.context_limit = int(json.load(response)['default_generation_settings']['n_ctx'])
+                limit = int(json.load(response)['default_generation_settings']['n_ctx'])
+                limit = min(limit, self.config.get('llm_context_tokens', limit))
+            if endpoint: self.appraisal_context_limit = limit
+            else: self.context_limit = limit
         base_system = body['messages'][0]['content']
+        base_user = body['messages'][-1]['content']
         selected = list(recalled or [])
         while True:
-            body['messages'][0]['content'] = base_system + memory_prompt(selected)
+            if self.config.get('llm_stable_prefix'):
+                body['messages'][-1]['content'] = base_user + memory_prompt(selected)
+            else:
+                body['messages'][0]['content'] = base_system + memory_prompt(selected)
             template = self.post_json(base + '/apply-template', {
                 'messages': body['messages'], 'add_generation_prompt': True,
                 'chat_template_kwargs': {'enable_thinking': False}}, 5)['prompt']
             tokens = self.post_json(base + '/tokenize', {
                 'content': template, 'add_special': True, 'parse_special': True}, 5)['tokens']
-            if len(tokens) + body['max_tokens'] + 32 <= self.context_limit:
+            if len(tokens) + body['max_tokens'] + 32 <= limit:
                 return selected
             if len(body['messages']) <= 2:
                 if selected:
@@ -293,16 +351,46 @@ class Bridge(StreamingTurns):
             line, emotion, gesture, voice = examples[(len(history) // 2) % len(examples)]
             return [{'text': line, 'emotion': emotion, 'intensity': .5, 'gesture': gesture, 'voice_style': voice}]
         relationship = state.get('relationship')
-        system = character_prompt(profile, self.config.get('conversation_language'), relationship)
-        system += '\nReturn only a JSON object with a segments array. Every segment has text, emotion, intensity (0-1), gesture, voice_style, gaze, transition_seconds, pause_before_seconds, hold_after_seconds, gesture_at and gesture_duration_seconds.'
+        ordinary_limit = self.config.get('llm_ordinary_word_limit')
+        if ordinary_limit is not None:
+            if isinstance(ordinary_limit, bool) or not isinstance(ordinary_limit, int) or not 10 <= ordinary_limit <= 45:
+                raise ValueError('llm_ordinary_word_limit must be an integer between 10 and 45')
+            if relationship and not wants_fuller_reply(relationship):
+                # A per-reply budget must not permanently reduce willingness to
+                # elaborate on a later explicit request for detail.
+                relationship = dict(relationship, word_limit=min(relationship['word_limit'], ordinary_limit))
+        compact = self.config.get('llm_compact_delivery', False)
+        system = character_prompt(profile, self.config.get('conversation_language'),
+                                 None if self.config.get('llm_stable_prefix') else relationship)
+        fields = COMPACT_FIELDS if compact else FIELDS
+        system += '\nReturn only a JSON object with a segments array. Every segment has ' + ', '.join(fields) + '.'
         system += '\nAllowed gestures: '+', '.join(GESTURES)+'; voices: '+', '.join(VOICES)+'; gaze: '+', '.join(GAZES)+'.'
-        system += '\nCurrent simulated delivery state: ' + json.dumps({k:v for k,v in state.items() if k not in ('relationship','recalled','memory_used')})
-        system += PATIENT_PERFORMANCE_PROMPT if state.get('relationship') else PERFORMANCE_PROMPT
+        dynamic = '\nCurrent simulated delivery state: ' + json.dumps({k:v for k,v in state.items() if k not in ('relationship','recalled','memory_used')})
+        if not self.config.get('llm_stable_prefix'): system += dynamic
+        performance_prompt = PATIENT_PERFORMANCE_PROMPT if relationship else PERFORMANCE_PROMPT
+        if compact:
+            performance_prompt = '\n'.join(line for line in performance_prompt.splitlines()
+                if not any(name in line for name in TIMING_DEFAULTS))
+            performance_prompt += '\nThe app maps animation timing locally. Do not emit timing fields.'
+        system += performance_prompt
         language_guidance = conversation_guidance(self.config.get('conversation_language'), patient=bool(relationship))
         system += language_guidance
         system += '\nAvailable delivery states: ' + json.dumps({e['name']:e['description'] for e in EMOTION_CATALOG['emotions']})
         if relationship:
-            system += relationship_prompt(relationship, profile)
+            if self.config.get('llm_stable_prefix'): dynamic += relationship_prompt(relationship, profile)
+            else: system += relationship_prompt(relationship, profile)
+        if self.config.get('llm_short_replies'):
+            preference = 'one concise sentence within word_limit' if ordinary_limit is not None else '15-30 spoken words and a short first sentence'
+            system += '\nFor an ordinary turn prefer ' + preference + '. Use more only for an explicit request for detail within word_limit. Keep the actual answer, biography and emotional meaning. Never pad or truncate speech.'
+        latest = dynamic + '\nLatest student remark: ' + text if self.config.get('llm_stable_prefix') else text
+        if ordinary_limit is not None and relationship and not wants_fuller_reply(relationship):
+            limit = relationship['word_limit']
+            latest += (f'\nThis turn: HARD MAXIMUM {limit} spoken words TOTAL. Aim for {max(5,limit-6)} words '
+                       'in one concise, useful sentence. Preserve the actual answer and emotional meaning; no filler.')
+        elif ordinary_limit is not None and wants_fuller_reply(relationship):
+            latest += ('\nStart with a short first sentence, ideally 8-12 spoken words, that directly answers '
+                       'the remark. Then develop the answer within the full word_limit. No generic '
+                       'acknowledgement or filler; do not omit the requested detail.')
         recent = history[-8:]
         if relationship:
             # Past animation timings consume context without adding conversational memory.
@@ -311,17 +399,19 @@ class Bridge(StreamingTurns):
                        if m['role'] == 'assistant' else m['content'])} for m in recent]
         body = {
             'model': self.config['llm_model'],
-            'messages': [{'role': 'system', 'content': system}] + recent + [{'role': 'user', 'content': text}],
-            'stream': False, 'temperature': .7, 'top_p': .8, 'top_k': 20, 'max_tokens': 850,
+            'messages': [{'role': 'system', 'content': system}] + recent + [{'role': 'user', 'content': latest}],
+            'stream': False, 'temperature': .7, 'top_p': .8, 'top_k': 20,
+            'max_tokens': self.config.get('llm_fuller_max_tokens', 600) if wants_fuller_reply(relationship) else self.config.get('llm_max_tokens', 850),
             'chat_template_kwargs': {'enable_thinking': False},
-            'response_format': {'type': 'json_schema', 'json_schema': {'name': 'alex_reply', 'strict': True, 'schema': SEGMENT_SCHEMA}},
+            'response_format': {'type': 'json_schema', 'json_schema': {'name': 'alex_reply', 'strict': True, 'schema': COMPACT_SEGMENT_SCHEMA if compact else SEGMENT_SCHEMA}},
         }
         for attempt in range(3):
+            body['messages'][-1]['content'] = latest
             if relationship:
                 # Rebuild from the original instructions on retry, so memory is
                 # never duplicated by a second context-budget pass.
                 state['memory_used'] = self.fit_context(body, recalled=state.get('recalled')) or []
-            data = self.post_json(self.config['llm_url'], body, self.config['llm_timeout_seconds'])
+            data = self.infer(body, 'dialogue')
             segments = validate_reply(data['choices'][0]['message'].get('content', ''))
             if self.config.get('conversation_language') == 'cnr' and obvious_english_leak(' '.join(s['text'] for s in segments)):
                 if attempt == 2:
@@ -347,6 +437,35 @@ class Bridge(StreamingTurns):
         with urllib.request.urlopen(request, timeout=timeout) as response:
             return json.load(response)
 
+    def load_kokoro(self):
+        if self.kokoro is None:
+            from kokoro_onnx import Kokoro
+            self.kokoro = Kokoro(str(ROOT / '.cache/kokoro/kokoro-v1.0.onnx'), str(ROOT / '.cache/kokoro/voices-v1.0.bin'))
+        voice = self.config['tts_voice']
+        if voice not in self.kokoro.get_voices():
+            raise ContractError('Configured voice is not in the bundled Kokoro voice bank: ' + str(voice))
+        self.loaded_tts_voice = voice
+        return voice
+
+    def prepare_speech(self):
+        if self.config['tts_provider'] == 'kokoro':
+            with self.speech_lock:
+                voice = self.load_kokoro()
+                if self.config.get('tts_warmup', True):
+                    self.kokoro.create('Ready.', voice=voice, speed=.95, lang='en-us')
+        if self.config.get('stt_warmup') and self.config.get('stt_provider') == 'faster-whisper':
+            with self.stt_lock:
+                self.load_stt()
+
+    def load_stt(self):
+        if self.stt is None:
+            from faster_whisper import WhisperModel
+            model_path = ROOT / self.config['stt_model']
+            model_name = str(model_path) if model_path.is_dir() else self.config['stt_model']
+            self.stt = WhisperModel(model_name, device=self.config['stt_device'],
+                compute_type=self.config.get('stt_compute_type', 'int8'), cpu_threads=self.config.get('stt_cpu_threads', 8),
+                download_root=str(ROOT / '.cache/whisper'))
+
     def synthesize(self, segment, audio_id):
         path = self.runtime / (audio_id + '.wav')
         provider = self.config['tts_provider']
@@ -364,8 +483,7 @@ class Bridge(StreamingTurns):
         elif provider == 'kokoro':
             from kokoro_onnx import Kokoro
             import soundfile
-            if self.kokoro is None:
-                self.kokoro = Kokoro(str(ROOT / '.cache/kokoro/kokoro-v1.0.onnx'), str(ROOT / '.cache/kokoro/voices-v1.0.bin'))
+            self.load_kokoro()
             # Kokoro has no arbitrary emotion-style control. Use a stable voice;
             # facial/body delivery remains independent until expressive TTS is added.
             audio, rate = self.kokoro.create(segment['text'], voice=self.config['tts_voice'], speed=.95, lang='en-us')
@@ -394,6 +512,50 @@ class Bridge(StreamingTurns):
         else:
             raise ContractError('Unsupported speech provider')
         return '/audio/' + path.name
+
+    def prepare_audio_segment(self, segment, audio_id, ensure_current=None):
+        """Reuse exact speech and cues without skipping dialogue/state validation."""
+        reuse = self.speech_reuse
+        enabled = reuse.enabled and (reuse.cache_enabled or bool(reuse.recordings))
+        started = time.perf_counter()
+        try:
+            key, asset = reuse.lookup(segment) if enabled else (None, None)
+        except (OSError, ValueError, TypeError):
+            # Optional disk/model fingerprint failures must not block live speech.
+            enabled = False
+            key, asset = None, None
+        path = self.runtime / (audio_id + '.wav')
+        if asset is not None:
+            path.write_bytes(asset['audio'])
+            segment['audio_url'] = '/audio/' + path.name
+            segment['speech_source'] = asset['source']
+        else:
+            segment['audio_url'] = self.synthesize(segment, audio_id)
+            segment['speech_source'] = 'generated'
+        speech_ms = round((time.perf_counter() - started) * 1000)
+        if ensure_current:
+            ensure_current()
+        alignment_ms = 0
+        if segment['audio_url']:
+            started = time.perf_counter()
+            alignment_key = reuse.alignment_key() if enabled else None
+            cached_cues = False
+            if asset and asset.get('alignment_key') == alignment_key:
+                try:
+                    cues = validate_mouth_cues(asset['mouth_cues'], wav_duration(asset['audio']))
+                    source = asset['lip_sync_source']
+                    # Retry a transient aligner failure while retaining cached audio.
+                    if self.config.get('lip_sync_provider') != 'rhubarb' or source == 'rhubarb':
+                        segment['mouth_cues'], segment['lip_sync_source'] = cues, source
+                        cached_cues = True
+                except (ValueError, KeyError, TypeError):
+                    pass
+            if not cached_cues:
+                segment['mouth_cues'], segment['lip_sync_source'] = self.align_mouth(audio_id, segment['text'])
+            alignment_ms = round((time.perf_counter() - started) * 1000)
+            if enabled:
+                reuse.put(key, path.read_bytes(), segment['mouth_cues'], segment['lip_sync_source'], alignment_key)
+        return speech_ms, alignment_ms
 
     def align_mouth(self,audio_id,text):
         if self.config.get('lip_sync_provider')!='rhubarb':return [],'audio_envelope'
@@ -474,7 +636,9 @@ class Bridge(StreamingTurns):
                         # Whole-performance presets were auditioned with a full
                         # emotional beat. Restarting Higgs for every sentence
                         # changes pacing/prosody even with identical seeds.
-                        segments=self.voice_cast.delivery_segments(session.scenario_id,segments)
+                        segments=[part for segment in segments for part in
+                            ([dict(segment)] if self.speech_reuse.recording(segment, session.scenario_id)
+                             else self.voice_cast.delivery_segments(session.scenario_id,[segment]))]
                         self.voice_cast.apply_stream_pauses(session.scenario_id,segments)
                     else:
                         segments=sentence_segments(segments)
@@ -490,14 +654,10 @@ class Bridge(StreamingTurns):
                     segment['segment_id'] = f'{turn_id}-{i}'
                     # Routing comes from the selected session, never model output.
                     segment['scenario_id'] = session.scenario_id
-                    stage_started = time.perf_counter()
-                    segment['audio_url'] = self.synthesize(segment, audio_id)
-                    speech_ms += round((time.perf_counter() - stage_started) * 1000)
-                    if segment['audio_url']:
-                        self.assert_current(key,generation)
-                        stage_started = time.perf_counter()
-                        segment['mouth_cues'],segment['lip_sync_source']=self.align_mouth(audio_id,segment['text'])
-                        alignment_ms += round((time.perf_counter() - stage_started) * 1000)
+                    speech_time, alignment_time = self.prepare_audio_segment(segment, audio_id,
+                        lambda: self.assert_current(key,generation))
+                    speech_ms += speech_time
+                    alignment_ms += alignment_time
                     if stream:
                         if segment['audio_url']:
                             with wave.open(str(self.runtime/(audio_id+'.wav'))) as audio:
@@ -505,6 +665,8 @@ class Bridge(StreamingTurns):
                         with self.lock:
                             self.assert_current(key,generation)
                             elapsed=round((time.perf_counter()-stream['started'])*1000)
+                            segment.update(ready_ms=elapsed, speech_preparation_ms=speech_time,
+                                           alignment_preparation_ms=alignment_time)
                             journal.append('segment_ready',turn_id=turn_id,index=i,segment=segment,ready_ms=elapsed)
                             stream['segments'].append(dict(segment))
                             if stream['first_audio_ms'] is None:stream['first_audio_ms']=elapsed
@@ -564,19 +726,18 @@ class Bridge(StreamingTurns):
         except (ValueError, wave.Error, EOFError) as exc:
             raise ContractError('Invalid WAV recording') from exc
         with self.stt_lock:
-            if self.stt is None:
-                from faster_whisper import WhisperModel
-                model_path = ROOT / self.config['stt_model']
-                model_name = str(model_path) if model_path.is_dir() else self.config['stt_model']
-                self.stt = WhisperModel(model_name, device=self.config['stt_device'],
-                    compute_type='int8', cpu_threads=self.config.get('stt_cpu_threads', 8),
-                    download_root=str(ROOT / '.cache/whisper'))
+            self.load_stt()
             language = whisper_language(self.config.get('stt_language', 'en'))
             if language and language != 'en' and not self.stt.model.is_multilingual:
                 raise ContractError('This STT language requires a multilingual model; replace small.en with small.')
             options = {key: self.config['stt_' + key]
                        for key in ('initial_prompt', 'condition_on_previous_text')
                        if 'stt_' + key in self.config}
+            if 'stt_beam_size' in self.config:
+                beam = self.config['stt_beam_size']
+                if isinstance(beam, bool) or not isinstance(beam, int) or not 1 <= beam <= 10:
+                    raise ContractError('stt_beam_size must be an integer between 1 and 10')
+                options.update(beam_size=beam, best_of=beam)
             segments, _ = self.stt.transcribe(io.BytesIO(raw), language=language,
                                              task='transcribe', vad_filter=True, **options)
             text = ' '.join(s.text.strip() for s in segments).strip()
@@ -603,9 +764,17 @@ def make_handler(bridge):
             elif self.path == '/catalog':
                 self.send_json(200, bridge.public_catalog())
             elif self.path == '/health':
+                from inference_runtime import config_signature
                 self.send_json(200, {'ok': True, 'character': 'Alex', 'dialogue_provider': bridge.config['dialogue_provider'],
+                    'config_signature': config_signature(bridge.config),
                     'tts_provider': bridge.config['tts_provider'], 'stt_provider': bridge.config['stt_provider'],
+                    'tts_voice': bridge.config.get('tts_voice'),
+                    'tts_voice_loaded': bridge.loaded_tts_voice is not None,
+                    'loaded_tts_voice': bridge.loaded_tts_voice,
+                    'available_tts_voices': bridge.kokoro.get_voices() if bridge.kokoro is not None else [],
                     'sentence_streaming': True,
+                    'speech_cache_enabled': bridge.speech_reuse.cache_enabled,
+                    'recorded_speech_clips': len(bridge.speech_reuse.recordings),
                     'stt_model': bridge.config.get('stt_model'),
                     'stt_language': bridge.config.get('stt_language', 'en')})
             elif re.fullmatch(r'/audio/[a-f0-9]{32}\.wav', self.path):
@@ -638,7 +807,9 @@ def make_handler(bridge):
                 if self.path == '/models/select':
                     value = bridge.models.select(body.get('model_id'))
                 elif self.path == '/session':
-                    value = bridge.new_session(body.get('scenario_id'), body.get('replace_session_id'))
+                    value = bridge.new_session(body.get('scenario_id'), body.get('replace_session_id'), body.get('student_name', ''))
+                elif self.path == '/session/export':
+                    value = export_session(ROOT,bridge,body['session_id'])
                 elif self.path == '/turn':
                     value = bridge.turn(body['session_id'], body.get('text', ''), body.get('opening') is True)
                 elif self.path == '/turn/start':
@@ -678,6 +849,7 @@ def main():
     if config['dialogue_provider'] not in ('scripted', 'llama.cpp'):
         parser.error('dialogue_provider must be scripted or llama.cpp')
     bridge = Bridge(config, args.config)
+    bridge.prepare_speech()
     server = ThreadingHTTPServer((config['host'], config['port']), make_handler(bridge))
     from performance_log import PerformanceLog, bridge_context
     monitor = PerformanceLog(ROOT, lambda: bridge_context(bridge))
