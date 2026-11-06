@@ -53,12 +53,7 @@ namespace PsychologyVR.Editor
         public IEnumerator TearDown()
         {
             RenderTexture.active=originalActive;
-            if(originalResources!=null)
-                foreach(var resource in CaptureResources().Except(originalResources).ToArray())
-                {
-                    if(resource is RenderTexture target)target.Release();
-                    if(resource)Object.Destroy(resource);
-                }
+            // A matching size is useful for leak detection, not proof of ownership.
             if(previous)previous.Release();
             foreach(var resource in new Object[]{cameraObject,previous,decoded})
                 if(resource)Object.Destroy(resource);

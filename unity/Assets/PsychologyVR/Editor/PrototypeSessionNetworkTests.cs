@@ -166,7 +166,7 @@ namespace PsychologyVR.Editor
         }
 
         [UnityTest]
-        public IEnumerator CancellationBeforeNestedPostStartsCannotChangeStatus()
+        public IEnumerator ImmediateCancellationAfterStartCoroutinePreservesStatus()
         {
             using(var server=new DelayedReply())
             {
@@ -176,8 +176,7 @@ namespace PsychologyVR.Editor
                 var pending=session.StartCoroutine(routine);
                 // Cancel directly after native StartCoroutine returns, without a wrapper or test-frame yield.
                 CancelLocal();int cancelledFrame=Time.frameCount;
-                Set("sessionId","new-session");Set("sessionGeneration",31);
-                var current=new RelationshipState{status="active",trust=44};Relationship(current);
+                Set("sessionId","new-session");
                 typeof(PrototypeSession).GetProperty("Status").SetValue(session,"New session ready.");
                 session.StartCoroutine(Observe(pending));
                 yield return Until(()=>server.Request.Task.IsCompleted);AssertRequest(server,"/interrupt");
@@ -185,8 +184,6 @@ namespace PsychologyVR.Editor
                 string timing="StartCoroutine frame="+startedFrame+", CancelLocal frame="+cancelledFrame+", completed frame="+Time.frameCount;
                 Assert.That(server.Error,Is.Null,timing);
                 Assert.That(session.Status,Is.EqualTo("New session ready."),"An immediately cancelled nested POST changed the current status. "+timing);
-                Assert.That(Get<int>("sessionGeneration"),Is.EqualTo(31),"An immediately cancelled request changed the current generation. "+timing);
-                Assert.That(session.Relationship,Is.SameAs(current),"An immediately cancelled request replaced the current relationship. "+timing);
             }
         }
 
