@@ -18,7 +18,7 @@ namespace PsychologyVR
         internal string ActiveGesture=>gestures?.Active??"";
         internal float GestureTime=>gestures?.Time??0;
         internal float IdleTime=>idleTime;
-        internal bool AutomaticGestures {set{if(gestures!=null)gestures.Automatic=value;}}
+        internal bool AutomaticGestures {get=>gestures?.Automatic??true;set{if(gestures!=null)gestures.Automatic=value;}}
         internal bool PlayGesture(string id)=>gestures!=null&&gestures.Play(id);
         internal void StopGesture(bool interrupt)=>gestures?.Stop(interrupt);
         public Transform Head {get;private set;}
