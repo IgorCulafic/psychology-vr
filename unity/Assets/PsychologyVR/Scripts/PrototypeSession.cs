@@ -192,12 +192,22 @@ namespace PsychologyVR
         }
         static void Capture(Camera camera,string path)
         {
-            var target=new RenderTexture(1600,1000,24);
-            // A full camera render updates the volume stack before applying colour grading.
-            UnityEngine.Rendering.RenderPipeline.SubmitRenderRequest(camera,new UnityEngine.Rendering.RenderPipeline.StandardRequest{destination=target});
-            RenderTexture.active=target;var texture=new Texture2D(1600,1000,TextureFormat.RGB24,false);
-            texture.ReadPixels(new Rect(0,0,1600,1000),0,0);texture.Apply();File.WriteAllBytes(path,texture.EncodeToPNG());
-            RenderTexture.active=null;target.Release();Destroy(target);Destroy(texture);
+            var previous=RenderTexture.active;
+            RenderTexture target=null;Texture2D texture=null;
+            try
+            {
+                target=new RenderTexture(1600,1000,24);
+                // A full camera render updates the volume stack before applying colour grading.
+                UnityEngine.Rendering.RenderPipeline.SubmitRenderRequest(camera,new UnityEngine.Rendering.RenderPipeline.StandardRequest{destination=target});
+                RenderTexture.active=target;texture=new Texture2D(1600,1000,TextureFormat.RGB24,false);
+                texture.ReadPixels(new Rect(0,0,1600,1000),0,0);texture.Apply();File.WriteAllBytes(path,texture.EncodeToPNG());
+            }
+            finally
+            {
+                RenderTexture.active=previous;
+                if(target){target.Release();Destroy(target);}
+                if(texture)Destroy(texture);
+            }
         }
 
         IEnumerator SmokeTest()
@@ -401,12 +411,14 @@ namespace PsychologyVR
 
         IEnumerator Post(string path, RequestBody body, Action<string> onSuccess, bool track=true,bool reportErrors=true)
         {
+            int token=version;
             using (var request = new UnityWebRequest(serviceUrl+path,"POST"))
             {
                 request.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(JsonUtility.ToJson(body)));
                 request.downloadHandler = new DownloadHandlerBuffer(); request.SetRequestHeader("Content-Type","application/json");
                 request.timeout = 150; if(track) activeRequests.Add(request);
                 yield return request.SendWebRequest(); if(track) activeRequests.Remove(request);
+                if(token!=version)yield break;
                 if(request.result == UnityWebRequest.Result.Success) onSuccess(request.downloadHandler.text);
                 else if(reportErrors && request.error != "Request aborted") Status = "Service error: " + request.downloadHandler.text;
             }
@@ -499,11 +511,11 @@ namespace PsychologyVR
         IEnumerator Invalidate(bool reset,int token)
         {
             Status=reset?"Resetting session...":"Stopping reply...";
-            bool success=false;
-            yield return Post(reset?"/reset":"/interrupt",PlaybackRequest(),raw=>{success=true;var result=JsonUtility.FromJson<Reply>(raw);Relationship=result.relationship;sessionGeneration=result.generation;},false);
+            Reply reply=null;
+            yield return Post(reset?"/reset":"/interrupt",PlaybackRequest(),raw=>reply=JsonUtility.FromJson<Reply>(raw),false);
             if(token!=version) yield break;
             busy=false;
-            if(success) { streamTurnId=null;streamCompleted=0;streamPartialSeconds=0;Status=reset?"Session reset. Begin when ready.":SessionEnded?"The patient ended the session. Start a new conversation from the menu.":"Stopped."; if(reset){Relationship=null;performance?.Apply(initialEmotion,initialIntensity,"none");HasConversation=false;} }
+            if(reply!=null) { Relationship=reply.relationship;sessionGeneration=reply.generation;streamTurnId=null;streamCompleted=0;streamPartialSeconds=0;Status=reset?"Session reset. Begin when ready.":SessionEnded?"The patient ended the session. Start a new conversation from the menu.":"Stopped."; if(reset){Relationship=null;performance?.Apply(initialEmotion,initialIntensity,"none");HasConversation=false;} }
         }
 
         void StartRecording()
