@@ -23,8 +23,8 @@ CYRILLIC = dict(zip('абвгдђежзијклљмнњопрстћуфхцчџ�
 
 
 def whisper_language(code):
-    # Whisper has no cnr token; sr is the explicit regional approximation.
-    return None if code == 'auto' else 'sr' if code in ('cnr', 'me') else code
+    # Whisper has no cnr token; Bosnian (bs) is the closest supported regional language.
+    return None if code == 'auto' else 'bs' if code in ('cnr', 'me') else code
 
 
 def obvious_english_leak(text):

@@ -45,7 +45,7 @@ class SpeechLanguageTests(unittest.TestCase):
     def test_montenegrin_alias_uses_supported_whisper_token(self):
         self.bridge.config['stt_language'] = 'cnr'
         self.bridge.transcribe(self.audio)
-        self.assertEqual(self.bridge.stt.transcribe.call_args.kwargs['language'], 'sr')
+        self.assertEqual(self.bridge.stt.transcribe.call_args.kwargs['language'], 'bs')
 
     def test_optional_latin_script_preserves_negation_numbers_and_diacritics(self):
         source = 'Његош: Не боли ме. Чекам већ ћерку, ђака и Џемала. ЉУТЊА!'
@@ -84,7 +84,7 @@ class SpeechLanguageTests(unittest.TestCase):
         self.bridge.config.update(stt_language='cnr',stt_beam_size=1)
         self.bridge.transcribe(self.audio)
         options=self.bridge.stt.transcribe.call_args.kwargs
-        self.assertEqual((options['beam_size'],options['best_of'],options['language']),(1,1,'sr'))
+        self.assertEqual((options['beam_size'],options['best_of'],options['language']),(1,1,'bs'))
         for value in (True,0,11,1.5):
             self.bridge.config['stt_beam_size']=value
             with self.subTest(value=value),self.assertRaisesRegex(ContractError,'stt_beam_size'):

@@ -41,7 +41,7 @@
   "rhubarb_path": ".tools/rhubarb/Rhubarb-Lip-Sync-1.14.0-Windows/rhubarb.exe",
   "stt_provider": "none",
   "stt_model": ".cache/whisper/large-v3-turbo",
-  "stt_language": "sr",
+  "stt_language": "bs",
   "stt_output_script": "latin",
   "stt_initial_prompt": "Razgovor na crnogorskom jeziku, latinicom.",
   "stt_condition_on_previous_text": false,

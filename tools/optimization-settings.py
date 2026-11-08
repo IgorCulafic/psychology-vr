@@ -27,7 +27,7 @@ PROFILES={
         speech_cache_enabled=True,recorded_speech_enabled=True,
         tts_provider='higgs',conversation_language='cnr',
         stt_provider='faster-whisper',stt_model='.cache/whisper/large-v3-turbo',
-        stt_language='sr',stt_output_script='latin',
+        stt_language='bs',stt_output_script='latin',
         stt_initial_prompt='Razgovor na crnogorskom jeziku, latinicom.',
         stt_condition_on_previous_text=False),
     'audio-envelope':dict(lip_sync_provider='audio_envelope'),
