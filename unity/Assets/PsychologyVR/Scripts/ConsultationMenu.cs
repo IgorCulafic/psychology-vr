@@ -51,7 +51,8 @@ namespace PsychologyVR
             if(content){content.gameObject.SetActive(false);Destroy(content.gameObject);}
             content=Rect("Menu content",canvas.transform,0,0,960,760);content.gameObject.AddComponent<Image>().color=Panel;
             TextAt("CONSULTATION",32,24,580,36,28,Ink,FontStyle.Bold);
-            var student=TextAt(string.IsNullOrEmpty(session.StudentName)?"A space for listening":"Student: "+session.StudentName,34,67,740,25,18,Muted);student.supportRichText=false;
+            var student=TextAt(!string.IsNullOrEmpty(session.PendingStudentName)?"Student: "+session.PendingStudentName+" (next conversation)":string.IsNullOrEmpty(session.StudentName)?"A space for listening":"Student: "+session.StudentName,34,67,570,25,18,Muted);student.supportRichText=false;
+            var changeStudent=ButtonAt("Change student",620,28,170,48,session.ChangeStudent,()=>session.CanChangeStudent);changeStudent.GetComponentInChildren<Text>().fontSize=16;
             ButtonAt("Close  ×",800,28,128,48,()=>session.SetMenuOpen(false));
             string[] names={"Session","Characters & situations","Settings"};
             for(int i=0;i<3;i++){int index=i;ButtonAt(names[i],32+i*300,112,288,48,()=>Render((Page)index),active:(int)page==i);}

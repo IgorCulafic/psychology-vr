@@ -434,7 +434,7 @@ namespace PsychologyVR
         public void Submit(string text, bool opening=false)
         {
             if(busy || paused || IsSwitching || SessionEnded || string.IsNullOrEmpty(sessionId)) return;
-            if(string.IsNullOrEmpty(StudentName)){PromptForStudentName(CurrentScenario,ActiveAppearance,text,opening);return;}
+            if(string.IsNullOrEmpty(StudentName)||!string.IsNullOrEmpty(launchStudentName)){PromptForStudentName(CurrentScenario,ActiveAppearance,text,opening);return;}
             SessionExportStatus="";
             HasConversation=true;
             StartCoroutine(Turn(text,opening));
@@ -537,7 +537,7 @@ namespace PsychologyVR
                 Debug.Log("MIC_BLOCKED busy="+busy+" paused="+paused+" menu="+MenuOpen+" switching="+IsSwitching+" session="+!string.IsNullOrEmpty(sessionId));
                 return;
             }
-            if(string.IsNullOrEmpty(StudentName)){PromptForStudentName(CurrentScenario,ActiveAppearance,"",true);return;}
+            if(string.IsNullOrEmpty(StudentName)||!string.IsNullOrEmpty(launchStudentName)){PromptForStudentName(CurrentScenario,ActiveAppearance,"",true);return;}
             if(string.IsNullOrEmpty(micDevice)) { Status="No microphone found."; return; }
             try { microphoneClip=Microphone.Start(micDevice,false,40,16000); }
             catch(Exception error) { Status="Microphone could not start. Check the input in Settings.";Debug.LogWarning("MIC_START_FAILED "+error.GetType().Name+" device="+micDevice);return; }

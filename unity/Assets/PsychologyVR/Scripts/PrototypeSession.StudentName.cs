@@ -14,6 +14,24 @@ namespace PsychologyVR
         public string StudentName {get;private set;}="";
         public bool NamePromptOpen=>menu&&menu.WaitingForStudentName;
         bool launchNamePromptRequested;
+        string launchStudentName;
+        public string PendingStudentName=>launchStudentName;
+        public bool CanChangeStudent=>!NamePromptOpen&&!IsSwitching;
+
+        // A new student starts a new conversation: the name is held for the next character
+        // choice (or next spoken turn), so the current log is never relabelled mid-session.
+        public void ChangeStudent()
+        {
+            if(!CanChangeStudent)return;
+            var previousPage=menu.CurrentPage;
+            menu.PromptForStudentName(name=>
+            {
+                launchStudentName=name;
+                menu.Render(ConsultationMenu.Page.Characters);
+                Status="Student changed to "+name+". Choose a character to begin.";
+            },()=>menu.Render(previousPage),"");
+            SetMenuOpen(true);
+        }
         bool exportingSession;
         string lastExportedLog;
         public string SessionExportStatus {get;private set;}="";
@@ -75,14 +93,29 @@ namespace PsychologyVR
             if(launchNamePromptRequested&&!string.IsNullOrEmpty(StudentName))return;
             launchNamePromptRequested=true;
             if(!string.IsNullOrEmpty(StudentName))return;
-            // Cancellation leaves the normal menu available; it never starts dialogue.
+            // The launch name is held for the first character choice; it never starts dialogue.
             SetMenuOpen(true);
-            PromptForStudentName(CurrentScenario,ActiveAppearance,"",true);
+            if(NamePromptOpen||IsSwitching)return;
+            menu.PromptForStudentName(name=>
+            {
+                launchStudentName=name;
+                menu.Render(ConsultationMenu.Page.Characters);
+                Status="Choose a character to begin.";
+            },()=>menu.Render(ConsultationMenu.Page.Characters),"");
+            SetMenuOpen(true);
         }
 
         void PromptForStudentName(ScenarioEntry entry,string appearanceId,string firstText,bool opening)
         {
             if(NamePromptOpen||IsSwitching)return;
+            if(!string.IsNullOrEmpty(launchStudentName))
+            {
+                // Use the launch name once; later conversations ask again so a shared PC
+                // never attributes a new student's session to the previous one.
+                string name=launchStudentName;launchStudentName=null;
+                StartCoroutine(SwitchScenario(entry,appearanceId,name,firstText,opening));
+                return;
+            }
             bool wasOpen=MenuOpen;
             var previousPage=menu.CurrentPage;
             menu.PromptForStudentName(name=>
@@ -139,17 +172,16 @@ namespace PsychologyVR
             if(confirm.interactable){FailStudentNameCheck("blank name accepted");yield break;}
             field.text="Ana\u2028Test";yield return null;
             if(confirm.interactable){FailStudentNameCheck("line separator accepted");yield break;}
-            var cancel=StudentNameCheckButton("Cancel");cancel.onClick.Invoke();yield return null;
-            if(NamePromptOpen||!MenuOpen||sessionId!=before||StudentName!=""||HasConversation)
-            {FailStudentNameCheck("cancel changed original session");yield break;}
-
-            StartScenario(CurrentScenario.id,ActiveAppearance);yield return null;
-            field=StudentNameCheckInput();field.text="  Ana C\u030Cukić  ";yield return null;
-            confirm=StudentNameCheckButton("Start conversation");
+            field.text="  Ana C\u030Cukić  ";yield return null;
             if(!confirm.interactable||StudentName!=""){FailStudentNameCheck("valid input state");yield break;}
             var args=Environment.GetCommandLineArgs();int captureAt=Array.IndexOf(args,"--capture-path");
             if(captureAt>=0&&captureAt+1<args.Length)Capture(view,args[captureAt+1]);
-            confirm.onClick.Invoke();
+            confirm.onClick.Invoke();yield return null;
+            if(NamePromptOpen||!MenuOpen||menu.CurrentPage!=ConsultationMenu.Page.Characters||IsSwitching||sessionId!=before||StudentName!=""||HasConversation)
+            {FailStudentNameCheck("launch name started a conversation instead of returning to the character menu");yield break;}
+
+            StartScenario(CurrentScenario.id,ActiveAppearance);yield return null;
+            if(NamePromptOpen){FailStudentNameCheck("first character choice asked for the launch name again");yield break;}
             deadline=Time.realtimeSinceStartup+150;
             while((IsSwitching||!HasConversation||busy)&&Time.realtimeSinceStartup<deadline)yield return null;
             if(IsSwitching||busy||!HasConversation||StudentName!="Ana Čukić"||sessionId==before)
@@ -177,7 +209,25 @@ namespace PsychologyVR
             while(IsSwitching&&Time.realtimeSinceStartup<deadline)yield return null;
             if(IsSwitching||!CanSelect||NamePromptOpen||StudentName!="Ana Čukić"||SessionExportStatus!=""||lastExportedLog!=null)
             {FailStudentNameCheck("reconnect lost identity or repeated launch prompt");yield break;}
-            Debug.Log("STUDENT_NAME_CHECK_OK automatic launch prompt, validation, normalized Unicode, cancellation, named session, log export, reset and reconnect");
+
+            string beforeChange=sessionId;
+            SetMenuOpen(true);menu.Render(ConsultationMenu.Page.Session);yield return null;
+            var change=StudentNameCheckButton("Change student");
+            if(!change||!change.interactable){FailStudentNameCheck("change student button unavailable");yield break;}
+            change.onClick.Invoke();yield return null;
+            field=StudentNameCheckInput();
+            if(!NamePromptOpen||!field){FailStudentNameCheck("change student did not open the name prompt");yield break;}
+            field.text="Marko Test";yield return null;
+            StudentNameCheckButton("Start conversation").onClick.Invoke();yield return null;
+            if(NamePromptOpen||menu.CurrentPage!=ConsultationMenu.Page.Characters||PendingStudentName!="Marko Test"||StudentName!="Ana Čukić"||sessionId!=beforeChange)
+            {FailStudentNameCheck("changed student was not held for the next conversation");yield break;}
+            StartScenario(CurrentScenario.id,ActiveAppearance);yield return null;
+            if(NamePromptOpen){FailStudentNameCheck("character choice asked again after changing student");yield break;}
+            deadline=Time.realtimeSinceStartup+150;
+            while((IsSwitching||!HasConversation||busy)&&Time.realtimeSinceStartup<deadline)yield return null;
+            if(IsSwitching||!HasConversation||StudentName!="Marko Test"||PendingStudentName!=null||sessionId==beforeChange)
+            {FailStudentNameCheck("changed student session failed: "+Status);yield break;}
+            Debug.Log("STUDENT_NAME_CHECK_OK launch prompt returns to character menu, validation, normalized Unicode, cancellation, named session, log export, reset, reconnect and change student");
             Application.Quit(0);
         }
 
@@ -231,7 +281,7 @@ namespace PsychologyVR
             if(content){content.gameObject.SetActive(false);Destroy(content.gameObject);}
             content=Rect("Student name prompt",canvas.transform,0,0,960,760);content.gameObject.AddComponent<Image>().color=Panel;
             TextAt("START CONVERSATION",32,24,896,36,28,Ink,FontStyle.Bold);
-            var patient=TextAt("With "+studentPatient,34,68,890,28,20,Accent);patient.supportRichText=false;
+            var patient=TextAt(string.IsNullOrEmpty(studentPatient)?"Choose a character next":"With "+studentPatient,34,68,890,28,20,Accent);patient.supportRichText=false;
             TextAt("Enter the student's name. It will be included in saved and downloaded conversation logs.",34,110,890,60,20,Muted);
             studentNameInput=InputAt(32,186,896,66,studentNameDraft);
             studentNameInput.gameObject.name="Student name";
