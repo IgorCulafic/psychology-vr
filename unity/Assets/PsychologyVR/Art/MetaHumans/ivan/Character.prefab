@@ -5671,6 +5671,7 @@ MonoBehaviour:
   skin: {fileID: 6642774046365901523}
   seated: 1
   seatedIdle: {fileID: 7400000, guid: 81faf413addb58f4fbd5d22cfea8a138, type: 2}
+  gestureLibrary: {fileID: 11400000, guid: 663464bd67fc29d4590172970a48d89f, type: 2}
 --- !u!114 &2655104147253534002
 MonoBehaviour:
   m_ObjectHideFlags: 0

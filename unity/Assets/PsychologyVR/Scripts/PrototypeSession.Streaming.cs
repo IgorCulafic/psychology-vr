@@ -57,12 +57,12 @@ namespace PsychologyVR
 
         IEnumerator FinishStream(bool interrupted)
         {
+            int token=version;
             var body=PlaybackRequest();body.interrupted=interrupted;
-            bool success=false;
-            yield return Post("/turn/finish",body,raw=>{
-                var result=JsonUtility.FromJson<Reply>(raw);Relationship=result.relationship;sessionGeneration=result.generation;success=true;
-            },false);
-            if(success){streamTurnId=null;streamCompleted=0;streamPartialSeconds=0;}
+            Reply reply=null;
+            yield return Post("/turn/finish",body,raw=>reply=JsonUtility.FromJson<Reply>(raw),false);
+            if(token!=version)yield break;
+            if(reply!=null){Relationship=reply.relationship;sessionGeneration=reply.generation;streamTurnId=null;streamCompleted=0;streamPartialSeconds=0;}
         }
 
         IEnumerator StreamedTurn(string text,bool opening)

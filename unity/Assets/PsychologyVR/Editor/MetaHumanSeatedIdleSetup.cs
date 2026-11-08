@@ -10,17 +10,36 @@ namespace PsychologyVR.Editor
     [InitializeOnLoad]
     public static class MetaHumanSeatedIdleSetup
     {
-        const string Root="Assets/PsychologyVR/Art/MetaHumans/ivan/";
+        static string CharacterId
+        {
+            get
+            {
+                var args=Environment.GetCommandLineArgs();int at=Array.IndexOf(args,"--character-id");
+                string id=at<0?"ivan":at+1<args.Length?args[at+1]:"";
+                if(!new[]{"ivan","alex","nikola","stefan"}.Contains(id))throw new ArgumentException("--character-id must be ivan, alex, nikola or stefan.");
+                return id;
+            }
+        }
+        static string Root=>"Assets/PsychologyVR/Art/MetaHumans/"+CharacterId+"/";
         [Serializable] public sealed class BonePose {public string name,parent;public Vector3 p;public Quaternion q;}
         [Serializable] public sealed class RestPose {public BonePose[] rest;}
         [Serializable] public sealed class Frame {public float time;public BonePose[] bones;}
         [Serializable] public sealed class Recording {public float fps;public Frame[] frames;}
         [Serializable] public sealed class SeatFrame {public float time;public Vector3 p;}
         [Serializable] public sealed class SeatMotion {public SeatFrame[] frames;}
+        [Serializable] public sealed class NativeBone {public string name,parent;public Vector3 p,s;public Quaternion q;}
+        [Serializable] public sealed class NativeMesh {public string name;public Vector3[] vertices;public int[] triangles;public IvanWardrobeSetup.Weight[] weights;}
+        [Serializable] public sealed class RetargetExport
+        {
+            public string character;public NativeBone[] rest;public NativeMesh[] meshes,chair;
+            public Vector3 chairOrigin,chairRight,chairUp,chairForward;
+            public float seatDepth,thighDepth,seatRadiusX,seatRadiusZ,thighRadiusX,thighRadiusZ;
+            public Recording motion;
+        }
 
         static MetaHumanSeatedIdleSetup()
         {
-            if(Array.IndexOf(Environment.GetCommandLineArgs(),"--seated-idle-check")>=0)
+            if(Array.IndexOf(Environment.GetCommandLineArgs(),"--seated-idle-check")>=0||Array.IndexOf(Environment.GetCommandLineArgs(),"--seated-gesture-check")>=0)
             {
                 EditorApplication.update+=FinishPreview;
                 Application.logMessageReceived+=(message,stack,type)=>
@@ -31,6 +50,7 @@ namespace PsychologyVR.Editor
         }
         public static void Preview()
         {
+            _=CharacterId;
             EditorSceneManager.OpenScene("Assets/PsychologyVR/Scenes/Consultation.unity");
             EditorApplication.isPaused=false;
             EditorApplication.isPlaying=true;
@@ -45,6 +65,13 @@ namespace PsychologyVR.Editor
             }
             EditorApplication.QueuePlayerLoopUpdate();
             string path=Path.Combine(Argument("--capture-path"),"idle-report.json");
+            if(Array.IndexOf(Environment.GetCommandLineArgs(),"--seated-gesture-check")>=0)
+            {
+                path=Path.Combine(Argument("--capture-path"),"gesture-report.json");
+                if(File.Exists(path))EditorApplication.Exit(JsonUtility.FromJson<MetaHumanGesturePreview.Report>(File.ReadAllText(path)).passed?0:2);
+                return;
+            }
+            if(File.Exists(Path.Combine(Argument("--capture-path"),"baseline-complete.txt")))EditorApplication.Exit(0);
             if(File.Exists(path))
             {
                 bool passed=JsonUtility.FromJson<MetaHumanIdlePreview.Report>(File.ReadAllText(path)).passed;
@@ -112,7 +139,58 @@ namespace PsychologyVR.Editor
             finally{PrefabUtility.UnloadPrefabContents(actor);}
         }
 
-        static void LinearTangents(AnimationCurve curve)
+        // Exports the actual Unity clip, native axes, visible weighted geometry and
+        // the patient chair in actor space. No external .blend is authoritative.
+        public static void ExportRetarget()
+        {
+            string folder=Argument("--retarget-output");Directory.CreateDirectory(folder);
+            foreach(string id in new[]{"ivan","alex","nikola","stefan"})
+            {
+                string root="Assets/PsychologyVR/Art/MetaHumans/"+id+"/";
+                var actor=PrefabUtility.LoadPrefabContents(root+"Character.prefab");
+                var room=UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/PsychologyVR/Prefabs/ConsultationRoom.prefab"));
+                try
+                {
+                    actor.transform.SetPositionAndRotation(new Vector3(0,id=="ivan"?-.02f:0,id=="ivan"?1.09f:1.15f),Quaternion.Euler(0,180,0));
+                    var rig=actor.GetComponent<MetaHumanJointRig>();var space=actor.transform;
+                    var bones=rig.bodyObject.GetComponentsInChildren<Transform>().Where(t=>t!=rig.bodyObject.transform).ToArray();
+                    var data=new RetargetExport{character=id,rest=bones.Select(t=>new NativeBone{
+                        name=t.name,parent=t.parent==rig.bodyObject.transform?"":t.parent.name,
+                        p=space.InverseTransformPoint(t.position),q=Quaternion.Inverse(space.rotation)*t.rotation,s=t.lossyScale}).ToArray()};
+                    data.meshes=new[]{rig.bodyObject,rig.clothingObject}.Where(o=>o).SelectMany(o=>o.GetComponentsInChildren<SkinnedMeshRenderer>()).Select(skin=>
+                    {
+                        var mesh=new Mesh();skin.BakeMesh(mesh);
+                        var part=new NativeMesh{name=skin.name,vertices=mesh.vertices.Select(v=>space.InverseTransformPoint(skin.transform.TransformPoint(v))).ToArray(),triangles=mesh.triangles,
+                            weights=skin.sharedMesh.boneWeights.Select(w=>new IvanWardrobeSetup.Weight{
+                                names=new[]{w.boneIndex0,w.boneIndex1,w.boneIndex2,w.boneIndex3}.Select(i=>skin.bones[i].name).ToArray(),values=new[]{w.weight0,w.weight1,w.weight2,w.weight3}}).ToArray()};
+                        UnityEngine.Object.DestroyImmediate(mesh);return part;
+                    }).ToArray();
+                    var chair=room.GetComponentsInChildren<Transform>().Where(t=>t.name=="modern_arm_chair_01").OrderBy(t=>(t.position-space.position).sqrMagnitude).First();
+                    data.chair=chair.GetComponentsInChildren<MeshFilter>().Select(f=>new NativeMesh{name=f.name,vertices=f.sharedMesh.vertices.Select(v=>space.InverseTransformPoint(f.transform.TransformPoint(v))).ToArray(),triangles=f.sharedMesh.triangles}).ToArray();
+                    data.chairOrigin=space.InverseTransformPoint(chair.position);data.chairRight=space.InverseTransformDirection(chair.right);data.chairUp=space.InverseTransformDirection(chair.up);data.chairForward=space.InverseTransformDirection(chair.forward);
+                    var material=chair.GetComponentInChildren<MeshRenderer>().sharedMaterials[1];
+                    data.seatDepth=material.GetFloat("_CushionSeatDepth");data.thighDepth=material.GetFloat("_CushionThighDepth");
+                    data.seatRadiusX=material.GetFloat("_CushionSeatRadiusX");data.seatRadiusZ=material.GetFloat("_CushionSeatRadiusZ");data.thighRadiusX=material.GetFloat("_CushionThighRadiusX");data.thighRadiusZ=material.GetFloat("_CushionThighRadiusZ");
+                    if(id=="ivan")
+                    {
+                        var clip=rig.seatedIdle;int count=Mathf.RoundToInt(clip.length*clip.frameRate)+1;
+                        var paths=AnimationUtility.GetCurveBindings(clip).Select(b=>b.path).ToHashSet();
+                        var animated=bones.Where(b=>paths.Contains(AnimationUtility.CalculateTransformPath(b,rig.bodyObject.transform))).ToArray();
+                        data.motion=new Recording{fps=clip.frameRate,frames=new Frame[count]};
+                        for(int i=0;i<count;i++)
+                        {
+                            float time=Mathf.Min(i/clip.frameRate,clip.length);clip.SampleAnimation(rig.bodyObject,time);
+                            data.motion.frames[i]=new Frame{time=time,bones=animated.Select(b=>new BonePose{name=b.name,p=space.InverseTransformPoint(b.position),q=Quaternion.Inverse(space.rotation)*b.rotation}).ToArray()};
+                        }
+                    }
+                    File.WriteAllText(Path.Combine(folder,id+".json"),JsonUtility.ToJson(data));
+                    Debug.Log("SEATED_RETARGET_EXPORTED "+id+" bones="+bones.Length+" meshes="+data.meshes.Length);
+                }
+                finally{PrefabUtility.UnloadPrefabContents(actor);UnityEngine.Object.DestroyImmediate(room);}
+            }
+        }
+
+        internal static void LinearTangents(AnimationCurve curve)
         {
             var keys=curve.keys;
             for(int k=0;k<keys.Length;k++)

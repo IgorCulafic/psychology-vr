@@ -13,7 +13,7 @@ namespace PsychologyVR.Editor
         const string Root="Assets/PsychologyVR/Art/MetaHumans/ivan/";
         const string Folder=Root+"wardrobe/";
         [Serializable] public class Delivery{public Part[] meshes;}
-        [Serializable] public class Part{public string name;public Vector3[] vertices;public Vector2[] uv;public Weight[] weights;public string[] materials;public Triangle[] triangles;}
+        [Serializable] public class Part{public string name;public Vector3[] vertices;public Vector3[] normals;public Vector2[] uv;public Weight[] weights;public string[] materials;public Triangle[] triangles;}
         [Serializable] public class Weight{public string[] names;public float[] values;}
         [Serializable] public class Triangle{public int material;public int[] indices;}
         public static void Import()

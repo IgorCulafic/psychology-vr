@@ -122,7 +122,7 @@ namespace PsychologyVR
             if (Microphone.devices.Length > 0) micDevice = Microphone.devices[0];
             string savedMic=PlayerPrefs.GetString("Microphone","");if(Array.IndexOf(Microphone.devices,savedMic)>=0)micDevice=savedMic;
             bool diagnostic=Array.Exists(Environment.GetCommandLineArgs(),a=>a=="--integration-preview"||a=="--record-alex"||a=="--alex-preview"||a=="--environment-preview"||a=="--smoke-test"||a=="--visuals-preview"||a=="--performance-replay"||a=="--streaming-check"||a=="--headset-free-stress");
-            bool metaCheck=Array.IndexOf(Environment.GetCommandLineArgs(),"--metahuman-check")>=0||Array.IndexOf(Environment.GetCommandLineArgs(),"--seated-idle-check")>=0;
+            bool metaCheck=Array.IndexOf(Environment.GetCommandLineArgs(),"--metahuman-check")>=0||Array.IndexOf(Environment.GetCommandLineArgs(),"--seated-idle-check")>=0||Array.IndexOf(Environment.GetCommandLineArgs(),"--seated-gesture-check")>=0;
             SetMenuOpen(!diagnostic&&!metaCheck);
             if(Array.IndexOf(Environment.GetCommandLineArgs(),"--menu-preview")>=0)StartCoroutine(MenuPreview.Run(this,menu,view,Capture));
             if(Array.IndexOf(Environment.GetCommandLineArgs(),"--visuals-preview")>=0) StartCoroutine(VisualsPreview.Run(this,menu,view,Capture));
@@ -192,12 +192,22 @@ namespace PsychologyVR
         }
         static void Capture(Camera camera,string path)
         {
-            var target=new RenderTexture(1600,1000,24);
-            // A full camera render updates the volume stack before applying colour grading.
-            UnityEngine.Rendering.RenderPipeline.SubmitRenderRequest(camera,new UnityEngine.Rendering.RenderPipeline.StandardRequest{destination=target});
-            RenderTexture.active=target;var texture=new Texture2D(1600,1000,TextureFormat.RGB24,false);
-            texture.ReadPixels(new Rect(0,0,1600,1000),0,0);texture.Apply();File.WriteAllBytes(path,texture.EncodeToPNG());
-            RenderTexture.active=null;target.Release();Destroy(target);Destroy(texture);
+            var previous=RenderTexture.active;
+            RenderTexture target=null;Texture2D texture=null;
+            try
+            {
+                target=new RenderTexture(1600,1000,24);
+                // A full camera render updates the volume stack before applying colour grading.
+                UnityEngine.Rendering.RenderPipeline.SubmitRenderRequest(camera,new UnityEngine.Rendering.RenderPipeline.StandardRequest{destination=target});
+                RenderTexture.active=target;texture=new Texture2D(1600,1000,TextureFormat.RGB24,false);
+                texture.ReadPixels(new Rect(0,0,1600,1000),0,0);texture.Apply();File.WriteAllBytes(path,texture.EncodeToPNG());
+            }
+            finally
+            {
+                RenderTexture.active=previous;
+                if(target){target.Release();Destroy(target);}
+                if(texture)Destroy(texture);
+            }
         }
 
         IEnumerator SmokeTest()
@@ -277,10 +287,15 @@ namespace PsychologyVR
             var args=Environment.GetCommandLineArgs();int at=Array.IndexOf(args,"--capture-path");
             if(at<0||at+1>=args.Length){Application.Quit(2);yield break;}
             string folder=args[at+1];Directory.CreateDirectory(folder);
+            bool idleCheck=Array.IndexOf(args,"--seated-idle-check")>=0;
+            bool gestureCheck=Array.IndexOf(args,"--seated-gesture-check")>=0;
+            int characterAt=Array.IndexOf(args,"--character-id");
+            string idleCharacter=characterAt<0?"ivan":characterAt+1<args.Length?args[characterAt+1]:"";
+            if((idleCheck||gestureCheck)&&!Array.Exists(Catalog.scenarios,s=>s.character_id==idleCharacter))
+                throw new ArgumentException("--character-id must name an available seated character: "+idleCharacter);
             foreach(var scenario in Catalog.scenarios)
             {
-                bool idleCheck=Array.IndexOf(args,"--seated-idle-check")>=0;
-                if(idleCheck&&scenario.character_id!="ivan")continue;
+                if((idleCheck||gestureCheck)&&scenario.character_id!=idleCharacter)continue;
                 CurrentScenario=scenario;SpawnCharacter("metahuman-"+scenario.character_id);
                 yield return new WaitForSeconds(1);
                 performance.Apply("neutral",0,"none",true);yield return new WaitForSeconds(.8f);
@@ -295,6 +310,7 @@ namespace PsychologyVR
                 if(idleCheck)while(face.JawWeight>.01f)yield return null;
                 Debug.Log("METAHUMAN_CHECK_OK "+scenario.id+" head="+face.Head.position+" bindings="+face.ShapeBindingCount+" tears="+face.Tears.AnchorCount);
                 if(idleCheck)yield return MetaHumanIdlePreview.Run(this,performance,face,Capture,folder);
+                if(gestureCheck)yield return MetaHumanGesturePreview.Run(this,performance,face,voice,Capture,folder);
             }
             Application.Quit(0);
         }
@@ -395,12 +411,14 @@ namespace PsychologyVR
 
         IEnumerator Post(string path, RequestBody body, Action<string> onSuccess, bool track=true,bool reportErrors=true)
         {
+            int token=version;
             using (var request = new UnityWebRequest(serviceUrl+path,"POST"))
             {
                 request.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(JsonUtility.ToJson(body)));
                 request.downloadHandler = new DownloadHandlerBuffer(); request.SetRequestHeader("Content-Type","application/json");
                 request.timeout = 150; if(track) activeRequests.Add(request);
                 yield return request.SendWebRequest(); if(track) activeRequests.Remove(request);
+                if(token!=version)yield break;
                 if(request.result == UnityWebRequest.Result.Success) onSuccess(request.downloadHandler.text);
                 else if(reportErrors && request.error != "Request aborted") Status = "Service error: " + request.downloadHandler.text;
             }
@@ -493,11 +511,11 @@ namespace PsychologyVR
         IEnumerator Invalidate(bool reset,int token)
         {
             Status=reset?"Resetting session...":"Stopping reply...";
-            bool success=false;
-            yield return Post(reset?"/reset":"/interrupt",PlaybackRequest(),raw=>{success=true;var result=JsonUtility.FromJson<Reply>(raw);Relationship=result.relationship;sessionGeneration=result.generation;},false);
+            Reply reply=null;
+            yield return Post(reset?"/reset":"/interrupt",PlaybackRequest(),raw=>reply=JsonUtility.FromJson<Reply>(raw),false);
             if(token!=version) yield break;
             busy=false;
-            if(success) { streamTurnId=null;streamCompleted=0;streamPartialSeconds=0;Status=reset?"Session reset. Begin when ready.":SessionEnded?"The patient ended the session. Start a new conversation from the menu.":"Stopped."; if(reset){Relationship=null;performance?.Apply(initialEmotion,initialIntensity,"none");HasConversation=false;} }
+            if(reply!=null) { Relationship=reply.relationship;sessionGeneration=reply.generation;streamTurnId=null;streamCompleted=0;streamPartialSeconds=0;Status=reset?"Session reset. Begin when ready.":SessionEnded?"The patient ended the session. Start a new conversation from the menu.":"Stopped."; if(reset){Relationship=null;performance?.Apply(initialEmotion,initialIntensity,"none");HasConversation=false;} }
         }
 
         void StartRecording()

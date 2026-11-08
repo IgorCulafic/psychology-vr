@@ -21,7 +21,9 @@ namespace PsychologyVR
         public static IEnumerator Run(PrototypeSession session,PerformanceDriver performance,FacialPerformance face,Action<Camera,string> capture,string folder)
         {
             var rig=performance.GetComponent<MetaHumanJointRig>();
-            if(!rig.seatedIdle)throw new InvalidOperationException("Ivan has no recorded seated idle.");
+            rig.AutomaticGestures=false;
+            bool baseline=Array.IndexOf(Environment.GetCommandLineArgs(),"--idle-baseline")>=0;
+            if(!baseline&&!rig.seatedIdle)throw new InvalidOperationException(rig.name+" has no recorded seated idle.");
             bool record=Array.IndexOf(Environment.GetCommandLineArgs(),"--idle-recording")>=0;
             if(record)Time.captureFramerate=30;
             performance.PausePerformance(true);
@@ -31,7 +33,7 @@ namespace PsychologyVR
             var body=rig.bodyObject.GetComponentsInChildren<Transform>().ToDictionary(t=>t.name);
             var shoulders=rig.faceObject.GetComponentsInChildren<Transform>().Where(t=>body.ContainsKey(t.name)&&(t.name.StartsWith("clavicle_")||t.name.StartsWith("upperarm_"))).ToArray();
             var hip=body["pelvis"];var hand=body["hand_r"];var foot=body["foot_r"];
-            var report=new Report{duration=rig.seatedIdle.length,faceBindings=face.ShapeBindingCount};
+            var report=new Report{duration=rig.seatedIdle?rig.seatedIdle.length:0,faceBindings=face.ShapeBindingCount};
             var pelvis=hip.position;var firstHand=hand.position;var firstFoot=foot.position;
             var actorPosition=rig.transform.position;
             var front=new GameObject("Idle preview front").AddComponent<Camera>();front.enabled=false;front.nearClipPlane=.02f;
@@ -40,12 +42,20 @@ namespace PsychologyVR
             front.transform.position=focus+rig.transform.forward*2.1f+Vector3.up*.10f;front.transform.LookAt(focus);
             side.transform.position=focus+rig.transform.right*2.1f+Vector3.up*.10f;side.transform.LookAt(focus);
             capture(front,Path.Combine(folder,"idle-front.png"));capture(side,Path.Combine(folder,"idle-side.png"));
+            if(baseline)
+            {
+                UnityEngine.Object.Destroy(front.gameObject);UnityEngine.Object.Destroy(side.gameObject);
+                File.WriteAllText(Path.Combine(folder,"baseline-complete.txt"),"Consultation static seating captured; no idle test run.");
+                yield break;
+            }
             RenderTexture movieTarget=null;Texture2D moviePixels=null;
             if(record)
             {
                 Directory.CreateDirectory(Path.Combine(folder,"frames"));
+                Directory.CreateDirectory(Path.Combine(folder,"side-frames"));
                 movieTarget=new RenderTexture(960,960,24);moviePixels=new Texture2D(960,960,TextureFormat.RGB24,false);
                 RecordFrame(front,movieTarget,moviePixels,Path.Combine(folder,"frames","000000.jpg"));report.recordedFrames++;
+                RecordFrame(side,movieTarget,moviePixels,Path.Combine(folder,"side-frames","000000.jpg"));
             }
             performance.PausePerformance(false);
             float elapsed=0,pauseElapsed=0,nextProgress=15;bool pauseStarted=false,pauseFinished=false;
@@ -79,6 +89,7 @@ namespace PsychologyVR
                 if(record&&elapsed<report.duration&&report.frames%2==0)
                 {
                     RecordFrame(front,movieTarget,moviePixels,Path.Combine(folder,"frames",report.recordedFrames.ToString("D6")+".jpg"));
+                    RecordFrame(side,movieTarget,moviePixels,Path.Combine(folder,"side-frames",report.recordedFrames.ToString("D6")+".jpg"));
                     report.recordedFrames++;
                 }
                 if(previous<15&&elapsed>=15)

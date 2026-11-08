@@ -107,7 +107,9 @@ namespace PsychologyVR.Editor
                 if(maxJaw<.00001f&&maxRot<.1f)throw new Exception("Speech pose bank is static: "+c.id);
                 var rig=actor.AddComponent<MetaHumanJointRig>();rig.library=data;rig.faceObject=face;rig.bodyObject=actor.transform.Find("Body").gameObject;
                 rig.clothingObject=actor.transform.Find("SkeletalMesh").gameObject;rig.skin=face.GetComponentInChildren<SkinnedMeshRenderer>();
-                if(c.id=="ivan")rig.seatedIdle=AssetDatabase.LoadAssetAtPath<AnimationClip>(Root+"/ivan/animations/SeatedVideo5799.anim");
+                rig.seatedIdle=AssetDatabase.LoadAssetAtPath<AnimationClip>(Root+"/ivan/animations/SeatedVideo5799.anim");
+                rig.gestureLibrary=AssetDatabase.LoadAssetAtPath<MetaHumanGestureLibrary>(Root+"/"+c.id+"/animations/SeatedGestures.asset");
+                MetaHumanWardrobeSetup.AttachPrepared(actor,c.id);
                 PrefabUtility.SaveAsPrefabAsset(actor,Root+"/"+c.id+"/Character.prefab");
                 demo.angryVoices[index]=AssetDatabase.LoadAssetAtPath<AudioClip>(Root+"/"+c.id+"/audio/anger.wav");
                 demo.angryCues[index]=AssetDatabase.LoadAssetAtPath<TextAsset>(Root+"/"+c.id+"/audio/anger.json");
