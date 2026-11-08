@@ -1,0 +1,1519 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-17",
+  "synthetic_test_data": true,
+  "tested_hardware": {
+    "cpu": "i9-14900K",
+    "ram_gb": 32,
+    "gpu": "RTX 3080",
+    "vram_mib": 10240,
+    "driver": "617.14"
+  },
+  "target_hardware": {
+    "cpu": "14th-generation i9, exact SKU unconfirmed",
+    "ram_gb": 64,
+    "gpu": "RTX 4090",
+    "vram_gb": 24
+  },
+  "target_seconds": 14,
+  "target_4090_verified": false,
+  "includes_audible_end_to_end_measurement": false,
+  "automated_tests": {
+    "count": 196,
+    "result": "passed"
+  },
+  "dialogue_comparison": [
+    {
+      "model": "gemma-q8",
+      "gpu_layer_setting": 32,
+      "first_seconds": 26.063,
+      "warm_median_seconds": 21.495,
+      "samples": [
+        {
+          "seconds": 26.06258689999231,
+          "spoken_words": 29,
+          "inference": [
+            {
+              "stage": "appraisal",
+              "seconds": 5.723,
+              "usage": {
+                "completion_tokens": 27,
+                "prompt_tokens": 974,
+                "total_tokens": 1001,
+                "prompt_tokens_details": {
+                  "cached_tokens": 0
+                }
+              },
+              "timings": {
+                "cache_n": 0,
+                "prompt_n": 974,
+                "prompt_ms": 3474.19,
+                "prompt_per_token_ms": 3.5669301848049284,
+                "prompt_per_second": 280.3531182808079,
+                "predicted_n": 27,
+                "predicted_ms": 2238.006,
+                "predicted_per_token_ms": 86.07715384615383,
+                "predicted_per_second": 11.617484492892334
+              }
+            },
+            {
+              "stage": "dialogue",
+              "seconds": 20.2826,
+              "usage": {
+                "completion_tokens": 129,
+                "prompt_tokens": 2541,
+                "total_tokens": 2670,
+                "prompt_tokens_details": {
+                  "cached_tokens": 0
+                }
+              },
+              "timings": {
+                "cache_n": 0,
+                "prompt_n": 2541,
+                "prompt_ms": 8084.236,
+                "prompt_per_token_ms": 3.18151751279024,
+                "prompt_per_second": 314.31541582902827,
+                "predicted_n": 129,
+                "predicted_ms": 12052.434,
+                "predicted_per_token_ms": 94.159640625,
+                "predicted_per_second": 10.620261434329365
+              }
+            }
+          ]
+        },
+        {
+          "seconds": 21.786176399997203,
+          "spoken_words": 42,
+          "inference": [
+            {
+              "stage": "appraisal",
+              "seconds": 4.0768,
+              "usage": {
+                "completion_tokens": 28,
+                "prompt_tokens": 1043,
+                "total_tokens": 1071,
+                "prompt_tokens_details": {
+                  "cached_tokens": 850
+                }
+              },
+              "timings": {
+                "cache_n": 850,
+                "prompt_n": 193,
+                "prompt_ms": 1327.646,
+                "prompt_per_token_ms": 6.878994818652849,
+                "prompt_per_second": 145.3700760594315,
+                "predicted_n": 28,
+                "predicted_ms": 2492.662,
+                "predicted_per_token_ms": 92.32081481481481,
+                "predicted_per_second": 10.831793480223151
+              }
+            },
+            {
+              "stage": "dialogue",
+              "seconds": 17.6356,
+              "usage": {
+                "completion_tokens": 154,
+                "prompt_tokens": 2695,
+                "total_tokens": 2849,
+                "prompt_tokens_details": {
+                  "cached_tokens": 2102
+                }
+              },
+              "timings": {
+                "cache_n": 2102,
+                "prompt_n": 593,
+                "prompt_ms": 2437.609,
+                "prompt_per_token_ms": 4.1106391231028665,
+                "prompt_per_second": 243.27117269422618,
+                "predicted_n": 154,
+                "predicted_ms": 14952.515,
+                "predicted_per_token_ms": 97.72885620915032,
+                "predicted_per_second": 10.232392343361635
+              }
+            }
+          ]
+        },
+        {
+          "seconds": 19.025248899997678,
+          "spoken_words": 37,
+          "inference": [
+            {
+              "stage": "appraisal",
+              "seconds": 3.7643,
+              "usage": {
+                "completion_tokens": 28,
+                "prompt_tokens": 1133,
+                "total_tokens": 1161,
+                "prompt_tokens_details": {
+                  "cached_tokens": 916
+                }
+              },
+              "timings": {
+                "cache_n": 916,
+                "prompt_n": 217,
+                "prompt_ms": 1282.687,
+                "prompt_per_token_ms": 5.911,
+                "prompt_per_second": 169.1761123329386,
+                "predicted_n": 28,
+                "predicted_ms": 2316.18,
+                "predicted_per_token_ms": 85.78444444444443,
+                "predicted_per_second": 11.65712509390462
+              }
+            },
+            {
+              "stage": "dialogue",
+              "seconds": 15.2101,
+              "usage": {
+                "completion_tokens": 134,
+                "prompt_tokens": 2784,
+                "total_tokens": 2918,
+                "prompt_tokens_details": {
+                  "cached_tokens": 2168
+                }
+              },
+              "timings": {
+                "cache_n": 2168,
+                "prompt_n": 616,
+                "prompt_ms": 2356.294,
+                "prompt_per_token_ms": 3.8251525974025973,
+                "prompt_per_second": 261.4274789139216,
+                "predicted_n": 134,
+                "predicted_ms": 12555.237,
+                "predicted_per_token_ms": 94.40027819548871,
+                "predicted_per_second": 10.593189121001858
+              }
+            }
+          ]
+        },
+        {
+          "seconds": 21.49466179999581,
+          "spoken_words": 38,
+          "inference": [
+            {
+              "stage": "appraisal",
+              "seconds": 4.6842,
+              "usage": {
+                "completion_tokens": 28,
+                "prompt_tokens": 1503,
+                "total_tokens": 1531,
+                "prompt_tokens_details": {
+                  "cached_tokens": 1005
+                }
+              },
+              "timings": {
+                "cache_n": 1005,
+                "prompt_n": 498,
+                "prompt_ms": 2083.054,
+                "prompt_per_token_ms": 4.182839357429719,
+                "prompt_per_second": 239.07205478110504,
+                "predicted_n": 28,
+                "predicted_ms": 2332.342,
+                "predicted_per_token_ms": 86.38303703703704,
+                "predicted_per_second": 11.576346865082392
+              }
+            },
+            {
+              "stage": "dialogue",
+              "seconds": 16.7649,
+              "usage": {
+                "completion_tokens": 140,
+                "prompt_tokens": 3153,
+                "total_tokens": 3293,
+                "prompt_tokens_details": {
+                  "cached_tokens": 2257
+                }
+              },
+              "timings": {
+                "cache_n": 2257,
+                "prompt_n": 896,
+                "prompt_ms": 3187.667,
+                "prompt_per_token_ms": 3.5576640625,
+                "prompt_per_second": 281.08331265467814,
+                "predicted_n": 140,
+                "predicted_ms": 13204.548,
+                "predicted_per_token_ms": 94.99674820143885,
+                "predicted_per_second": 10.526676111897203
+              }
+            }
+          ]
+        }
+      ],
+      "includes_stt": false,
+      "includes_speech": false,
+      "includes_game": false
+    },
+    {
+      "model": "gemma-q8",
+      "gpu_layer_setting": 36,
+      "first_seconds": 38.286,
+      "warm_median_seconds": 21.413,
+      "samples": [
+        {
+          "seconds": 38.28616089999559,
+          "spoken_words": 18,
+          "inference": [
+            {
+              "stage": "appraisal",
+              "seconds": 9.0433,
+              "usage": {
+                "completion_tokens": 27,
+                "prompt_tokens": 974,
+                "total_tokens": 1001,
+                "prompt_tokens_details": {
+                  "cached_tokens": 0
+                }
+              },
+              "timings": {
+                "cache_n": 0,
+                "prompt_n": 974,
+                "prompt_ms": 6759.438,
+                "prompt_per_token_ms": 6.939874743326489,
+                "prompt_per_second": 144.09481971726052,
+                "predicted_n": 27,
+                "predicted_ms": 2278.111,
+                "predicted_per_token_ms": 87.61965384615384,
+                "predicted_per_second": 11.412964513142688
+              }
+            },
+            {
+              "stage": "dialogue",
+              "seconds": 29.1961,
+              "usage": {
+                "completion_tokens": 112,
+                "prompt_tokens": 2625,
+                "total_tokens": 2737,
+                "prompt_tokens_details": {
+                  "cached_tokens": 0
+                }
+              },
+              "timings": {
+                "cache_n": 0,
+                "prompt_n": 2625,
+                "prompt_ms": 18603.133,
+                "prompt_per_token_ms": 7.08690780952381,
+                "prompt_per_second": 141.10526436595384,
+                "predicted_n": 112,
+                "predicted_ms": 10460.159,
+                "predicted_per_token_ms": 94.23566666666666,
+                "predicted_per_second": 10.611693378657055
+              }
+            }
+          ]
+        },
+        {
+          "seconds": 21.412636900000507,
+          "spoken_words": 26,
+          "inference": [
+            {
+              "stage": "appraisal",
+              "seconds": 4.8368,
+              "usage": {
+                "completion_tokens": 27,
+                "prompt_tokens": 1026,
+                "total_tokens": 1053,
+                "prompt_tokens_details": {
+                  "cached_tokens": 850
+                }
+              },
+              "timings": {
+                "cache_n": 850,
+                "prompt_n": 176,
+                "prompt_ms": 1997.967,
+                "prompt_per_token_ms": 11.352085227272728,
+                "prompt_per_second": 88.0895430204803,
+                "predicted_n": 27,
+                "predicted_ms": 2689.0,
+                "predicted_per_token_ms": 103.42307692307692,
+                "predicted_per_second": 9.669021941242098
+              }
+            },
+            {
+              "stage": "dialogue",
+              "seconds": 16.5537,
+              "usage": {
+                "completion_tokens": 126,
+                "prompt_tokens": 2677,
+                "total_tokens": 2803,
+                "prompt_tokens_details": {
+                  "cached_tokens": 2102
+                }
+              },
+              "timings": {
+                "cache_n": 2102,
+                "prompt_n": 575,
+                "prompt_ms": 5076.933,
+                "prompt_per_token_ms": 8.829448695652173,
+                "prompt_per_second": 113.25735439092854,
+                "predicted_n": 126,
+                "predicted_ms": 11268.541,
+                "predicted_per_token_ms": 90.14832799999999,
+                "predicted_per_second": 11.09282914265476
+              }
+            }
+          ]
+        },
+        {
+          "seconds": 20.444290500003262,
+          "spoken_words": 26,
+          "inference": [
+            {
+              "stage": "appraisal",
+              "seconds": 4.3308,
+              "usage": {
+                "completion_tokens": 27,
+                "prompt_tokens": 1093,
+                "total_tokens": 1120,
+                "prompt_tokens_details": {
+                  "cached_tokens": 899
+                }
+              },
+              "timings": {
+                "cache_n": 899,
+                "prompt_n": 194,
+                "prompt_ms": 1891.702,
+                "prompt_per_token_ms": 9.751041237113402,
+                "prompt_per_second": 102.55315054908225,
+                "predicted_n": 27,
+                "predicted_ms": 2284.028,
+                "predicted_per_token_ms": 87.84723076923076,
+                "predicted_per_second": 11.383398101949714
+              }
+            },
+            {
+              "stage": "dialogue",
+              "seconds": 16.0488,
+              "usage": {
+                "completion_tokens": 121,
+                "prompt_tokens": 2743,
+                "total_tokens": 2864,
+                "prompt_tokens_details": {
+                  "cached_tokens": 2151
+                }
+              },
+              "timings": {
+                "cache_n": 2151,
+                "prompt_n": 592,
+                "prompt_ms": 4939.714,
+                "prompt_per_token_ms": 8.344111486486486,
+                "prompt_per_second": 119.84499507461364,
+                "predicted_n": 121,
+                "predicted_ms": 10867.073,
+                "predicted_per_token_ms": 90.55894166666667,
+                "predicted_per_second": 11.042531875878629
+              }
+            }
+          ]
+        },
+        {
+          "seconds": 27.362808599995333,
+          "spoken_words": 40,
+          "inference": [
+            {
+              "stage": "appraisal",
+              "seconds": 6.8594,
+              "usage": {
+                "completion_tokens": 28,
+                "prompt_tokens": 1450,
+                "total_tokens": 1478,
+                "prompt_tokens_details": {
+                  "cached_tokens": 966
+                }
+              },
+              "timings": {
+                "cache_n": 966,
+                "prompt_n": 484,
+                "prompt_ms": 4268.743,
+                "prompt_per_token_ms": 8.81971694214876,
+                "prompt_per_second": 113.38232355520113,
+                "predicted_n": 28,
+                "predicted_ms": 2416.943,
+                "predicted_per_token_ms": 89.51640740740741,
+                "predicted_per_second": 11.171136431434253
+              }
+            },
+            {
+              "stage": "dialogue",
+              "seconds": 20.4289,
+              "usage": {
+                "completion_tokens": 143,
+                "prompt_tokens": 3101,
+                "total_tokens": 3244,
+                "prompt_tokens_details": {
+                  "cached_tokens": 2218
+                }
+              },
+              "timings": {
+                "cache_n": 2218,
+                "prompt_n": 883,
+                "prompt_ms": 7292.281,
+                "prompt_per_token_ms": 8.258528878822197,
+                "prompt_per_second": 121.08694110937304,
+                "predicted_n": 143,
+                "predicted_ms": 12753.397,
+                "predicted_per_token_ms": 89.81265492957748,
+                "predicted_per_second": 11.134288378225817
+              }
+            }
+          ]
+        }
+      ],
+      "includes_stt": false,
+      "includes_speech": false,
+      "includes_game": false
+    },
+    {
+      "model": "gemma",
+      "gpu_layer_setting": 99,
+      "first_seconds": 4.127,
+      "warm_median_seconds": 3.486,
+      "samples": [
+        {
+          "seconds": 4.126860200005467,
+          "spoken_words": 23,
+          "inference": [
+            {
+              "stage": "appraisal",
+              "seconds": 1.0074,
+              "usage": {
+                "completion_tokens": 27,
+                "prompt_tokens": 974,
+                "total_tokens": 1001,
+                "prompt_tokens_details": {
+                  "cached_tokens": 0
+                }
+              },
+              "timings": {
+                "cache_n": 0,
+                "prompt_n": 974,
+                "prompt_ms": 579.311,
+                "prompt_per_token_ms": 0.5947751540041069,
+                "prompt_per_second": 1681.307622330665,
+                "predicted_n": 27,
+                "predicted_ms": 424.229,
+                "predicted_per_token_ms": 16.316499999999998,
+                "predicted_per_second": 61.28765360218184
+              }
+            },
+            {
+              "stage": "dialogue",
+              "seconds": 3.0743,
+              "usage": {
+                "completion_tokens": 120,
+                "prompt_tokens": 2541,
+                "total_tokens": 2661,
+                "prompt_tokens_details": {
+                  "cached_tokens": 0
+                }
+              },
+              "timings": {
+                "cache_n": 0,
+                "prompt_n": 2541,
+                "prompt_ms": 1232.327,
+                "prompt_per_token_ms": 0.4849771743408107,
+                "prompt_per_second": 2061.952712226544,
+                "predicted_n": 120,
+                "predicted_ms": 1721.679,
+                "predicted_per_token_ms": 14.467890756302522,
+                "predicted_per_second": 69.11857553004944
+              }
+            }
+          ]
+        },
+        {
+          "seconds": 3.344577099996968,
+          "spoken_words": 27,
+          "inference": [
+            {
+              "stage": "appraisal",
+              "seconds": 0.8852,
+              "usage": {
+                "completion_tokens": 28,
+                "prompt_tokens": 1034,
+                "total_tokens": 1062,
+                "prompt_tokens_details": {
+                  "cached_tokens": 850
+                }
+              },
+              "timings": {
+                "cache_n": 850,
+                "prompt_n": 184,
+                "prompt_ms": 265.461,
+                "prompt_per_token_ms": 1.4427228260869567,
+                "prompt_per_second": 693.133831334923,
+                "predicted_n": 28,
+                "predicted_ms": 450.408,
+                "predicted_per_token_ms": 16.68177777777778,
+                "predicted_per_second": 59.945649277987954
+              }
+            },
+            {
+              "stage": "dialogue",
+              "seconds": 2.4368,
+              "usage": {
+                "completion_tokens": 121,
+                "prompt_tokens": 2686,
+                "total_tokens": 2807,
+                "prompt_tokens_details": {
+                  "cached_tokens": 2102
+                }
+              },
+              "timings": {
+                "cache_n": 2102,
+                "prompt_n": 584,
+                "prompt_ms": 480.222,
+                "prompt_per_token_ms": 0.8222979452054794,
+                "prompt_per_second": 1216.1042184656264,
+                "predicted_n": 121,
+                "predicted_ms": 1745.224,
+                "predicted_per_token_ms": 14.543533333333333,
+                "predicted_per_second": 68.75908192873808
+              }
+            }
+          ]
+        },
+        {
+          "seconds": 3.4859866999904625,
+          "spoken_words": 29,
+          "inference": [
+            {
+              "stage": "appraisal",
+              "seconds": 0.9032,
+              "usage": {
+                "completion_tokens": 28,
+                "prompt_tokens": 1097,
+                "total_tokens": 1125,
+                "prompt_tokens_details": {
+                  "cached_tokens": 907
+                }
+              },
+              "timings": {
+                "cache_n": 907,
+                "prompt_n": 190,
+                "prompt_ms": 260.293,
+                "prompt_per_token_ms": 1.3699631578947369,
+                "prompt_per_second": 729.9466370590065,
+                "predicted_n": 28,
+                "predicted_ms": 439.267,
+                "predicted_per_token_ms": 16.269148148148147,
+                "predicted_per_second": 61.466033187104884
+              }
+            },
+            {
+              "stage": "dialogue",
+              "seconds": 2.5443,
+              "usage": {
+                "completion_tokens": 125,
+                "prompt_tokens": 2747,
+                "total_tokens": 2872,
+                "prompt_tokens_details": {
+                  "cached_tokens": 2159
+                }
+              },
+              "timings": {
+                "cache_n": 2159,
+                "prompt_n": 588,
+                "prompt_ms": 476.859,
+                "prompt_per_token_ms": 0.810984693877551,
+                "prompt_per_second": 1233.0688945789007,
+                "predicted_n": 125,
+                "predicted_ms": 1804.811,
+                "predicted_per_token_ms": 14.554927419354838,
+                "predicted_per_second": 68.70525501008139
+              }
+            }
+          ]
+        },
+        {
+          "seconds": 3.843750200001523,
+          "spoken_words": 24,
+          "inference": [
+            {
+              "stage": "appraisal",
+              "seconds": 1.0917,
+              "usage": {
+                "completion_tokens": 28,
+                "prompt_tokens": 1458,
+                "total_tokens": 1486,
+                "prompt_tokens_details": {
+                  "cached_tokens": 969
+                }
+              },
+              "timings": {
+                "cache_n": 969,
+                "prompt_n": 489,
+                "prompt_ms": 412.951,
+                "prompt_per_token_ms": 0.844480572597137,
+                "prompt_per_second": 1184.1598640032353,
+                "predicted_n": 28,
+                "predicted_ms": 435.954,
+                "predicted_per_token_ms": 16.146444444444445,
+                "predicted_per_second": 61.93313973492616
+              }
+            },
+            {
+              "stage": "dialogue",
+              "seconds": 2.707,
+              "usage": {
+                "completion_tokens": 120,
+                "prompt_tokens": 3108,
+                "total_tokens": 3228,
+                "prompt_tokens_details": {
+                  "cached_tokens": 2221
+                }
+              },
+              "timings": {
+                "cache_n": 2221,
+                "prompt_n": 887,
+                "prompt_ms": 627.86,
+                "prompt_per_token_ms": 0.7078466741826381,
+                "prompt_per_second": 1412.7353231612142,
+                "predicted_n": 120,
+                "predicted_ms": 1734.3,
+                "predicted_per_token_ms": 14.573949579831933,
+                "predicted_per_second": 68.615579772819
+              }
+            }
+          ]
+        }
+      ],
+      "includes_stt": false,
+      "includes_speech": false,
+      "includes_game": false
+    }
+  ],
+  "voice_paired_comparison": {
+    "samples": [
+      {
+        "scenario": "alex-earthquake",
+        "emotion": "anxious",
+        "repeat": 0,
+        "baseline": {
+          "seconds": 3.717,
+          "audio_seconds": 3.56,
+          "sha256": "fd0852f27f65b1e95f03fb212ecd6390f7b1868134d332525fa67572718079d1"
+        },
+        "optimized": {
+          "seconds": 3.552,
+          "audio_seconds": 3.56,
+          "sha256": "fd0852f27f65b1e95f03fb212ecd6390f7b1868134d332525fa67572718079d1"
+        },
+        "identical_wav": true
+      },
+      {
+        "scenario": "alex-earthquake",
+        "emotion": "anxious",
+        "repeat": 1,
+        "optimized": {
+          "seconds": 3.701,
+          "audio_seconds": 3.56,
+          "sha256": "fd0852f27f65b1e95f03fb212ecd6390f7b1868134d332525fa67572718079d1"
+        },
+        "baseline": {
+          "seconds": 3.55,
+          "audio_seconds": 3.56,
+          "sha256": "fd0852f27f65b1e95f03fb212ecd6390f7b1868134d332525fa67572718079d1"
+        },
+        "identical_wav": true
+      },
+      {
+        "scenario": "ivan-work-exhaustion",
+        "emotion": "angry",
+        "repeat": 0,
+        "baseline": {
+          "seconds": 2.813,
+          "audio_seconds": 2.88,
+          "sha256": "14c538db6f402ebcea93308029ce9a3c4f1f30232f0ac827e7fbf43dfac0fb82"
+        },
+        "optimized": {
+          "seconds": 2.785,
+          "audio_seconds": 2.88,
+          "sha256": "14c538db6f402ebcea93308029ce9a3c4f1f30232f0ac827e7fbf43dfac0fb82"
+        },
+        "identical_wav": true
+      },
+      {
+        "scenario": "ivan-work-exhaustion",
+        "emotion": "angry",
+        "repeat": 1,
+        "optimized": {
+          "seconds": 3.001,
+          "audio_seconds": 2.88,
+          "sha256": "14c538db6f402ebcea93308029ce9a3c4f1f30232f0ac827e7fbf43dfac0fb82"
+        },
+        "baseline": {
+          "seconds": 2.956,
+          "audio_seconds": 2.88,
+          "sha256": "14c538db6f402ebcea93308029ce9a3c4f1f30232f0ac827e7fbf43dfac0fb82"
+        },
+        "identical_wav": true
+      },
+      {
+        "scenario": "stefan-fire-witness",
+        "emotion": "sad",
+        "repeat": 0,
+        "baseline": {
+          "seconds": 3.908,
+          "audio_seconds": 3.92,
+          "sha256": "2badbd3e098b08f5e795b5761afe6b986818bd4bc0d26ce23b70e26aa30ba2be"
+        },
+        "optimized": {
+          "seconds": 3.579,
+          "audio_seconds": 3.92,
+          "sha256": "2badbd3e098b08f5e795b5761afe6b986818bd4bc0d26ce23b70e26aa30ba2be"
+        },
+        "identical_wav": true
+      },
+      {
+        "scenario": "stefan-fire-witness",
+        "emotion": "sad",
+        "repeat": 1,
+        "optimized": {
+          "seconds": 3.935,
+          "audio_seconds": 3.92,
+          "sha256": "2badbd3e098b08f5e795b5761afe6b986818bd4bc0d26ce23b70e26aa30ba2be"
+        },
+        "baseline": {
+          "seconds": 3.843,
+          "audio_seconds": 3.92,
+          "sha256": "2badbd3e098b08f5e795b5761afe6b986818bd4bc0d26ce23b70e26aa30ba2be"
+        },
+        "identical_wav": true
+      },
+      {
+        "scenario": "nikola-bereavement",
+        "emotion": "sad",
+        "repeat": 0,
+        "baseline": {
+          "seconds": 4.764,
+          "audio_seconds": 4.88,
+          "sha256": "c648353c91ca646aa8ad8407a597cd663847512bec9440f5621a422788a1424b"
+        },
+        "optimized": {
+          "seconds": 4.409,
+          "audio_seconds": 4.88,
+          "sha256": "c648353c91ca646aa8ad8407a597cd663847512bec9440f5621a422788a1424b"
+        },
+        "identical_wav": true
+      },
+      {
+        "scenario": "nikola-bereavement",
+        "emotion": "sad",
+        "repeat": 1,
+        "optimized": {
+          "seconds": 4.291,
+          "audio_seconds": 4.88,
+          "sha256": "c648353c91ca646aa8ad8407a597cd663847512bec9440f5621a422788a1424b"
+        },
+        "baseline": {
+          "seconds": 4.336,
+          "audio_seconds": 4.88,
+          "sha256": "c648353c91ca646aa8ad8407a597cd663847512bec9440f5621a422788a1424b"
+        },
+        "identical_wav": true
+      }
+    ],
+    "precision": "bf16",
+    "includes_llm": false,
+    "includes_stt": false,
+    "includes_playback": false,
+    "sentence_streaming": false,
+    "limitations": [
+      "A matched WAV hash checks output parity for this sample, not all future text.",
+      "Each voice is warmed before its measured baseline/optimized pairs."
+    ],
+    "gpu": "NVIDIA GeForce RTX 3080, 10240 MiB",
+    "load_seconds": 12.414,
+    "all_samples_identical": true
+  },
+  "final_adapter_and_vram_release_check": {
+    "samples": [
+      {
+        "scenario": "alex-earthquake",
+        "emotion": "anxious",
+        "repeat": 0,
+        "baseline": {
+          "seconds": 3.42,
+          "audio_seconds": 3.56,
+          "sha256": "fd0852f27f65b1e95f03fb212ecd6390f7b1868134d332525fa67572718079d1"
+        },
+        "optimized": {
+          "seconds": 3.584,
+          "audio_seconds": 3.56,
+          "sha256": "fd0852f27f65b1e95f03fb212ecd6390f7b1868134d332525fa67572718079d1"
+        },
+        "identical_wav": true
+      },
+      {
+        "scenario": "ivan-work-exhaustion",
+        "emotion": "angry",
+        "repeat": 0,
+        "baseline": {
+          "seconds": 2.58,
+          "audio_seconds": 2.88,
+          "sha256": "14c538db6f402ebcea93308029ce9a3c4f1f30232f0ac827e7fbf43dfac0fb82"
+        },
+        "optimized": {
+          "seconds": 2.595,
+          "audio_seconds": 2.88,
+          "sha256": "14c538db6f402ebcea93308029ce9a3c4f1f30232f0ac827e7fbf43dfac0fb82"
+        },
+        "identical_wav": true
+      },
+      {
+        "scenario": "stefan-fire-witness",
+        "emotion": "sad",
+        "repeat": 0,
+        "baseline": {
+          "seconds": 3.682,
+          "audio_seconds": 3.92,
+          "sha256": "2badbd3e098b08f5e795b5761afe6b986818bd4bc0d26ce23b70e26aa30ba2be"
+        },
+        "optimized": {
+          "seconds": 3.686,
+          "audio_seconds": 3.92,
+          "sha256": "2badbd3e098b08f5e795b5761afe6b986818bd4bc0d26ce23b70e26aa30ba2be"
+        },
+        "identical_wav": true
+      },
+      {
+        "scenario": "nikola-bereavement",
+        "emotion": "sad",
+        "repeat": 0,
+        "baseline": {
+          "seconds": 4.36,
+          "audio_seconds": 4.88,
+          "sha256": "c648353c91ca646aa8ad8407a597cd663847512bec9440f5621a422788a1424b"
+        },
+        "optimized": {
+          "seconds": 4.34,
+          "audio_seconds": 4.88,
+          "sha256": "c648353c91ca646aa8ad8407a597cd663847512bec9440f5621a422788a1424b"
+        },
+        "identical_wav": true
+      }
+    ],
+    "precision": "bf16",
+    "includes_llm": false,
+    "includes_stt": false,
+    "includes_playback": false,
+    "sentence_streaming": false,
+    "limitations": [
+      "A matched WAV hash checks output parity for this sample, not all future text.",
+      "Each voice is warmed before its measured baseline/optimized pairs."
+    ],
+    "gpu": "NVIDIA GeForce RTX 3080, 10240 MiB",
+    "load_seconds": 9.895,
+    "all_samples_identical": true
+  },
+  "stt": {
+    "model": "large-v3-turbo",
+    "device": "cpu",
+    "compute_type": "int8",
+    "language_token": "sr",
+    "medians": {
+      "1": 2.983,
+      "5": 3.066
+    },
+    "matches": {
+      "1": 3,
+      "5": 3
+    },
+    "samples": [
+      {
+        "speaker": "alex",
+        "beam": 5,
+        "seconds": 3.35,
+        "expected": "Još osjećam strah. Teško mi je da govorim o tome.",
+        "transcript": "Još osjećam strah, teško mi je da govorim o tome.",
+        "exact_normalized": true
+      },
+      {
+        "speaker": "alex",
+        "beam": 1,
+        "seconds": 2.994,
+        "expected": "Još osjećam strah. Teško mi je da govorim o tome.",
+        "transcript": "Još osjećam strah, teško mi je da govorim o tome.",
+        "exact_normalized": true
+      },
+      {
+        "speaker": "ivan",
+        "beam": 5,
+        "seconds": 3.052,
+        "expected": "Stalno traže više od mene. Umoran sam od svega.",
+        "transcript": "Stalno otraže više od mene, umoran sam od svega.",
+        "exact_normalized": false
+      },
+      {
+        "speaker": "ivan",
+        "beam": 1,
+        "seconds": 2.964,
+        "expected": "Stalno traže više od mene. Umoran sam od svega.",
+        "transcript": "Stalno otraže više od mene, umoran sam od svega.",
+        "exact_normalized": false
+      },
+      {
+        "speaker": "stefan",
+        "beam": 5,
+        "seconds": 3.08,
+        "expected": "Ne znam kako da objasnim taj osjećaj. Sve mi se vraća.",
+        "transcript": "Ne znam kako da objasnim taj osjećaj. Sve mi se vraća.",
+        "exact_normalized": true
+      },
+      {
+        "speaker": "stefan",
+        "beam": 1,
+        "seconds": 2.972,
+        "expected": "Ne znam kako da objasnim taj osjećaj. Sve mi se vraća.",
+        "transcript": "Ne znam kako da objasnim taj osjećaj. Sve mi se vraća.",
+        "exact_normalized": true
+      },
+      {
+        "speaker": "nikola",
+        "beam": 5,
+        "seconds": 3.04,
+        "expected": "Nedostaje mi svaki dan. Ponekad samo želim da budem sam.",
+        "transcript": "Nedostaje mi svaki dan. Ponekad samo želim da budem sam.",
+        "exact_normalized": true
+      },
+      {
+        "speaker": "nikola",
+        "beam": 1,
+        "seconds": 3.09,
+        "expected": "Nedostaje mi svaki dan. Ponekad samo želim da budem sam.",
+        "transcript": "Nedostaje mi svaki dan. Ponekad samo želim da budem sam.",
+        "exact_normalized": true
+      }
+    ],
+    "native_listener_quality_verified": false
+  },
+  "constrained_functional_pipeline": {
+    "samples": [
+      {
+        "scenario": "alex-earthquake",
+        "sample_index": 0,
+        "cold_sample": true,
+        "first_prepared_seconds": 84.685,
+        "complete_preparation_seconds": 84.685,
+        "stt_seconds": 3.176,
+        "inference": [
+          {
+            "stage": "appraisal",
+            "seconds": 8.2427,
+            "started_unix": 1792243582.984,
+            "usage": {
+              "completion_tokens": 28,
+              "prompt_tokens": 984,
+              "total_tokens": 1012,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              }
+            },
+            "timings": {
+              "cache_n": 0,
+              "prompt_n": 984,
+              "prompt_ms": 4931.525,
+              "prompt_per_token_ms": 5.011712398373984,
+              "prompt_per_second": 199.53259894251778,
+              "predicted_n": 28,
+              "predicted_ms": 3301.221,
+              "predicted_per_token_ms": 122.26744444444445,
+              "predicted_per_second": 8.178792028767537
+            }
+          },
+          {
+            "stage": "dialogue",
+            "seconds": 26.0102,
+            "started_unix": 1792243591.274,
+            "usage": {
+              "completion_tokens": 112,
+              "prompt_tokens": 2546,
+              "total_tokens": 2658,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              }
+            },
+            "timings": {
+              "cache_n": 0,
+              "prompt_n": 2546,
+              "prompt_ms": 12167.549,
+              "prompt_per_token_ms": 4.779084446190103,
+              "prompt_per_second": 209.24509940333914,
+              "predicted_n": 112,
+              "predicted_ms": 13729.497,
+              "predicted_per_token_ms": 123.68916216216216,
+              "predicted_per_second": 8.08478271272429
+            }
+          }
+        ],
+        "segment_schedule": [
+          {
+            "index": 0,
+            "ready_seconds": 81.489,
+            "predicted_start_seconds": 81.489,
+            "duration_seconds": 9.32,
+            "extra_preparation_wait_seconds": 0.0,
+            "speech_preparation_ms": 46386,
+            "alignment_preparation_ms": 785,
+            "speech_source": "generated"
+          }
+        ],
+        "spoken_words": 20
+      },
+      {
+        "scenario": "nikola-bereavement",
+        "sample_index": 1,
+        "cold_sample": false,
+        "first_prepared_seconds": 61.062,
+        "complete_preparation_seconds": 61.082,
+        "stt_seconds": 2.989,
+        "inference": [
+          {
+            "stage": "appraisal",
+            "seconds": 8.7114,
+            "started_unix": 1792243667.485,
+            "usage": {
+              "completion_tokens": 28,
+              "prompt_tokens": 1010,
+              "total_tokens": 1038,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              }
+            },
+            "timings": {
+              "cache_n": 0,
+              "prompt_n": 1010,
+              "prompt_ms": 5205.016,
+              "prompt_per_token_ms": 5.153481188118811,
+              "prompt_per_second": 194.04359179683598,
+              "predicted_n": 28,
+              "predicted_ms": 3331.629,
+              "predicted_per_token_ms": 123.39366666666666,
+              "predicted_per_second": 8.104143648647554
+            }
+          },
+          {
+            "stage": "dialogue",
+            "seconds": 27.3377,
+            "started_unix": 1792243676.22,
+            "usage": {
+              "completion_tokens": 111,
+              "prompt_tokens": 2957,
+              "total_tokens": 3068,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              }
+            },
+            "timings": {
+              "cache_n": 0,
+              "prompt_n": 2957,
+              "prompt_ms": 13435.803,
+              "prompt_per_token_ms": 4.54372776462631,
+              "prompt_per_second": 220.08360795406128,
+              "predicted_n": 111,
+              "predicted_ms": 13754.189,
+              "predicted_per_token_ms": 125.03808181818182,
+              "predicted_per_second": 7.997563505925358
+            }
+          }
+        ],
+        "segment_schedule": [
+          {
+            "index": 0,
+            "ready_seconds": 58.067,
+            "predicted_start_seconds": 58.067,
+            "duration_seconds": 8.36,
+            "extra_preparation_wait_seconds": 0.0,
+            "speech_preparation_ms": 21279,
+            "alignment_preparation_ms": 703,
+            "speech_source": "generated"
+          }
+        ],
+        "spoken_words": 18
+      },
+      {
+        "scenario": "stefan-fire-witness",
+        "sample_index": 2,
+        "cold_sample": false,
+        "first_prepared_seconds": 52.981,
+        "complete_preparation_seconds": 52.981,
+        "stt_seconds": 2.961,
+        "inference": [
+          {
+            "stage": "appraisal",
+            "seconds": 8.7412,
+            "started_unix": 1792243728.587,
+            "usage": {
+              "completion_tokens": 28,
+              "prompt_tokens": 1030,
+              "total_tokens": 1058,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              }
+            },
+            "timings": {
+              "cache_n": 0,
+              "prompt_n": 1030,
+              "prompt_ms": 5253.448,
+              "prompt_per_token_ms": 5.100434951456311,
+              "prompt_per_second": 196.06171032815018,
+              "predicted_n": 28,
+              "predicted_ms": 3322.622,
+              "predicted_per_token_ms": 123.06007407407407,
+              "predicted_per_second": 8.126112449746016
+            }
+          },
+          {
+            "stage": "dialogue",
+            "seconds": 28.5667,
+            "started_unix": 1792243737.349,
+            "usage": {
+              "completion_tokens": 109,
+              "prompt_tokens": 2889,
+              "total_tokens": 2998,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              }
+            },
+            "timings": {
+              "cache_n": 0,
+              "prompt_n": 2889,
+              "prompt_ms": 14684.613,
+              "prompt_per_token_ms": 5.082939771547248,
+              "prompt_per_second": 196.73654321022966,
+              "predicted_n": 109,
+              "predicted_ms": 13702.688,
+              "predicted_per_token_ms": 126.87674074074074,
+              "predicted_per_second": 7.88166526158955
+            }
+          }
+        ],
+        "segment_schedule": [
+          {
+            "index": 0,
+            "ready_seconds": 50.008,
+            "predicted_start_seconds": 50.008,
+            "duration_seconds": 6.76,
+            "extra_preparation_wait_seconds": 0.0,
+            "speech_preparation_ms": 11934,
+            "alignment_preparation_ms": 697,
+            "speech_source": "generated"
+          }
+        ],
+        "spoken_words": 19
+      },
+      {
+        "scenario": "ivan-work-exhaustion",
+        "sample_index": 3,
+        "cold_sample": false,
+        "first_prepared_seconds": 56.697,
+        "complete_preparation_seconds": 56.697,
+        "stt_seconds": 2.949,
+        "inference": [
+          {
+            "stage": "appraisal",
+            "seconds": 8.4037,
+            "started_unix": 1792243781.549,
+            "usage": {
+              "completion_tokens": 28,
+              "prompt_tokens": 1019,
+              "total_tokens": 1047,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              }
+            },
+            "timings": {
+              "cache_n": 0,
+              "prompt_n": 1019,
+              "prompt_ms": 4919.346,
+              "prompt_per_token_ms": 4.827621197252207,
+              "prompt_per_second": 207.14135578184582,
+              "predicted_n": 28,
+              "predicted_ms": 3312.96,
+              "predicted_per_token_ms": 122.70222222222222,
+              "predicted_per_second": 8.14981164879745
+            }
+          },
+          {
+            "stage": "dialogue",
+            "seconds": 29.3927,
+            "started_unix": 1792243789.963,
+            "usage": {
+              "completion_tokens": 119,
+              "prompt_tokens": 3063,
+              "total_tokens": 3182,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              }
+            },
+            "timings": {
+              "cache_n": 0,
+              "prompt_n": 3063,
+              "prompt_ms": 14335.803,
+              "prompt_per_token_ms": 4.680314397649363,
+              "prompt_per_second": 213.66086015551414,
+              "predicted_n": 119,
+              "predicted_ms": 14886.066,
+              "predicted_per_token_ms": 126.15310169491526,
+              "predicted_per_second": 7.926876046364432
+            }
+          }
+        ],
+        "segment_schedule": [
+          {
+            "index": 0,
+            "ready_seconds": 53.733,
+            "predicted_start_seconds": 53.733,
+            "duration_seconds": 8.96,
+            "extra_preparation_wait_seconds": 0.0,
+            "speech_preparation_ms": 15190,
+            "alignment_preparation_ms": 701,
+            "speech_source": "generated"
+          }
+        ],
+        "spoken_words": 21
+      }
+    ],
+    "target_seconds": 14,
+    "includes_stt": true,
+    "includes_playback": false,
+    "end_to_end_target_verified": false,
+    "settings": {
+      "dialogue_model": "gemma",
+      "llm_gpu_layers": 0,
+      "conversation_language": "cnr",
+      "higgs_quantization": "bf16",
+      "higgs_fast_decode": true,
+      "lip_sync_provider": "rhubarb",
+      "stt_device": "cpu",
+      "stt_model": ".cache/whisper/large-v3-turbo",
+      "stt_beam_size": 1,
+      "llm_ordinary_word_limit": 24
+    },
+    "limitations": [
+      "First prepared speech is measured, not audible playback.",
+      "Microphone endpointing, WAV transport and game playback are excluded.",
+      "Later gaps are predictions with instantaneous WAV download, not measured playback.",
+      "Each sample uses an isolated synthetic session. The first sample may warm kernels/prompt slots.",
+      "Fixed openings are excluded. Full conversation/history and VR require testing in the game.",
+      "Dialogue ran on CPU on a 10 GB card. This is not the target 4090 profile."
+    ],
+    "gpu": "NVIDIA GeForce RTX 3080, 10240 MiB",
+    "bridge_warmup_seconds": 2.791,
+    "completed": true,
+    "median_seconds": 58.8795,
+    "p90_seconds": 77.598,
+    "max_seconds": 84.685,
+    "max_predicted_extra_gap_seconds": 0.0,
+    "preparation_target_met": false
+  },
+  "observed_windows_speech_memory_mib": {
+    "shared": 1806,
+    "dedicated": 9019,
+    "limitation": "Shared allocation does not prove tensor paging or causation."
+  },
+  "player_fixture_check": {
+    "kind": "Windows player fixture integration, not AI latency",
+    "exit_code": 0,
+    "passed": true,
+    "check": "STREAM_CHECK_OK",
+    "includes_real_model_generation": false
+  },
+  "preset_before_budget_hint": [
+    {
+      "scenario": "alex-earthquake",
+      "seconds": 6.613,
+      "words": 11,
+      "detail_allowed": false,
+      "budget_respected": true,
+      "dialogue_calls": 2
+    },
+    {
+      "scenario": "alex-earthquake",
+      "seconds": 4.614,
+      "words": 43,
+      "detail_allowed": true,
+      "budget_respected": true,
+      "dialogue_calls": 1
+    },
+    {
+      "scenario": "nikola-bereavement",
+      "seconds": 4.318,
+      "words": 18,
+      "detail_allowed": true,
+      "budget_respected": true,
+      "dialogue_calls": 1
+    },
+    {
+      "scenario": "nikola-bereavement",
+      "seconds": 3.951,
+      "words": 42,
+      "detail_allowed": true,
+      "budget_respected": true,
+      "dialogue_calls": 1
+    },
+    {
+      "scenario": "stefan-fire-witness",
+      "seconds": 7.268,
+      "words": 8,
+      "detail_allowed": false,
+      "budget_respected": true,
+      "dialogue_calls": 2
+    },
+    {
+      "scenario": "stefan-fire-witness",
+      "seconds": 4.578,
+      "words": 33,
+      "detail_allowed": true,
+      "budget_respected": true,
+      "dialogue_calls": 1
+    },
+    {
+      "scenario": "ivan-work-exhaustion",
+      "seconds": 7.519,
+      "words": 7,
+      "detail_allowed": false,
+      "budget_respected": true,
+      "dialogue_calls": 2
+    },
+    {
+      "scenario": "ivan-work-exhaustion",
+      "seconds": 4.945,
+      "words": 46,
+      "detail_allowed": true,
+      "budget_respected": true,
+      "dialogue_calls": 1
+    }
+  ],
+  "preset_after_budget_hint": [
+    {
+      "scenario": "alex-earthquake",
+      "seconds": 3.792,
+      "words": 10,
+      "detail_allowed": false,
+      "budget_respected": true,
+      "dialogue_calls": 1
+    },
+    {
+      "scenario": "alex-earthquake",
+      "seconds": 5.042,
+      "words": 70,
+      "detail_allowed": true,
+      "budget_respected": true,
+      "dialogue_calls": 1
+    },
+    {
+      "scenario": "nikola-bereavement",
+      "seconds": 4.431,
+      "words": 24,
+      "detail_allowed": true,
+      "budget_respected": true,
+      "dialogue_calls": 1
+    },
+    {
+      "scenario": "nikola-bereavement",
+      "seconds": 4.846,
+      "words": 55,
+      "detail_allowed": true,
+      "budget_respected": true,
+      "dialogue_calls": 1
+    },
+    {
+      "scenario": "stefan-fire-witness",
+      "seconds": 4.055,
+      "words": 11,
+      "detail_allowed": false,
+      "budget_respected": true,
+      "dialogue_calls": 1
+    },
+    {
+      "scenario": "stefan-fire-witness",
+      "seconds": 3.359,
+      "words": 29,
+      "detail_allowed": true,
+      "budget_respected": true,
+      "dialogue_calls": 1
+    },
+    {
+      "scenario": "ivan-work-exhaustion",
+      "seconds": 4.291,
+      "words": 11,
+      "detail_allowed": false,
+      "budget_respected": true,
+      "dialogue_calls": 1
+    },
+    {
+      "scenario": "ivan-work-exhaustion",
+      "seconds": 3.753,
+      "words": 50,
+      "detail_allowed": true,
+      "budget_respected": true,
+      "dialogue_calls": 1
+    }
+  ],
+  "final_preset_dialogue_check": [
+    {
+      "scenario": "alex-earthquake",
+      "seconds": 3.815,
+      "words": 13,
+      "detail_allowed": false,
+      "budget_respected": true,
+      "dialogue_calls": 1
+    },
+    {
+      "scenario": "alex-earthquake",
+      "seconds": 3.542,
+      "words": 40,
+      "detail_allowed": true,
+      "budget_respected": true,
+      "dialogue_calls": 1
+    },
+    {
+      "scenario": "nikola-bereavement",
+      "seconds": 4.773,
+      "words": 33,
+      "detail_allowed": true,
+      "budget_respected": true,
+      "dialogue_calls": 1
+    },
+    {
+      "scenario": "nikola-bereavement",
+      "seconds": 3.973,
+      "words": 58,
+      "detail_allowed": true,
+      "budget_respected": true,
+      "dialogue_calls": 1
+    },
+    {
+      "scenario": "stefan-fire-witness",
+      "seconds": 4.141,
+      "words": 11,
+      "detail_allowed": false,
+      "budget_respected": true,
+      "dialogue_calls": 1
+    },
+    {
+      "scenario": "stefan-fire-witness",
+      "seconds": 3.421,
+      "words": 31,
+      "detail_allowed": true,
+      "budget_respected": true,
+      "dialogue_calls": 1
+    },
+    {
+      "scenario": "ivan-work-exhaustion",
+      "seconds": 4.244,
+      "words": 10,
+      "detail_allowed": false,
+      "budget_respected": true,
+      "dialogue_calls": 1
+    },
+    {
+      "scenario": "ivan-work-exhaustion",
+      "seconds": 3.475,
+      "words": 34,
+      "detail_allowed": true,
+      "budget_respected": true,
+      "dialogue_calls": 1
+    }
+  ]
+}

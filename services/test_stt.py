@@ -80,6 +80,16 @@ class SpeechLanguageTests(unittest.TestCase):
             self.bridge.transcribe(self.audio)
         self.bridge.stt.transcribe.assert_not_called()
 
+    def test_greedy_option_reaches_whisper_without_changing_language(self):
+        self.bridge.config.update(stt_language='cnr',stt_beam_size=1)
+        self.bridge.transcribe(self.audio)
+        options=self.bridge.stt.transcribe.call_args.kwargs
+        self.assertEqual((options['beam_size'],options['best_of'],options['language']),(1,1,'sr'))
+        for value in (True,0,11,1.5):
+            self.bridge.config['stt_beam_size']=value
+            with self.subTest(value=value),self.assertRaisesRegex(ContractError,'stt_beam_size'):
+                self.bridge.transcribe(self.audio)
+
 
 if __name__ == '__main__':
     unittest.main()

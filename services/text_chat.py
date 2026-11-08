@@ -48,7 +48,8 @@ def make_handler(config):
             if self.path == '/health':
                 return self.reply(200, {'service': 'psychology-text-chat', 'dialogue_provider': config['dialogue_provider']})
             if self.path == '/catalog':
-                return self.reply(200, bridges['cnr'].public_catalog())
+                return self.reply(200, dict(bridges['cnr'].public_catalog(),
+                                            default_language=config.get('conversation_language', 'cnr')))
             files = {'/': ('index.html', 'text/html; charset=utf-8'),
                      '/chat.js': ('chat.js', 'text/javascript; charset=utf-8'),
                      '/style.css': ('style.css', 'text/css; charset=utf-8')}
@@ -77,7 +78,7 @@ def make_handler(config):
                 if key is not None and not isinstance(key, str):
                     raise ContractError('Invalid session')
                 if self.path == '/session':
-                    result = bridge.new_session(data.get('scenario_id'), key)
+                    result = bridge.new_session(data.get('scenario_id'), key, data.get('student_name', ''))
                 elif self.path == '/turn':
                     opening = data.get('opening', False)
                     if not isinstance(opening, bool):

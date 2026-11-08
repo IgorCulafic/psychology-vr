@@ -28,7 +28,7 @@ def main():
         if path.name=='Preview Recorded Face.cmd' and not args.include_recorded_preview:continue
         if path.name=='Preview Voices.cmd' and not args.include_voice_packs:continue
         add(path)
-    for name in ['START HERE.md','ASSET_CREDITS.md','docs/GPU_PRESETS.md','docs/MODEL_SWITCHING.md','docs/GEMMA_VRAM.md','docs/QUEST_LINK_LIVE_TEST.md','docs/HEADSET_FREE_STRESS.md','docs/RELEASE_0_5_0.md','docs/RELEASE_0_5_1.md','docs/BRANCH_INTEGRATION_2026_10_21.md','docs/LIVE_EXPRESSIVE_SPEECH.md','docs/GEMMA_VS_ORIGINAL.md']:add(ROOT/name)
+    for name in ['START HERE.md','ASSET_CREDITS.md','docs/SESSION_LOGGING.md','docs/GPU_PRESETS.md','docs/MODEL_SWITCHING.md','docs/GEMMA_VRAM.md','docs/QUEST_LINK_LIVE_TEST.md','docs/HEADSET_FREE_STRESS.md','docs/RELEASE_0_5_0.md','docs/RELEASE_0_5_1.md','docs/BRANCH_INTEGRATION_2026_10_21.md','docs/LIVE_EXPRESSIVE_SPEECH.md','docs/GEMMA_VS_ORIGINAL.md']:add(ROOT/name)
     for name in ['gemma-unity-vram.json','quest-link-live-vram.json','headset-free-stress-comparison.json',
                  'headset-free-stress/report.json','headset-free-stress-2400/report.json','headset-free-stress-2000/report.json',
                  'branch-integration-2026-10-21.json']:
@@ -38,7 +38,7 @@ def main():
             if not path.is_file() or any(part.startswith('.') or part=='__pycache__' for part in path.relative_to(ROOT/folder).parts):continue
             if path.name=='config.local.json' or path.name.startswith('test_') or path.suffix=='.pyc':continue
             add(path)
-    for name in ['run-portable.ps1','setup-portable.py','launch.ps1','launch-text-chat.ps1','stop-services.ps1','select-model.ps1','export-diagnostics.py','export-diagnostics.ps1']:
+    for name in ['run-portable.ps1','setup-portable.py','launch.ps1','launch-text-chat.ps1','stop-services.ps1','select-model.ps1','export-diagnostics.py','export-diagnostics.ps1','hardware-profile.py','hardware-profile.ps1','optimization-settings.py','optimization-settings.ps1','enable-recorded-speech.py','enable-recorded-speech.ps1']:
         add(ROOT/'tools'/name)
     for name in ['EmotionCatalog.json','ScenarioCatalog.json']:
         add(ROOT/'unity/Assets/PsychologyVR/Resources'/name)

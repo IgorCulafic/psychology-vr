@@ -189,6 +189,15 @@ class HttpTests(unittest.TestCase):
         self.assertEqual(len(reply['segments']),1)
         self.assertTrue(self.post('/reset',{'session_id':key})['ok'])
 
+    def test_session_http_preserves_student_name_and_rejects_invalid_replacement(self):
+        selected=self.post('/session',{'student_name':'  Željko  '})
+        self.assertEqual(selected['student_name'],'Željko')
+        key=selected['session_id']
+        with self.assertRaises(urllib.error.HTTPError) as result:
+            self.post('/session',{'replace_session_id':key,'student_name':'Invalid\nName'})
+        self.assertEqual(result.exception.code,400)
+        self.assertEqual(self.post('/turn',{'session_id':key,'opening':True})['session_id'],key)
+
     def test_browser_origin_rejected(self):
         with self.assertRaises(urllib.error.HTTPError) as result:
             self.post('/session',{}, {'Origin':'https://example.com'})

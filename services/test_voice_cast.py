@@ -116,5 +116,12 @@ class VoiceCastTests(unittest.TestCase):
         self.assertFalse(v.lock.locked())
         v.model.generate_speech.assert_not_called()
 
+    def test_explicit_precision_comparison_retains_speaker_and_recipe(self):
+        v=self.worker();v.config.update(higgs_quantization='nf4',higgs_allow_quantized_cast=True)
+        v.synthesize(beat(),'alex-earthquake')
+        call=v.model.generate_speech.call_args
+        self.assertEqual(call.kwargs['temperature'],.55)
+        self.assertFalse(v.lock.locked())
+
 
 if __name__=='__main__':unittest.main()

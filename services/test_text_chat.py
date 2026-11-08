@@ -40,6 +40,19 @@ class TextChatTests(unittest.TestCase):
         self.assertEqual(self.request('/session', {}, {'Content-Type': 'text/plain'})[0], 415)
         self.assertEqual(self.request('/../config.local.json')[0], 404)
 
+    def test_catalog_uses_the_selected_profile_conversation_language(self):
+        previous=self.config.get('conversation_language')
+        try:
+            self.config['conversation_language']='en'
+            status,raw=self.request('/catalog')
+            self.assertEqual(status,200)
+            self.assertEqual(json.loads(raw)['default_language'],'en')
+            del self.config['conversation_language']
+            self.assertEqual(json.loads(self.request('/catalog')[1])['default_language'],'cnr')
+        finally:
+            if previous is None:self.config.pop('conversation_language',None)
+            else:self.config['conversation_language']=previous
+
     def test_each_patient_uses_own_opening_without_voice_and_retires_old_session(self):
         old = None
         for scenario in ['nikola-bereavement', 'stefan-fire-witness', 'ivan-work-exhaustion']:
@@ -68,6 +81,29 @@ class TextChatTests(unittest.TestCase):
                 session = json.loads(raw)['session_id']
                 self.assertEqual(self.request('/turn', {'language': language, 'session_id': session, 'text': 'How are you?'})[0], 200)
         self.assertEqual(seen, [('cnr', 'How are you?', 'Nikola'), ('en', 'How are you?', 'Nikola')])
+
+    def test_student_name_is_normalized_and_forwarded_independently_of_patient(self):
+        original=Bridge.new_session
+        seen=[]
+        def new_session(bridge,scenario_id=None,replace_session_id=None,student_name=''):
+            seen.append(student_name)
+            return original(bridge,scenario_id,replace_session_id,student_name)
+        with patch.object(Bridge,'new_session',new_session):
+            status,raw=self.request('/session',{'scenario_id':'nikola-bereavement','student_name':'  Ana Čulafić  '})
+        self.assertEqual(status,200)
+        self.assertEqual(seen,['  Ana Čulafić  '])
+        result=json.loads(raw)
+        self.assertEqual(result['student_name'],'Ana Čulafić')
+        self.assertEqual(result['character_name'],'Nikola')
+
+    def test_invalid_student_name_keeps_existing_conversation_usable(self):
+        _,raw=self.request('/session',{'student_name':'Ana'})
+        key=json.loads(raw)['session_id']
+        for name in (None,123,'x'*81,'Ana\nMarko'):
+            with self.subTest(name=name):
+                status,_=self.request('/session',{'session_id':key,'student_name':name})
+                self.assertEqual(status,400)
+        self.assertEqual(self.request('/turn',{'session_id':key,'opening':True})[0],200)
 
     def test_interrupt_discards_pending_response(self):
         _, raw = self.request('/session', {'scenario_id': 'stefan-fire-witness'})

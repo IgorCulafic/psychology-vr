@@ -5,7 +5,7 @@ import threading
 import unittest
 from unittest.mock import patch
 
-from alex_service import Bridge, ROOT, StaleTurn
+from alex_service import Bridge, ContractError, ROOT, StaleTurn
 from session_log import SessionLogError, read_records
 
 
@@ -29,6 +29,52 @@ class SessionLoggingTests(unittest.TestCase):
         self.assertEqual(records[2]['response'],reply)
         self.assertNotIn('author_notes',self.path.read_text(encoding='utf-8'))
         self.assertIn('Student: Čemu se nadate?',self.path.with_suffix('.txt').read_text(encoding='utf-8'))
+
+    def test_student_name_is_saved_in_both_logs_and_safe_filename(self):
+        result=self.b.new_session('ivan-work-exhaustion',self.key,student_name='  Ana C\u030culafić / 研究生  ')
+        self.key=result['session_id']
+        journal=self.b.sessions[self.key].journal
+        self.assertEqual(result['student_name'],'Ana Čulafić / 研究生')
+        self.assertEqual(self.b.sessions[self.key].student_name,result['student_name'])
+        self.assertEqual(read_records(journal.path)[0]['student_name'],result['student_name'])
+        self.assertIn('Student name: Ana Čulafić / 研究生',journal.path.with_suffix('.txt').read_text(encoding='utf-8'))
+        self.assertIn('Ana-Čulafić---研究生',journal.path.name)
+        self.assertEqual(journal.path.parent,self.path.parent)
+        self.assertFalse(any(char in journal.path.name for char in '\\/:*?"<>|'))
+        self.assertEqual(result['character_name'],'Ivan')
+
+    def test_name_persists_on_reset_and_changes_only_for_new_session(self):
+        first=self.b.new_session('ivan-work-exhaustion',self.key,student_name='Ana')
+        key=first['session_id']; old=self.b.sessions[key].journal.path
+        self.b.invalidate(key,reset=True)
+        reset=self.b.sessions[key].journal.path
+        self.assertEqual(read_records(reset)[0]['student_name'],'Ana')
+        self.assertEqual(read_records(old)[0]['student_name'],'Ana')
+        second=self.b.new_session('nikola-bereavement',key,student_name='Marko')
+        self.assertEqual(read_records(self.b.sessions[second['session_id']].journal.path)[0]['student_name'],'Marko')
+        unnamed=self.b.new_session('alex-earthquake',second['session_id'])
+        self.assertEqual(unnamed['student_name'],'')
+        self.assertEqual(read_records(self.b.sessions[unnamed['session_id']].journal.path)[0]['student_name'],'')
+
+    def test_invalid_name_does_not_retire_or_append_to_existing_session(self):
+        self.b.turn(self.key,'Keep the existing conversation')
+        before=self.path.read_bytes()
+        for value in (None,False,123,[],{},'a'*81,'Ana\nMarko','Ana\t','\x00Ana','Ana\u200e','Ana\u2028Marko','Ana\ud800'):
+            with self.subTest(value=repr(value)),self.assertRaises(ContractError):
+                self.b.new_session('nikola-bereavement',self.key,student_name=value)
+            self.assertEqual(self.path.read_bytes(),before)
+            self.assertIn(self.key,self.b.sessions)
+            self.assertEqual(len(self.b.sessions[self.key].history),2)
+
+    def test_names_do_not_enter_diagnostics_or_character_memory(self):
+        from diagnostics_export import timing_record
+        name='Student Identity Sentinel'
+        selected=self.b.new_session('ivan-work-exhaustion',self.key,student_name=name)
+        key=selected['session_id'];journal=self.b.sessions[key].journal
+        self.b.turn(key,'Hello')
+        self.assertNotIn(name,json.dumps(self.b.sessions[key].history))
+        self.assertNotIn(name,json.dumps(self.b.sessions[key].memory))
+        self.assertNotIn(name,json.dumps(timing_record(read_records(journal.path)[0])))
 
     def test_reset_rotates_file_without_erasing_previous_conversation(self):
         self.b.turn(self.key,'Before reset')

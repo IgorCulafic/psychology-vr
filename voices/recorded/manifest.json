@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "clips": [
+    {
+      "scenario_id": "ivan-work-exhaustion",
+      "speaker": "igor_2026-10-03",
+      "emotion": "disgusted",
+      "text": "Molim vas, sklonite to od mene. Od tog mirisa mi je muka. Hajde da otvorimo prozor.",
+      "audio": "voices/recorded/igor_2026-10-03/6fc5be840565d09c221753e4247e914eb0fc9ba3ed4a31bbe3fd7cbd669fb896.wav",
+      "sha256": "6fc5be840565d09c221753e4247e914eb0fc9ba3ed4a31bbe3fd7cbd669fb896",
+      "approved": true,
+      "provenance": "voices/igor_2026-10-03/cleaned/preferred_disgusted.json"
+    },
+    {
+      "scenario_id": "ivan-work-exhaustion",
+      "speaker": "igor_2026-10-03",
+      "emotion": "happy",
+      "text": "Danas smo konačno završili ono što smo planirali. Baš sam zadovoljan i jedva čekam da to proslavimo.",
+      "audio": "voices/recorded/igor_2026-10-03/cde096d7fa975f43bc395ba7342da881718b508a5b831214176d8829414186ac.wav",
+      "sha256": "cde096d7fa975f43bc395ba7342da881718b508a5b831214176d8829414186ac",
+      "approved": true,
+      "provenance": "voices/igor_2026-10-03/cleaned/preferred_happiness.json"
+    },
+    {
+      "scenario_id": "ivan-work-exhaustion",
+      "speaker": "igor_2026-10-03",
+      "emotion": "sad",
+      "text": "Juče sam našao jednu staru fotografiju. Dugo sam je držao u rukama i nisam znao kome da se javim.",
+      "audio": "voices/recorded/igor_2026-10-03/85fcfb0eb384bb1f4bed7b911f7913b99b3efd34f05cf6f1ca5c9c3d83de0907.wav",
+      "sha256": "85fcfb0eb384bb1f4bed7b911f7913b99b3efd34f05cf6f1ca5c9c3d83de0907",
+      "approved": true,
+      "provenance": "voices/igor_2026-10-03/cleaned/preferred_sadness.json"
+    },
+    {
+      "scenario_id": "nikola-bereavement",
+      "speaker": "person_02",
+      "emotion": "angry",
+      "text": "Smeta mi kad odlučite šta osjećam prije nego što me saslušate. Pustite me da završim.",
+      "audio": "voices/recorded/person_02/d04b2622d2458cfb4beda643ed20f9140adc17fadde392fb214d4c09895a765c.wav",
+      "sha256": "d04b2622d2458cfb4beda643ed20f9140adc17fadde392fb214d4c09895a765c",
+      "approved": true,
+      "provenance": "voices/person_02/prepared/preferred_anger.json"
+    },
+    {
+      "scenario_id": "alex-earthquake",
+      "speaker": "person_03",
+      "emotion": "angry",
+      "text": "Smeta mi kad odlučite šta osjećam prije nego što me saslušate. Pustite me da završim.",
+      "audio": "voices/recorded/person_03/f2f076dfe843869bcd877f455402681e91fd6b404cd74dcc300a29319e8d1b01.wav",
+      "sha256": "f2f076dfe843869bcd877f455402681e91fd6b404cd74dcc300a29319e8d1b01",
+      "approved": true,
+      "provenance": "voices/person_03/prepared/preferred_anger.json"
+    }
+  ]
+}

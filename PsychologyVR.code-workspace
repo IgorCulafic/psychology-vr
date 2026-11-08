@@ -1,0 +1,6 @@
+{
+  "folders": [
+    { "name": "Psychology VR source", "path": "." },
+    { "name": "Psychology VR desktop build", "path": "../PsychologyVR" }
+  ]
+}

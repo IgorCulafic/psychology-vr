@@ -8,11 +8,42 @@ The project brings together character design, local AI, expressive speech and in
 
 *The consultation prototype in action: Alex speaks in the furnished room, with subtitles accompanying his voice.*
 
+## RTX 4090 Gemma Q8 package
+
+### Updated local installation — 29 October 2026
+
+This workspace integrates the upstream **v0.5.1 seated animation** update while
+retaining the local service optimizations. **Start Desktop.cmd** and **Start
+VR.cmd** use the active configuration, initially the **RTX 3080 / English /
+Kokoro / Gemma QAT Q4** profile. Open **Hardware Profiles.cmd** to select the
+separate **RTX 4090 / Montenegrin / BF16 cloned voices / Gemma Q8** profile.
+Close the game before switching; the selector backs up the previous configuration.
+
+Both profiles enable compact response controls, reusable prompts, model warmup
+and exact speech reuse where supported by the voice provider. Shorter replies,
+forced sentence delivery, faster transcription search, alternative speech
+precision, simpler lip sync, the alternate BF16 decoder and speculative generation
+remain optional and are off in these profiles. Existing **Optimization
+Settings.cmd** provides the experimental choices. The 4090 profile requires its
+models and a suitable GPU; selecting it is not a latency qualification.
+
+The Unity game asks for the **student's name** at launch, before the first patient
+reply, and asks again for each new conversation. It is included in saved session
+logs and transcript downloads. **Session → Export session log** saves a named ZIP
+to `logs/exports/`. Desktop/VR supports
+controller-keyboard and physical-keyboard entry. See [session logging](docs/SESSION_LOGGING.md).
+
+The earlier 4090 target package used **Gemma 4 12B Q8_0** with the v0.5.0 player and four assigned cloned voices. See [the 4090 package guide](docs/RTX4090_PACKAGE.md) for that package's optimizations, optional profiles, measurements and unverified 15-second target. The current local installation uses the profiles described above. Historical measurements below describe their original model settings.
+
+## RTX 3080 performance test kit
+
+Run **Test RTX 3080.cmd** for separate dialogue, BF16 cloned-voice and CPU transcription measurements, optional tuning comparisons, and GPU/CPU/RAM monitoring. It supports 10 GB and 12 GB cards and preserves active settings. See [the test guide](docs/RTX3080_TEST_GUIDE.md) for measured baselines, memory limits, optional precision changes and a 20-turn audible latency check. A <=14-second result has not been verified.
+
 ## What works today
 
 - **Spoken conversations:** talk through a microphone and hear the character reply, with text input and subtitles also available.
 - **Four fictional patient profiles:** Alex, Nikola, Stefan and Ivan have distinct backstories and conversation guidance. Session memory helps retain earlier disclosures and corrections, and case descriptions can be hidden during practice.
-- **Four clothed MetaHumans:** Dominic (Alex), Bruce (Ivan), Mateo (Stefan) and Victor (Nikola), with baked facial reactions, neck movement, speech/emotion blending and tears. Ivan has a recorded seated idle, synchronized body/face movement and responsive clothing; other patients retain their existing body poses.
+- **Four clothed MetaHumans:** Dominic (Alex), Bruce (Ivan), Mateo (Stefan) and Victor (Nikola), with baked facial reactions, neck movement, speech/emotion blending and tears. Torso and hand acting remain a resting pose for now.
 - **Assigned voices:** Igor speaks as Ivan, Person 1 as Stefan, Person 2 as Nikola and Person 3 as Alex. The selected BF16 emotional presets and cleaned references are connected to live conversation.
 - **Reviewable sessions:** conversations are saved locally as readable transcripts and structured records for later review.
 - **Performance diagnostics:** automatic GPU load, dedicated VRAM and system RAM measurements, with an **Export Diagnostics.cmd** launcher for a local ZIP of resource data and reply timings. Dialogue and recordings are excluded from this export.
@@ -58,14 +89,11 @@ Fresh setup selects **Gemma 4 12B QAT Q4**, **BF16 Higgs speech** and **CPU Whis
 
 ## Voice and animation update
 
-The v0.5.1 complete package merges Ivan's recorded seated animation, wardrobe and cushion
-rendering with the clothed MetaHuman cast, all four assigned voices, approved emotional
-delivery, fullscreen controls and automatic performance diagnostics.
+The v0.5.0 complete package integrates the clothed MetaHuman cast, all four assigned voices,
+approved emotional delivery, fullscreen controls and automatic performance diagnostics.
 It contains the full application and previous tools; no older release or patch folders are needed.
 The Unreal game prototype remains excluded from the Windows package. See
-[release details](docs/RELEASE_0_5_1.md) for contents, upgrading and remaining limitations.
-The [21 October integration report](docs/BRANCH_INTEGRATION_2026_10_21.md) distinguishes
-tested source changes from the proposed RTX 4090/Q8 performance work.
+[release details](docs/RELEASE_0_5_0.md) for contents, upgrading and remaining limitations.
 
 ## Clone and open
 

@@ -8,3 +8,5 @@ librosa==1.0.0
 numpy==2.5.3
 faster-whisper==1.2.1
 huggingface-hub==1.31.0
+bitsandbytes==0.50.2
+kokoro-onnx==0.6.1

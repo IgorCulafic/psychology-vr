@@ -1,8 +1,54 @@
 {
-  "default": "gemma",
+  "default": "gemma-q8",
   "models": [
-    {"id":"bonsai","label":"Bonsai 2 27B · PQ2","description":"Fast, compact dialogue model. Regional wording can be imperfect.","model_path":".cache/models/bonsai2-pq2/Ternary-Bonsai-2-27B-PQ2_0.gguf","server_path":".tools/bonsai-llama/llama-server.exe","gpu_layers":99},
-    {"id":"gemma","label":"Gemma 4 12B · QAT Q4","description":"Alternative for comparing conversation quality.","model_path":".cache/models/gemma4-12b-qat/gemma-4-12b-it-qat-q4_0.gguf","server_path":".tools/llama/llama-server.exe","gpu_layers":99},
-    {"id":"qwen","label":"Original Qwen 27B · IQ4","description":"Original model. Requires more memory; may be slow alongside speech.","model_path":".cache/models/qwen/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-IQ4_XS.gguf","server_path":".tools/llama/llama-server.exe","gpu_layers":32}
+    {
+      "id": "gemma-q8",
+      "label": "Gemma 4 12B · Q8_0",
+      "description": "Primary model for the 14th-generation i9 / 64 GB / RTX 4090 package.",
+      "model_path": ".cache/models/gemma4-12b-q8/gemma-4-12B-it-Q8_0.gguf",
+      "draft_path": ".cache/models/gemma4-12b-q8/mtp-gemma-4-12B-it-Q8_0.gguf",
+      "server_path": ".tools/llama/llama-server.exe",
+      "gpu_layers": 99
+    },
+    {
+      "id": "bonsai",
+      "label": "Bonsai 2 27B · PQ2",
+      "description": "Fast, compact dialogue model. Regional wording can be imperfect.",
+      "model_path": ".cache/models/bonsai2-pq2/Ternary-Bonsai-2-27B-PQ2_0.gguf",
+      "server_path": ".tools/bonsai-llama/llama-server.exe",
+      "gpu_layers": 99
+    },
+    {
+      "id": "gemma",
+      "label": "Gemma 4 12B · QAT Q4",
+      "description": "Alternative for comparing conversation quality.",
+      "model_path": ".cache/models/gemma4-12b-qat/gemma-4-12b-it-qat-q4_0.gguf",
+      "server_path": ".tools/llama/llama-server.exe",
+      "gpu_layers": 99
+    },
+    {
+      "id": "qwen",
+      "label": "Original Qwen 27B · IQ4",
+      "description": "Original model. Requires more memory; may be slow alongside speech.",
+      "model_path": ".cache/models/qwen/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-IQ4_XS.gguf",
+      "server_path": ".tools/llama/llama-server.exe",
+      "gpu_layers": 32
+    },
+    {
+      "id": "qwen7b",
+      "label": "Qwen2.5 7B Â· Q4_K_M",
+      "description": "Smaller dialogue model for RTX 3080 desktop use with CPU speech.",
+      "model_path": ".cache/models/qwen7b/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf",
+      "server_path": ".tools/llama/llama-server.exe",
+      "gpu_layers": 99
+    },
+    {
+      "id": "qwen9b",
+      "label": "Qwen3.5 9B Â· Q4_K_M",
+      "description": "Recommended RTX 3080 desktop model with CPU speech.",
+      "model_path": ".cache/models/qwen35-9b/Qwen3.5-9B-Q4_K_M.gguf",
+      "server_path": ".tools/llama/llama-server.exe",
+      "gpu_layers": 99
+    }
   ]
 }

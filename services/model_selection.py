@@ -55,6 +55,8 @@ class ModelSelection:
                     raise RuntimeError('Model change failed; see services/.runtime/model-switch.log. Previous model was restored if possible.')
                 with self.bridge.lock:
                     self.bridge.config['dialogue_model'] = model_id
+                    model = next(m for m in self.catalog if m['id'] == model_id)
+                    self.bridge.config.update(llm_model_path=model['model_path'], llm_gpu_layers=model['gpu_layers'])
                     self.bridge.context_limit = None
                     for session in self.bridge.sessions.values():
                         session.journal.append('dialogue_model_changed', model=model_id)

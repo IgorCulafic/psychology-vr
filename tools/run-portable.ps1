@@ -22,11 +22,12 @@ try {
         Write-Host '3. Original quality: IQ4_XS, 48 GPU layers (32 GB+ recommended)'
         Write-Host '4. Fast dialogue (9B Q6, fully on GPU): compare character/language quality before teaching'
         Write-Host '5. Bonsai 2 27B PQ2 (compact comparison model)'
-        Write-Host '6. Gemma 4 12B QAT Q4 (current default)'
+        Write-Host '6. Gemma 4 12B QAT Q4 (comparison)'
+        Write-Host '7. Gemma 4 12B Q8 (primary model)'
         Write-Host 'Enter to cancel.'
-        $taskChoice=Read-Host 'Choose 1 to 6'
+        $taskChoice=Read-Host 'Choose 1 to 7'
         $taskPreset=switch($taskChoice){'1'{'auto'} '2'{'rtx4090'} '3'{'quality'} '4'{'fast9b'} default{$null}}
-        $taskModelChoice=switch($taskChoice){'5'{'bonsai'} '6'{'gemma'} default{$null}}
+        $taskModelChoice=switch($taskChoice){'5'{'bonsai'} '6'{'gemma'} '7'{'gemma-q8'} default{$null}}
         if(!$taskPreset -and !$taskModelChoice){Write-Host 'No settings changed.';return}
         & (Join-Path $PSScriptRoot 'stop-services.ps1')
     }
@@ -43,8 +44,23 @@ try {
         $taskStamp=Get-Content -LiteralPath $taskStampPath -Raw | ConvertFrom-Json
         $taskReady=($taskStamp.root -eq $taskRoot -and $taskStamp.key -eq $taskKey -and $Mode -notin @('Setup','Settings'))
     }
+    if(-not $taskReady -and $Mode -notin @('Setup','Settings') -and (Test-Path -LiteralPath $taskPython)) {
+        # A source installation can have a working private environment without
+        # a portable stamp. Validate the selected profile before reinstalling it.
+        $taskCheckLog=Join-Path $taskRuntime 'selected-profile-check.log'
+        $taskPreviousErrorPreference=$ErrorActionPreference
+        try {
+            $ErrorActionPreference='Continue'
+            & $taskPython (Join-Path $PSScriptRoot 'setup-portable.py') --check *> $taskCheckLog
+            $taskCheckExit=$LASTEXITCODE
+        } finally {$ErrorActionPreference=$taskPreviousErrorPreference}
+        if($taskCheckExit -eq 0) {
+            $taskReady=$true
+            @{root=$taskRoot;key=$taskKey} | ConvertTo-Json | Set-Content -LiteralPath $taskStampPath -Encoding UTF8
+        }
+    }
     if(-not $taskReady) {
-        Write-Host 'Setup: Python, speech libraries and approximately 19-28 GB of AI models, depending on GPU preset.'
+        Write-Host 'Setup: Python and the models required by the selected hardware profile.'
         Write-Host 'Keep this window open. A failed download can be resumed by starting again.'
         $taskBootstrap=Join-Path $taskRoot '.tools/bootstrap'
         New-Item -ItemType Directory -Path $taskBootstrap -Force | Out-Null

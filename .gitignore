@@ -81,3 +81,13 @@ unreal/DerivedDataCache/
 unreal/Builds/
 unreal/.vs/
 unreal/*.slnx
+
+# Local packages, generated diagnostics and temporary work
+/dist/
+/logs/
+/output/audio/
+/.agents/
+/.codex/
+
+# Approved exact-speech clips used by the local service
+!/voices/recorded/

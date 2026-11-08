@@ -1,5 +1,28 @@
 # Run Psychology VR
 
+## This updated local installation
+
+Use **Start Desktop.cmd** or **Start VR.cmd** in this folder. The Unity game asks
+for the student's name at launch, before the first patient reply. Enter it with a
+physical keyboard or the controller keyboard, then choose **Start conversation**.
+New conversations ask for a name again; cancelling keeps the existing session.
+Saved session logs and exported transcripts include the student name.
+In the game's **Session** menu, choose **Export session log** to save a named ZIP
+in `logs/exports/`, containing the readable and structured logs.
+
+The default is **RTX 3080 10 GB / English / Kokoro / Gemma QAT Q4**. Open
+**Hardware Profiles.cmd** to choose the separate **RTX 4090 / Montenegrin /
+BF16 cloned voices / Gemma Q8** profile. Close the game before switching.
+Profiles retain compact responses, cached prompts, model warmup and exact speech
+reuse where the voice provider supports it. Other optimization choices remain
+optional in **Optimization Settings.cmd**. Previous configurations are backed up.
+
+The requirements and historical release defaults below describe the original
+university cloned-voice package. The local 3080 profile uses its smaller English
+voice and transcription models instead.
+
+## Original release installation
+
 Download **psychology-vr-windows.zip** from this repository's latest
 [GitHub Release](https://github.com/IgorCulafic/psychology-vr/releases/latest).
 Extract the complete `PsychologyVR` folder to a writable location, such as
