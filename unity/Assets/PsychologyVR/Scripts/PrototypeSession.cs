@@ -477,7 +477,7 @@ namespace PsychologyVR
                 yield return PerformancePause(Mathf.Clamp(segment.pause_before_seconds,0,1.5f),token);
                 if(token!=version){if(clip)Destroy(clip);yield break;}
                 Subtitle=segment.text;
-                Status=CurrentScenario.character_name+" is speakingâ€¦";
+                Status=CurrentScenario.character_name+" is speaking…";
                 if(clip)
                 {
                     voice.clip=clip;face?.BeginSpeech(voice,segment.mouth_cues);voice.Play();
