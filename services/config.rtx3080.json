@@ -27,7 +27,7 @@
   "llm_gpu_layers": 40,
   "hardware_preset": "",
   "llm_cache_slots": true,
-  "llm_stable_prefix": true,
+  "llm_stable_prefix": false,
   "stt_warmup": true,
   "speech_cache_enabled": true,
   "recorded_speech_enabled": true,

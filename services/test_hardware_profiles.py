@@ -31,12 +31,13 @@ class HardwareProfileTests(unittest.TestCase):
         return root
 
     def test_both_profiles_enable_only_the_approved_speed_choices(self):
+        # llm_stable_prefix stays off: moving patient state into the student turn caused overreactions.
         for name in profiles.PROFILES:
             config=profiles.profile_config(name)
-            for key in ('llm_cache_slots','llm_stable_prefix','llm_compact_delivery','tts_warmup',
+            for key in ('llm_cache_slots','llm_compact_delivery','tts_warmup',
                         'stt_warmup','speech_cache_enabled','recorded_speech_enabled'):
                 self.assertIs(config[key],True,(name,key))
-            for key in ('higgs_fast_decode','llm_short_replies','higgs_sentence_streaming','llm_mtp','higgs_allow_quantized_cast'):
+            for key in ('llm_stable_prefix','higgs_fast_decode','llm_short_replies','higgs_sentence_streaming','llm_mtp','higgs_allow_quantized_cast'):
                 self.assertIs(config[key],False,(name,key))
             self.assertIsNone(config['llm_ordinary_word_limit'])
             self.assertEqual(config['stt_beam_size'],5)
@@ -83,6 +84,20 @@ class HardwareProfileTests(unittest.TestCase):
         self.assertEqual(config['tts_provider'],'kokoro')
         self.assertEqual(config['conversation_language'],'en')
         self.assertEqual((config['llm_gpu_layers'],config['llm_batch_size'],config['llm_ubatch_size']),(40,64,32))
+
+    def test_existing_config_without_profile_keeps_legacy_behaviour(self):
+        root=self.fixture();(root/'voices').mkdir()
+        shutil.copy2(ROOT/'services/config.expressive.example.json',root/'services/config.expressive.example.json')
+        (root/'voices/reference.wav').write_bytes(b'audio')
+        (root/'voices/reference.json').write_text('{"text":"Reference words."}')
+        path=root/'services/config.local.json'
+        path.write_text(json.dumps({'tts_provider':'higgs','conversation_language':'cnr','dialogue_model':'gemma'}))
+        with patch.object(setup,'ROOT',root),patch.object(setup,'gpu_properties',return_value=('RTX 5090',32*1024**3)):
+            config=setup.configure()
+        self.assertNotIn('hardware_profile',config)
+        for key in ('llm_stable_prefix','llm_compact_delivery','llm_cache_slots','recorded_speech_enabled'):
+            self.assertFalse(config.get(key,False),key)
+        self.assertEqual(config['conversation_language'],'cnr')
 
     def test_selected_downloads_match_provider_and_exclude_optional_draft(self):
         manifest=json.loads((ROOT/'services/portable-manifest.json').read_text())

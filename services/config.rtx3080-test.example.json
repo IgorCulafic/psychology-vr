@@ -17,7 +17,7 @@
   "llm_flash_attention": true,
   "llm_kv_cache_type": "q8_0",
   "llm_mtp": false,
-  "llm_stable_prefix": true,
+  "llm_stable_prefix": false,
   "llm_compact_delivery": true,
   "llm_short_replies": true,
   "llm_ordinary_word_limit": 18,

@@ -35,7 +35,7 @@
   "llm_flash_attention": true,
   "llm_kv_cache_type": "q8_0",
   "llm_cache_slots": true,
-  "llm_stable_prefix": true,
+  "llm_stable_prefix": false,
   "llm_compact_delivery": true,
   "llm_short_replies": false,
   "llm_max_tokens": 384,

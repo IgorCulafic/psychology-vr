@@ -128,11 +128,18 @@ def configure(preset=None,model=None):
         raise RuntimeError('services/config.local.json is not valid JSON. Correct it or rename it to keep a backup, then rerun Setup.cmd.') from error
     if not isinstance(existing,dict):
         raise RuntimeError('services/config.local.json must contain a JSON object. Rename it to keep a backup, then rerun Setup.cmd.')
-    profile=existing.get('hardware_profile','rtx3080')
-    if profile not in ('rtx3080','rtx4090'):profile='rtx3080'
-    defaults_path=ROOT/f'services/config.{profile}.json'
-    if not defaults_path.exists():defaults_path=ROOT/'services/config.rtx4090.example.json'
-    if not defaults_path.exists():defaults_path=ROOT/'services/config.expressive.example.json'
+    profile=existing.get('hardware_profile')
+    if profile in ('rtx3080','rtx4090'):
+        candidates=[f'config.{profile}.json','config.rtx4090.example.json','config.expressive.example.json']
+    elif original is None:
+        # Fresh installs start from the small-GPU profile; Hardware Profiles.cmd switches it.
+        candidates=['config.rtx3080.json','config.rtx4090.example.json','config.expressive.example.json']
+    else:
+        # An existing configuration that predates hardware profiles keeps its tuned
+        # behaviour: only fill missing basics, never enable a profile's speed options.
+        candidates=['config.expressive.example.json']
+    defaults_path=next((ROOT/'services'/name for name in candidates if (ROOT/'services'/name).exists()),None)
+    if defaults_path is None:raise RuntimeError('Default configuration template is missing; restore the services folder.')
     defaults=json.loads(defaults_path.read_text(encoding='utf-8-sig'))
     portable_paths=dict(bridge_python='.tools/portable-env/Scripts/python.exe')
     if existing.get('tts_provider',defaults.get('tts_provider','higgs'))=='higgs':
