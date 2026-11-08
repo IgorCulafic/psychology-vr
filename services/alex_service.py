@@ -29,7 +29,8 @@ from streaming_turns import StreamingTurns, sentence_segments
 from performance_contract import refine_delivery
 from voice_cast import VoiceCast
 from speech_reuse import SpeechReuse, wav_duration
-from speech_language import whisper_language, latin_script, obvious_english_leak, preferred_dialogue_wording
+from speech_language import (whisper_language, latin_script, obvious_english_leak, preferred_dialogue_wording,
+    foreign_script_leak, strip_foreign_script, LATIN_SCRIPT_LANGUAGES)
 from patient_relationship import (initial_relationship, validate_appraisal, advance,
     relationship_prompt, enforce_boundary_cues, ending_segments, APPRAISAL_PROMPT, APPRAISAL_SCHEMA, wants_fuller_reply)
 
@@ -418,7 +419,16 @@ class Bridge(StreamingTurns):
                     raise ContractError('Reply switched languages. Please try again.')
                 body['messages'][0]['content'] = system + '\nRewrite the reply entirely in Montenegrin Latin script. No English clauses, including short denials or emotional reactions. Keep the meaning, character facts and word limit.'
                 continue
-            words = sum(len(s['text'].split()) for s in segments)
+            if (self.config.get('conversation_language') in LATIN_SCRIPT_LANGUAGES
+                    and foreign_script_leak(' '.join(s['text'] for s in segments))):
+                if attempt < 2:
+                    body['messages'][0]['content'] = system + '\nRewrite the reply using only Latin letters. No Chinese, Japanese, Korean, Cyrillic or other non-Latin characters. Keep the meaning, character facts and word limit.'
+                    continue
+                # A stray token must not cost the turn: drop the foreign letters after retries.
+                for segment in segments:
+                    segment['text'] = strip_foreign_script(segment['text'])
+                segments = [s for s in segments if s['text']] or segments
+            words =sum(len(s['text'].split()) for s in segments)
             if not relationship or words <= relationship['word_limit']:
                 return segments
             limit=relationship['word_limit']

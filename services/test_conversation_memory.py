@@ -147,4 +147,37 @@ class ConversationMemoryTests(unittest.TestCase):
         self.assertFalse(obvious_english_leak('Ne, još se bojim. Volim film The Godfather.'))
         self.assertTrue(obvious_english_leak('Ne, daleko od it. Still scared of the ground moving again.'))
 
+    def test_foreign_script_signal_allows_regional_latin_letters(self):
+        from speech_language import foreign_script_leak, strip_foreign_script
+        self.assertFalse(foreign_script_leak('Čukić, đak, šuma, žena i ćuprija. Volim rock iz 1990-ih!'))
+        self.assertTrue(foreign_script_leak('Čini mi se da je problem u量 posla.'))
+        self.assertTrue(foreign_script_leak('Teško mi je сада.'))
+        self.assertEqual(strip_foreign_script('Problem je u量 posla, ne 量 u snu.'),'Problem je u posla, ne u snu.')
+
+    def foreign_script_bridge(self,texts):
+        b=self.bridge; b.config.update(dialogue_provider='llama.cpp',conversation_language='cnr')
+        b.appraise=lambda *args:dict(event='neutral',topic='difficulty',invites_detail=False)
+        b.fit_context=lambda body,**kwargs:[]
+        replies=iter(texts);prompts=[]
+        def post(url,body,timeout):
+            prompts.append(body['messages'][0]['content'])
+            return {'choices':[{'message':{'content':json.dumps({'segments':[
+                {'text':next(replies),'emotion':'anxious','intensity':.5}]})}}]}
+        b.post_json=post
+        return b,prompts
+
+    def test_foreign_script_draft_retries_before_commit(self):
+        b,prompts=self.foreign_script_bridge(['Problem je u量 posla.','Problem je u poslu.'])
+        key=b.new_session('alex-earthquake')['session_id']
+        reply=b.turn(key,'Šta misliš, odakle dolazi umor?')
+        self.assertEqual(reply['segments'][0]['text'],'Problem je u poslu.')
+        self.assertIn('only Latin letters',prompts[-1])
+        self.assertNotIn('量',str(b.sessions[key].memory))
+
+    def test_persistent_foreign_script_is_stripped_instead_of_failing(self):
+        b,_=self.foreign_script_bridge(['Problem je u量 posla.']*3)
+        key=b.new_session('alex-earthquake')['session_id']
+        reply=b.turn(key,'Šta misliš, odakle dolazi umor?')
+        self.assertEqual(reply['segments'][0]['text'],'Problem je u posla.')
+
 if __name__=='__main__': unittest.main()

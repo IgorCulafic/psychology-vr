@@ -3,6 +3,7 @@
 Script conversion is not accent correction: preserve words, negations and diacritics.
 """
 import re
+import unicodedata
 
 
 def preferred_dialogue_wording(text):
@@ -36,6 +37,25 @@ def obvious_english_leak(text):
     words=re.findall(r"[a-z]+",text.lower())
     markers=set(words) & set('the that this with because still again your you have been would could myself scared'.split())
     return len(markers)>=3 and sum(w in markers for w in words)>=len(words)*.2
+
+
+LATIN_SCRIPT_LANGUAGES = ('cnr', 'me', 'bs', 'hr', 'en')
+
+
+def _foreign_letter(char):
+    # Letters only: punctuation, digits and Latin diacritics (č, ć, đ, š, ž) are allowed.
+    return unicodedata.category(char).startswith('L') and 'LATIN' not in unicodedata.name(char, '')
+
+
+def foreign_script_leak(text):
+    """True when a Latin-script reply contains letters from another script (e.g. a stray 量)."""
+    return any(_foreign_letter(char) for char in text)
+
+
+def strip_foreign_script(text):
+    """Last-resort cleanup after retries: drop non-Latin letters, keep every Latin word intact."""
+    cleaned = ''.join(char for char in text if not _foreign_letter(char))
+    return re.sub(r'[ \t]{2,}', ' ', re.sub(r'\s+([,.!?;:])', r'\1', cleaned)).strip()
 
 
 def latin_script(text):
