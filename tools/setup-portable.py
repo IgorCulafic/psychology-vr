@@ -128,14 +128,23 @@ def configure(preset=None,model=None):
         raise RuntimeError('services/config.local.json is not valid JSON. Correct it or rename it to keep a backup, then rerun Setup.cmd.') from error
     if not isinstance(existing,dict):
         raise RuntimeError('services/config.local.json must contain a JSON object. Rename it to keep a backup, then rerun Setup.cmd.')
+    def large_gpu():
+        # Higgs (the cloned Montenegrin voices) needs a 24 GB card; smaller cards use Kokoro.
+        return gpu_properties()[1]>=23*1024**3
     profile=existing.get('hardware_profile')
+    if profile=='rtx3080' and existing.get('tts_provider')=='kokoro' and large_gpu():
+        # v0.6.0 gave fresh installs the 10 GB English/Kokoro profile even on 24 GB+
+        # cards. Replace it with the Higgs/Montenegrin defaults (a backup is kept).
+        print('Replacing the RTX 3080 English/Kokoro profile with the Higgs Montenegrin defaults for this GPU.',flush=True)
+        existing,profile={},None
     if profile in ('rtx3080','rtx4090'):
         candidates=[f'config.{profile}.json','config.rtx4090.example.json','config.expressive.example.json']
-    elif original is None:
-        # Fresh installs start from the small-GPU profile; Hardware Profiles.cmd switches it.
+    elif original is None and not large_gpu():
+        # Fresh installs on smaller cards start from the RTX 3080 profile.
         candidates=['config.rtx3080.json','config.rtx4090.example.json','config.expressive.example.json']
     else:
-        # An existing configuration that predates hardware profiles keeps its tuned
+        # Fresh installs on 24 GB+ cards, and existing configs that predate hardware
+        # profiles, use the Higgs/Montenegrin defaults. Existing configs keep their tuned
         # behaviour: only fill missing basics, never enable a profile's speed options.
         candidates=['config.expressive.example.json']
     defaults_path=next((ROOT/'services'/name for name in candidates if (ROOT/'services'/name).exists()),None)

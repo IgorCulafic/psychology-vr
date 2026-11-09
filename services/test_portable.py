@@ -146,7 +146,7 @@ class PortableTests(unittest.TestCase):
             with wave.open(str(root/'voices/reference.wav'),'wb') as audio:
                 audio.setparams((1,2,16000,0,'NONE','not compressed'));audio.writeframes(bytes(16000*2*4))
             (root/'voices/reference.json').write_text('{"text":"This is a reference."}')
-            with patch.object(setup,'ROOT',root):
+            with patch.object(setup,'ROOT',root),patch.object(setup,'gpu_properties',return_value=('RTX 4090',24*1024**3)):
                 setup.configure()
                 path=root/'services/config.local.json';config=json.loads(path.read_text())
                 self.assertEqual(config['bridge_python'],'.tools/portable-env/Scripts/python.exe')

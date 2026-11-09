@@ -69,7 +69,7 @@ class HardwareProfileTests(unittest.TestCase):
     def test_setup_preserves_3080_config_without_requiring_higgs_reference(self):
         root=self.fixture();config=profiles.select_profile('rtx3080',root)
         path=root/'services/config.local.json';before=path.read_bytes()
-        with patch.object(setup,'ROOT',root),patch.object(setup,'gpu_properties',side_effect=AssertionError('No legacy GPU migration')):
+        with patch.object(setup,'ROOT',root),patch.object(setup,'gpu_properties',return_value=('RTX 3080',10*1024**3)):
             result=setup.configure()
         self.assertEqual(result,config)
         self.assertEqual(path.read_bytes(),before)
@@ -78,7 +78,7 @@ class HardwareProfileTests(unittest.TestCase):
     def test_fresh_setup_chooses_3080_default(self):
         root=self.fixture()
         self.assertFalse((root/'services/config.local.json').exists())
-        with patch.object(setup,'ROOT',root):
+        with patch.object(setup,'ROOT',root),patch.object(setup,'gpu_properties',return_value=('RTX 3080',10*1024**3)):
             config=setup.configure()
         self.assertEqual(config['hardware_profile'],'rtx3080')
         self.assertEqual(config['tts_provider'],'kokoro')
@@ -111,6 +111,30 @@ class HardwareProfileTests(unittest.TestCase):
         path.write_text(json.dumps({'tts_provider':'higgs','conversation_language':'en','stt_language':'en'}))
         with patch.object(setup,'ROOT',root),patch.object(setup,'gpu_properties',return_value=('RTX 4090',24*1024**3)):
             self.assertEqual(setup.configure()['stt_language'],'en')
+
+    def higgs_fixture(self):
+        root=self.fixture();(root/'voices').mkdir()
+        shutil.copy2(ROOT/'services/config.expressive.example.json',root/'services/config.expressive.example.json')
+        (root/'voices/reference.wav').write_bytes(b'audio')
+        (root/'voices/reference.json').write_text('{"text":"Reference words."}')
+        return root
+
+    def test_fresh_setup_on_24gb_gpu_uses_higgs_montenegrin_defaults(self):
+        root=self.higgs_fixture()
+        with patch.object(setup,'ROOT',root),patch.object(setup,'gpu_properties',return_value=('RTX 4090',24*1024**3)):
+            config=setup.configure()
+        self.assertEqual((config['tts_provider'],config['conversation_language'],config['stt_language']),('higgs','cnr','bs'))
+        self.assertNotIn('hardware_profile',config)
+
+    def test_v060_kokoro_profile_on_24gb_gpu_is_replaced_with_higgs(self):
+        root=self.higgs_fixture();profiles.select_profile('rtx3080',root)
+        path=root/'services/config.local.json';before=path.read_bytes()
+        with patch.object(setup,'ROOT',root),patch.object(setup,'gpu_properties',return_value=('RTX 4090',24*1024**3)):
+            config=setup.configure()
+        self.assertEqual((config['tts_provider'],config['conversation_language']),('higgs','cnr'))
+        self.assertNotIn('hardware_profile',config)
+        backups=list((root/'services/.runtime/config-backups').glob('config-*.json'))
+        self.assertEqual([b.read_bytes() for b in backups],[before])
 
     def test_selected_downloads_match_provider_and_exclude_optional_draft(self):
         manifest=json.loads((ROOT/'services/portable-manifest.json').read_text())
