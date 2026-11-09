@@ -23,12 +23,16 @@ def main():
     files={}
     def add(path,name=None):files[name or path.relative_to(ROOT).as_posix()]=path
     # These source-only tools need Unreal/editor or evaluation assets not in the player ZIP.
+    # Developer launchers: delivery/source-art helpers, the separate RTX 3080 kit, and
+    # model-comparison launchers with machine-specific paths and runtime-only configs.
+    developer_only={'Start Model Lab.cmd','Assemble Download.cmd','Download Source Assets.cmd','Test RTX 3080.cmd',
+                    'Start Desktop 7B.cmd','Start Desktop Best.cmd','Start Desktop Gemma.cmd'}
     for path in ROOT.glob('*.cmd'):
-        if 'Unreal' in path.name or path.name=='Start Model Lab.cmd':continue
+        if 'Unreal' in path.name or path.name in developer_only:continue
         if path.name=='Preview Recorded Face.cmd' and not args.include_recorded_preview:continue
         if path.name=='Preview Voices.cmd' and not args.include_voice_packs:continue
         add(path)
-    for name in ['START HERE.md','ASSET_CREDITS.md','docs/SESSION_LOGGING.md','docs/GPU_PRESETS.md','docs/MODEL_SWITCHING.md','docs/GEMMA_VRAM.md','docs/QUEST_LINK_LIVE_TEST.md','docs/HEADSET_FREE_STRESS.md','docs/RELEASE_0_5_0.md','docs/RELEASE_0_5_1.md','docs/BRANCH_INTEGRATION_2026_10_21.md','docs/LIVE_EXPRESSIVE_SPEECH.md','docs/GEMMA_VS_ORIGINAL.md']:add(ROOT/name)
+    for name in ['START HERE.md','ASSET_CREDITS.md','docs/SESSION_LOGGING.md','docs/GPU_PRESETS.md','docs/MODEL_SWITCHING.md','docs/GEMMA_VRAM.md','docs/QUEST_LINK_LIVE_TEST.md','docs/HEADSET_FREE_STRESS.md','docs/RELEASE_0_5_0.md','docs/RELEASE_0_5_1.md','docs/RELEASE_0_6_0.md','docs/BRANCH_INTEGRATION_2026_10_21.md','docs/LIVE_EXPRESSIVE_SPEECH.md','docs/GEMMA_VS_ORIGINAL.md']:add(ROOT/name)
     for name in ['gemma-unity-vram.json','quest-link-live-vram.json','headset-free-stress-comparison.json',
                  'headset-free-stress/report.json','headset-free-stress-2400/report.json','headset-free-stress-2000/report.json',
                  'branch-integration-2026-10-21.json']:
@@ -38,7 +42,8 @@ def main():
             if not path.is_file() or any(part.startswith('.') or part=='__pycache__' for part in path.relative_to(ROOT/folder).parts):continue
             if path.name=='config.local.json' or path.name.startswith('test_') or path.suffix=='.pyc':continue
             add(path)
-    for name in ['run-portable.ps1','setup-portable.py','launch.ps1','launch-text-chat.ps1','stop-services.ps1','select-model.ps1','export-diagnostics.py','export-diagnostics.ps1','hardware-profile.py','hardware-profile.ps1','optimization-settings.py','optimization-settings.ps1','enable-recorded-speech.py','enable-recorded-speech.ps1']:
+    for name in ['run-portable.ps1','setup-portable.py','launch.ps1','launch-text-chat.ps1','stop-services.ps1','select-model.ps1','export-diagnostics.py','export-diagnostics.ps1','hardware-profile.py','hardware-profile.ps1','optimization-settings.py','optimization-settings.ps1','enable-recorded-speech.py','enable-recorded-speech.ps1',
+                 'check-gpu-memory.ps1','benchmark-response.ps1','benchmark-response.py']:
         add(ROOT/'tools'/name)
     for name in ['EmotionCatalog.json','ScenarioCatalog.json']:
         add(ROOT/'unity/Assets/PsychologyVR/Resources'/name)
@@ -109,6 +114,11 @@ def main():
               'Export Diagnostics.cmd','services/performance_log.py','services/diagnostics_export.py',
               'tools/export-diagnostics.py','tools/export-diagnostics.ps1','services/voice_cast.py','voices/cast.json']
     if not all(name in files for name in required):raise ValueError('Release is incomplete')
+    # Every shipped launcher must find the scripts it calls inside the ZIP.
+    import re
+    for name in [n for n in files if n.endswith('.cmd')]:
+        for script in re.findall(r'tools[\\/]([\w.-]+\.(?:ps1|py))',files[name].read_text(errors='ignore'),re.I):
+            if 'tools/'+script not in files:raise ValueError(f'{name} calls tools/{script}, which is not packaged')
     archive=out/'psychology-vr-windows.zip';rows=[]
     with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=3) as bundle:
         for name,path in sorted(files.items()):

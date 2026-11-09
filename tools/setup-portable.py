@@ -148,6 +148,9 @@ def configure(preset=None,model=None):
     # Older/source configurations may lack speech or portable-runtime settings.
     # Fill missing fields while retaining explicit provider/voice/user choices.
     config={**defaults,**existing}
+    # v0.6: Montenegrin speech recognition uses Bosnian. Older installs copied the
+    # template's Serbian default into their own config, so migrate that value.
+    if config.get('conversation_language')=='cnr' and config.get('stt_language')=='sr':config['stt_language']='bs'
     for key,value in portable_paths.items():
         if config[key] is None or (isinstance(config[key],str) and not config[key].strip()):config[key]=value
         if not isinstance(config[key],str):raise RuntimeError(f'{key} in services/config.local.json must be a file path.')

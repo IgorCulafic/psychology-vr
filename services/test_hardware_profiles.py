@@ -99,6 +99,19 @@ class HardwareProfileTests(unittest.TestCase):
             self.assertFalse(config.get(key,False),key)
         self.assertEqual(config['conversation_language'],'cnr')
 
+    def test_existing_montenegrin_config_migrates_serbian_whisper_to_bosnian(self):
+        root=self.fixture();(root/'voices').mkdir()
+        shutil.copy2(ROOT/'services/config.expressive.example.json',root/'services/config.expressive.example.json')
+        (root/'voices/reference.wav').write_bytes(b'audio')
+        (root/'voices/reference.json').write_text('{"text":"Reference words."}')
+        path=root/'services/config.local.json'
+        path.write_text(json.dumps({'tts_provider':'higgs','conversation_language':'cnr','stt_language':'sr'}))
+        with patch.object(setup,'ROOT',root),patch.object(setup,'gpu_properties',return_value=('RTX 4090',24*1024**3)):
+            self.assertEqual(setup.configure()['stt_language'],'bs')
+        path.write_text(json.dumps({'tts_provider':'higgs','conversation_language':'en','stt_language':'en'}))
+        with patch.object(setup,'ROOT',root),patch.object(setup,'gpu_properties',return_value=('RTX 4090',24*1024**3)):
+            self.assertEqual(setup.configure()['stt_language'],'en')
+
     def test_selected_downloads_match_provider_and_exclude_optional_draft(self):
         manifest=json.loads((ROOT/'services/portable-manifest.json').read_text())
         local=setup.selected_manifest(manifest,profiles.profile_config('rtx3080'))
