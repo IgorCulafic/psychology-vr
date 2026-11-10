@@ -142,7 +142,7 @@ class PortableTests(unittest.TestCase):
     def test_config_uses_portable_runtime_and_does_not_overwrite_preferences(self):
         with tempfile.TemporaryDirectory() as folder:
             root=Path(folder);(root/'services').mkdir();(root/'voices').mkdir()
-            (root/'services/config.expressive.example.json').write_text(json.dumps({'higgs_reference':'missing','higgs_temperature':.7}))
+            (root/'services/config.rtx4090.json').write_text(json.dumps({'hardware_profile':'rtx4090','higgs_reference':'missing','higgs_temperature':.7}))
             with wave.open(str(root/'voices/reference.wav'),'wb') as audio:
                 audio.setparams((1,2,16000,0,'NONE','not compressed'));audio.writeframes(bytes(16000*2*4))
             (root/'voices/reference.json').write_text('{"text":"This is a reference."}')

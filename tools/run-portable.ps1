@@ -44,9 +44,9 @@ try {
         $taskStamp=Get-Content -LiteralPath $taskStampPath -Raw | ConvertFrom-Json
         $taskReady=($taskStamp.root -eq $taskRoot -and $taskStamp.key -eq $taskKey -and $Mode -notin @('Setup','Settings'))
     }
-    if(-not $taskReady -and $Mode -notin @('Setup','Settings') -and (Test-Path -LiteralPath $taskPython)) {
-        # A source installation can have a working private environment without
-        # a portable stamp. Validate the selected profile before reinstalling it.
+    if($Mode -notin @('Setup','Settings') -and (Test-Path -LiteralPath $taskPython)) {
+        # The ready stamp does not identify the selected profile. Always check
+        # its files before deciding whether installation can be skipped.
         $taskCheckLog=Join-Path $taskRuntime 'selected-profile-check.log'
         $taskPreviousErrorPreference=$ErrorActionPreference
         try {
@@ -54,8 +54,12 @@ try {
             & $taskPython (Join-Path $PSScriptRoot 'setup-portable.py') --check *> $taskCheckLog
             $taskCheckExit=$LASTEXITCODE
         } finally {$ErrorActionPreference=$taskPreviousErrorPreference}
-        if($taskCheckExit -eq 0) {
-            $taskReady=$true
+        if($taskCheckExit -ne 0 -and $taskCheckExit -ne 2) {
+            Get-Content -LiteralPath $taskCheckLog | ForEach-Object { Write-Host $_ }
+            throw 'Selected profile check failed; see selected-profile-check.log for details.'
+        }
+        $taskReady=($taskCheckExit -eq 0)
+        if($taskReady) {
             @{root=$taskRoot;key=$taskKey} | ConvertTo-Json | Set-Content -LiteralPath $taskStampPath -Encoding UTF8
         }
     }
@@ -99,7 +103,9 @@ try {
         Invoke-Checked $taskPython $taskSetupArguments
         @{root=$taskRoot;key=$taskKey} | ConvertTo-Json | Set-Content -LiteralPath $taskStampPath -Encoding UTF8
     }
-    Invoke-Checked $taskPython @((Join-Path $PSScriptRoot 'setup-portable.py'),'--check')
+    if(-not $taskReady) {
+        Invoke-Checked $taskPython @((Join-Path $PSScriptRoot 'setup-portable.py'),'--check')
+    }
     $taskLock.Dispose();$taskLock=$null
     if($Mode -eq 'VR'){& (Join-Path $PSScriptRoot 'launch.ps1')}
     elseif($Mode -eq 'Desktop'){& (Join-Path $PSScriptRoot 'launch.ps1') -Desktop}

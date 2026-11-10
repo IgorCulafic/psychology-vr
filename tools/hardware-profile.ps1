@@ -6,8 +6,8 @@ $taskPython=Join-Path $taskRoot '.tools/portable-env/Scripts/python.exe'
 if (!(Test-Path -LiteralPath $taskPython)) { throw 'Run Setup.cmd first.' }
 if (!$Profile) {
     Write-Host 'Hardware profiles. Close the game before switching.'
-    Write-Host '1. RTX 3080 (default): Gemma QAT Q4, English, Kokoro voice'
-    Write-Host '2. RTX 4090: Gemma Q8, Montenegrin, assigned BF16 cloned voices'
+    Write-Host '1. RTX 3080: Gemma QAT Q4, English, Kokoro voice'
+    Write-Host '2. RTX 4090 (default): Gemma Q8, Montenegrin, assigned BF16 cloned voices'
     Write-Host 'Both keep compact responses, cached prompts, model warmup and exact speech reuse.'
     $taskChoice=Read-Host 'Choose 1 or 2, or Enter to cancel'
     $Profile=switch($taskChoice){'1'{'rtx3080'} '2'{'rtx4090'} default{$null}}

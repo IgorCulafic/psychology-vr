@@ -107,16 +107,20 @@ def download_runtime(entry):
     extract(archive,destination)
 
 
+class MissingInstallFiles(RuntimeError):
+    """The selected profile needs files that setup can install."""
+
+
 def validate_files(manifest,full=False):
     for model in manifest['models']:
         for entry in model['files']:
             path=contained(ROOT,model['destination']+'/'+entry['name'])
             if not path.is_file() or path.stat().st_size!=entry['bytes']:
-                raise RuntimeError('Missing or incomplete model: '+str(path)+'; rerun Setup.cmd.')
+                raise MissingInstallFiles('Missing or incomplete model: '+str(path)+'; rerun Setup.cmd.')
             if full and digest(path)!=entry['sha256']:raise RuntimeError('Model checksum mismatch: '+str(path))
     for runtime in manifest['runtimes']:
         for file in [runtime['executable'],*runtime.get('required',[])]:
-            if not contained(ROOT,file).is_file():raise RuntimeError('Missing runtime: '+file)
+            if not contained(ROOT,file).is_file():raise MissingInstallFiles('Missing runtime: '+file)
 
 
 def configure(preset=None,model=None):
@@ -128,24 +132,13 @@ def configure(preset=None,model=None):
         raise RuntimeError('services/config.local.json is not valid JSON. Correct it or rename it to keep a backup, then rerun Setup.cmd.') from error
     if not isinstance(existing,dict):
         raise RuntimeError('services/config.local.json must contain a JSON object. Rename it to keep a backup, then rerun Setup.cmd.')
-    def large_gpu():
-        # Higgs (the cloned Montenegrin voices) needs a 24 GB card; smaller cards use Kokoro.
-        return gpu_properties()[1]>=23*1024**3
     profile=existing.get('hardware_profile')
-    if profile=='rtx3080' and existing.get('tts_provider')=='kokoro' and large_gpu():
-        # v0.6.0 gave fresh installs the 10 GB English/Kokoro profile even on 24 GB+
-        # cards. Replace it with the Higgs/Montenegrin defaults (a backup is kept).
-        print('Replacing the RTX 3080 English/Kokoro profile with the Higgs Montenegrin defaults for this GPU.',flush=True)
-        existing,profile={},None
-    if profile in ('rtx3080','rtx4090'):
+    if original is None:
+        candidates=['config.rtx4090.json']
+    elif profile in ('rtx3080','rtx4090'):
         candidates=[f'config.{profile}.json','config.rtx4090.example.json','config.expressive.example.json']
-    elif original is None and not large_gpu():
-        # Fresh installs on smaller cards start from the RTX 3080 profile.
-        candidates=['config.rtx3080.json','config.rtx4090.example.json','config.expressive.example.json']
     else:
-        # Fresh installs on 24 GB+ cards, and existing configs that predate hardware
-        # profiles, use the Higgs/Montenegrin defaults. Existing configs keep their tuned
-        # behaviour: only fill missing basics, never enable a profile's speed options.
+        # Existing configs predating hardware profiles retain their tuned behaviour.
         candidates=['config.expressive.example.json']
     defaults_path=next((ROOT/'services'/name for name in candidates if (ROOT/'services'/name).exists()),None)
     if defaults_path is None:raise RuntimeError('Default configuration template is missing; restore the services folder.')
@@ -199,7 +192,7 @@ def configure(preset=None,model=None):
     return config
 
 
-def doctor(check_runtime=True):
+def doctor(check_runtime=True,check_model_files=True):
     import torch
     config=json.loads((ROOT/'services/config.local.json').read_text(encoding='utf-8-sig'))
     speech=config.get('tts_provider','higgs')
@@ -221,8 +214,9 @@ def doctor(check_runtime=True):
     elif speech=='kokoro':
         import kokoro_onnx
         if properties.total_memory<9*1024**3:raise RuntimeError('The RTX 3080 profile requires an NVIDIA GPU with at least 10 GB VRAM.')
-        for name in ('kokoro-v1.0.onnx','voices-v1.0.bin'):
-            if not (ROOT/'.cache/kokoro'/name).is_file():raise RuntimeError('Kokoro voice files are missing; run Setup.cmd.')
+        if check_model_files:
+            for name in ('kokoro-v1.0.onnx','voices-v1.0.bin'):
+                if not (ROOT/'.cache/kokoro'/name).is_file():raise RuntimeError('Kokoro voice files are missing; run Setup.cmd.')
     print(f'GPU: {properties.name}, {properties.total_memory/1024**3:.1f} GB; speech: {speech}',flush=True)
     if not (ROOT/'unity/Builds/Windows/AlexPrototype.exe').is_file():
         raise RuntimeError('Built game missing. Download the Windows release ZIP, not GitHub Source code.zip.')
@@ -246,7 +240,7 @@ def main():
     if args.configure_only:return
     if args.verify_files:validate_files(manifest,True);print('MODEL_CHECKSUMS_OK');return
     if not args.check:
-        doctor(False)
+        doctor(False,False)
         missing_bytes=sum(entry['bytes'] for model in manifest['models'] for entry in model['files']
                           if not contained(ROOT,model['destination']+'/'+entry['name']).is_file())
         if shutil.disk_usage(ROOT).free<missing_bytes+2*1024**3:
@@ -276,9 +270,17 @@ def main():
                         '--local-dir',str(contained(ROOT,model['destination'])),*(['--force-download'] if force else [])],check=True)
         for entry in manifest['runtimes']:download_runtime(entry)
         validate_files(manifest,True)
-    else:validate_files(manifest)
+    else:
+        # Report configuration, GPU and dependency failures before missing files;
+        # only the latter are automatically repairable by the launcher.
+        doctor(False,False)
+        validate_files(manifest)
     doctor()
     print('PORTABLE_READY',flush=True)
 
 
-if __name__=='__main__':main()
+if __name__=='__main__':
+    try:main()
+    except MissingInstallFiles as error:
+        print(error, file=sys.stderr, flush=True)
+        sys.exit(2)
