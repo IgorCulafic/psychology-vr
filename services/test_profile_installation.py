@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class ProfileInstallationTests(unittest.TestCase):
     def test_real_installer_downloads_missing_files_when_switching_profiles(self):
         with tempfile.TemporaryDirectory() as folder:
-            root = Path(folder)
+            root = Path(folder).resolve()
             (root / 'services').mkdir()
             (root / 'tools').mkdir()
             shutil.copy2(ROOT / 'tools/setup-portable.py', root / 'tools/setup-portable.py')

@@ -20,7 +20,7 @@ CSC = Path(r'C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe')
 class PortableLauncherTests(unittest.TestCase):
     def test_switching_profiles_prepares_missing_models_even_with_ready_stamp(self):
         with tempfile.TemporaryDirectory() as folder:
-            root = Path(folder)
+            root = Path(folder).resolve()
             for directory in ('tools', 'services/.runtime', '.tools/bootstrap', '.tools/portable-env/Scripts'):
                 (root / directory).mkdir(parents=True)
             shutil.copy2(ROOT / 'tools/run-portable.ps1', root / 'tools/run-portable.ps1')
