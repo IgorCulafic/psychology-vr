@@ -111,6 +111,10 @@ class MissingInstallFiles(RuntimeError):
     """The selected profile needs files that setup can install."""
 
 
+class MissingPythonDependencies(RuntimeError):
+    """The managed Python environment is missing a required package."""
+
+
 def validate_files(manifest,full=False):
     for model in manifest['models']:
         for entry in model['files']:
@@ -235,7 +239,10 @@ def main():
     parser.add_argument('--configure-only',action='store_true',help='Resolve GPU settings without downloading or starting services')
     parser.add_argument('--verify-files',action='store_true',help='Check model hashes without loading libraries')
     args=parser.parse_args();manifest=json.loads((ROOT/'services/portable-manifest.json').read_text(encoding='utf-8'))
-    config=configure(args.preset,args.model)
+    try:config=configure(args.preset,args.model)
+    except ModuleNotFoundError as error:
+        if not args.check:raise
+        raise MissingPythonDependencies('Python dependency is missing: '+str(error)) from error
     manifest=selected_manifest(manifest,config)
     if args.configure_only:return
     if args.verify_files:validate_files(manifest,True);print('MODEL_CHECKSUMS_OK');return
@@ -271,9 +278,11 @@ def main():
         for entry in manifest['runtimes']:download_runtime(entry)
         validate_files(manifest,True)
     else:
-        # Report configuration, GPU and dependency failures before missing files;
-        # only the latter are automatically repairable by the launcher.
-        doctor(False,False)
+        # Configuration and hardware errors are fatal; missing managed packages
+        # and model files have distinct exit codes for launcher recovery.
+        try:doctor(False,False)
+        except ModuleNotFoundError as error:
+            raise MissingPythonDependencies('Python dependency is missing: '+str(error)) from error
         validate_files(manifest)
     doctor()
     print('PORTABLE_READY',flush=True)
@@ -284,3 +293,6 @@ if __name__=='__main__':
     except MissingInstallFiles as error:
         print(error, file=sys.stderr, flush=True)
         sys.exit(2)
+    except MissingPythonDependencies as error:
+        print(error, file=sys.stderr, flush=True)
+        sys.exit(3)

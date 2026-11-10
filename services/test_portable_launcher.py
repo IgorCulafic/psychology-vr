@@ -35,12 +35,27 @@ class Fake {
     static int Main(string[] args) {
         if (Path.GetFileName(Environment.GetCommandLineArgs()[0]).Equals("uv.exe", StringComparison.OrdinalIgnoreCase)) {
             if (args.Length > 1 && args[0] == "python" && args[1] == "find") Console.WriteLine("fake-python");
+            if (args.Length > 1 && args[0] == "pip" && args[1] == "install") {
+                for (int i = 0; i + 1 < args.Length; i++) {
+                    if (args[i] == "-r") File.AppendAllText("installed-packages.txt", File.ReadAllText(args[i + 1]) + "\\n");
+                }
+                File.Delete("missing-dependency");
+                File.Delete("broken-python");
+                File.AppendAllText("repairs.txt", "repair\\n");
+            }
+            if (args.Length > 0 && args[0] == "venv" && File.Exists("installed-packages.txt")) File.Delete("installed-packages.txt");
             return 0;
+        }
+        if (args.Length == 1 && args[0] == "--version") {
+            if (File.Exists("broken-python")) { Console.Error.WriteLine("No Python at the previous location"); return 103; }
+            Console.WriteLine("Python 3.12.0"); return 0;
         }
         string profile = File.ReadAllText("services/config.local.json");
         bool check = Array.IndexOf(args, "--check") >= 0;
         if (check && File.Exists("fail-check")) { Console.Error.WriteLine("Invalid configuration"); return 1; }
+        if (check && File.Exists("missing-dependency")) { Console.Error.WriteLine("Missing dependency"); return 3; }
         if (check) return File.Exists("available.json") && File.ReadAllText("available.json") == profile ? 0 : 2;
+        if (File.Exists("missing-dependency")) return 1;
         if (File.Exists("fail-setup")) return 1;
         File.WriteAllText("available.json", profile);
         File.AppendAllText("setups.txt", "setup\\n");
@@ -58,18 +73,22 @@ class Fake {
             manifest = root / 'services/portable-manifest.json'
             manifest.write_text(json.dumps({'uv': {'sha256': digest, 'url': 'unused'}, 'python': '3.12'}))
             requirements = root / 'services/requirements-portable.txt'
-            requirements.write_text('fixture')
-            key = hashlib.sha256(manifest.read_bytes()).hexdigest().upper() + hashlib.sha256(requirements.read_bytes()).hexdigest().upper()
-            stamp = json.dumps({'root': str(root), 'key': key})
+            shutil.copy2(ROOT / 'services/requirements-portable.txt', requirements)
+            optional_requirements = root / 'services/requirements-kokoro.txt'
+            shutil.copy2(ROOT / 'services/requirements-kokoro.txt', optional_requirements)
+            key = (hashlib.sha256(manifest.read_bytes()).hexdigest().upper()
+                   + hashlib.sha256(requirements.read_bytes()).hexdigest().upper()
+                   + hashlib.sha256(optional_requirements.read_bytes()).hexdigest().upper())
+            stamp = json.dumps({'root': str(root), 'key': key, 'kokoro': True})
             (root / 'services/.runtime/portable-ready.json').write_text(stamp)
             (root / 'services/.runtime/portable-environment.json').write_text(stamp)
             profiles.select_profile('rtx3080', root)
             (root / 'available.json').write_text((root / 'services/config.local.json').read_text())
 
-            def start():
+            def start(mode='Desktop'):
                 env = dict(os.environ, PSModulePath='')
                 return subprocess.run(['powershell.exe', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File',
-                                       str(root / 'tools/run-portable.ps1'), '-Mode', 'Desktop'],
+                                       str(root / 'tools/run-portable.ps1'), '-Mode', mode],
                                       cwd=root, env=env, capture_output=True, text=True, timeout=30)
 
             profiles.select_profile('rtx4090', root)
@@ -91,10 +110,38 @@ class Fake {
             self.assertEqual(len((root / 'launched.txt').read_text().splitlines()), 3)
             (root / 'fail-setup').unlink()
             (root / 'fail-check').touch()
+            (root / 'services/.runtime/portable-environment.json').write_text(json.dumps({'root': str(root), 'key': 'old'}))
             failed = start()
             self.assertNotEqual(failed.returncode, 0)
             self.assertIn('Invalid configuration', failed.stdout + failed.stderr)
             self.assertEqual((root / 'setups.txt').read_text().splitlines(), ['setup', 'setup'])
+            self.assertFalse((root / 'repairs.txt').exists())
+            (root / 'fail-check').unlink()
+            (root / 'missing-dependency').touch()
+            repaired = start()
+            self.assertEqual(repaired.returncode, 0, repaired.stdout + repaired.stderr)
+            self.assertEqual((root / 'repairs.txt').read_text().splitlines(), ['repair'])
+            installed = (root / 'installed-packages.txt').read_text()
+            self.assertNotIn('kokoro-onnx==', installed)
+            self.assertIn('onnxruntime==', installed)
+            (root / 'missing-dependency').touch()
+            repaired = start('Setup')
+            self.assertEqual(repaired.returncode, 0, repaired.stdout + repaired.stderr)
+            self.assertEqual((root / 'repairs.txt').read_text().splitlines(), ['repair', 'repair'])
+            (root / 'broken-python').touch()
+            repaired = start()
+            self.assertEqual(repaired.returncode, 0, repaired.stdout + repaired.stderr)
+            self.assertEqual((root / 'repairs.txt').read_text().splitlines(), ['repair', 'repair', 'repair'])
+            profiles.select_profile('rtx3080', root)
+            (root / 'missing-dependency').touch()
+            repaired = start('Setup')
+            self.assertEqual(repaired.returncode, 0, repaired.stdout + repaired.stderr)
+            installed = (root / 'installed-packages.txt').read_text()
+            self.assertIn('kokoro-onnx==0.6.1', installed)
+            self.assertIn('onnxruntime==', installed)
+            (root / 'missing-dependency').touch()
+            repaired = start()
+            self.assertEqual(repaired.returncode, 0, repaired.stdout + repaired.stderr)
 
 
 if __name__ == '__main__':

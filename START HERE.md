@@ -14,7 +14,9 @@ The fresh-install default is **RTX 4090 / Montenegrin / BF16 Higgs cloned
 voices / Gemma Q8**. Open **Hardware Profiles.cmd** to choose the separate
 **RTX 3080 10 GB / English / Kokoro / Gemma QAT Q4** profile. Existing settings
 are preserved until a profile is explicitly selected. Close the game before switching;
-the next launch prepares any missing models for the selected profile.
+the next launch prepares any missing models and Python dependencies for the selected
+profile. Fresh RTX 4090 installations do not require Kokoro; its dependencies are
+installed when the Kokoro profile is selected.
 Profiles retain compact responses, cached prompts, model warmup and exact speech
 reuse where the voice provider supports it. Other optimization choices remain
 optional in **Optimization Settings.cmd**. Previous configurations are backed up.

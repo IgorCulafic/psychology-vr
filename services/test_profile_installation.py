@@ -69,17 +69,20 @@ class ProfileInstallationTests(unittest.TestCase):
                     setup.main()
 
             # Exercise the installer's real CLI exit codes in a separate process.
-            def cli_check(gpu_available=True):
+            def cli_check(gpu_available=True, missing_kokoro=False, missing_torch=False):
                 script = '''
-import runpy, sys, types
+import runpy, subprocess, sys, types
 S=types.SimpleNamespace
+subprocess.run=lambda *args, **kwargs: S(returncode=0)
 cuda=S(is_available=lambda: GPU_AVAILABLE, is_bf16_supported=lambda: True,
        get_device_properties=lambda _: S(name="RTX 4090", total_memory=24*1024**3))
 sys.modules.update({"torch":S(cuda=cuda), "faster_whisper":S(), "kokoro_onnx":S(),
                     "torchaudio":S(), "transformers":S(), "soundfile":S(info=lambda _: S(duration=4))})
+if MISSING_KOKORO: sys.modules["kokoro_onnx"] = None
+if MISSING_TORCH: sys.modules["torch"] = None
 sys.argv=[sys.argv[1], "--check"]
 runpy.run_path(sys.argv[0], run_name="__main__")
-'''.replace('GPU_AVAILABLE', repr(gpu_available))
+'''.replace('GPU_AVAILABLE', repr(gpu_available)).replace('MISSING_KOKORO', repr(missing_kokoro)).replace('MISSING_TORCH', repr(missing_torch))
                 return real_run([sys.executable, '-B', '-c', script, str(root / 'tools/setup-portable.py')],
                                 cwd=root, capture_output=True, text=True)
 
@@ -101,8 +104,20 @@ runpy.run_path(sys.argv[0], run_name="__main__")
                 local.write_bytes(original)
                 invoke()
                 invoke('--check')
+                no_kokoro = cli_check(missing_kokoro=True)
+                self.assertEqual(no_kokoro.returncode, 0, no_kokoro.stdout + no_kokoro.stderr)
+                saved = local.read_bytes()
+                preset_config = json.loads(saved)
+                preset_config['hardware_preset'] = 'rtx4090'
+                local.write_text(json.dumps(preset_config))
+                missing_torch = cli_check(missing_torch=True)
+                self.assertEqual(missing_torch.returncode, 3, missing_torch.stdout + missing_torch.stderr)
+                local.write_bytes(saved)
                 self.assertFalse((root / '.cache/kokoro/kokoro-v1.0.onnx').exists())
                 profiles.select_profile('rtx3080', root)
+                missing_dependency = cli_check(missing_kokoro=True)
+                self.assertEqual(missing_dependency.returncode, 3, missing_dependency.stdout + missing_dependency.stderr)
+                self.assertIn('kokoro_onnx', missing_dependency.stderr)
                 with self.assertRaisesRegex(RuntimeError, 'Missing or incomplete model'):
                     invoke('--check')
                 invoke()

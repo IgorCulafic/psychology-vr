@@ -1,0 +1,6 @@
+# Additional dependencies for the Kokoro voice provider (RTX 3080 profile).
+attrs==26.1.0
+dlinfo==2.0.0
+espeakng-loader==0.2.4
+kokoro-onnx==0.6.1
+phonemizer==3.4.0
