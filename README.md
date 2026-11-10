@@ -14,9 +14,9 @@ The project brings together character design, local AI, expressive speech and in
 
 This workspace integrates the upstream **v0.5.1 seated animation** update while
 retaining the local service optimizations. **Start Desktop.cmd** and **Start
-VR.cmd** use the active configuration, initially the **RTX 3080 / English /
-Kokoro / Gemma QAT Q4** profile. Open **Hardware Profiles.cmd** to select the
-separate **RTX 4090 / Montenegrin / BF16 cloned voices / Gemma Q8** profile.
+VR.cmd** use the active configuration. Fresh setup defaults to **RTX 4090 /
+Montenegrin / BF16 Higgs cloned voices / Gemma Q8**. Open **Hardware Profiles.cmd**
+to select the separate **RTX 3080 / English / Kokoro / Gemma QAT Q4** profile.
 Close the game before switching; the selector backs up the previous configuration.
 
 Both profiles enable compact response controls, reusable prompts, model warmup
@@ -85,7 +85,7 @@ Every release is a complete application package with all previous updates; no pa
 
 Use the release asset above, not GitHub's **Source code.zip**. The source repository is for development; the instructions below describe that workflow. All four runtime voice packs and their scenario assignments are included. Use **Preview Voices.cmd** to hear selected samples offline.
 
-Fresh setup selects **Gemma 4 12B QAT Q4**, **BF16 Higgs speech** and **CPU Whisper**. On an existing installation, **PC Settings.cmd → 6 Gemma** installs/selects the current default. In Unity, **Settings → Dialogue model** switches between installed alternatives between replies, preserving the conversation and voice settings. Older PC Settings presets remain available for comparisons; see [model switching](docs/MODEL_SWITCHING.md) before changing them.
+Fresh setup selects **Gemma 4 12B Q8**, **BF16 Higgs speech** and **CPU Whisper** for RTX 4090. In Unity, **Settings → Dialogue model** switches between installed alternatives between replies, preserving the conversation and voice settings. Older PC Settings presets remain available for comparisons; see [model switching](docs/MODEL_SWITCHING.md) before changing them.
 
 ## Voice and animation update
 
@@ -171,7 +171,7 @@ Unity menu **Psychology VR → Build Windows prototype** writes `unity/Builds/Wi
 
 ## Current features and limits
 
-The local configuration is `services/config.local.json`. The current expressive setup uses **Gemma 4 12B QAT Q4** through llama.cpp on port 8087, resident **Higgs TTS 3 BF16** on port 8766, and **Whisper large-v3-turbo** through faster-whisper on CPU. `services/dialogue-models.json` records the selectable dialogue models. `config.live.example.json` retains the older English/Kokoro baseline; `config.expressive.example.json` describes the expressive pipeline. Use **Setup.cmd** for the current pinned runtime and machine-specific configuration. The bridge binds only to 127.0.0.1:8765. Thinking is disabled both in the model startup configuration and each dialogue request.
+The local configuration is `services/config.local.json`. The default RTX 4090 setup uses **Gemma 4 12B Q8** through llama.cpp on port 8087, resident **Higgs TTS 3 BF16** on port 8766, and **Whisper large-v3-turbo** through faster-whisper on CPU. `services/dialogue-models.json` records the selectable dialogue models. `config.live.example.json` retains the older English/Kokoro baseline; `config.expressive.example.json` describes the expressive pipeline. Use **Setup.cmd** for the current pinned runtime and machine-specific configuration. The bridge binds only to 127.0.0.1:8765. Thinking is disabled both in the model startup configuration and each dialogue request.
 
 `services/config.example.json` is explicitly **scripted test mode** with Windows' built-in voice and no STT. It exists for transport and animation testing; its responses are not AI. To use it, stop live services and run `./tools/launch.ps1 -Scripted -Desktop`.
 
@@ -191,7 +191,7 @@ Use the same pinned installer as the Windows release. In a source checkout, firs
 ./Setup.cmd
 ```
 
-The installer prepares a private Python environment, downloads the selected dialogue model, Higgs, Whisper and lip-sync tools, and writes the local configuration. Fresh installations select Gemma; existing configurations are preserved. To move an older setup to Gemma, use **PC Settings.cmd → 6 Gemma**. Build the Unity Windows player before using the game launcher, or use `./tools/launch.ps1 -NoGame` to start the services for the editor.
+The installer prepares a private Python environment, downloads the selected dialogue model, Higgs, Whisper and lip-sync tools, and writes the local configuration. Fresh installations select the RTX 4090 profile with Gemma Q8; existing configurations are preserved. To select Gemma QAT Q4 instead, use **PC Settings.cmd → 6 Gemma**. Build the Unity Windows player before using the game launcher, or use `./tools/launch.ps1 -NoGame` to start the services for the editor.
 
 See [START HERE](START%20HERE.md) for setup requirements and troubleshooting, and [portable release setup](docs/PORTABLE_RELEASE.md) for packaging details. Neural speech dependencies are pinned in `services/requirements-lock.txt`.
 

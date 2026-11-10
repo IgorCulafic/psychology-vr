@@ -10,9 +10,13 @@ Saved session logs and exported transcripts include the student name.
 In the game's **Session** menu, choose **Export session log** to save a named ZIP
 in `logs/exports/`, containing the readable and structured logs.
 
-The default is **RTX 3080 10 GB / English / Kokoro / Gemma QAT Q4**. Open
-**Hardware Profiles.cmd** to choose the separate **RTX 4090 / Montenegrin /
-BF16 cloned voices / Gemma Q8** profile. Close the game before switching.
+The fresh-install default is **RTX 4090 / Montenegrin / BF16 Higgs cloned
+voices / Gemma Q8**. Open **Hardware Profiles.cmd** to choose the separate
+**RTX 3080 10 GB / English / Kokoro / Gemma QAT Q4** profile. Existing settings
+are preserved until a profile is explicitly selected. Close the game before switching;
+the next launch prepares any missing models and Python dependencies for the selected
+profile. Fresh RTX 4090 installations do not require Kokoro; its dependencies are
+installed when the Kokoro profile is selected.
 Profiles retain compact responses, cached prompts, model warmup and exact speech
 reuse where the voice provider supports it. Other optimization choices remain
 optional in **Optimization Settings.cmd**. Previous configurations are backed up.
@@ -46,7 +50,7 @@ least 24 GB VRAM, and preferably 64 GB system RAM. The university's RTX 4090 / 6
 PCs are the target hardware. Development checks use an RTX 5090;
 the current combination still needs a full Quest session on an actual university PC.
 
-**Default model:** Setup selects **Gemma 4 12B QAT Q4**, fully on the GPU, with
+**Default model:** Setup selects **Gemma 4 12B Q8** with
 **BF16 (16-bit) Higgs speech** and CPU speech recognition. Voice precision is
 unchanged. Gemma was preferred in conversational testing; Bonsai is faster but
 lost coherence in longer conversations. In-game **Settings → Dialogue model**
@@ -61,8 +65,8 @@ precision. Auto uses the capacity of CUDA device 0, not combined GPU memory.
 
 To change the setting, close the game and double-click **PC Settings.cmd**:
 choose **1 Auto**, **2 University / RTX 4090**, **3 Original quality**, or
-**4 Fast dialogue (9B Q6)**, **5 Bonsai**, or **6 Gemma**. Choose **6 Gemma** to
-install it or return to the current default. Fast keeps the smaller dialogue model fully on the
+**4 Fast dialogue (9B Q6)**, **5 Bonsai**, **6 Gemma QAT Q4**, or **7 Gemma Q8**.
+Fast keeps the smaller dialogue model fully on the
 GPU and preserves BF16 speech. It is opt-in: review language and character
 consistency before teaching. Auto continues selecting the existing 27B presets.
 This stops this installation's AI services, backs up configuration changes and
@@ -74,8 +78,9 @@ kept for switching back. More CPU offload can increase reply latency.
 Fast dialogue needs a one-time 7.4 GB download, or approximately 19.1 GB total
 models on a fresh installation. See `docs/GPU_PRESETS.md` for measured timing and
 known quality tradeoffs. Existing models remain available when switching back.
-Gemma requires a roughly 7 GB dialogue download, plus the shared speech models
-and runtimes. Only the selected dialogue model is downloaded during setup.
+Gemma QAT Q4 requires a roughly 7 GB dialogue download; Gemma Q8 requires about
+12.7 GB, plus the shared speech models and runtimes. Only the selected dialogue
+model is downloaded during setup.
 See `docs/MODEL_SWITCHING.md` for model switching and current test limitations.
 
 For VR, install Meta Quest Link, connect the Quest 3 to this PC, and enter its

@@ -38,28 +38,57 @@ try {
     $env:HF_HUB_DISABLE_TELEMETRY='1';$env:PYTHONUTF8='1'
     $taskPython=Join-Path $taskRoot '.tools/portable-env/Scripts/python.exe'
     $taskStampPath=Join-Path $taskRuntime 'portable-ready.json'
-    $taskKey=(Get-FileHash services/portable-manifest.json).Hash+(Get-FileHash services/requirements-portable.txt).Hash
+    $taskKey=(Get-FileHash services/portable-manifest.json).Hash+(Get-FileHash services/requirements-portable.txt).Hash+(Get-FileHash services/requirements-kokoro.txt).Hash
     $taskReady=$false
+    $taskRepairEnvironment=$false
     if((Test-Path -LiteralPath $taskStampPath) -and (Test-Path -LiteralPath $taskPython)) {
         $taskStamp=Get-Content -LiteralPath $taskStampPath -Raw | ConvertFrom-Json
         $taskReady=($taskStamp.root -eq $taskRoot -and $taskStamp.key -eq $taskKey -and $Mode -notin @('Setup','Settings'))
     }
-    if(-not $taskReady -and $Mode -notin @('Setup','Settings') -and (Test-Path -LiteralPath $taskPython)) {
-        # A source installation can have a working private environment without
-        # a portable stamp. Validate the selected profile before reinstalling it.
+    if($Mode -ne 'Settings' -and (Test-Path -LiteralPath $taskPython)) {
+        # The ready stamp does not identify the selected profile. Always check
+        # its files before deciding whether installation can be skipped.
         $taskCheckLog=Join-Path $taskRuntime 'selected-profile-check.log'
         $taskPreviousErrorPreference=$ErrorActionPreference
+        $taskPythonWorks=$false
         try {
             $ErrorActionPreference='Continue'
-            & $taskPython (Join-Path $PSScriptRoot 'setup-portable.py') --check *> $taskCheckLog
-            $taskCheckExit=$LASTEXITCODE
+            & $taskPython --version *> $taskCheckLog
+            $taskPythonWorks=($? -and $LASTEXITCODE -eq 0)
+        } catch {
+            $taskPythonWorks=$false
         } finally {$ErrorActionPreference=$taskPreviousErrorPreference}
-        if($taskCheckExit -eq 0) {
-            $taskReady=$true
+        if(!$taskPythonWorks) {
+            $taskRepairEnvironment=$true
+            $taskReady=$false
+        } else {
+            try {
+                $ErrorActionPreference='Continue'
+                & $taskPython (Join-Path $PSScriptRoot 'setup-portable.py') --check *> $taskCheckLog
+                $taskCheckExit=$LASTEXITCODE
+            } finally {$ErrorActionPreference=$taskPreviousErrorPreference}
+            if($taskCheckExit -ne 0 -and $taskCheckExit -ne 2 -and $taskCheckExit -ne 3) {
+                Get-Content -LiteralPath $taskCheckLog | ForEach-Object { Write-Host $_ }
+                throw 'Selected profile check failed; see selected-profile-check.log for details.'
+            }
+            $taskRepairEnvironment=($taskCheckExit -eq 3)
+            $taskReady=($taskCheckExit -eq 0 -and $Mode -ne 'Setup')
+        }
+        if($taskReady) {
             @{root=$taskRoot;key=$taskKey} | ConvertTo-Json | Set-Content -LiteralPath $taskStampPath -Encoding UTF8
         }
     }
     if(-not $taskReady) {
+        $taskKokoroRequired=$false
+        $taskConfigPath=Join-Path $taskRoot 'services/config.local.json'
+        if(Test-Path -LiteralPath $taskConfigPath) {
+            $taskConfig=Get-Content -LiteralPath $taskConfigPath -Raw -Encoding UTF8 | ConvertFrom-Json
+            if($taskConfig.PSObject.Properties.Name -contains 'tts_provider') {
+                $taskKokoroRequired=($taskConfig.tts_provider -eq 'kokoro')
+            } elseif($taskConfig.hardware_profile -eq 'rtx3080') {
+                $taskKokoroRequired=$true
+            }
+        }
         Write-Host 'Setup: Python and the models required by the selected hardware profile.'
         Write-Host 'Keep this window open. A failed download can be resumed by starting again.'
         $taskBootstrap=Join-Path $taskRoot '.tools/bootstrap'
@@ -84,13 +113,17 @@ try {
         if((Test-Path -LiteralPath $taskEnvironmentStamp) -and (Test-Path -LiteralPath $taskPython)) {
             $taskPrevious=Get-Content -LiteralPath $taskEnvironmentStamp -Raw | ConvertFrom-Json
             $taskEnvironmentReady=($taskPrevious.root -eq $taskRoot -and $taskPrevious.key -eq $taskKey)
+            if($taskKokoroRequired -and $taskPrevious.kokoro -ne $true){$taskEnvironmentReady=$false}
         }
+        if($taskRepairEnvironment) {$taskEnvironmentReady=$false}
         if(-not $taskEnvironmentReady) {
             if(Test-Path -LiteralPath $taskEnvironment) {
                 Invoke-Checked $taskUv @('venv','--clear','--python',$taskBase,$taskEnvironment)
             } else {Invoke-Checked $taskUv @('venv','--python',$taskBase,$taskEnvironment)}
-            Invoke-Checked $taskUv @('pip','install','--python',$taskPython,'-r',(Join-Path $taskRoot 'services/requirements-portable.txt'))
-            @{root=$taskRoot;key=$taskKey} | ConvertTo-Json | Set-Content -LiteralPath $taskEnvironmentStamp -Encoding UTF8
+            $taskRequirements=@('-r',(Join-Path $taskRoot 'services/requirements-portable.txt'))
+            if($taskKokoroRequired){$taskRequirements+=@('-r',(Join-Path $taskRoot 'services/requirements-kokoro.txt'))}
+            Invoke-Checked $taskUv (@('pip','install','--python',$taskPython)+$taskRequirements)
+            @{root=$taskRoot;key=$taskKey;kokoro=$taskKokoroRequired} | ConvertTo-Json | Set-Content -LiteralPath $taskEnvironmentStamp -Encoding UTF8
         }
         $env:HF_HUB_OFFLINE='0'
         $taskSetupArguments=@((Join-Path $PSScriptRoot 'setup-portable.py'))
@@ -99,7 +132,9 @@ try {
         Invoke-Checked $taskPython $taskSetupArguments
         @{root=$taskRoot;key=$taskKey} | ConvertTo-Json | Set-Content -LiteralPath $taskStampPath -Encoding UTF8
     }
-    Invoke-Checked $taskPython @((Join-Path $PSScriptRoot 'setup-portable.py'),'--check')
+    if(-not $taskReady) {
+        Invoke-Checked $taskPython @((Join-Path $PSScriptRoot 'setup-portable.py'),'--check')
+    }
     $taskLock.Dispose();$taskLock=$null
     if($Mode -eq 'VR'){& (Join-Path $PSScriptRoot 'launch.ps1')}
     elseif($Mode -eq 'Desktop'){& (Join-Path $PSScriptRoot 'launch.ps1') -Desktop}
