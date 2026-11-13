@@ -105,8 +105,7 @@ def main():
         add(ROOT/'docs/RECORDED_FACE_POC.md')
         if 'unity/Builds/LiveLinkPreview/LiveLinkPreview.exe' not in files:
             raise ValueError('Recorded face preview player is missing')
-    for name in ['docs/RELEASE_0_4_0.md','docs/UNREAL_PORT.md']:
-        add(ROOT/name)
+    add(ROOT/'docs/RELEASE_0_4_0.md')
     add(ROOT/'output/pdf/Psychology_VR_pregled_projekta_CG.pdf','docs/PROJECT_OVERVIEW_CG.pdf')
     for name in ['person_03_happy_statistika.wav','person_03_happy_statistika.mp3','person_03_happy_statistika.json']:
         add(ROOT/'output/audio'/name)

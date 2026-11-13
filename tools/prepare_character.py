@@ -4,7 +4,6 @@ Preserves the original glTF; exports a working FBX and a visual audit.
 """
 import bpy
 import json
-import math
 import sys
 from pathlib import Path
 from mathutils import Vector

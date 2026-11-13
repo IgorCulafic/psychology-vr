@@ -25,8 +25,7 @@ facial-capture data and student logs are not packaged or uploaded.
 
 The v0.4.0 package also includes the voice listening page, contributed packs and
 standalone recorded-face preview player. The latter requires a separately prepared
-take; no personal capture data is included. The Unreal prototype stays in the
-source repository. See [current release details](RELEASE_0_4_0.md).
+take; no personal capture data is included. See [current release details](RELEASE_0_4_0.md).
 
 ## Build and package
 

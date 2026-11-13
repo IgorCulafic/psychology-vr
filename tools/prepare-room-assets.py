@@ -1,5 +1,5 @@
 """Blender: convert the selected glTFs to FBX and retain explicit URP maps."""
-import bpy, json, shutil, math
+import bpy, json, shutil
 import numpy as np
 from pathlib import Path
 from mathutils import Vector

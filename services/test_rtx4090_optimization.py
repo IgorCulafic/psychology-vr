@@ -1,9 +1,6 @@
 import copy
 import json
-from pathlib import Path
-import tempfile
 import unittest
-from unittest.mock import Mock
 
 from alex_service import Bridge, ROOT
 from inference_runtime import server_arguments

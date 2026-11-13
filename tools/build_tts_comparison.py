@@ -1,6 +1,5 @@
 """Build the saved local three-model listening comparison after auditions finish."""
 from pathlib import Path
-import hashlib
 import html
 import json
 import math

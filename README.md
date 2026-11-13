@@ -92,8 +92,7 @@ Fresh setup selects **Gemma 4 12B Q8**, **BF16 Higgs speech** and **CPU Whisper*
 The v0.5.0 complete package integrates the clothed MetaHuman cast, all four assigned voices,
 approved emotional delivery, fullscreen controls and automatic performance diagnostics.
 It contains the full application and previous tools; no older release or patch folders are needed.
-The Unreal game prototype remains excluded from the Windows package. See
-[release details](docs/RELEASE_0_5_0.md) for contents, upgrading and remaining limitations.
+See [release details](docs/RELEASE_0_5_0.md) for contents, upgrading and remaining limitations.
 
 ## Clone and open
 

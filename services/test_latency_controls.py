@@ -7,7 +7,7 @@ import threading
 from unittest.mock import patch, Mock
 from copy import deepcopy
 
-from alex_service import Bridge, ContractError, ROOT
+from alex_service import Bridge, ROOT
 from patient_relationship import initial_relationship, wants_fuller_reply
 from latency_metrics import playback_schedule
 from voice_cast import VoiceCast
