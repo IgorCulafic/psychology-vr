@@ -11,9 +11,13 @@ namespace PsychologyVR
             public MetaHumanGestureLibrary.Gesture gesture;
             public Transform[] bones;
             public Quaternion[] idle;
+            public bool[] absolute;
         }
         readonly GameObject body;
         readonly Binding[] bindings;
+        readonly bool promptSpeechGestures;
+        Transform[] seatedFingers=System.Array.Empty<Transform>();
+        Quaternion[] seatedFingerPose=System.Array.Empty<Quaternion>();
         Binding active;
         string previous="";
         float time,weight,release=-1,releaseWeight;
@@ -26,13 +30,50 @@ namespace PsychologyVR
 
         public MetaHumanSeatedGestures(GameObject body,MetaHumanGestureLibrary library,Dictionary<string,Transform> bones)
         {
-            this.body=body;bindings=new Binding[library.gestures.Length];
+            this.body=body;promptSpeechGestures=library.promptSpeechGestures;bindings=new Binding[library.gestures.Length];
             for(int i=0;i<bindings.Length;i++)
             {
-                var gesture=library.gestures[i];var targets=new Transform[gesture.bones.Length];
-                for(int k=0;k<targets.Length;k++)targets[k]=bones[gesture.bones[k]];
-                bindings[i]=new Binding{gesture=gesture,bones=targets,idle=new Quaternion[targets.Length]};
+                var gesture=library.gestures[i];var targets=new Transform[gesture.bones.Length];var absolute=new bool[targets.Length];
+                for(int k=0;k<targets.Length;k++)
+                {
+                    string name=gesture.bones[k];targets[k]=bones[name];
+                    absolute[k]=gesture.absoluteFingerPose&&(name.StartsWith("thumb_")||name.StartsWith("index_")||name.StartsWith("middle_")||name.StartsWith("ring_")||name.StartsWith("pinky_"));
+                }
+                bindings[i]=new Binding{gesture=gesture,bones=targets,idle=new Quaternion[targets.Length],absolute=absolute};
             }
+            if(library.restingFingerPose)
+            {
+                seatedFingers=new Transform[library.restingFingerBones.Length];
+                seatedFingerPose=new Quaternion[seatedFingers.Length];
+                var previous=new Quaternion[seatedFingers.Length];
+                for(int i=0;i<seatedFingers.Length;i++)
+                {
+                    seatedFingers[i]=bones[library.restingFingerBones[i]];
+                    previous[i]=seatedFingers[i].localRotation;
+                }
+                library.restingFingerPose.SampleAnimation(body,0);
+                for(int i=0;i<seatedFingers.Length;i++)
+                {
+                    seatedFingerPose[i]=seatedFingers[i].localRotation;
+                    seatedFingers[i].localRotation=previous[i];
+                }
+            }
+        }
+
+        public void ApplySeatedHands()
+        {
+            for(int i=0;i<seatedFingers.Length;i++)seatedFingers[i].localRotation=seatedFingerPose[i];
+        }
+
+        public void RelaxSeatedFingers(Dictionary<string,Quaternion> rest)
+        {
+            for(int i=0;i<seatedFingers.Length;i++)
+                if(rest.TryGetValue(seatedFingers[i].name,out var rotation))
+                    seatedFingerPose[i]=Quaternion.Slerp(seatedFingerPose[i],rotation,.8f);
+        }
+        public void CaptureSeatedFingers()
+        {
+            for(int i=0;i<seatedFingers.Length;i++)seatedFingerPose[i]=seatedFingers[i].localRotation;
         }
 
         public bool Play(string id)
@@ -70,7 +111,7 @@ namespace PsychologyVR
         {
             headWait-=dt;cooldown-=dt;
             bool strong=(emotion=="crying"||emotion=="panicked"||emotion=="angry"||emotion=="numb")&&intensity>.6f;
-            if(speaking&&!wasSpeaking)speechWait=Random.value<.6f?Random.Range(.65f,1.3f):9;
+            if(speaking&&!wasSpeaking)speechWait=promptSpeechGestures?Random.Range(.35f,.7f):Random.value<.6f?Random.Range(.65f,1.3f):9;
             if(!speaking&&wasSpeaking)Stop(false);
             wasSpeaking=speaking;
             if(Automatic&&active==null&&!strong)
@@ -109,7 +150,7 @@ namespace PsychologyVR
             for(int i=0;i<active.bones.Length;i++)
             {
                 var target=active.bones[i];var q=target.localRotation;
-                if(active.gesture.additive)q=active.idle[i]*q;
+                if(active.gesture.additive&&!active.absolute[i])q=active.idle[i]*q;
                 target.localRotation=Quaternion.Slerp(active.idle[i],q,weight);
             }
         }

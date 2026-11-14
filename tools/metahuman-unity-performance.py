@@ -1,5 +1,5 @@
 """Bake identity-specific raw reactions and normalized speech/expression poses."""
-import bisect,json,sys,traceback,math,re
+import bisect,json,sys,traceback,re
 from pathlib import Path
 import unreal
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'experiments/metahuman/exports/unity'

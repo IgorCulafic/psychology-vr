@@ -71,7 +71,7 @@ namespace PsychologyVR.Editor
                         if(!string.IsNullOrEmpty(fabric.normal))
                         {
                             material.SetTexture("_BumpMap",ImportTexture(source,id,folder,fabric.normal,true));
-                            material.SetFloat("_BumpScale",1);material.EnableKeyword("_NORMALMAP");
+                            material.SetFloat("_BumpScale",fabric.name=="Leather" ? 0.15f : 1f);material.EnableKeyword("_NORMALMAP");
                         }
                         EditorUtility.SetDirty(material);
                     }

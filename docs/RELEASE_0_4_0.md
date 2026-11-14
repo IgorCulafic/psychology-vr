@@ -23,8 +23,9 @@ model cache, local configuration and session logs.
 - Voice preparation/audition tools, recording script, Montenegrin one-page project
   overview (`PROJECT_OVERVIEW_CG.pdf` in the ZIP) and the generated statistics-line
   sample in WAV/MP3 format under `output/audio/`.
-- Unreal C++ prototype source, launchers and development notes in the GitHub
-  repository. The Windows ZIP contains its status document, not an Unreal build.
+- The Unreal C++ prototype and its launchers have since been removed from the
+  current source repository. Current Windows ZIPs do not contain the prototype
+  or its status document.
 
 ## Integration still pending
 

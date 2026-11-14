@@ -2,7 +2,6 @@
 import json
 from pathlib import Path
 import traceback
-import re
 import sys
 import unreal
 
