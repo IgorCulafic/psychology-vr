@@ -21,6 +21,7 @@ namespace PsychologyVR
         {
             public string side;
             public Transform thigh,upper,lower,hand;
+            public Transform[] fingers,fingerNext;
             public Vector3 target,normal,direction,finger,palm;
             public float elbowRotation,elbowSpread,palmRoll;
         }
@@ -49,12 +50,14 @@ namespace PsychologyVR
         Vector3[] neutralP,filteredP;Quaternion[] neutralQ,filteredQ;
         bool[] mouth;
         Transform[] clothTargets,clothSources,faceBaseTargets,faceBaseSources;
-        float clock,idleTime;string previousEmotion="";
+        float clock,idleTime,anxiousFingerTime,anxiousFingerWeight;string previousEmotion="";
         bool initialized;
+        PerformanceDriver performance;
         SeatedTrouserDeformation trouserDeformation;
         public void Initialize()
         {
             if(initialized||!library)return;
+            performance=GetComponent<PerformanceDriver>();
             faceBones=faceObject.GetComponentsInChildren<Transform>().GroupBy(t=>t.name).ToDictionary(g=>g.Key,g=>g.First());
             bodyBones=bodyObject.GetComponentsInChildren<Transform>().GroupBy(t=>t.name).ToDictionary(g=>g.Key,g=>g.First());
             var restFingers=gestureLibrary&&gestureLibrary.restingHandsOnThighs?bodyBones.ToDictionary(p=>p.Key,p=>p.Value.localRotation):null;
@@ -171,6 +174,8 @@ namespace PsychologyVR
                 float spread=side=="l"?gestureLibrary.restingElbowSpread.x:gestureLibrary.restingElbowSpread.y;
                 float roll=side=="l"?gestureLibrary.restingPalmRoll.x:gestureLibrary.restingPalmRoll.y;
                 hands.Add(new RestingHand{side=side,thigh=thigh,upper=bodyBones["upperarm_"+side],lower=bodyBones["lowerarm_"+side],hand=hand,
+                    fingers=new[]{bodyBones["index_01_"+side],bodyBones["middle_01_"+side],bodyBones["ring_01_"+side]},
+                    fingerNext=new[]{bodyBones["index_02_"+side],bodyBones["middle_02_"+side],bodyBones["ring_02_"+side]},
                     target=thigh.InverseTransformPoint(hit.point+hit.normal*(.025f+height)),normal=thigh.InverseTransformDirection(hit.normal),
                     direction=thigh.InverseTransformDirection(direction),finger=finger,palm=palm,elbowRotation=elbow,elbowSpread=spread,palmRoll=roll});
             }
@@ -214,6 +219,27 @@ namespace PsychologyVR
                 pose.hand.rotation=Quaternion.AngleAxis(pose.palmRoll,forward)*Quaternion.LookRotation(forward,-normal)*Quaternion.Inverse(Quaternion.LookRotation(pose.finger,pose.palm));
             }
         }
+        void ApplyAnxiousFingers(string emotion,float intensity,float dt)
+        {
+            if(restingHands.Length==0)return;
+            float wanted=emotion=="anxious"&&(!performance||!performance.TransientsSuppressed)?Mathf.Clamp01(intensity):0;
+            anxiousFingerWeight=Mathf.MoveTowards(anxiousFingerWeight,wanted,dt/1.5f);
+            if(anxiousFingerWeight<=0)return;
+            anxiousFingerTime+=dt;
+            foreach(var pose in restingHands)
+            {
+                var normal=pose.thigh.TransformDirection(pose.normal).normalized;
+                for(int i=0;i<pose.fingers.Length;i++)
+                {
+                    float phase=Mathf.Repeat(anxiousFingerTime+(pose.side=="l"?0:1.6f)-i*.3f,4.6f);
+                    if(phase>=1.3f)continue;
+                    float pulse=Mathf.Sin(Mathf.PI*phase/1.3f);pulse*=pulse;
+                    var axis=Vector3.Cross(pose.fingerNext[i].position-pose.fingers[i].position,normal).normalized;
+                    // Lift slightly away from the supporting fabric, never curl into it.
+                    pose.fingers[i].rotation=Quaternion.AngleAxis(4f*anxiousFingerWeight*pulse,axis)*pose.fingers[i].rotation;
+                }
+            }
+        }
         void CorrectSeatedPelvis()
         {
             if(!stabilizeSeatedPelvis)return;
@@ -245,7 +271,11 @@ namespace PsychologyVR
                 CorrectSeatedPelvis();
                 CorrectSeatedFeet();
                 gestures?.ApplySeatedHands();
-                if(gestures==null||gestures.Active=="")CorrectRestingHands();
+                if(gestures==null||gestures.Active=="")
+                {
+                    CorrectRestingHands();
+                    ApplyAnxiousFingers(emotion,intensity,Time.deltaTime);
+                }
             }
             gestures?.Apply(emotion,intensity,speaking,Time.deltaTime);
             if(emotion!=previousEmotion){clock=0;previousEmotion=emotion;}else clock+=Time.deltaTime;
