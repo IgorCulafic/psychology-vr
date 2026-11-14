@@ -98,8 +98,7 @@ namespace PsychologyVR
                 if(restFingers!=null)
                 {
                     gestures.RelaxSeatedFingers(restFingers);
-                    // The rejected experimental speech gestures remain available for preview,
-                    // but do not interrupt the resting pose until they are reworked.
+                    // Keep these characters in their resting pose during speech.
                     gestures.Automatic=false;
                 }
                 gestures.ApplySeatedHands();

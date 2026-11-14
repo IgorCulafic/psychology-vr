@@ -41,18 +41,22 @@ namespace PsychologyVR
                 }
                 bindings[i]=new Binding{gesture=gesture,bones=targets,idle=new Quaternion[targets.Length],absolute=absolute};
             }
-            foreach(var binding in bindings)
+            if(library.restingFingerPose)
             {
-                if(!binding.gesture.useForSeatedHandPose||!binding.gesture.absoluteFingerPose)continue;
-                for(int i=0;i<binding.bones.Length;i++)binding.idle[i]=binding.bones[i].localRotation;
-                binding.gesture.clip.SampleAnimation(body,0);
-                var fingers=new List<Transform>();var pose=new List<Quaternion>();
-                for(int i=0;i<binding.bones.Length;i++)
+                seatedFingers=new Transform[library.restingFingerBones.Length];
+                seatedFingerPose=new Quaternion[seatedFingers.Length];
+                var previous=new Quaternion[seatedFingers.Length];
+                for(int i=0;i<seatedFingers.Length;i++)
                 {
-                    if(binding.absolute[i]){fingers.Add(binding.bones[i]);pose.Add(binding.bones[i].localRotation);}
-                    binding.bones[i].localRotation=binding.idle[i];
+                    seatedFingers[i]=bones[library.restingFingerBones[i]];
+                    previous[i]=seatedFingers[i].localRotation;
                 }
-                seatedFingers=fingers.ToArray();seatedFingerPose=pose.ToArray();break;
+                library.restingFingerPose.SampleAnimation(body,0);
+                for(int i=0;i<seatedFingers.Length;i++)
+                {
+                    seatedFingerPose[i]=seatedFingers[i].localRotation;
+                    seatedFingers[i].localRotation=previous[i];
+                }
             }
         }
 

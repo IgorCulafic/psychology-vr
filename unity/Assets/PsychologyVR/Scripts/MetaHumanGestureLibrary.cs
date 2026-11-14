@@ -15,12 +15,13 @@ namespace PsychologyVR
             public bool additive,headContact;
             // Some additive upper-body gestures provide authored local finger poses.
             public bool absoluteFingerPose;
-            public bool useForSeatedHandPose;
         }
         public bool promptSpeechGestures;
         public bool restingHandsOnThighs;
         public Vector2 restingPalmHeight,restingPalmRoll,restingElbowRotation;
         public Vector2 restingHandForwardOffset,restingElbowSpread;
+        public AnimationClip restingFingerPose;
+        public string[] restingFingerBones;
         public Gesture[] gestures;
     }
 }
