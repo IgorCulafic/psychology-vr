@@ -38671,9 +38671,10 @@ MonoBehaviour:
   clothingObject: {fileID: 2447460322688571896}
   skin: {fileID: 5238443589822247607}
   seated: 1
-  seatedIdle: {fileID: 7400000, guid: 407f781e2de247e9a4ff142bd92d0b75, type: 2}
-  gestureLibrary: {fileID: 0}
-  seatedFootOffset: {x: 0, y: 0}
+  seatedIdle: {fileID: 7400000, guid: 81faf413addb58f4fbd5d22cfea8a138, type: 2}
+  gestureLibrary: {fileID: 11400000, guid: 3adf8429572d1e24686c3acd58cc03b2, type: 2}
+  seatedFootOffset: {x: -0.05675, y: -0.07316}
+  stabilizeSeatedPelvis: 1
 --- !u!114 &8915175934243805482
 MonoBehaviour:
   m_ObjectHideFlags: 0

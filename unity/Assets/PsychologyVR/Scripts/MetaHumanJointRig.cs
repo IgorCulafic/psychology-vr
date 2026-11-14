@@ -14,7 +14,17 @@ namespace PsychologyVR
         public AnimationClip seatedIdle;
         public MetaHumanGestureLibrary gestureLibrary;
         [SerializeField,HideInInspector] Vector2 seatedFootOffset;
+        [SerializeField,HideInInspector] bool stabilizeSeatedPelvis;
+        Vector3 seatedPelvisAnchor;
         MetaHumanSeatedGestures gestures;
+        sealed class RestingHand
+        {
+            public string side;
+            public Transform thigh,upper,lower,hand;
+            public Vector3 target,normal,direction,finger,palm;
+            public float elbowRotation,elbowSpread,palmRoll;
+        }
+        RestingHand[] restingHands=Array.Empty<RestingHand>();
         internal string ActiveGesture=>gestures?.Active??"";
         internal float GestureTime=>gestures?.Time??0;
         internal float IdleTime=>idleTime;
@@ -27,7 +37,7 @@ namespace PsychologyVR
         {
             idleTime=0;
             if(!seatedIdle)return;
-            seatedIdle.SampleAnimation(bodyObject,0);CorrectSeatedFeet();SyncBase();
+            seatedIdle.SampleAnimation(bodyObject,0);CorrectSeatedPelvis();CorrectSeatedFeet();gestures?.ApplySeatedHands();CorrectRestingHands();SyncBase();
             foreach(string n in new[]{"neck_01","neck_02","head"})
                 if(bodyBones.TryGetValue(n,out var b)&&faceBones.TryGetValue(n,out var f))f.SetPositionAndRotation(b.position,b.rotation);
             for(int i=0;i<clothTargets.Length;i++)clothTargets[i].SetPositionAndRotation(clothSources[i].position,clothSources[i].rotation);
@@ -47,6 +57,7 @@ namespace PsychologyVR
             if(initialized||!library)return;
             faceBones=faceObject.GetComponentsInChildren<Transform>().GroupBy(t=>t.name).ToDictionary(g=>g.Key,g=>g.First());
             bodyBones=bodyObject.GetComponentsInChildren<Transform>().GroupBy(t=>t.name).ToDictionary(g=>g.Key,g=>g.First());
+            var restFingers=gestureLibrary&&gestureLibrary.restingHandsOnThighs?bodyBones.ToDictionary(p=>p.Key,p=>p.Value.localRotation):null;
             trouserDeformation=GetComponent<SeatedTrouserDeformation>();
             clothTargets=clothingObject?clothingObject.GetComponentsInChildren<Transform>().Where(t=>bodyBones.ContainsKey(t.name)).ToArray():Array.Empty<Transform>();
             clothSources=clothTargets.Select(t=>bodyBones[t.name]).ToArray();
@@ -68,12 +79,29 @@ namespace PsychologyVR
             }
             if(seated)
             {
-                if(seatedIdle){seatedIdle.SampleAnimation(bodyObject,0);CorrectSeatedFeet();}
+                if(seatedIdle)
+                {
+                    seatedIdle.SampleAnimation(bodyObject,0);
+                    if(stabilizeSeatedPelvis)seatedPelvisAnchor=transform.InverseTransformPoint(bodyBones["pelvis"].position);
+                    CorrectSeatedFeet();
+                }
                 else SeatBody();
             }
             SyncBase();
             if(trouserDeformation)trouserDeformation.ApplyPose(0);
-            if(seated&&seatedIdle&&gestureLibrary)gestures=new MetaHumanSeatedGestures(bodyObject,gestureLibrary,bodyBones);
+            if(seated&&seatedIdle&&gestureLibrary)
+            {
+                gestures=new MetaHumanSeatedGestures(bodyObject,gestureLibrary,bodyBones);
+                if(restFingers!=null)
+                {
+                    gestures.RelaxSeatedFingers(restFingers);
+                    // The rejected experimental speech gestures remain available for preview,
+                    // but do not interrupt the resting pose until they are reworked.
+                    gestures.Automatic=false;
+                }
+                gestures.ApplySeatedHands();
+                if(restFingers!=null)PrepareRestingHands();
+            }
             initialized=true;
         }
         void Awake(){Initialize();}
@@ -116,6 +144,85 @@ namespace PsychologyVR
             if(Mathf.Abs(seatedFootOffset.x)>=.0001f)CorrectSeatedFoot(bodyBones["thigh_l"],bodyBones["calf_l"],bodyBones["foot_l"],seatedFootOffset.x);
             if(Mathf.Abs(seatedFootOffset.y)>=.0001f)CorrectSeatedFoot(bodyBones["thigh_r"],bodyBones["calf_r"],bodyBones["foot_r"],seatedFootOffset.y);
         }
+        void PrepareRestingHands()
+        {
+            if(!trouserDeformation||!trouserDeformation.trousers)return;
+            var trousers=trouserDeformation.trousers;var mesh=new Mesh();trousers.BakeMesh(mesh);
+            var probe=new GameObject("Temporary resting hand calibration");
+            probe.transform.SetPositionAndRotation(trousers.transform.position,trousers.transform.rotation);
+            probe.transform.localScale=trousers.transform.lossyScale;
+            var collider=probe.AddComponent<MeshCollider>();collider.sharedMesh=mesh;Physics.SyncTransforms();
+            var hands=new List<RestingHand>();
+            foreach(string side in new[]{"l","r"})
+            {
+                var thigh=bodyBones["thigh_"+side];var knee=bodyBones["calf_"+side];var hand=bodyBones["hand_"+side];
+                float sideSign=Mathf.Sign(transform.InverseTransformPoint(hand.position).x);
+                float forwardOffset=side=="l"?gestureLibrary.restingHandForwardOffset.x:gestureLibrary.restingHandForwardOffset.y;
+                var alongThigh=Vector3.ProjectOnPlane(knee.position-thigh.position,transform.up).normalized;
+                var rayOrigin=hand.position-transform.right*sideSign*.01f+alongThigh*forwardOffset+transform.up*.5f;
+                if(!collider.Raycast(new Ray(rayOrigin,-transform.up),out var hit,1f))
+                {Debug.LogWarning("Could not calibrate resting hand on trousers: "+side,this);continue;}
+                var finger=hand.InverseTransformDirection(bodyBones["middle_01_"+side].position-hand.position);
+                var palm=hand.InverseTransformDirection(Vector3.Cross(bodyBones["index_01_"+side].position-hand.position,bodyBones["pinky_01_"+side].position-hand.position).normalized);
+                if(side=="r")palm=-palm;
+                var direction=Vector3.ProjectOnPlane(knee.position-thigh.position,hit.normal).normalized;
+                float height=side=="l"?gestureLibrary.restingPalmHeight.x:gestureLibrary.restingPalmHeight.y;
+                float elbow=side=="l"?gestureLibrary.restingElbowRotation.x:gestureLibrary.restingElbowRotation.y;
+                float spread=side=="l"?gestureLibrary.restingElbowSpread.x:gestureLibrary.restingElbowSpread.y;
+                float roll=side=="l"?gestureLibrary.restingPalmRoll.x:gestureLibrary.restingPalmRoll.y;
+                hands.Add(new RestingHand{side=side,thigh=thigh,upper=bodyBones["upperarm_"+side],lower=bodyBones["lowerarm_"+side],hand=hand,
+                    target=thigh.InverseTransformPoint(hit.point+hit.normal*(.025f+height)),normal=thigh.InverseTransformDirection(hit.normal),
+                    direction=thigh.InverseTransformDirection(direction),finger=finger,palm=palm,elbowRotation=elbow,elbowSpread=spread,palmRoll=roll});
+            }
+            restingHands=hands.ToArray();CorrectRestingHands();FitRestingFingers(collider);gestures.CaptureSeatedFingers();collider.enabled=false;
+            if(Application.isPlaying){Destroy(probe);Destroy(mesh);}else{DestroyImmediate(probe);DestroyImmediate(mesh);}
+        }
+        void FitRestingFingers(MeshCollider collider)
+        {
+            foreach(var pose in restingHands)foreach(string name in new[]{"thumb","index","middle","ring","pinky"})
+            {
+                var first=bodyBones[name+"_01_"+pose.side];var second=bodyBones[name+"_02_"+pose.side];var last=bodyBones[name+"_03_"+pose.side];
+                var tip=last.position+(last.position-second.position)*.65f;
+                if(!collider.Raycast(new Ray(tip+transform.up*.25f,-transform.up),out var hit,.5f))continue;
+                var target=hit.point+hit.normal*(name=="thumb"?.03f:name=="pinky"?.013f:.009f);var localTip=last.InverseTransformPoint(tip);
+                for(int iteration=0;iteration<(name=="thumb"?4:2);iteration++)foreach(var joint in new[]{last,second,first})
+                {
+                    var current=last.TransformPoint(localTip);
+                    var delta=Quaternion.FromToRotation(current-joint.position,target-joint.position);
+                    joint.rotation=Quaternion.RotateTowards(joint.rotation,delta*joint.rotation,7f);
+                }
+            }
+        }
+        void CorrectRestingHands()
+        {
+            foreach(var pose in restingHands)
+            {
+                var shoulder=pose.upper.position;var elbow=pose.lower.position;var wrist=pose.hand.position;
+                var target=pose.thigh.TransformPoint(pose.target);
+                float a=Vector3.Distance(shoulder,elbow),b=Vector3.Distance(elbow,wrist);
+                var direction=(target-shoulder).normalized;float distance=Mathf.Clamp(Vector3.Distance(target,shoulder),Mathf.Abs(a-b)+.001f,a+b-.001f);
+                float along=(a*a-b*b+distance*distance)/(2*distance);
+                var pole=Vector3.ProjectOnPlane(elbow-shoulder,direction).normalized;
+                var desired=shoulder+direction*along+pole*Mathf.Sqrt(Mathf.Max(0,a*a-along*along));
+                pose.upper.rotation=Quaternion.FromToRotation(pose.lower.position-shoulder,desired-shoulder)*pose.upper.rotation;
+                pose.lower.rotation=Quaternion.FromToRotation(pose.hand.position-pose.lower.position,target-pose.lower.position)*pose.lower.rotation;
+                pose.upper.rotation=Quaternion.AngleAxis(pose.elbowRotation,(pose.hand.position-shoulder).normalized)*pose.upper.rotation;
+                pose.upper.rotation=Quaternion.AngleAxis(pose.elbowSpread,(pose.hand.position-shoulder).normalized)*pose.upper.rotation;
+                var normal=pose.thigh.TransformDirection(pose.normal);
+                var forearm=Vector3.ProjectOnPlane(pose.hand.position-pose.lower.position,normal).normalized;
+                var forward=Vector3.Slerp(pose.thigh.TransformDirection(pose.direction),forearm,.5f).normalized;
+                pose.hand.rotation=Quaternion.AngleAxis(pose.palmRoll,forward)*Quaternion.LookRotation(forward,-normal)*Quaternion.Inverse(Quaternion.LookRotation(pose.finger,pose.palm));
+            }
+        }
+        void CorrectSeatedPelvis()
+        {
+            if(!stabilizeSeatedPelvis)return;
+            // Keep the captured height and rotation, but stop planar drift across the chair.
+            var pelvis=bodyBones["pelvis"];
+            var position=transform.InverseTransformPoint(pelvis.position);
+            position.x=seatedPelvisAnchor.x;position.z=seatedPelvisAnchor.z;
+            pelvis.position=transform.TransformPoint(position);
+        }
         void CorrectSeatedFoot(Transform thigh,Transform calf,Transform foot,float offset)
         {
             var hip=thigh.position;var knee=calf.position;var ankle=foot.position;var rotation=foot.rotation;
@@ -135,7 +242,10 @@ namespace PsychologyVR
             {
                 idleTime=Mathf.Repeat(idleTime+Time.deltaTime,seatedIdle.length);
                 seatedIdle.SampleAnimation(bodyObject,idleTime);
+                CorrectSeatedPelvis();
                 CorrectSeatedFeet();
+                gestures?.ApplySeatedHands();
+                if(gestures==null||gestures.Active=="")CorrectRestingHands();
             }
             gestures?.Apply(emotion,intensity,speaking,Time.deltaTime);
             if(emotion!=previousEmotion){clock=0;previousEmotion=emotion;}else clock+=Time.deltaTime;

@@ -1,0 +1,114 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5984c0737bb2284479ebb375486623a8, type: 3}
+  m_Name: SittingTalkingCandidate
+  m_EditorClassIdentifier: Assembly-CSharp::PsychologyVR.MetaHumanGestureLibrary
+  promptSpeechGestures: 1
+  restingHandsOnThighs: 1
+  restingPalmHeight: {x: 0.02, y: 0.021}
+  restingPalmRoll: {x: 15, y: 0}
+  restingElbowRotation: {x: 30, y: -30}
+  restingHandForwardOffset: {x: 0.035, y: -0.025}
+  restingElbowSpread: {x: -27, y: 35}
+  gestures:
+  - id: hand_fidget
+    kind: 3
+    clip: {fileID: 7400000, guid: dddb1bb9875ec3943b9afa7409c305f4, type: 2}
+    bones:
+    - clavicle_l
+    - upperarm_l
+    - lowerarm_l
+    - hand_l
+    - thumb_01_l
+    - thumb_02_l
+    - thumb_03_l
+    - index_01_l
+    - index_02_l
+    - index_03_l
+    - middle_01_l
+    - middle_02_l
+    - middle_03_l
+    - ring_01_l
+    - ring_02_l
+    - ring_03_l
+    - pinky_01_l
+    - pinky_02_l
+    - pinky_03_l
+    - clavicle_r
+    - upperarm_r
+    - lowerarm_r
+    - hand_r
+    - thumb_01_r
+    - thumb_02_r
+    - thumb_03_r
+    - index_01_r
+    - index_02_r
+    - index_03_r
+    - middle_01_r
+    - middle_02_r
+    - middle_03_r
+    - ring_01_r
+    - ring_02_r
+    - ring_03_r
+    - pinky_01_r
+    - pinky_02_r
+    - pinky_03_r
+    additive: 1
+    headContact: 0
+    absoluteFingerPose: 1
+    useForSeatedHandPose: 1
+  - id: speech_explain_left
+    kind: 3
+    clip: {fileID: 7400000, guid: 50358187f9f85844ba97958658ecd6f0, type: 2}
+    bones:
+    - clavicle_l
+    - upperarm_l
+    - lowerarm_l
+    - hand_l
+    - thumb_01_l
+    - thumb_02_l
+    - thumb_03_l
+    - index_01_l
+    - index_02_l
+    - index_03_l
+    - middle_01_l
+    - middle_02_l
+    - middle_03_l
+    - ring_01_l
+    - ring_02_l
+    - ring_03_l
+    - pinky_01_l
+    - pinky_02_l
+    - pinky_03_l
+    - clavicle_r
+    - upperarm_r
+    - lowerarm_r
+    - hand_r
+    - thumb_01_r
+    - thumb_02_r
+    - thumb_03_r
+    - index_01_r
+    - index_02_r
+    - index_03_r
+    - middle_01_r
+    - middle_02_r
+    - middle_03_r
+    - ring_01_r
+    - ring_02_r
+    - ring_03_r
+    - pinky_01_r
+    - pinky_02_r
+    - pinky_03_r
+    additive: 1
+    headContact: 0
+    absoluteFingerPose: 1
+    useForSeatedHandPose: 0
